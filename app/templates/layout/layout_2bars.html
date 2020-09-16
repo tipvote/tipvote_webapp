@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% include 'layout/basic/metadata.html' %}
+{% include 'layout/headers/header.html' %}
+{% from "_formhelper.html" import render_field %}
+
+<div class="wrapper">
+    <body>
+    {% include 'layout/headers/depositheader.html' %}
+
+    <div class="container-fluid mt-3">
+        <div class="row  " style="overflow: hidden">
+            <!-- Left Side -->
+            <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
+                {% include 'layout/profile/main_profile.html' %}
+                {% include 'layout/widgets/_wallets.html' %}
+            </div>
+            <!-- Middle -->
+            <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 m-0">
+                {% include "flashbar.html" %}
+                {% block content %}
+                {% endblock %}
+            </div>
+            <!-- Right -->
+            <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
+
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+    </body>
+</div>
+{% include 'layout/basic/_footer.html' %}
+
+</html>

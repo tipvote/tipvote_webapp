@@ -1,0 +1,59 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 second_color">
+        <div class="col-12 text-center mb-3">
+            <h3> <a href="{{ url_for('profile.main', user_name = theuser.user_name)}}">{{ theuser.user_name }}
+            </a>
+                is following</h3>
+        </div>
+        <div class="row m-0">
+            {% for follower in get_followers %}
+
+                {% if follower %}
+                    <div class="col-6 mb-2  text-center">
+                        <a href="{{ url_for('profile.main', user_name = follower.user_name)}}">
+                            {% if follower.profileimage == '' %}
+                                <img class="img-responsive rounded"
+                                     src="{{ url_for('static',
+                                 filename='images/noprofile.png') }}"
+                                     width="85px" height="85px">
+                            {% else %}
+                                <img class="img-responsive rounded"
+                                     src="{{ url_for('common.profile_image',
+                                 filename= follower.profileimage) }}"
+                                     width="85px" height="85px">
+
+                            {% endif %}
+                            <div class="col-12 text-center text-white mb-2">
+                                {{ follower.user_name }}
+                            </div>
+
+
+                        </a>
+                        <p><a class="btn btn-dark text-white"
+                              href="{{ url_for('profile.unfollow', user_name=follower.user_name) }}">
+                            Unfollow</a>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="text-center">
+                        {{ theuser.user_name }} is not following anyone
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12 text-center justify-content-center">
+            {% if prev_url %}
+                <a class="btn btn-warning btn-sm" type="button"href="{{ prev_url }}">Previous</a>
+            {% endif %}
+            {% if next_url %}
+                <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

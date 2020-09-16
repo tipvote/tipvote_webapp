@@ -1,0 +1,65 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-12 ">
+        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+            Back to {{ thesub.subcommon_name }}
+        </a>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="row second_color mb-3">
+                <div class="col-12 text-center border-bottom pb-2 pt-1"><h5>Ban User</h5></div>
+                <div class="col-12 pt-2">
+                    <form method="post" action="{{ url_for('mod.banuser', subname=thesub.subcommon_name) }}">
+                        {{ banuserform.csrf_token }}
+                        <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">user_name</label>
+                            <div class="col-md-6">
+                                {{ render_field(banuserform.user_name, placeholder="user_name", autocomplete="off", class="form-control bg-dark text-white") }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-6 offset-md-4">
+                            {{ render_field(banuserform.submit,  value="BAN", autocomplete="off", class="btn btn-dark  ") }}
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row second_color ">
+                <div class="col-12 text-center border-bottom pb-2 pt-1"><h5>Unban User</h5></div>
+                <div class="col-12 pt-2">
+                    <form method="post" action="{{ url_for('mod.unbanuser', subname=thesub.subcommon_name) }}">
+                        {{ removebanneduserform.csrf_token }}
+                        <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">user_name</label>
+                            <div class="col-md-6">
+                                {{ render_field(removebanneduserform.user_name, placeholder="user_name", autocomplete="off", class="form-control bg-dark text-white") }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-6 offset-md-4">
+                            {{ render_field(removebanneduserform.submit,  value="UNBAN", autocomplete="off", class="btn btn-dark ") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+
+        <div class="col-12 col-md-12 col-lg-5 second_color">
+            <div class="row">
+                <div class="col-12 text-center border-bottom pb-2 pt-1"><h5>Current List of Banned Users</h5></div>
+                <div class="col-12 pt-2"><ul>
+                   {% for ban in bannedusers %}
+                       <b>{{ ban.user_name }}</b><br>
+                    {% endfor %}
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

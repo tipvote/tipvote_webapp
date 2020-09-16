@@ -1,0 +1,78 @@
+<div class="row mb-2 pl-2">
+    <div class="col-10  second_color border border-dark mb-2">
+        <div class="text-center">
+            <b>Wallets:</b>
+        </div>
+        <br>
+        <div class="pl-0 linkcolor">
+
+            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('coins.bank') }}">
+                <div class="row " >
+                    <div class="col-3">
+                        <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px">
+                    </div>
+                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                        Tipvote Coins
+                    </div>
+                </div>
+            </a>
+
+            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_btc.home') }}">
+                <div class="row " >
+                    <div class="col-3">
+                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                    </div>
+                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                        Bitcoin
+                    </div>
+                </div>
+            </a>
+
+            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_bch.home') }}">
+                <div class="row " >
+                    <div class="col-3">
+                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                    </div>
+                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                        Bitcoin Cash
+                    </div>
+                </div>
+            </a>
+
+            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_xmr.home') }}">
+                <div class="row " >
+                    <div class="col-3">
+                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                    </div>
+                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                        Monero
+                    </div>
+                </div>
+            </a>
+            {% if current_user.admin != 0 %}
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_xmr_stagenet.home') }}">
+                    <div class="row " >
+                        <div class="col-3">
+                            <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                        </div>
+                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                            Monero Stagenet
+                        </div>
+                    </div>
+                </a>
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_btc_test.home') }}">
+                    <div class="row " >
+                        <div class="col-3">
+                            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                        </div>
+                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                            Bitcoin Test
+                        </div>
+                    </div>
+                </a>
+
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>

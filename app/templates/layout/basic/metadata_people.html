@@ -1,0 +1,36 @@
+
+<head>
+    <title>People</title>
+
+    <!--Facebook -->
+    <meta property="og:site_name" content="Tipvote" />
+    {% if now %}
+        <meta property="og:updated_time" content="{{ now }}" />
+    {% else %}
+    {% endif %}
+<meta property="fb:app_id" content="229847451437025" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tipvote - Followers" />
+    <meta property="og:description" content="See what everyone is doing.  Tip with bitcoin." />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1390" />
+    <meta property="og:image:height" content="747" />
+    <meta property="og:image" content="https://www.tipvote.com{{ url_for('static', filename='images/social_logo_dark.png')  }}" />
+    <meta property="og:image:secure_url" content="https://www.tipvote.com{{ url_for('static', filename='images/social_logo_dark.png')  }}" />
+    <meta property="og:url" content="https://www.tipvote.com/" />
+    <meta property="og:image:alt" content="https://www.tipvote.com{{ url_for('static', filename='images/social_logo_dark.png')  }}" />
+
+    <!--Google -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" CONTENT="See what other people are doing.  Tip with bitcoin.">
+    <meta name="keywords" CONTENT="tipvote, tipvote.com, cash, monero, bitcoin, comment, submit, blockchain, crypto">
+    <meta name="author" content="tipvote">
+
+    <!--Twitter -->
+    <meta name="twitter:title" content="Tipvote - Followers">
+    <meta name="twitter:description" content="See what everyone is doing.  Tip with bitcoin.">
+    <meta name="twitter:image" content="https://www.tipvote.com/images/social_logo_dark.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    {% include 'stylesheets.html' %}
+</head>

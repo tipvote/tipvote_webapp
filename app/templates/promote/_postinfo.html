@@ -1,0 +1,66 @@
+
+{% if post.shared_post == 0 %}
+
+{% else %}
+    <div class="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 bg-warning text-dark p-5">
+        <h3>This is a shared post.  You are promoting the original post from
+            <a href="{{ url_for('profile.main', user_name=post.content_user_name) }}">
+                {{ post.content_user_name }}
+            </a>, not the person who shared it.
+        </h3>
+    </div>
+{% endif %}
+
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-8  offset-lg-2">
+    <div class="row headercolor">
+        <div class="col-12 text-center">
+            <h2>Promote Post
+                {% if post.shared_post == 0 %}
+                    <a  href="{{ url_for('subforum.viewpost', subname=post.subcommon_name, postid=post.id) }}">
+                        #{{ post.id }}
+                    </a>
+                {% else %}
+                    <a  href="{{ url_for('subforum.viewpost', subname=post.subcommon_name, postid=post.shared_post) }}">
+                        #{{ post.shared_post }}
+                    </a>
+                {% endif %}
+            </h2>
+            <div class="text-center">
+                Promoting a post directly buys points for the post.  It allows for better visibility of the post as it
+                climbs the ranks.  The coin directly supports tipvotes server costs.
+            </div>
+        </div>
+        <div class="col-12">
+            <hr>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label text-md-right"> Poster: </label>
+                <div class="col-6 pt-2">
+
+                    {% if post.shared_post == 0 %}
+                        {% if post.business_id == None %}
+                            <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
+                                {{ post.user_name }}
+                            </a>
+                        {% else %}
+                            {{ post.content_user_name }}
+                        {% endif %}
+                    {% else %}
+
+                        <a href="{{ url_for('profile.main', user_name=post.content_user_name) }}">
+                            {{ post.content_user_name }}
+                        </a>
+                    {% endif %}
+
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+            <hr>
+
+        </div>
+    </div>
+
+</div>
+
+

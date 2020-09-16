@@ -1,0 +1,52 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-12 second_color border border-dark">
+                    <div class="col-12 text-center">
+                        <img class="text-center" src="{{ url_for('static', filename='images/logo.png')  }}">
+                        <h4>Unlock Account</h4>
+                    </div>
+
+                    <form method="post" action="{{ url_for('users.account_locked') }}">
+                        {{ form.csrf_token }}
+
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label text-md-right mainfontcolor">Username</label>
+                            <div class="col-6">
+                                {{ render_field(form.username, placeholder="Username", autocomplete="off", class="form-control text-white bg-dark") }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label text-md-right mainfontcolor">Email</label>
+                            <div class="col-6">
+                                {{ render_field(form.email, placeholder="Email", autocomplete="off", class="form-control text-white bg-dark") }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-12 text-center">
+                                {{ render_field(form.submit,  value="Send Email to Unlock", autocomplete="off", class="btn btn-dark") }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center linkcolor">
+                                Most likely if you did not recieve an email it is because it was sent to the "Spam" folder.  Check all folders and
+                                you should find the email. Click the link to confirm the account.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center linkcolor">
+                                <a href="{{ url_for('users.register') }}">Register Here</a><br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

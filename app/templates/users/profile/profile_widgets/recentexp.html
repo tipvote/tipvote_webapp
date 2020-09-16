@@ -1,0 +1,57 @@
+<div class="col-12 mb-3 second_color border border-dark  border border-dark">
+
+
+    {% if expcount > 0 %}
+        <div class="col-12">
+            <h5> Recent Points </h5>
+        </div>
+        <hr>
+        <table class="col-12 table-striped" style="font-size: 13px;">
+            <tr>
+                <th class="col-4 ">
+                    Age
+                </th>
+                <th class="col-6 ">
+                    Description
+                </th>
+                <th class="col-2 ">
+                    EXP
+                </th>
+            </tr>
+
+            {% for exp in userexp %}
+                <tr class="">
+                    <!-- Quanity-->
+                    <td class="col-4 ">
+                        {{ moment(timestamp=exp.created, local=False).fromNow(refresh=True)  }}
+                    </td>
+                    <!-- Price -->
+                    <td class="col-6 ">
+                        {% if exp.type == 1 %}
+                            User Created a Post
+                        {% elif exp.type == 2 %}
+                            User Created a Comment
+                        {% elif exp.type == 3 %}
+                            User Upvoted
+                        {% elif exp.type == 4 %}
+                            User Downvoted
+                        {% elif exp.type == 5 %}
+                            User sent coin for a tip
+                        {% elif exp.type == 6 %}
+                            User recieved coin from a tip
+                        {% elif exp.type == 7 %}
+                            Created a Sub
+                        {% elif exp.type == 8 %}
+                            User recieved a vote
+                        {% else %}
+                        {% endif %}
+                    </td>
+                    <td class="col-2 btcorange">
+                        {{ exp.amount }} points
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    {% endif %}
+</div>

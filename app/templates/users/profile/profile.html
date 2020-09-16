@@ -1,0 +1,69 @@
+{% extends "layout/layout_profile.html" %}
+{% block content %}
+
+
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-12 col-sm-12 col-md-12 ">
+                {% if theuser.bannerimage == '' %}
+                    {% include 'users/profile/profile_widgets/nobanner.html' %}
+                {% else %}
+                    {% include 'users/profile/profile_widgets/banner.html' %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="max-width: 1000px; margin: 0 auto">
+         {% include 'users/profile/profile_widgets/tipme.html' %}
+            <div class="row mt-3 ">
+
+                <div class="col-12 col-sm-12">
+                    {% include "flashbar.html" %}
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4  offset-md-1">
+                    {% include 'users/profile/profile_widgets/profilepicture.html' %}
+                    {% include 'users/profile/profile_widgets/bio.html' %}
+
+                    {% include 'users/profile/profile_widgets/stats.html' %}
+                    {% include 'users/profile/profile_widgets/friends.html' %}
+
+                    <div class="d-none d-md-block">
+                        {% if ownercount > 0 or moddingcount > 0%}
+                            {% include 'users/profile/profile_widgets/boss.html' %}
+                        {% endif %}
+                        {% include 'users/profile/profile_widgets/subscriptions.html' %}
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 ">
+                    <div style="max-width: 550px; margin: auto">
+
+                        {% if current_user.is_authenticated %}
+                            {% include 'create/posts/master/_user_post.html' %}
+                        {% else %}
+                            {% include 'create/posts/master/_fake_create_post.html' %}
+                        {% endif %}
+                        {% include 'users/profile/profile_widgets/_navtabs.html' %}
+                        {% if current_user.is_authenticated %}
+                            {% if postcount > 0 %}
+                                {% for post in posts %}
+                                    {% include 'posts/master.html' %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="text-center">  <h3>{{ theuser.user_name }}
+                                    has not posted anything yet on tipvote.</h3></div>
+                            {% endif %}
+                        {% else %}
+                            <div class="text-center"> <h5>
+                                <a class="" href="{{ url_for('users.login') }}" role="button">
+                                    Login
+                                </a> to see Posts</h5></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

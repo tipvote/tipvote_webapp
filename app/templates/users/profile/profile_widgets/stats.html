@@ -1,0 +1,24 @@
+<div class="col-12 mb-3 second_color rounded p-3  border border-dark">
+    <div class="col-12" >
+        <h5>Stats</h5>
+    </div>
+
+    <div class="col-12">
+        Post Votes:
+        <span style="color:green">{{ theuser.user_stats_common.post_upvotes }}</span >
+        /
+        <span style="color:red">{{ theuser.user_stats_common.post_downvotes }}</span >
+    </div>
+    <div class="col-12">
+        Comment Votes:
+        <span style="color:green">{{ theuser.user_stats_common.comment_upvotes }}</span >
+        /
+        <span style="color:red">{{ theuser.user_stats_common.comment_downvotes }}</span >
+    </div>
+    <div class="col-12">
+         Total Posts: {{ theuser.user_stats_common.total_posts }}<br>
+        Total Comments: {{ theuser.user_stats_common.total_comments }}<br>
+    </div>
+
+</div>
+

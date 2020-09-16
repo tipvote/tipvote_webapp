@@ -1,0 +1,37 @@
+{% if useramod == 1 or current_user.id == thesub.creator_user_id %}
+
+    <div class="row mb-2 pr-2">
+        <div class="col-2"></div>
+        <div class="col-10 second_color border border-dark pb-2">
+
+
+            <div class="text-center">
+                <b>Reports</b>
+            </div>
+
+            <div class="col-12">
+                {% if reportedposts == 0 %}
+                    <a href="{{ url_for('mod.viewreportedposts', subname=thesub.subcommon_name) }}">
+                        Post Reports {{ reportedposts }}
+                    </a>
+                {% else %}
+                    <a class="text-danger" href="{{ url_for('mod.viewreportedposts', subname=thesub.subcommon_name) }}">
+                        Post Reports {{ reportedposts }}
+                    </a>
+                {% endif %}
+                <br>
+                {% if reportedcomments == 0 %}
+                    <a href="{{ url_for('mod.viewreportedcomments', subname=thesub.subcommon_name) }}">
+                        Comment Reports {{ reportedcomments }}
+                    </a>
+                {% else %}
+                    <a class="text-danger" href="{{ url_for('mod.viewreportedcomments', subname=thesub.subcommon_name) }}">
+                        Comment Reports {{ reportedcomments }}
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% else %}
+{% endif %}

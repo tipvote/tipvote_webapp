@@ -1,0 +1,66 @@
+{% if post.post_coins %}
+<div class="col-12 text-white mt-0 pt-2  text-center">
+    {% if post.post_coins.coin_1 != 0 %}
+
+        <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
+             width="50px" height="50px">
+       25 exp X {{ post.post_coins.coin_1 }}
+    {% endif %}
+
+    {% if post.post_coins.coin_2 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/2.png')  }}"
+             width="50px" height="50px">
+        10 exp X {{ post.post_coins.coin_2 }}
+    {% endif %}
+    {% if post.post_coins.coin_3 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/3.png')  }}"
+             width="50px" height="50px">
+        25 exp X {{ post.post_coins.coin_3 }}
+    {% endif %}
+    {% if post.post_coins.coin_4 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/4.png')  }}"
+             width="50px" height="50px">
+        50 exp  X {{ post.post_coins.coin_4 }}
+    {% endif %}
+    {% if post.post_coins.coin_5 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/5.png')  }}"
+             width="50px" height="50px">
+        5 exp X {{ post.post_coins.coin_5 }}
+    {% endif %}
+    {% if post.post_coins.coin_6 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/6.png')  }}"
+             width="50px" height="50px">
+        X {{ post.post_coins.coin_6 }}
+    {% endif %}
+    {% if post.post_coins.coin_7 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/7.png')  }}"
+             width="50px" height="50px">
+        X {{ post.post_coins.coin_7 }}
+    {% endif %}
+    {% if post.post_coins.coin_8 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/8.png')  }}"
+             width="50px" height="50px">
+        X {{ post.post_coins.coin_8 }}
+    {% endif %}
+    {% if post.post_coins.coin_9 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/9.png')  }}"
+             width="50px" height="50px">
+        X {{ post.post_coins.coin_9 }}
+    {% endif %}
+    {% if post.post_coins.coin_10 != 0 %}
+        &nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/coins/tipvote/10.png')  }}"
+             width="50px" height="50px">
+        X {{ post.post_coins.coin_10 }}
+    {% endif %}
+</div>
+
+{% endif %}

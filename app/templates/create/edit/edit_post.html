@@ -1,0 +1,11 @@
+{% extends "layout/layout_post.html" %}
+{% block content %}
+
+<div class="col-12 ">
+   {% include 'create/edit/_posteditform.html' %}
+       {% include 'posts/master.html' %}
+    {% for comment in comments %}
+        {% include 'comments/_comment.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

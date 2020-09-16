@@ -1,0 +1,171 @@
+{% extends "layout/layout_msg.html" %}
+{% block content %}
+
+
+    <div class="col-12 second_color mb-3">
+
+        <div class="col-12 text-center">
+
+            {% if themessage.biz_msg.user_name == current_user.user_name %}
+                  {{ themessage.biz_name }}
+            {% else %}
+                {{ themessage.biz_name }}
+            {% endif %}
+            and
+            {% if themessage.sender_user_id == current_user.id %}
+                {{ themessage.rec_user_user_name }}
+            {% else %}
+                {{ themessage.sender_user_user_name }}
+            {% endif %}
+
+        </div>
+
+
+
+
+        <div class="col-12">
+            {%  include '/msg/_createcomment.html' %}
+        </div>
+
+        <div class="col-12 second_color mb-3">
+            {% for r in replys %}
+
+
+                {% if r.sender_user_id == current_user.id %}
+                    <div class="col-3 offset-7 mb-1" style="font-size: 11px">
+                        {{ moment(timestamp=r.created).fromNow(refresh=True) }}
+                    </div>
+                    {% if r.biz_reply.user_id == r.sender_user_id %}
+                        <div class="col-6 offset-5 msg_color mb-3 text-center">
+                            <div class="row">
+                                <div class="col-4 d-none d-md-block">
+                                    <a href="{{ url_for('business.main', business_name=r.biz_reply.business_name) }}">
+                                        {% if r.biz_reply.profileimage == '' %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('static',
+                                     filename='images/noprofile.png') }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% else %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('common.business_image',
+                                     filename=r.biz_reply.profileimage) }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-8 col-sm-8 col-md-8">
+                                            {{ r.body_clean }}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-6 offset-5 msg_color mb-3 ">
+                            <div class="row">
+                                <div class="col-4 d-none d-md-block">
+                                    <a href="{{ url_for('profile.main', user_name=r.sender_user_user_name) }}">
+                                        {% if r.replysendermsg.profileimage == '' %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('static',
+                                     filename='images/noprofile.png') }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% else %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('common.profile_image',
+                                     filename=r.replysendermsg.profileimage) }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-12 col-sm-8 col-md-8">
+
+                                    {{ r.body_clean }}
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+
+
+
+
+
+                {% else %}
+
+
+
+
+
+
+
+
+
+
+                    <div class="col-6 text-center offset-1 mb-1" style="font-size: 11px">
+                        {{ moment(timestamp=r.created).fromNow(refresh=True) }}
+                    </div>
+
+                    {% if r.biz_reply.user_name == r.sender_user_user_name %}
+                        <div class="col-6 offset-1 third_color mb-3 ">
+                            <div class="row">
+                                <div class="col-4 d-none d-md-block">
+                                    <a href="{{ url_for('business.main', business_name=r.biz_reply.business_name) }}">
+                                        {% if r.biz_reply.profileimage == '' %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('static',
+                                     filename='images/noprofile.png') }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% else %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('common.business_image',
+                                     filename=r.biz_reply.profileimage) }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-8 col-8 col-md-8">
+                                            {{ r.body_clean }}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+
+                        <div class="col-6 offset-1 third_color mb-3">
+                            <div class="row">
+                                <div class="col-4 d-none d-md-block">
+                                    <a href="{{ url_for('profile.main', user_name=r.sender_user_user_name) }}">
+                                        {% if r.replysendermsg.profileimage == '' %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('static',
+                                     filename='images/noprofile.png') }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% else %}
+                                            <img class="img-responsive rounded"
+                                                 src="{{ url_for('common.profile_image',
+                                     filename=r.replysendermsg.profileimage) }}"
+                                                 width="70px" height="70px"
+                                            >
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-8 col-sm-8 col-md-8">
+
+                                            {{ r.body_clean }}
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

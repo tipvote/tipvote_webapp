@@ -1,0 +1,20 @@
+<div class="row mb-2">
+    <div class="col-12 text-center mb-3"><h5>Account Navigation</h5></div>
+    <div class="col-12">
+
+        <a class="btn btn-dark text-white w-100 mb-2"
+           href="{{ url_for('message.create_message') }}">
+            Create New
+        </a>
+
+        <h5>Messages</h5>
+        {% for f in posts %}
+            {% if f.msg_type == 1 %}
+                {% include '/msg/_msg_layout.html' %}
+            {% elif f.msg_type == 2 %}
+                {% include '/msg/_msg_biz_layout.html' %}
+            {% else %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

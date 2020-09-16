@@ -1,0 +1,27 @@
+    <div class="row second_color">
+        <div class="col-12 text-center mt-1">
+            <h4>BTC Wallet TEST ONLY</h4>
+        </div>
+        <div class="col-12 text-left">
+            <b>Deposit Funds</b>
+        </div>
+
+        <div class="col-12 text-center" style="font-size: 12px;">
+            To deposit funds send bitcoins to the address below.
+            The balance will appear after 6 confirmations.
+            <br>
+            <div style="color: red">
+                The minimum amount for the deposit is 0.00005 BTC if the
+                amount is below the limit it will not be added
+            </div>
+        </div>
+        <div class="col-12 text-center mt-4 mb-2">
+            <img src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
+        </div>
+        <div class="col-12 text-center mt-3 mb-3">
+            <p class="font-weight-bold">
+                {{ wallet.address1 }}
+            </p>
+        </div>
+
+    </div>

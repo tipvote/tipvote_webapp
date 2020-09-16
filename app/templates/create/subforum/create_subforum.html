@@ -1,0 +1,144 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 mx-auto text-center mb-5">
+        <h3>Create a Room</h3>
+        <!-- Rules of subcommon -->
+        Create your own Room.  Please be civil.
+    </div>
+
+    <div class="col-12 second_color border border-dark mb-3 p-2">
+        <h4>Benefits of being the boss...</h4>
+        <p>
+        <b>You help shape your community</b><br><br>
+        <b>
+            <div class="btcorange" style="display:inline;"> Earn a percent of most tips in your room.</div> <br>
+            Pay your mods and profit for your hard work.
+        </b>
+        <br><br>
+        <b>Faster leveling up from exp gives more rewards!</b><br><br>
+
+        </p>
+    </div>
+    <div class="col-12 second_color border border-dark mb-3 p-2 text-center">
+        <h4>Stats</h4>
+        <b>You currently own:</b><br>
+        {%  for own in roomsowned %}
+            <p class="btccashgreen"> a/{{ own.subcommon_name }}</p><br>
+        {% endfor %}<br><br>
+        <p>You can create {{ maxsubcount }} rooms</p>
+    </div>
+
+    <div class="col-12 p-2 second_color border border-dark">
+        <form method="post">
+            {{ form.csrf_token }}
+            <!-- Sub common name -->
+            <div class="form-group p-0">
+                <label class="col-12">
+                    <h4>Room Name</h4>
+                </label>
+                <div class="col-12 mb-1">
+                    A name that will be used on the url.  Only letters and numbers are allowed.  This
+                    cannot be changed.<br>
+                    Example: www.tipvote.com/a/yournamehere    Where yournamehere will be your room name.
+                    <br>
+                    <ul>
+                        <li>No Special characters in the name</li>
+                        <li>No spaces</li>
+                    </ul>
+                </div>
+                <div class="col-12 ">
+                    {{ render_field(form.subcommonname,
+                    autocomplete="off",
+                    class="form-control bg-dark text-white") }}
+                    <span class="error">
+                        {% if form.subcommonname.errors %}
+                            {% for error in form.subcommonname.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Sub common description -->
+            <div class="form-group">
+                <label class="col-12">
+                    <h4>Description</h4>
+                </label>
+                <div class="col-12 mb-1">
+                    Appears in search results and sidebars. Public is open to anyone.
+                    Private requires an invite by a mod.  Censored allows only the owner of the account or mods to post.
+                    This can be changed at any time.
+
+
+                </div>
+                <div class="col-12">
+                    {{ render_field(form.subcommondescription,
+                        autocomplete="off",style="width: 100%",
+                        class="form-control bg-dark text-white") }}
+
+                    <span class="error">
+                            {% if form.subcommondescription.errors %}
+                                {% for error in form.subcommondescription.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            {% endif %}
+                        </span>
+                </div>
+            </div>
+
+
+
+            <!-- Sub common description -->
+            <div class="form-group">
+                <label class="col-12 ">
+                    <h4>Type of Room</h4>
+                </label>
+                <div class="col-12 ">
+                    Appears in search results and sidebars. Public is open to anyone.
+                    Private requires an invite by a mod.  Censored allows only the owner of the account or mods to post.
+                    This can be changed at any time.
+                </div>
+                <div class="col-12 ">
+                    {{ render_field(form.typeofsub) }}
+                    <div id="form_error">
+                                <span class="error">
+                                </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Age required -->
+            <div class="form-group" >
+                <label class="d-block col-12 ">
+                    <h4>Must be over 18 to view/post/join/comment.  NSFW Subs must use this.</h4>
+                </label>
+                <div class="col-12">
+                    This is designated to allow for mature audiences.
+                    NSFW Subs must have this or will be banned.
+                </div>
+                <div class="col-1">
+                    {{ render_field(form.age,autocomplete="off",class=" bg-dark text-white") }}
+                    <span class="error">
+                            {% if form.age.errors %}
+                                {% for error in form.age.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            {% endif %}
+                        </span>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="col-12 text-center">
+
+                    {{ render_field(form.submit,  value="Create Room", autocomplete="off", class="btn btn-dark text-white w-100") }}
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

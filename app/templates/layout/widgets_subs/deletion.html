@@ -1,0 +1,22 @@
+{% if current_user.user_name ==  thesub.creator_user_name %}
+<div class="row mb-2 pr-2">
+    <div class="col-2"></div>
+    <div class="col-10 second_color border border-dark pb-2">
+
+        <div class="text-center">
+            <b>Danger Zone</b>
+        </div>
+
+
+            <ul class="list-group list-group-flush">
+
+
+
+
+                <a href="{{ url_for('mod.ownerdeletesub', subname=thesub.subcommon_name) }}">Delete Room</a>
+
+            </ul>
+
+    </div>
+</div>
+{% endif %}

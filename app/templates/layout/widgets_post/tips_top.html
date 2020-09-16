@@ -1,0 +1,73 @@
+
+<div class="row mb-5">
+    <div class="col-2"></div>
+    <div class="col-10  pb-2 second_color">
+        <div class="border-bottom mb-2">
+            Top Post Tips
+        </div>
+       {% if top_tippers_post  %}
+
+            {% for tip in top_tippers_post %}
+
+                <div class="second_color  pt-2 pb-2 text-center" style="max-width: 200px">
+                    <a class="text-white" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
+                        {{ tip.created_user_name }} <br>
+                    </a>
+                    {% if tip.amount_btc != 0 %}
+                        <p class="btcorange" style="display: inline">
+                            {{ tip.amount_btc|btctostring }} BTC
+                        </p>
+                    {% elif tip.amount_bch !=0 %}
+                        <p class="btccashgreen" style="display: inline">
+                            {{ tip.amount_bch|btctostring }} BCH
+                        </p>
+                    {% elif tip.amount_xmr !=0 %}
+                        <p class="moneroorange" style="display: inline">
+                            {{ tip.amount_xmr|btctostring }} XMR
+                        </p>
+                    {% else %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            No Tips!
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="row mb-5">
+    <div class="col-2"></div>
+    <div class="col-10  pb-2 second_color">
+        <div class="border-bottom mb-2">
+           Top Comment Tips
+        </div>
+        {% if top_tippers_comments  %}
+            {% for tip in top_tippers_comments %}
+                <div class="second_color  pt-2 pb-2 text-center" style="max-width: 200px">
+                    <a class="text-white" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
+                        {{ tip.created_user_name }} <br>
+                    </a>
+                    {% if tip.amount_btc != 0 %}
+                        <p class="btcorange" style="display: inline">
+                            {{ tip.amount_btc|btctostring }} BTC
+                        </p>
+                    {% elif tip.amount_bch !=0 %}
+                        <p class="btccashgreen" style="display: inline">
+                            {{ tip.amount_bch|btctostring }} BCH
+                        </p>
+                    {% elif tip.amount_xmr !=0 %}
+                        <p class="moneroorange" style="display: inline">
+                            {{ tip.amount_xmr|btctostring }} XMR
+                        </p>
+                    {% else %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            No Tips!
+        {% endif %}
+
+    </div>
+</div>
+

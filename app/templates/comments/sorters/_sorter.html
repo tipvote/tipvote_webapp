@@ -1,0 +1,36 @@
+
+<ul class="nav nav-tabs mt-5" >
+    <li class="nav-item">
+        {% if active == 1 %}
+            <a class="nav-link bg-success text-dark" href="{{ url_for('subforum.viewpost',postid=post.id, subname=post.subcommon_name) }}">Highest Rated</a>
+        {% else %}
+            <a class="nav-link text-white" href="{{ url_for('subforum.viewpost',postid=post.id, subname=post.subcommon_name) }}">Highest Rated</a>
+        {% endif %}
+
+    </li>
+    <li class="nav-item">
+        {% if active == 2 %}
+            <a class="nav-link bg-success text-dark" href="{{ url_for('subforum.viewpost_newest',postid=post.id, subname=post.subcommon_name) }}">Newest</a>
+        {% else %}
+            <a class="nav-link text-white" href="{{ url_for('subforum.viewpost_newest',postid=post.id, subname=post.subcommon_name) }}">Newest</a>
+        {% endif %}
+
+    </li>
+    <li class="nav-item">
+        {% if active == 3 %}
+             <a class="nav-link bg-success text-dark" href="{{ url_for('subforum.viewpost_oldest',postid=post.id, subname=post.subcommon_name) }}">Oldest</a>
+        {% else %}
+             <a class="nav-link text-white" href="{{ url_for('subforum.viewpost_oldest',postid=post.id, subname=post.subcommon_name) }}">Oldest</a>
+        {% endif %}
+
+    </li>
+
+    <li class="nav-item">
+        {% if active == 4 %}
+            <a class="nav-link bg-success text-dark" href="{{ url_for('subforum.viewpost_downvoted', postid=post.id, subname=post.subcommon_name) }}">Most Downvotes</a>
+        {% else %}
+            <a class="nav-link text-white" href="{{ url_for('subforum.viewpost_downvoted', postid=post.id, subname=post.subcommon_name) }}">Most Downvotes</a>
+        {% endif %}
+
+    </li>
+</ul>

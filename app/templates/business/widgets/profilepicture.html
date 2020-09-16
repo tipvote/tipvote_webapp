@@ -1,0 +1,24 @@
+
+<div class="col-12 second_color rounded mb-3 p-3  border border-dark">
+    <div class="col-12 p-4 text-center">
+
+            {% if thebiz.profileimage  == '' %}
+                <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="150px">
+            {% else %}
+                <img class="img-responsive " src="{{ url_for('common.business_image',filename=thebiz.profileimage) }}"
+                     width="150px">
+            {% endif %}
+
+    </div>
+    {% if current_user.id == thebiz.user_id %}
+        <div class="col-12 text-center">
+            <a href="{{ url_for('business_edit.profilepicture', business_id=thebiz.id) }}">
+                Edit Profile Picture
+            </a>
+        </div>
+    {% endif %}
+    <div class="col-12 text-center">
+        <p>Joined: {{ moment(timestamp=thebiz.created, local=False).fromNow(refresh=True)  }} </p>
+    </div>
+
+</div>

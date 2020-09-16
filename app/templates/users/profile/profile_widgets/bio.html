@@ -1,0 +1,32 @@
+<div class="col-12 mb-3 second_color rounded p-3  border border-dark">
+
+    <div class="col-12 mb-2">
+        <div class="row ">
+            <div class="col-4"><h5>Profile</h5></div>
+            <div class="col-4">
+
+                {% if current_user.is_authenticated %}
+                    {% if current_user == theuser %}
+                        <a href="{{ url_for('profileedit.view_bio') }}">
+                            Edit Bio
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-12 overflow-hidden" style="max-height: 500px">
+
+            {% if theuser.userpublicinfo.bio_clean %}
+
+                    {{ theuser.userpublicinfo.bio_clean| safe }}
+            {% else %}
+                 {{ theuser.userpublicinfo.bio }}
+            {% endif %}
+
+    </div>
+
+
+</div>

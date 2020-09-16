@@ -1,0 +1,35 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+
+    <div class="row linkcolor">
+        <div class="col-12 text-center"><h4>Account Confirmed</h4></div>
+        <div class="col-12">
+            Thank you.  If no error messages above, your account has been unlocked.
+            <br>
+            You can now use the crypto wallets.
+
+            <br>
+            Resend Confirmation  <a href="https://www.tipvote.com/users/resend">Here.</a><br>
+        </div>
+
+    </div>
+<div class="col-md-12 col-lg-12 second_color border border-dark mb-2 pb-3" style="max-width: 250px">
+    <div class="text-center"> <b>Wallets:</b></div>
+    <br>
+    <div class="pl-0 linkcolor">
+        <a  href="{{ url_for('coins.bank') }}">
+            <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"> Tipvote Coins
+        </a>
+        <br><br>
+        <a href="{{ url_for('wallet_btc.home') }}">
+            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"> Bitcoin
+        </a>
+        <br><br>
+        <a  href="{{ url_for('wallet_bch.home') }}">
+            <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"> Bitcoin Cash
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-12 text-center mb-5"><h5>Saved Posts</h5></div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form method="post" action="{{ url_for('profileedit.deleteallsavedposts') }}">
+                {{ deleteallform.csrf_token }}
+                {{ render_field(form.submit, value="Delete All Saved Posts",class="btn btn-danger btn-sm ") }}
+            </form>
+        </div>
+    </div>
+
+    {% for post in savedposts %}
+        <div class="row mb-5">
+            <div class="col-12 col-sm-2">
+                <form method="post" action="{{ url_for('profileedit.deletesavedpost', postid = post.id) }}">
+                    {{ form.csrf_token }}
+                    {{ render_field(form.submit, value="Delete",class="btn btn-danger btn-sm btn-block") }}
+                </form>
+            </div>
+
+            <div class="col-12 col-sm-10 col-md-10 justify-content-center">
+            {% include 'posts/master.html' %}
+            </div>
+        </div>
+    {% endfor %}
+
+
+    <div class="row mt-5">
+        <div class="col-12 text-center justify-content-center">
+            {% if prev_url %}
+                <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
+            {% endif %}
+            {% if next_url %}
+                <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

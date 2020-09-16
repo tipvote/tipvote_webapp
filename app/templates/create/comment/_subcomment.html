@@ -1,0 +1,31 @@
+<div class="col-12">
+    <form method="post"
+          action="{{ url_for('create.createcomment',subname=subname,postid=post.id, parentid=comment.id) }}">
+        {{ form.csrf_token }}
+        <div class="form-group ">
+            <div class="col-12">
+                Comment
+                <div id="form_error">
+                        <span class="error">
+                        {% if form.postmessage.errors %}
+                            {% for error in form.postmessage.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                        </span>
+                </div>
+                <div class="col-12 " >
+
+                    <!-- Post text -->
+                    {{ render_field(form.postmessage, class="bg-dark text-white", style="width: 250px; height: 75px") }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <!-- Submit Post -->
+            <div class="col-10 offset-1 text-left">
+                {{ render_field(form.submit,value="Submit",autocomplete="off",class="btn btn-dark text-white ") }}
+            </div>
+        </div>
+    </form>
+</div>

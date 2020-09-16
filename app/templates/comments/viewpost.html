@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+{% include 'layout/basic/metadata_post.html' %}
+{% include 'layout/headers/header.html' %}
+ {% from "_formhelper.html" import render_field %}
+<div class="d-lg-none">
+    {% include 'layout/headers/subheader.html' %}
+</div>
+<div class="wrapper">
+    <body>
+
+
+    {% include 'subforums/banner/wall_user_banner.html' %}
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Left Side -->
+            <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
+                {% include 'layout/profile/main_profile.html' %}
+            </div>
+
+            <!-- Middle -->
+            <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 mb-5 ">
+                {% include "flashbar.html" %}
+                {% include 'comments/_buttons.html' %}
+                {% include 'posts/master.html' %}
+                {% include 'comments/_donations.html' %}
+                {% include 'comments/_coins.html' %}
+                {% include 'comments/sorters/_sorter.html' %}
+                {% if post.locked == 0 %}
+                    {% include 'create/comment/_commentform.html' %}
+                {% else %}
+                    <div class="mt-3 mb-3">
+                        <h4>
+                            <p class="text-danger font-weight-bold text-center">
+                                Post has been locked by a mod
+                            </p>
+                        </h4>
+                    </div>
+
+                {% endif %}
+
+                {% for comment in comments %}
+                    {% include 'comments/_comment.html' %}
+                {% endfor %}
+            </div>
+
+            <!-- Right -->
+            <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
+                {% include 'layout/widgets_post/post_stats.html' %}
+                {% include 'layout/widgets_post/tips_top.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+    </body>
+
+</div>
+{% include 'layout/basic/_footer.html' %}
+
+</html>

@@ -1,0 +1,54 @@
+{% if current_user.is_authenticated %}
+    {% if userbusinessescount > 0 %}
+        <div class="row mb-2 pl-2">
+            <div class="col-10   second_color border border-dark mb-2">
+                <div class="text-center"> <b>Businesses:</b></div>
+                <br>
+                <div class="text-center mb-2">
+
+                </div>
+                <div class="pl-0 linkcolor">
+                    {% for biz in userbusinesses %}
+
+                        {% if biz %}
+                            <div class="col-1"></div>
+                            <div class="col-11"></div>
+                            <a class="" href="{{ url_for('business.main',
+                        business_name= biz.business_name )}} ">
+                                {% if biz.profileimage == '' %}
+                                    <div class="row " style="margin-bottom: -10px">
+                                        <div class="col-3 ml-0">
+                                            <span class="dot" style="background-color: dodgerblue;"></span>
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 ml-0" style="margin-top: -5px;">
+                                            &nbsp;&nbsp;{{ biz.business_name }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="row " style="margin-bottom: -10px">
+                                        <div class="col-3 ml-0">
+                                            <img class="rndimg"
+                                                 alt={{ biz.business_name }}
+                                                         src="{{ url_for('common.business_image',
+                                                     filename=biz.profileimage) }}"
+                                                 width="20px">
+                                        </div>
+                                        <div class="col-9 pl-0 ml-0">
+                                            &nbsp;&nbsp;{{ biz.business_name }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </a>
+                            <br>
+                        {% else %}
+
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    {% endif %}
+
+{% else %}
+{% endif %}

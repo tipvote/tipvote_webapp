@@ -1,0 +1,18 @@
+    {% extends "layout/layout_3bars_all.html" %}
+    {% block content %}
+
+        {% for post in posts %}
+            {% include 'posts/master.html' %}
+        {% endfor %}
+
+        <div class="row mt-5">
+            <div class="col-12 text-center justify-content-center">
+                {% if prev_url %}
+                    <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
+                {% endif %}
+                {% if next_url %}
+                    <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}

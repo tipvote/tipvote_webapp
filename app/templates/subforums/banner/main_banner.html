@@ -1,0 +1,43 @@
+<div class="second_color border-bottom border-dark">
+
+    <div class="col-12"
+         style="background-image: url('{{ url_for('common.banner_image', filename=subcustom_stuff.banner_image) }}');
+                 background-repeat: no-repeat;
+                 background-position: center;
+                 min-height: 200px;
+                 overflow: hidden;
+                 ">
+    </div>
+
+    <div class="col-12 text-white pl-5 " >
+        <form method="post" action="{{ url_for('subforum.subunsubtoforum', subname=thesub.subcommon_name) }}">
+            <div class="form-group row">
+                <div  class="col-12 col-form-label pb-0" style="font-size: 24px">
+                    <a class="text-white text-center " style="font-size: 24px"
+                       href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+                        {{ thesub.subcommon_name }}
+                        <p style="font-size: 12px; display: inline">a/{{ thesub.subcommon_name }}</p>
+                        <br>
+                    </a>
+                    {% if thesub.id == 1 %}
+                    {% else %}
+                        {{ subform.csrf_token }}
+                        {% if seeifsubbed == 1 %}
+                            {{ render_field(subform.unsubscribe,  value="Leave ", autocomplete="off", class="btn btn-sm btn-dark") }}
+                        {% else %}
+                            {{ render_field(subform.subscribe,  value="Join", autocomplete="off", class="btn btn-sm btn-dark") }}
+                        {% endif %}
+                    {% endif %}
+                    <a class="text-white text-center " style="font-size: 24px"
+                       href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+                        <img  class="smallbannerimage" alt={{ thesub.subcommon_name }} src="{{ url_for('common.banner_image', filename=subcustom_stuff.mini_image) }}" >
+                    </a>
+                </div>
+                <br>
+            </div>
+            <div class="col-12 " style="margin-top: -10px">
+
+            </div>
+        </form>
+    </div>
+</div>

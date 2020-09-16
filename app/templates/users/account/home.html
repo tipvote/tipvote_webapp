@@ -1,0 +1,25 @@
+{% extends "layout/layout_account.html" %}
+{% block content %}
+
+    <div class="col-12 second_color p-3">
+        <form method="post" action="{{ url_for('users.accountformpost') }}">
+            {{ accountform.csrf_token }}
+                <div class="form-group row">
+                <label class="col-12 col-form-label">Over 18 year of age?
+                    By checking this box you agree that you are of age to view NSFW content such as sexuality, violence, etc..
+                </label>
+                <div class="col-12 text-center mb-3">
+                    {{ render_field(accountform.age,  autocomplete="off", class="form-check-input bg-dark text-white") }}
+                </div>
+            </div>
+              <div class="col-12 text-center">
+                {{ render_field(accountform.submit,  value="Submit", autocomplete="off", class="btn bg-dark text-white") }}
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+{% endblock %}

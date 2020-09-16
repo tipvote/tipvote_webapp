@@ -1,0 +1,44 @@
+{% if current_user.is_authenticated %}
+
+<div class="col-12 second_color rounded mb-3 p-1  border border-dark">
+        <div class="text-center"> <b>Subscriptions</b></div>
+        <br>
+
+
+        <br>
+        <div class="pl-0 linkcolor">
+            {% for subs in usersubforums %}
+                {% if subs %}
+                    <div class="col-1"></div>
+                    <div class="col-11"></div>
+                    <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub',
+                        subname= subs.subscriber.subcommon_name )}} ">
+                          {% if subs.subscriber.mini_image == '' %}
+                        <div class="row " >
+                            <div class="col-3">
+                                <span class="dot" style="background-color: dodgerblue;"></span>
+                            </div>
+                            <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                {{ subs.subscriber.subcommon_name }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row " >
+                            <div class="col-3">
+                                <img class="rndimg"
+                                        src="{{ url_for('common.banner_image',filename=subs.subscriber.mini_image) }}" width="20px">
+                            </div>
+                            <div class="col-9 pl-0 ">
+                                {{ subs.subscriber.subcommon_name }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    </a>
+                    <br>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% else %}
+{% endif %}

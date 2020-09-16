@@ -1,0 +1,105 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 mt-2 text-white second_color pb-3 pt-3">
+        <div class="col-12 text-center mt-3">
+            <h4><b>Welcome to TipVote!</b></h4>
+        </div>
+        <div class="col-12 text-center">
+            <p>
+                Tipvote is a way to share your thoughts, opinions, and information to the world.
+            </p>
+        </div>
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>But how do I earn bitcoin</b></h5></div>
+            <div class="col-12">
+                <b> Crypto</b>
+                <p>
+                    You can be tipped for your posts or comments.
+                </p>
+                <b> Tipvote Coins</b>
+                <p>
+                    Posting, commenting, voting, tipping, and other things can earn you exp.  Earn exp to level up!  Every level gives random Tipvote
+                    coins.
+                </p>
+            </div>
+
+        </div>
+        <div class="col-12 mb-5">
+            <div class=" ltcblue">
+                <h5><b>Here is a coin to get you started.</b></h5>
+            </div>
+            <div class="col-12 mb-5 headercolor">
+
+                <div class="row">
+                    <div class="col-1"><img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}" width="50px" height="50px"></div>
+                    <div class="col-4 text-center"><b>Starter Coin</b></div>
+
+                    <div class="col-7">Use this coin under <div class='' style="color:#ffd100; display: inline">"promote"</div>
+                        on another post or your own post.
+                        Gives +25 points to any post.</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>What are rooms?</b></h5></div>
+            <p>
+                Rooms are designed to bring specific content to you.  Anyone can create a room.
+                A group of friends, a business, or even you can be in charge.
+            </p>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>We have subscribed you to a couple rooms to start.
+                Create or join other rooms to increase your content.
+            </b></h5>
+            </div>
+            <div class="row">
+
+                <div class="col-12 col-sm-3 linkcolor">
+                    <a class="" href="{{ url_for('subforum.sub', subname='worldnews') }}">a/worldnews</a>
+                </div>
+                <div class="col-12 col-sm-3 linkcolor">
+                    <a class="" href="{{ url_for('subforum.sub', subname='USPolitics') }}">a/USPolitics</a>
+                </div>
+                <div class="col-12 col-sm-3 linkcolor">
+                    <a class="" href="{{ url_for('subforum.sub', subname='USnews') }}">a/USnews</a>
+                </div>
+                <div class="col-12 col-sm-3 linkcolor">
+                    <a class="" href="{{ url_for('subforum.sub', subname='Bitcoin') }}">a/Bitcoin</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>How to navigate</b></h5></div>
+            <div class="row ">
+                <div class="col-10 offset-1 mb-2">
+                    <b>Rooms</b> - Rooms start with "a/" <br>
+                    Example:
+                    <a class="" href="{{ url_for('subforum.sub',
+                        subname='bitcoin' )}} ">
+                    tipvote.com/a/bitcoin </a>
+                </div>
+                <div class="col-10 offset-1">
+                    <b>User Profiles</b> - User profiles start with a "u/" <br>
+                    example: Your profile is
+                    <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        tipvote.com/u/{{current_user.user_name}}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-5">
+            <h5><b><div class="text-center">Be Civil.  Be Bold</div> </b></h5>
+            <p>
+                Please respect the members and rooms of this community. Have fun.
+                <br><br>
+                <a class="text-white text-center btn btn-warning btn-block" href="{{ url_for('frontpage.frontpage_home') }}">Go to my frontpage</a>
+            </p>
+        </div>
+</div>
+{% endblock %}

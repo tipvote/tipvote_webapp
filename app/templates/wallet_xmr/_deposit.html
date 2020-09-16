@@ -1,0 +1,31 @@
+    <div class="col-12 headercolor mt-2 pb-1 pt-1">
+        <div class="col-12 text-center">
+            <h4>Monero Wallet</h4>
+        </div>
+        <div class="col-12 text-left">
+            <b>Deposit Funds</b>
+        </div>
+
+
+        <div class="col-12 text-center" style="font-size: 12px;">
+            To deposit funds send Monero to the address below.
+            The balance will appear after 6 confirmations.
+            <br>
+            <div style="color: red">
+                The minimum amount for the deposit is {{ wfee|btctostring }} Monero if the
+                amount is below the limit it will not be added.
+
+            </div>
+
+        </div>
+
+        <div class="col-12 text-center mt-3 mb-3">
+            Monero Address <br>
+            {% if wallet.address1 == '' %}
+            <p class="font-weight-bold" style="font-size: 10px;">Wallet is being created </p>
+            {% else %}
+            <p class="font-weight-bold" style="font-size: 10px;">{{ wallet.address1 }}</p>
+            {% endif %}
+        </div>
+
+    </div>

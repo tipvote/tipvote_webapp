@@ -1,0 +1,56 @@
+{% if useramod == 1 or current_user.id == thesub.creator_user_id %}
+
+
+    <div class="row mb-2 pr-2">
+        <div class="col-2"></div>
+        <div class="col-10 second_color border border-dark pb-2">
+            <div class="text-center">
+                <b>Manage Sub</b>
+            </div>
+            <div class="col-12">
+                <a href="{{ url_for('mod.changesub', subname=thesub.subcommon_name) }}">
+                    Sub Info
+                </a>
+                <br>
+                <a href="{{ url_for('mod.subinfoboxmain', subname=thesub.subcommon_name) }}">
+                    Sub Box One
+                </a>
+                <br>
+                <a href="{{ url_for('mod.customsub_looks', subname=thesub.subcommon_name) }}">
+                    Sub Customization
+                </a>
+                <br>
+                <a href="{{ url_for('mod.modbanoradd_main', subname=thesub.subcommon_name) }}">
+                    Manage Mods
+                </a>
+                <br>
+
+                <a href="{{ url_for('mod.modbanoradduser_main', subname=thesub.subcommon_name) }}">
+                    Ban/Unban Users
+                </a>
+
+                <br>
+
+
+
+                <br>
+                {% if thesub.type_of_subcommon == 1 %}
+                    <a href="{{ url_for('mod.viewprivatemembers', subname=thesub.subcommon_name) }}">
+                        View all Members
+                    </a>
+                    <br>
+                    <a href="{{ url_for('mod.viewprivateapplications', subname=thesub.subcommon_name) }}">
+                        Invite Users({{ seeifanyapplications }})
+                    </a>
+                    <br>
+                    <a href="{{ url_for('mod.removeusersprivate', subname=thesub.subcommon_name) }}">
+                        Remove Members
+                    </a>
+                    <br>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% else %}
+{% endif %}

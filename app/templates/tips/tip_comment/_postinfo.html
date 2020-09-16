@@ -1,0 +1,36 @@
+
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2">
+    <div class="row headercolor">
+        <div class="col-12 text-center">
+            <h5>Tip Comment ID#{{ thecomment.id }}</h5>
+        </div>
+        <div class="col-12">
+            <hr>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label text-md-right"> Commenter: </label>
+                <div class="col-6 pt-2">
+                    <a href="{{ url_for('profile.main', user_name=thecomment.user_name) }}">
+                        {{ thecomment.user_name }}
+                    </a>
+                </div>
+
+            </div>
+            <hr>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label text-md-right">Comment:</label>
+                <div class="col-8">
+                    {{ thecomment.body_clean }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label text-md-right"></label>
+                <div class="col-12 text-center">
+                    * A small percent of the tip will go the moderators/owner of the room.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

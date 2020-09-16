@@ -1,0 +1,49 @@
+{% extends "layout/layout_profile.html" %}
+{% block content %}
+
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+                {% if thebiz.bannerimage == '' %}
+                    {% include 'business/layout/nobanner.html' %}
+                {% else %}
+                    {% include 'business/layout/banner.html' %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mt-3 ">
+            <div class="col-12 col-sm-12">
+                {% include "flashbar.html" %}
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4  offset-md-1">
+                {% include 'business/widgets/profilepicture.html' %}
+                {% include 'business/widgets/bio.html' %}
+                {% include 'business/widgets/accepts.html' %}
+                {% include 'business/widgets/location.html' %}
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 ">
+                <div style="max-width: 500px; margin: auto">
+                    {% if current_user.is_authenticated %}
+
+                        {% include 'business/widgets/_navtabs.html' %}
+                        {% if current_user.id == thebiz.user_id %}
+                          {% include 'create/posts/master/_business_post.html' %}
+                        {% else %}
+                            {% include 'create/posts/master/_business_post_other_wall.html' %}
+
+                        {% endif %}
+                    {% else %}
+                    {% endif %}
+
+                        {% for post in posts %}
+                            {% include 'posts/master.html' %}
+                        {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

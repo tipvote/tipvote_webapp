@@ -1,0 +1,306 @@
+
+<div class="col-12 mt-2 text-white headercolor pb-1 pt-1" >
+    <div class="col-12 text-center mt-3">
+        <h4> <b>Withdraw and Depost History</b> </h4>
+    </div>
+    <div class="col-12" >
+        {% if transactcount >= 1 %}
+            <table class="table table-sm  table-striped text-white">
+                <!-- set columns-->
+                <tr class="d-flex linkcolor">
+
+                    <th class="col-3">Age</th>
+                    <th class="col-5">Description</th>
+                    <th class="col-2 d-none d-xl-block">Coin</th>
+                    <th class="col-2">Balance</th>
+                </tr>
+                {% for t in transact %}
+                    <tr class="d-flex linkcolor text-white" >
+                        <!--First column: Time/DATE-->
+                        <td class="col-3">
+                            {{ moment(timestamp=t.created).fromNow(refresh=True) }}
+                        </td>
+                        <!--Second column: Description-->
+                        <td class="col-5">
+
+                            <!--Wallet Created-->
+                            {%  if t.category == 1 %}
+                                <br>
+
+                            <!--Money sent offsite-->
+                            {%  elif t.category == 2 %}
+
+
+                                Withdrawl<br>
+                                {% if t %}
+                                    {% if t.confirmations >= 7 %}
+                                        <div class="text-success">Confirmed</div><br>
+
+                                        <div style="font-size:10px;">
+                                            Fee: {{ t.fee }}
+                                            {{ t.txid }}
+                                        </div>
+
+                                        {% if t.commentbch %}
+                                            <br>{{ t.commentbch }}
+                                        {% endif %}
+                                    {% else %}
+                                        Confirmations: {{ t.confirmations }}<br>
+                                        <div style="font-size:10px;">
+                                            Fee: {{ t.fee }}
+                                            {{ t.txid }}
+                                        </div>
+                                        {% if t.commentbch %}
+                                            <br>{{ t.commentbch }}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                                <br>
+
+
+                            <!--Deposit from offsite-->
+                            {% elif t.category == 3 %}
+                                Deposit<br>
+                                {% if t %}
+                                    {% if t.confirmations >= 6 %}
+                                        <div class="text-success">Confirmed</div><br>
+                                        <div style="font-size:10px;">
+                                            {{ t.txid }}
+                                        </div>
+                                    {% else %}
+                                        Confirmations: {{ t.confirmations }}<br>
+                                        <div style="font-size:10px;">
+                                            {{ t.txid }}
+                                        </div>
+                                    {% endif %}
+
+                                {% endif %}
+
+
+                            <!--Money sent to tip a comment-->
+                            {% elif t.category == 4 %}
+                                Sent comment tip to
+                                {% if t.senderid == 1 %}
+                                    Tipvote
+                                {% else %}
+
+                                    <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                                        {{ t.senderid|user_name }}
+                                    </a>
+                                {% endif %}
+
+                            <!--Money recieved from a comment-->
+                            {%  elif t.category == 5 %}
+                                Recieved comment tip from
+                                <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                                    {{ t.senderid|user_name }}
+                                </a>
+
+                            <!--Money sent to tip a post-->
+                            {% elif t.category == 6 %}
+                                Sent post tip to
+                                {% if t.senderid == 1 %}
+                                    Tipvote
+                                {% else %}
+                                    <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                                        {{ t.senderid|user_name }}
+                                    </a>
+                                {% endif %}
+
+                            <!--Money recieved from a post-->
+                            {%  elif t.category == 7 %}
+                                Recieved tip from
+                                post from
+                                <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                                    {{ t.senderid|user_name }}
+                                </a>
+                                <br>
+
+                            <!--Promoted a post-->
+                            {%  elif t.category == 8 %}
+                                Promoted  post #
+                                <a href="{{ url_for('subforum.viewpost',subname=t.commentbch, postid=t.orderid) }}">
+                                    {{ t.orderid }}
+                                </a>
+                                <br>
+
+                            <!--subowner got part of a post tip-->
+                            {%  elif t.category == 9 %}
+                                Recieved part of a tip from post#
+                                <a href="{{ url_for('subforum.viewpost',subname=t.commentbtc, postid=t.orderid) }}">
+                                    {{ t.orderid }}
+                                </a>
+                                <br>
+
+                            <!--subowner got part of a comment tip-->
+                            {%  elif t.category == 10 %}
+                                Recieved part of a tip from comment#{{ t.commentbch }} from user
+                                <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                                    {{ t.senderid|user_name }}
+                                </a>
+                                <br>
+
+                            {% else %}
+                                {% if t.orderid %}
+                                    {{ t.amount }}<br><br>
+                                {% endif %}
+                            {% endif %}
+
+
+
+                        </td>
+
+                        <td class="col-2 d-none d-xl-block" style="font-size: 12px">
+                            <!--Wallet Created-->
+                            {% if t.category == 1 %}
+                                --
+
+                            <!--Money sent offsite-->
+                            {% elif t.category == 2 %}
+                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
+
+                            <!--Deposit from offsite-->
+                            {% elif t.category == 3 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+                            <!--Money sent to tip a comment-->
+                            {% elif t.category == 4 %}
+                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
+
+                            <!--Money recieved from a comment-->
+                            {% elif t.category == 5 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+                            <!--Money sent to tip a post-->
+                            {% elif t.category == 6 %}
+                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
+
+                            <!--Money recieved from a post-->
+                            {% elif t.category == 7 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+                            {% elif t.category == 8 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+                            <!--subowner got part of a post tip-->
+                            {%  elif t.category == 9 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+                            <!--subowner got part of a comment tip-->
+                            {%  elif t.category == 10 %}
+                                <p class="text-success">{{ t.amount|btctostring }}</p>
+
+
+                            {% else %}
+                                {% if 0 <= t.amount > 0.0001 %}
+                                    {{ t.amount }}
+                                {% else %}
+                                    {{ t.amount|btctostring }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+
+                        <!--Fourth  column: User balance-->
+                        <td class="col-2" style="font-size: 12px">
+                            {% if t.category == 1 %}
+
+                            <!--Money sent offsite-->
+                            {% elif t.category == 2 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Deposit from offsite-->
+                            {% elif t.category == 3 %}
+                                {% if t.confirmed == 0 %}
+                                    {{ t.balance - t.amount}} + {{ t.amount }}
+                                {% else %}
+                                    {{ t.balance }}
+                                {% endif %}
+
+                            <!--Money sent to tip a comment-->
+                            {% elif t.category == 4 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Money recieved from a comment-->
+                            {% elif t.category == 5 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Money sent to tip a post-->
+                            {% elif t.category == 6 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Money recieved from a post-->
+                            {% elif t.category == 7 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Money recieved from a post-->
+                            {% elif t.category == 8 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            <!--Money recieved from a post-->
+                            {% elif t.category == 9 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                           <!--Money recieved from a comment-->
+                           {% elif t.category == 10 %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            {% else %}
+                                {% if 0 == t.balance  %}
+                                    0
+                                {% else %}
+                                    {{ t.balance|btctostring }}
+                                {% endif %}
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="row mt-5">
+                <div class="col-12 text-center justify-content-center">
+                    {% if prev_url %}
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer Transactions</a>
+                    {% endif %}
+                    {% if next_url %}
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older Transactions</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% else %}
+            <div class="col-12 text-center">No Transactions</div>
+        {% endif %}
+    </div>
+</div>

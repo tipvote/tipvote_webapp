@@ -1,0 +1,26 @@
+
+<div class="col-12 second_color border-dark p-1 mb-2" >
+
+    <form method="post"
+          action="{{ url_for('create.share_post_text',postid=post.id) }}"
+          enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <!-- Post Message -->
+        <div class="form-group col-12 mb-0 mt-0 ">
+            {{ render_field(form.postmessage,
+            autocomplete="off",
+            class="form-control bg-dark text-white",
+             placeholder="Post some thoughts  ...")
+                    }}
+        </div>
+
+        <!-- Submit Post -->
+        <div class="form-group text-center col-12 mb-0 mt-0">
+            <div class="row">
+                <div class="col-12 col-sm-6 offset-sm-3" >
+                    {{ render_field(form.submit,value="Post", class="btn btn-dark btn-block") }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

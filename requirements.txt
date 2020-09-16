@@ -1,0 +1,17 @@
+flask
+flask_sqlalchemy
+psycopg2-binary
+flask-wtf
+gunicorn
+flask-qrcode
+flask-login
+flask-moment
+flask-paranoid
+flask-paginate
+sqlalchemy
+python-dateutil
+unidecode
+webpreview
+flask-mistune
+flask-mail
+validator-collection

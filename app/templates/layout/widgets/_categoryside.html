@@ -1,0 +1,14 @@
+
+<div class="row pl-2 pr-2">
+    <div class="col-md-12 col-lg-12 col-xl-8 second_color border border-dark">
+        Subscriptions
+    </div>
+    <div class="col-12 ml-1">
+        {% for subs in usersubforums %}
+            <a href="{{ url_for('subforum.sub', subname=subs.subcommon_name) }}">
+                {{ subs.subcommon_name }}
+            </a>
+            <br>
+        {% endfor %}
+    </div>
+</div>

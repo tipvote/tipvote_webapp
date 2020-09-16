@@ -1,0 +1,120 @@
+<div class="row mb-2 pl-2">
+    <div class="col-10 second_color border border-dark mb-2">
+        {% if current_user.is_authenticated %}
+            <div class="col-12 text-center mb-4 mt-2">
+                {% if current_user.anon_mode == 0 %}
+                    <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        <div class="text-center upgreen"> <h5><b>{{ current_user.user_name }}</b></h5></div>
+                    </a>
+                {% else %}
+                    <span style="color:#66FF99">
+                        <h5><b>Anonymous</b></h5>
+                   </span>
+                {% endif %}
+            </div>
+            <div class="col-12 mb-1 text-center">
+                {% if current_user.anon_mode == 0 %}
+                    {% if current_user.profileimage == '' %}
+                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
+                    {% else %}
+                        <img class="profileimage"
+                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                        >
+                    {% endif %}
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
+                {% endif %}
+            </div>
+            <div class="col-12 mb-1 text-center">
+                Lvl {{ current_user.user_stats_common.user_level }}
+                <div class="progress">
+                    <div class="progress-bar bg-warning"
+                         role="progressbar"
+                         aria-valuenow={{ current_user.user_stats_common.user_width_next_level }}
+                                 aria-valuemin="0" aria-valuemax="100" style="width:{{ current_user.user_stats_common.user_width_next_level }}%">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-1 text-center">
+                <a href="{{ url_for('coins.overview') }}">Rewards</a>
+            </div>
+            <hr>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                BTC Balance  <br>
+                <b>
+                    {% if current_user.btc.currentbalance == 0 %}
+                        <span class="btcorange">0.00000000</span >
+                    {% else %}
+                        <span class="btcorange">{{ current_user.btc.currentbalance  }}</span >
+                    {% endif %}
+                </b>
+            </div>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                BCH Balance <br>
+                <b>
+                    {% if current_user.bch.currentbalance == 0 %}
+                        <span class="btccashgreen">0.00000000</span >
+                    {% else %}
+                        <span class="btccashgreen">{{ current_user.bch.currentbalance }}</span >
+                    {% endif %}
+                </b>
+            </div>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                XMR Balance <br>
+                <b>
+                    {% if current_user.xmr.currentbalance == 0 %}
+                        <span class="moneroorange">0.00000000</span >
+                    {% else %}
+                        <span class="moneroorange">{{ current_user.xmr.currentbalance }}</span >
+                    {% endif %}
+                </b>
+            </div>
+            <hr>
+
+            <div class="col-12 mb-1 text-center" style="font-size: 11px;">
+                <b>
+                    {% if themsgs %}
+                        {% if themsgs == 0 %}
+                            <a class="btn btn-dark text-white w-100" href="{{ url_for('message.main') }}">Messenger</a>
+                        {% else %}
+                            <a class="btn btn-warning text-white w-100" href="{{ url_for('message.main') }}">Messenger &nbsp;&nbsp;({{ themsgs }})</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="btn btn-dark text-white w-100" href="{{ url_for('message.main') }}">Messenger</a>
+                    {% endif %}
+                </b>
+            </div>
+
+        {% else %}
+            <div class="col-12 text-center">
+                <b>Guest</b>
+            </div>
+            <div class="card-body">
+                <div class="col-12 mb-1 text-center">
+                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
+                </div>
+                <div class="col-12 mb-1 text-center">
+                    Lvl 0
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow=0
+                             aria-valuemin="0" aria-valuemax="100" style="width:25%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-1 text-center">
+                    <a href="{{ url_for('coins.overview') }}">Rewards</a>
+                </div>
+                <hr>
+                <div class="col-12 text-center" style="display: inline-block">
+                    <b>
+                        <span style="color:green">0</span >
+                        /
+                        <span style="color:red">0</span >
+                    </b>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-2"></div>
+</div>

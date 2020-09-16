@@ -1,0 +1,34 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 text-center mb-5">
+        <h5>Stats Guide</h5>
+    </div>
+    <div class="col-12 second_color">
+        <div class="col-12 text-center">
+            This represents your posts that have been upvoted or downvoted.  It does not count the votes you gave out.
+        </div>
+        <div class="col-12 mb-1 text-center" style="display: inline-block">
+            Posts: <br>
+            <b>
+                <span style="color:green">{{ current_user.user_stats_common.post_upvotes }}</span >
+                /
+                <span style="color:red">{{ current_user.user_stats_common.post_downvotes }}</span >
+            </b>
+        </div>
+        <div class="col-12 second_color">
+            <div class="col-12 text-center">
+                This represents your comments that have been upvoted or downvoted.  It does not count the votes you gave out.
+            </div>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                Comments: <br>
+                <b>
+                    <span style="color:green">{{ current_user.user_stats_common.comment_upvotes }}</span >
+                    /
+                    <span style="color:red">{{ current_user.user_stats_common.comment_downvotes }}</span >
+                </b>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

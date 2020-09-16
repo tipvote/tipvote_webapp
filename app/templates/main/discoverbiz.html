@@ -1,0 +1,71 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 text-center mb-5">
+        <h5>Discover New Businesses</h5>
+    </div>
+
+    <div class="row ml-3 mb-5">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border border-dark">
+            <div class="col-12 text-center">
+                <h5>Newest Businesses</h5>
+            </div>
+            {% for biz in newsubs %}
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
+
+                    <div class="row " >
+                        {% if biz.profileimage == '' %}
+                            <div class="col-1">
+
+                            </div>
+                        {% else %}
+                            <div class="col-3">
+                                <img class="rndimg" alt={{ biz.business_name }} src="{{ url_for('common.business_image',filename=biz.profileimage) }}" width="100%">
+                            </div>
+                        {% endif %}
+                        <div class="col-3 pt-2  pl-0 " style="display: inline">
+
+                            <h5>b/{{ biz.business_name }}</h5>
+
+                        </div>
+                        <div class="col-6 pt-2  pl-0 " style="margin-top: -5px;">
+                            {{ biz.biz_info.about }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+        <div class="row ml-3">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border border-dark">
+            <div class="col-12 text-center">
+                <h5>Popular Businesses</h5>
+            </div>
+            {% for biz in popbiz %}
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
+
+                    <div class="row " >
+                        {% if biz.profileimage == '' %}
+                            <div class="col-1">
+
+                            </div>
+                        {% else %}
+                            <div class="col-3">
+                                <img class="rndimg" alt={{ biz.business_name }} src="{{ url_for('common.business_image',filename=biz.profileimage) }}" width="100%">
+                            </div>
+                        {% endif %}
+                        <div class="col-3 pt-2  pl-0 " style="display: inline">
+
+                            <h5>b/{{ biz.business_name }}</h5>
+
+                        </div>
+                        <div class="col-6 pt-2  pl-0 " style="margin-top: -5px;">
+                            {{ biz.biz_info.about }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% include 'layout/basic/metadata.html' %}
+
+{% include 'layout/headers/header.html' %}
+{% include 'layout/headers/depositheader.html' %}
+<div class="wrapper">
+    {% from "_formhelper.html" import render_field %}
+
+    <body>
+
+    <div class="container mt-2">
+
+        {% include "flashbar.html" %}
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+
+
+    </body>
+
+
+</div>
+
+{% include 'layout/basic/_footer.html' %}
+
+</html>

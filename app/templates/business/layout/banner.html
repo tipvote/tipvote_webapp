@@ -1,0 +1,58 @@
+<div class="second_color border-bottom border-dark">
+
+    <div class="col-12 profilebanner"
+         style="background-image: url('{{ url_for('common.business_image', filename=thebiz.bannerimage) }}');
+                 background-repeat: no-repeat;
+                 background-position: center;
+                 ">
+    </div>
+
+    {% if current_user.is_authenticated %}
+        {% if thebiz.user_name == current_user.user_name %}
+            <div class="col-12 text-center">
+                <a href="{{ url_for('business_edit.bannerpicture', business_id=thebiz.id) }}">
+                    Edit Banner
+                </a>
+            </div>
+        {% else %}
+        {% endif %}
+    {% else %}
+    {% endif %}
+    <div class="col-12 mb-0 text-center" style="font-size: 18px">
+        b/{{ thebiz.business_name }}
+    </div> <br>
+    <div class="col-12 mb-0 text-center" style="font-size: 24px">
+        {% if thebiz.official_business_name == '' %}
+            {% if thebiz.user_name == current_user.user_name %}
+                <a href="{{ url_for('business_edit.view_bio', business_name=thebiz.business_name) }}">
+                    Add a name
+                </a>
+            {% else %}
+            {% endif %}
+        {% else %}
+            {{ thebiz.official_business_name }}
+        {% endif %}
+    </div>
+
+    <div class="col-12 text-center">
+        <form method="post" action="{{ url_for('business.subunsubtobusiness', business_name=thebiz.business_name) }}">
+            {% if current_user.is_authenticated %}
+                {% if current_user.user_name != thebiz.user_name %}
+                {% if seeifsubbed == 1 %}
+                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down text-white") }}
+                {% else %}
+                    {{ render_field(subform.subscribe,  value="Subscribe", autocomplete="off", class="btn btn-sm btn-tipvote-up") }}
+                {% endif %}
+                {% endif %}
+            {% endif %}
+        </form>
+
+    </div>
+
+    <div class="col-12 text-center mb-3">
+        <a class=" btn btn-dark text-white "
+           href="{{ url_for('message.create_message_business', bizid=thebiz.id) }}">
+            Message {{ thebiz.official_business_name }}
+        </a>
+    </div>
+</div>

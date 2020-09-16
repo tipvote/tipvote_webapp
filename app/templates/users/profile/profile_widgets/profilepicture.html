@@ -1,0 +1,36 @@
+
+<div class="col-12 second_color rounded mb-3 p-3  border border-dark">
+    <div class="col-12 p-4 text-center">
+
+        {% if theuser.profileimage  == '' %}
+            <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="150px">
+        {% else %}
+            <img class="img-responsive " src="{{ url_for('common.profile_image',filename=theuser.profileimage) }}"
+                 width="150px">
+        {% endif %}
+
+    </div>
+    {% if current_user.id == theuser.id %}
+        <div class="col-12 text-center">
+            <a href="{{ url_for('photos.profilepicture') }}">
+                Edit Profile Picture
+            </a>
+        </div>
+    {% else %}
+
+    {% endif %}
+    <div class="col-12 text-center">
+        <p>Joined: {{ moment(timestamp=theuser.member_since, local=False).fromNow(refresh=True)  }} </p>
+    </div>
+
+    {% if theuser != current_user %}
+    {% if current_user.is_authenticated %}
+        <div class="col-12 text-center">
+            <a class="text-center"
+               href="{{ url_for('profile.blockuser', user_name=theuser.user_name) }}">
+                Block User
+            </a>
+        </div>
+    {% endif %}
+    {% endif %}
+</div>

@@ -1,0 +1,39 @@
+
+<div class="row mb-2 pr-2">
+    <div class="col-2"></div>
+    <div class="col-10 second_color border border-dark pb-2">
+        <div class="text-center mb-3">
+            <h5> Be the Boss </h5>
+        </div>
+
+        <div class="text-white mb-3" style="font-size: 11px">
+            <p>
+                Run your own Room <br>
+                Create a Page <br>
+
+                &nbsp;&nbsp; For fun ... <br>
+                &nbsp;&nbsp; For PROFIT ... <br>
+                <div class="btcorange" style="display:inline;"> Earn a percent of tips in your room.</div> <br>
+            </p>
+        </div>
+
+        {% if current_user.is_authenticated %}
+            {% if current_user.user_stats_common.user_level != 0 %}
+                <div class="text-center mb-3">
+                    <a class="text-white text-center btn btn-dark" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                </div>
+            {% else %}
+                    <div class="text-center mb-3">
+                <p> You must be level 1 in order to create a room</p>
+                <a class="text-white text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+            </div>
+            {% endif %}
+        {% else %}
+
+            <div class="text-center mb-3">
+                <p> You must be logged in to create a room</p>
+                <a class="text-white text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,80 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 mb-5">
+        <a class="text-white text-center btn btn-dark btn-block" href="{{ url_for('index') }}">Back to Tipvote</a>
+    </div>
+
+    <div class="col-12 mt-2 text-white second_color pb-3 pt-3">
+        <div class="col-12 text-center mt-3">
+            <h4><b>Transparent Scoring</b></h4>
+        </div>
+        <div class="col-12 text-center">
+            <p>
+                We want to give transparent fair scoring while combating "Hive Mind Syndrome".  We also believe crypto
+                allows the poor to be heard.  Please not this will be changed as things become not what we envisioned.
+            </p>
+        </div>
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>What is "Hive Mind Scoring"?</b></h5></div>
+            <div class="col-12">
+                <b> Downvotes are a problem</b><br><br>
+                <ul>
+                    <li>
+                        If a person gets downvoted it gets followed by
+                        more downvotes.
+                    </li>
+                    <li>
+                        Opinions that are not in the majority get downvoted and hidden.
+                    </li>
+                    <li>
+                        People afraid to speak out against the majority opinion in fear of getting downvoted.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>Current Scoring</b></h5></div>
+            <div class="col-12 mb-5">
+                <b>Upvotes:</b> 2 Point <br>
+                <b>Downvotes:</b> 1 Point <br>
+                <b>Comments:</b> 2 Points <br>
+            </div>
+            <div class="col-12 mb-5">
+                Notice a downvote gives a point :)
+            </div>
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>Crypto Influence</b></h5></div>
+            <div class="col-12 mb-5">
+                Promotions have a great effect on the points, while tipping has some.  Here is the formula.
+            </div>
+            <div class="col-12 mb-5">
+                Tipping Scoring: <br><br>
+                0-1 USD = 5 points <br>
+                1USD = 5 points <br>
+                Therefore 500 USD = 2500 points
+            </div>
+            <div class="col-12 mb-5">
+                Promotion Scoring: <br><br>
+                0-1 USD = 5 points <br>
+                1USD = 50 points <br>
+                Therefore 500 USD = 25000 points
+            </div>
+
+        </div>
+
+        <div class="col-12 mb-5">
+            <div class="ltcblue"> <h5><b>Tipvote Coins</b></h5></div>
+            <div class="col-12 mb-5">
+                Tipvote Coins have there own built in points.  A post be given the coins by the poster or
+                other people.  They are earned by using the site for people who cant afford to use crypto.  We intend to
+                keep it free to help even the poorest voices be heard
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

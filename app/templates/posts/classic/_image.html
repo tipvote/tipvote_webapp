@@ -1,0 +1,13 @@
+
+{% if post.url_image_server %}
+
+{% else %}
+    {% if post.image_server_1  %}
+        <a href="{{ url_for('common.post_file', filename=post.image_server_1) }}">
+            <img
+                class="img-fluid"
+                src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
+            >
+        </a>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,39 @@
+
+<div class="col-12 second_color pt-1 pb-1 mb-2 rounded" style="display: inline-block">
+
+    {% if post.hidden == 0 %}
+        {% if current_user.id != post.user_id %}
+            <form method="post" action="{{ url_for('mod.reportpost',postid=post.id, subname=post.subcommon_name) }}" class="d-inline">
+                {{ reportform.csrf_token }}
+                {{ render_field(reportform.submit,  value="Report Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+            </form>
+        {% endif %}
+    {% else %}
+    {% endif %}
+
+    {% if saveform %}
+        <form method="post" action="{{ url_for('profileedit.savepost',postid=post.id) }}"  class="d-inline">
+            {{ saveform.csrf_token }}
+            {{ render_field(saveform.save,
+                class="btn btn-dark btn-sm",value="Save Post", autocomplete="off", role="submit") }}
+        </form>
+
+    {% else %}
+    {% endif %}
+
+{% if useramod == 1 or userowner == 1 %}
+    {% if post.sticky == 0  %}
+        <form method="post" action="{{ url_for('mod.stickypost',postid=post.id, subid=post.subcommon_id) }}" class="d-inline">
+            {{ stickypostform.csrf_token }}
+            {{ render_field(stickypostform.submit,  value="Sticky Post", autocomplete="off", class="btn btn-success btn-sm ") }}
+        </form>
+    {% endif %}
+{% endif %}
+{% if post.sticky == 1 %}
+    <form method="post" action="{{ url_for('mod.unstickypost',postid=post.id, subid=post.subcommon_id) }}" class="d-inline">
+        {{ unstickypostform.csrf_token }}
+        {{ render_field(unstickypostform.submit,  value="UnSticky Post", autocomplete="off", class="btn btn-danger btn-sm ") }}
+    </form>
+{% endif %}
+
+</div>

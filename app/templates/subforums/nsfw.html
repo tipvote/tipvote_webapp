@@ -1,0 +1,37 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="container-fluid h-100 ">
+        <div class="row justify-content-center align-items-center">
+            <h1>NSFW</h1>
+        </div>
+        <hr/>
+        <div class="row justify-content-center align-items-center">
+            <div class="text-center" style="font-size: 20px;">
+                This sub is listed as NSFW (Not safe for work)
+                <br><br>
+                /a/{{ getcurrentsub.subcommon_name }}
+                <br><br>
+                You must be over 18 to view this community.<br>
+                {% if current_user.is_authenticated %}
+                    Click <a href="{{ url_for('users.account',subname=getcurrentsub.subcommon_name) }}"> here </a>
+                    to change this in your account
+                {% else %}
+                     You must    <a class="btn btn-dark" href="{{ url_for('users.login') }}" role="button">
+                    Login
+                </a>
+                    or
+                    <a class="btn btn-dark" href="{{ url_for('users.register') }}" role="button">
+                        Register
+                    </a> to view nsfw subs
+
+
+                {% endif %}
+
+                <br><br>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

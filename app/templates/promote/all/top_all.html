@@ -1,0 +1,39 @@
+<div class="col-12 third_color border border-dark mb-3" >
+    <div class="col-12  text-center text-white mt-3 border-bottom">
+        <h5>Top post of the week reward</h5>
+    </div>
+        <div class="row">
+        <div class="col-12  text-center text-white mt-3" >
+
+            Current Leader:
+            <a href="{{ url_for('profile.main', user_name=thegiveaway.leader_user_name) }}">
+                <div class="text-center upgreen" > <h5><b> {{ thegiveaway.leader_user_name }}</b></h5></div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-6  text-center text-white mt-3">
+            <img class="center" src="{{ url_for('static', filename='images/coins/treasure.png')  }}"
+                 width="100px" >
+        </div>
+        <div class="col-6  text-center text-white mt-3">
+            <h3>${{ thegiveaway.total_usd }}</h3>
+            <br>
+            <div class="btcorange d-inline">
+                {{ thegiveaway.total_usd|btcprice(currency=1) }} BTC
+            </div>
+        </div>
+    </div>
+
+<div class="col-12  text-center text-white mt-3" style="font-size: 12px">
+    Ends {{ moment(timestamp=thegiveaway.end_promotion, local=False).format('dddd') }}
+</div>
+    <div class="col-12  text-center text-white mt-3" style="font-size: 12px">
+        Every week the top post gets rewarded from the promotions.
+        <a href="{{ url_for('promote_all_learnmore') }}">
+            Learn More
+        </a>
+    </div>
+
+</div>

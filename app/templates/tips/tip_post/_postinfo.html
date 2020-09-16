@@ -1,0 +1,77 @@
+
+
+{% if post.shared_post == 0 %}
+
+{% else %}
+    <div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2 bg-warning text-dark p-5">
+        <h3>This is a shared post.  You are tipping the original post from
+
+            {% if post.creator_anon == 0 %}
+                <a href="{{ url_for('profile.main', user_name=post.content_user_name) }}">
+                    {{ post.content_user_name }}
+                </a>
+            {% else %}
+                <span style="color:#66FF99">
+                        Anonymous
+                         </span>
+            {% endif %}
+            , not the person who shared it.
+
+        </h3>
+
+    </div>
+{% endif %}
+
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2">
+    <div class="row headercolor">
+        <div class="col-12 text-center">
+            <h2>Tip Post </h2>
+            <div class="text-center">
+                Tipping a post allows you to show appreciation for content with crypto.  Your tips
+                go to the post content creator and not tipvote.  A small percent of the tips go to the mods and subowner who
+                do the hard work at tipvote.
+            </div>
+        </div>
+        <div class="col-12">
+            <hr>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label"> Content Creator: </label>
+                <div class="col-6 pt-2">
+                    {% if post.shared_post == 0 %}
+                        {% if post.business_id == None %}
+                            {% if post.creator_anon == 0 %}
+                                <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
+                                    {{ post.user_name }}
+                                </a>
+                            {% else %}
+                                <span style="color:#66FF99">
+
+                            Anonymous
+                             </span>
+                            {% endif %}
+                        {% else %}
+                            {% if post.creator_anon == 0 %}
+                                <a href="{{ url_for('profile.main', user_name=post.content_user_name) }}">
+                                    {{ post.content_user_name }}
+                                </a>
+                            {% else %}
+                                <span style="color:#66FF99">
+                            Anonymous
+                             </span>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                    {% endif %}
+
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+            <hr>
+
+        </div>
+    </div>
+</div>
+
+

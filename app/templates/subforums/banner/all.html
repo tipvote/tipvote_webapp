@@ -1,0 +1,40 @@
+{% if current_user.is_authenticated %}
+
+{% else %}
+    <div class="col-12 second_color border-bottom border-dark">
+        <div class="col-12 w-100  text-center text-white mt-3">
+            <h4> All </h4>
+        </div>
+        <div class="col-12 col-sm-12 col-md-8 offset-md-2  text-white text-left "  style="font-size: 16px">
+            <div class="text-center">
+                Tipvote is a community where you can post your thoughts and opinions for crypto.
+            </div>
+            <div class="row text-center m-0">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 m-0">
+                    <img class="" src="{{ url_for('static', filename='images/intro/1.png')  }}" width="150px">
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3" >
+                    <img class="" src="{{ url_for('static', filename='images/intro/2.png')  }}" width="150px">
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3" >
+                    <img class="" src="{{ url_for('static', filename='images/intro/3.png')  }}" width="150px">
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3" >
+                    <img class="" src="{{ url_for('static', filename='images/intro/4.png')  }}" width="150px">
+                </div>
+            </div>
+            <div class="text-center mb-2">
+                No documents required and easy signup
+            </div>
+            <div class="text-center mb-2">
+                <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
+                    Login
+                </a>
+                <a class="btn btn-tipvote-up" href="{{ url_for('users.register') }}" role="button">
+                    Register
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

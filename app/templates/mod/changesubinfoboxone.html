@@ -1,0 +1,77 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-12 ">
+        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+            Back to {{ thesub.subcommon_name }}
+        </a>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12 mx-auto text-center">
+            <h3>Info Box</h3>
+            This box can show rules for your sub.  It can provide links, annoucements, or anything.
+            It can be customized with markdown.
+        </div>
+    </div>
+
+
+    <div class="row second_color">
+        <div class="col-12 pt-1">
+            <form method="post" action="{{ url_for('mod.subinfoboxpost', subname=thesub.subcommon_name) }}">
+                {{ subinfoboxform.csrf_token }}
+
+
+
+
+
+                <!-- Hide or show this box -->
+                <div class="form-group" >
+                    <label class="d-block  col-6 ">
+                        <h4>Enable this box?</h4>
+                    </label>
+                    <div class="col-4 col-sm-6">
+
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        {{ render_field(subinfoboxform.enabled,autocomplete="off",class="form-control") }}
+
+                    </div>
+                </div>
+
+
+                <!-- Sub common description -->
+                <div class="form-group">
+                    <label class="col-12">
+                        <h4>Content</h4>
+                    </label>
+                    <div class="col-12 mb-1">
+                        Add custom info for your room.
+                        <a href="{{ url_for('markdownguide') }}">
+                            Markdown Cheat Sheet
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        {{ render_field(subinfoboxform.description,
+                        autocomplete="off",
+                        class="form-control bg-dark text-white",style="width: 100%") }}
+
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col-12 text-center">
+                    <div class="col-12" >
+                        {{ render_field(subinfoboxform.submit,  value="Submit", autocomplete="off", class="btn btn-dark w-100") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

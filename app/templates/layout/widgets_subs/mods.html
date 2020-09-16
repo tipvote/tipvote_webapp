@@ -1,0 +1,24 @@
+
+<div class="row mb-2 pr-2">
+    <div class="col-2"></div>
+    <div class="col-10 second_color border border-dark pb-2">
+
+        <div class="text-center">
+            <b>Mods</b>
+        </div>
+
+
+            <ul class="list-group list-group-flush">
+                Sub Owner:<br>
+                <a href="{{ url_for('profile.main', user_name=thesub.creator_user_name) }}">
+                    /u/{{ thesub.creator_user_name }}
+                </a>
+                <br><br>
+                Mods:<br>
+                {% for mod in mods %}
+                    <a href="{{ url_for('profile.main', user_name=mod.user_name) }}">/u/{{ mod.user_name }}</a><br>
+                {% endfor %}
+            </ul>
+
+    </div>
+</div>

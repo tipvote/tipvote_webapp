@@ -1,0 +1,41 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 text-center mb-5">
+        <h5>Discover New Rooms</h5>
+    </div>
+    <div class="row ml-3">
+
+
+    <div class="col-12 second_color border border-dark pt-3 pb-3">
+
+        {% for sub in popularsubs %}
+              <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+            {% if sub.mini_image == '' %}
+                <div class="row " >
+                    <div class="col-4">
+                        <span class="dot" style="background-color: dodgerblue;"></span><br>
+                        <h4>{{ sub.subcommon_name }}</h4>
+
+                    </div>
+                    <div class="col-8 pt-2  pl-0 " style="margin-top: -5px;">
+                      {{ sub.description }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-4">
+                        <img class="rndimg" alt={{ sub.subcommon_name }} src="{{ url_for('common.banner_image',filename=sub.mini_image) }}" width="50px">
+                        <br>
+                          <h4> {{ sub.subcommon_name }}</h4>
+                    </div>
+                    <div class="col-8 pl-0 ">
+                       {{ sub.description }}
+                    </div>
+                </div>
+            {% endif %}
+              </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

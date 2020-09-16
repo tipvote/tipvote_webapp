@@ -1,0 +1,20 @@
+
+<div class="row mb-5 ">
+    <div class="col-2"></div>
+    <div class="col-10  pb-2 second_color">
+        <div class="border-bottom mb-2">
+            Stats
+        </div>
+        Post Views: {{ post.page_views }}<br>
+        Comments: {{ post.comment_count }}<br><br>
+        Upvotes: {{ post.upvotes_on_post }}<br>
+        Downvotes: {{ post.downvotes_on_post }}<br><br>
+
+        {% if post.decay_rate %}
+        Decay Rate: {{ post.decay_rate }}<br>
+        {% endif %}
+        Current Score: {{ post.hotness_rating_now }}<br>
+        Top Score: {{ post.highest_exp_reached }}<br>
+    </div>
+</div>
+

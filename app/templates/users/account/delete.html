@@ -1,0 +1,53 @@
+{% extends "layout/layout_account.html" %}
+{% block content %}
+    <div class="col-12 second_color">
+
+        <form method="post" action="{{ url_for('users.deleteaccountconfirm') }}">
+            {{ deleteform.csrf_token }}
+            <div class="form-group w-100">
+
+                <div class="col-12">
+                    <div class="text-center"><h3>{{ current_user.user_name }}</h3></div>
+
+                    Enter your user name here to delete your account.  Once deleted, your stats and info will be PERMANTELY DELETED.
+                    There is no recovering from this, not even by an admin.  IT IS FOREVER. <br>
+                    Things that will be deleted:
+                    <ul>
+                        <li>
+                            Your profile stats
+                        </li>
+                        <li>
+                            Wallet Transactions
+                        </li>
+                        <li>
+                            Wallet Balance
+                        </li>
+                        <li>
+                            Business Pages and stats
+                        </li>
+                        <li>
+                            User Comments
+                        </li>
+                        <li>
+                            User posts will not be deleted..rather your username and profile image will be removed.
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group w-100">
+                <label class="col-12 col-form-label text-center"><b>Your UserName </b></label>
+                <div class="col-12 col-sm-6 offset-sm-3 ">
+                    {{ render_field(deleteform.user_name,autocomplete="off",class="form-control bg-dark text-white w-100") }}
+                </div>
+            </div>
+
+            <hr>
+            <div class="col-12 text-center">
+                {{ render_field(deleteform.submit,  value="DELETE MY ACCOUNT", autocomplete="off", class="btn btn-danger ") }}
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}

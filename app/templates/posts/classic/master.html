@@ -1,0 +1,58 @@
+<div class="col-12 rounded second_color mb-3 border border-dark ">
+
+    <!--Normal post-->
+    {% if post.type_of_post == 0 %}
+        {% if post.hidden == 0 %}
+            {% include 'posts/classic/_topinfo.html' %}
+            {% if post.shared_post == 0 %}
+                {% include 'posts/classic/_text.html' %}
+                {% include 'posts/classic/_url.html' %}
+                {% include 'posts/classic/_image.html' %}
+            {% else %}
+                <div class="col-12">
+                    <div class="row  p-3">
+                        {% include 'posts/classic/_text.html' %}
+                        <div class="col-12 border border-dark">
+                            {% include 'posts/classic/_shared_topinfo.html' %}
+                            {% include 'posts/classic/_shared_text.html' %}
+                            {% include 'posts/classic/_url.html' %}
+                            {% include 'posts/classic/_image.html' %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <p class="text-danger font-weight-bold text-center col-12">Post has been deleted</p>
+        {% endif %}
+
+    <!--business post-->
+    {% elif post.type_of_post == 1 %}
+        {% if post.hidden == 0 %}
+            {% include 'posts/classic_business/_topinfo.html' %}
+            {% if post.shared_post == 0 %}
+                {% include 'posts/classic_business/_text.html' %}
+                {% include 'posts/classic_business/_url.html' %}
+                {% include 'posts/classic_business/_image.html' %}
+            {% else %}
+                <div class="col-12">
+                    <div class="row p-3">
+                        {% include 'posts/classic_business/_text.html' %}
+                        <div class="col-12 border border-dark">
+                            {% include 'posts/classic_business/_shared_topinfo.html' %}
+                            {% include 'posts/classic_business/_shared_text.html' %}
+                            {% include 'posts/classic_business/_url.html' %}
+                            {% include 'posts/classic_business/_image.html' %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <p class="text-danger font-weight-bold text-center col-12">Post has been deleted</p>
+        {% endif %}
+    {% else %}
+    {% endif %}
+
+    {% include 'posts/classic/_buttons.html' %}
+    {% include 'posts/classic/_admin_buttons.html' %}
+
+</div>

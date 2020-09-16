@@ -1,0 +1,25 @@
+{% extends "layout/layout_msg.html" %}
+{% block content %}
+
+    <div class="col-12">
+
+        <div class="col-12 text-center"><h5>Messages</h5></div>
+        {% if posts %}
+            <div class="col-12">
+                {% for f in posts %}
+                    {% if f.msg_type == 1 %}
+                         {% include '/msg/_msg_layout.html' %}
+                    {% elif f.msg_type == 2 %}
+                         {% include '/msg/_msg_biz_layout.html' %}
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center mt-5">
+                <h5>No Messages!</h5>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

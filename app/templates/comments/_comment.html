@@ -1,0 +1,196 @@
+<div class="col-12 ">
+    <div class="row justify-content-end   rounded " >
+        {% if comment.path|length <= 6 %}
+            <div class="col-12 text-white mt-4 second_color rounded" >
+            <div class="row">
+        {% elif 7 <=  comment.path|length <= 13  %}
+            <div class="col-1 second_color rounded"></div>
+            <div class="col-11 second_color rounded">
+            <div class="row ">
+        {% elif 14 <=  comment.path|length <= 20  %}
+            <div class="col-2 second_color rounded"></div>
+            <div class="col-10 second_color rounded">
+            <div class="row">
+        {% else %}
+            <div class="col-3 second_color rounded"></div>
+            <div class="col-9 second_color rounded">
+            <div class="row">
+        {% endif %}
+
+        <!--- left side voting -->
+        <div class="col-2 mb-0 " style="max-width: 45px">
+            <div class="row mt-0 ">
+                <div class="col-12 mt-0 mb-0  pb-0 pt-0 ">
+                    <form method="post" action="{{ url_for('vote.comment_vote',
+                                                                    subname=subname,
+                                                                    votetype=1,
+                                                                    postid=post.id,
+                                                                    commentid=comment.id
+                                                                    ) }}">
+                        {{ voteform.csrf_token }}
+                        <button type="submit" class="btn btn-upvote" style="margin-left:-10px;">
+                            <img src="{{ url_for('static', filename='images/arrows/uparrow.png')  }}"
+                                 width="20px" height="20px">
+                        </button>
+                    </form>
+                </div>
+
+
+                <div class="col-12 pb-0 mt-0 mb-0  pb-0 pt-0 " >
+                    <form method="post" action="{{ url_for('vote.comment_vote',
+                                                subname=subname,
+                                                votetype=2,
+                                                postid=post.id,
+                                                commentid=comment.id)}}">
+                        {{ voteform.csrf_token }}
+                        <button type="submit" class="btn btn-downvote"  style="margin-left:-10px;">
+                            <img src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
+                                 width="20px" height="20px">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--- END left side voting -->
+        <!--- RIGHT SIDE INFO -->
+        {% if comment.body_clean|length < 20 %}
+            <div class="col-5 third_color rounded mb-0">
+        {% elif 20 <=comment.body_clean|length <= 40 %}
+            <div class="col-6 third_color rounded mb-0">
+        {% elif 50 <=comment.body_clean|length <= 80 %}
+            <div class="col-7 third_color rounded mb-0">
+        {% else %}
+            <div class="col-10 third_color rounded mb-0">
+        {% endif %}
+
+        <div class="row" style="font-size: 14px;">
+
+            <!-- username line -->
+            <div class="col-auto " style="display: inline-block; ">
+                {% if comment.user_id == post.user_id %}
+                    {% if comment.userhidden == 1 %}
+                        <div class="anoncolor " style="display: inline">
+                            {% if comment.visible_user_name|length > 10 %}
+                                <div style="font-size: 11px; display: inline">  {{ comment.visible_user_name }} <br></div>
+                            {% else %}
+                                {{ comment.visible_user_name }}
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="user_name_color_same_as_poster" style="display: inline">
+                            <a  href="{{ url_for('profile.main', user_name=comment.user_name) }}">
+                                {% if comment.visible_user_name|length > 10 %}
+                                   <div style="font-size: 11px; display: inline">  {{ comment.visible_user_name }} <br></div>
+                                {% else %}
+                                    {{ comment.visible_user_name }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if comment.userhidden == 1 %}
+                        <div class="anoncolor " style="display: inline">
+                            {% if comment.visible_user_name|length > 10 %}
+                                <div style="font-size: 11px; display: inline">   {{ comment.visible_user_name }} <br></div>
+                            {% else %}
+                                {{ comment.visible_user_name }}
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="user_name_color " style="display: inline; ">
+                            <a class="" href="{{ url_for('profile.main', user_name=comment.user_name) }}">
+                                {% if comment.visible_user_name|length > 10 %}
+                                   <div style="font-size: 11px; display: inline">   {{ comment.visible_user_name }} <br></div>
+                                {% else %}
+                                    {{ comment.visible_user_name }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <b> {{ comment.total_exp_commons }} Exp</b>
+
+                {% if comment.deleted == 0 %}
+                    <a class="btccashgreen pl-2" style="font-size: 12px" href="{{ url_for('tip.create_tip_comment',
+                       subname=post.subcommon_name,postid=post.id,commentid=comment.id) }}">
+                        Tip Crypto
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <!-- Crypto top lines line -->
+        {% if comment.total_recieved_btc > 0  %}
+            <div class="row">
+                <div class="col-12 btcorange"  style="font-size: 14px;">
+                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
+                         width="20px" height="20px"> Tips:   {{ comment.total_recieved_btc }}
+                </div>
+            </div>
+        {% endif %}
+        {% if comment.total_recieved_bch > 0  %}
+            <div class="row">
+                <div class="col-12 btcorange"  style="font-size: 14px;">
+                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
+                         width="20px" height="20px"> Tips:   {{ comment.total_recieved_bch }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="row ">
+            <div class="col" style="font-size: 12px; ">
+                {% if comment.hidden == 0 %}
+                    {% if comment.body_clean %}
+                        {{ comment.body_clean| safe }}
+                    {% else %}
+                        {{ comment.body }}
+                    {% endif %}
+                {% else %}
+                    Removed
+                {% endif %}
+            </div>
+        </div>
+        </div>
+
+        <!-- Crypto top lines line -->
+        <div class="col-10 mt-0 mb-2">
+            <div class="accordion w-100" id="accordionExample" style="display: inline-block">
+                <div class="row mt-0">
+                    <div class="col-10 offset-1 user_name_color">
+                        {% if comment.deleted == 0 %}
+                            {% if current_user.id == comment.user_id %}
+
+                                <a class="user_name_color" href="{{ url_for('edit.comment_edit', commentid=comment.id) }}">
+                                    Edit -
+                                </a>&nbsp
+
+                                <a class="user_name_color" href="{{ url_for('edit.comment_delete_text', commentid=comment.id) }}">
+                                    Delete -
+                                </a>&nbsp
+
+                            {% endif %}
+                        {% endif %}
+                        <a class="user_name_color" href="{{ url_for('mod.reportcomment', commentid=comment.id, subname=subname, postid=comment.commons_post_id) }}">
+                            Report -
+                        </a>
+                        <div id="accordionone " style="display: inline">
+
+                            <a data-toggle="collapse" data-target="#{{ comment.realid }}1" aria-expanded="true" aria-controls="collapseOne">
+                                Reply -
+                            </a>&nbsp
+                            {{ moment(timestamp=comment.created, local=False).fromNow(refresh=True)  }}
+                            <div id="{{ comment.realid }}1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                {% include 'create/comment/_subcomment.html' %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>

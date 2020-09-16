@@ -1,0 +1,38 @@
+<div class="row second_color  border-bottom border-dark " >
+    <div class="col-12 text-white text-center">
+        {% if thebiz.user_name == current_user.user_name %}
+            <a href="{{ url_for('business_edit.bannerpicture', business_id=thebiz.id) }}">
+                Upload a Banner
+            </a>
+        {% endif %}
+        <div class="col-12 mb-0" style="font-size: 24px">
+            b/{{ thebiz.business_name }}
+        </div>
+        <div class="col-12 mb-0 text-center" style="font-size: 24px">
+            {% if thebiz.official_business_name == '' %}
+                        {% if thebiz.user_name == current_user.user_name %}
+                    <a href="{{ url_for('business_edit.view_bio', business_name=thebiz.business_name) }}">
+                        Add a name
+                    </a>
+                    {% else %}
+                    {% endif %}
+            {% else %}
+                {{ thebiz.official_business_name }}
+            {% endif %}
+        </div>
+        <div class="col-12">
+            {% if current_user.is_authenticated %}
+              {% if current_user.user_name != thebiz.user_name %}
+                {% if seeifsubbed == 1 %}
+                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down text-white") }}
+                {% else %}
+                    {{ render_field(subform.subscribe,  value="Subscribe", autocomplete="off", class="btn btn-sm btn-tipvote-up") }}
+                {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-12 text-center pt-2 pb-0">
+
+        </div>
+    </div>
+</div>

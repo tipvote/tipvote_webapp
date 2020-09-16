@@ -1,0 +1,100 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 text-center mb-5">
+        <h5>Markdown Guide</h5>
+    </div>
+
+    <table class="table table-bordered table-dark">
+
+        <thead class="thead-light">
+        <tr>
+            <th>Element</th>
+            <th>Markdown Syntax</th>
+            <th>Result</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Heading</td>
+            <td><code># H1<br>
+                ## H2<br>
+                ### H3</code>
+            </td>
+            <td>
+                <h1>H1</h1>
+                <h2>H2</h2>
+                <h3>H3</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Bold</td>
+            <td><code>**bold text**</code></td>
+            <td><b>Bold</b></td>
+        </tr>
+        <tr>
+            <td>Italic</td>
+            <td><code>*italicized text*</code></td>
+            <td><i>Italic</i></td>
+        </tr>
+        <tr>
+            <td>Blockquote</td>
+            <td><code>&gt; blockquote</code></td>
+            <td>Text<blockquote cite="http://www.worldwildlife.org/who/index.html">>Blockquote html</blockquote> Text</td>
+        </tr>
+        <tr>
+            <td>Ordered List</td>
+            <td><code>
+                1. First item<br>
+                2. Second item<br>
+                3. Third item<br>
+            </code></td>
+            <td>
+                <ol>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ol>
+            </td>
+        </tr>
+        <tr>
+            <td>Unordered List</td>
+            <td>
+                <code>
+                    - First item<br>
+                    - Second item<br>
+                    - Third item<br>
+                </code>
+            </td>
+            <td>
+                <ul style="list-style-type:disc;">
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Code</td>
+            <td><code>`code` or ```structured code block` ```</code></td>
+            <td> <code>A piece of computer code</code> </td>
+        </tr>
+        <tr>
+            <td>Horizontal Rule</td>
+            <td><code>---</code></td>
+            <td><hr class="text-white bg-white"></td>
+        </tr>
+        <tr>
+            <td>Link</td>
+            <td><code>[title](https://www.example.com)</code></td>
+            <td> <a href="https://www.tipvote.com/">tipvote</a> </td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><code>![alt text](https://www.tipvote.com/images/logo.png)</code></td>
+            <td><img src="https://www.tipvote.com/images/logo.png" alt="Tipvote logo"></td>
+        </tr>
+        </tbody>
+
+    </table>
+{% endblock %}

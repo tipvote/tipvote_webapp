@@ -1,0 +1,58 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+        <div class="col-12 ">
+        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+            Back to {{ thesub.subcommon_name }}
+        </a>
+    </div>
+
+    <table class="table table-condensed text-white" >
+        <thead>
+        <tr>
+            <th>Created</th>
+            <th>Comment Body</th>
+            <th>Reported By</th>
+            <th>Poster</th>
+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody >
+        {% for report in reportedcomments %}
+            <tr>
+                <td >{{ moment(timestamp=report.created, local=False).fromNow(refresh=True)  }}</td>
+                <td >{{report.comment_body }}</td>
+                <td ><a href="{{ url_for('profile.main', user_name=report.reporter_user_name) }}">{{ report.reporter_user_name }}</a></td>
+                <td > <a href="{{ url_for('profile.main', user_name=report.commenter_user_name) }}">{{ report.commenter_user_name }}</a></td>
+                <td style="display: inline-block">
+                    <form method="post" action="{{ url_for('mod.deletereportedcomment', commentid=report.id, subname=report.subcommon_name) }}">
+                        {{ deletepostform.csrf_token }}
+                        {{ render_field(deletepostform.submit,  value="Delete Comment", autocomplete="off", class="btn btn-danger btn-sm") }}
+                    </form>
+                    <form method="post" action="{{ url_for('mod.deletereportedcommentsandbanuser',commentid=report.id, subname=report.subcommon_name) }}">
+                        {{ deletepostbanuserform.csrf_token }}
+                        {{ render_field(deletepostbanuserform.submit,  value="Delete and Ban", autocomplete="off", class="btn btn-danger btn-sm") }}
+                    </form>
+                    <form method="post" action="{{ url_for('mod.unreportcomment',commentid=report.id, subname=report.subcommon_name) }}">
+                        {{ unreport.csrf_token }}
+                        {{ render_field(unreport.submit,  value="Remove Report", autocomplete="off", class="btn btn-success btn-sm") }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row mt-5">
+        <div class="col-12 text-center justify-content-center">
+            {% if prev_url %}
+                <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
+            {% endif %}
+            {% if next_url %}
+                <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

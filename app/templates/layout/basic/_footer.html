@@ -1,0 +1,117 @@
+<footer class="page-footer headercolor">
+    <div class="container d-flex justify-content-between pb-4">
+        <div class="col-md-3 mt-md-0 mb-3">
+        </div>
+        <div class="col-md-3 mt-md-0 mb-3">
+            <h5 class="text-uppercase">Social Media</h5>
+            <ul class="list-unstyled">
+                <li>
+                    Tipvote: <a href="{{ url_for('profile.main', user_name='tipvote') }}">u/tipvote</a>
+                </li>
+                <li>
+                    Twitter: <a href="https://twitter.com/tipvoteBTC">@tipvoteBTC</a>
+                </li>
+                <li>
+                    Reddit: <a href="https://www.reddit.com/user/tipvotebtc/">/u/tipvoteBTC</a>
+                </li>
+                <li>
+                    Facebook: <a href="https://www.facebook.com/tipvoteBTC">tipvoteBTC</a>
+                </li>
+
+            </ul>
+        </div>
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <div class="col-md-3 mb-md-0 mb-3">
+            <h5 class="text-uppercase">Site</h5>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{{ url_for('index') }} ">
+                        All
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('users.account') }}">
+                        Account Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('users.changepassword') }}">
+                        Change Password
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('users.changepin') }}">
+                        Change Pin
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('markdownguide') }}">
+                        Markdown Cheat Sheet
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('wallet_btc.home') }}">
+                        BTC Wallet
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('wallet_bch.home') }}">
+                        BCH Wallet
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('wallet_xmr.home') }}">
+                        XMR Wallet
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('coins.bank') }}">
+                        TipVote Coins
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('affiliate') }}">
+                        Affiliated Sites
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3 mb-md-0 mb-3">
+            <h5 class="text-uppercase">Help</h5>
+            <ul class="list-unstyled">
+                <li>
+                    <a class="" href="{{ url_for('subforum.sub', subname='announcements') }}">
+                        Announcements
+                    </a>
+                </li>
+
+                <li>
+                    <a class="" href="{{ url_for('subforum.sub', subname='help') }}">
+                        Help
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('disclaimer') }}">
+                        Disclaimer
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('legal.main') }}">
+                        Legal/DMCA
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="{{ url_for('bugbounty') }}">
+                        Bug Bounty
+                    </a>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-copyright text-center py-3">
+        v1.2.01  © 2020 Copyright: tipvote.com
+    </div>
+</footer>

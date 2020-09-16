@@ -1,0 +1,51 @@
+
+    <div class="col-12 second_color border border-dark p-2 mb-2" >
+
+    <form method="post"
+          action="{{ url_for('create.create_post_room',subname=subname) }}"
+          enctype="multipart/form-data">
+        {{ mainpostform.csrf_token }}
+
+        <!--Select Room -->
+        <div class="form-group col-12 mb-3 mt-0 ">
+          <h5>  Post to: <b>{{ subname }}</b> </h5>
+        </div>
+
+        <!-- Post Message -->
+        <div class="form-group col-12 mb-3">
+            {{ render_field(mainpostform.post_message,
+            autocomplete="off",
+            class="form-control bg-dark text-white",
+             placeholder="Post to a room  ...") }}
+        </div>
+
+        <!--Image -->
+        <div class="form-group col-12 mb-3 ">
+            <div class="row bg-dark">
+                <div class="col second_color">
+                    {{ render_field(mainpostform.image_one) }}
+                </div>
+            </div>
+        </div>
+
+        <!--Over 18 -->
+        <div class="form-group col-12 mb- ">
+            <div class="row bg-dark">
+
+                <div class="col-12 second_color">
+                    {{ render_field(mainpostform.age) }}
+
+                 Over 18 post?
+                </div>
+            </div>
+        </div>
+        <!-- Submit Post -->
+        <div class="form-group text-center col-12 mb-3">
+            <div class="row">
+                <div class="col-12 " >
+                    {{ render_field(mainpostform.submit,value="Post", class="btn btn-tipvote-up btn-block") }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

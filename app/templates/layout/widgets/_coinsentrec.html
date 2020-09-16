@@ -1,0 +1,26 @@
+<div class="col-12 mb-1 text-left">
+    {% if current_user.is_authenticated %}
+        <b>Coin Donated:</b><br>
+        {% if  current_user.id|getuserbtcstats_total_donated == 0 %}
+            BTC: 0.00 <br>
+        {% elif current_user.id|getuserbtcstats_total_donated > 0 %}
+            BTC: {{ current_user.id|getuserbtcstats_total_donated }}  <br>
+        {% else %}
+        {% endif %}
+
+
+        <br>
+
+        <b>Coin Recieved:</b><br>
+        {% if  current_user.id|getuserbtcstats_total_recieved == 0 %}
+            BTC: 0.00  <br>
+        {% elif current_user.id|getuserbtcstats_total_recieved > 0 %}
+            BTC: {{ current_user.id|getuserbtcstats_total_recieved }}  <br>
+        {% else %}
+        {% endif %}
+
+
+    {% else %}
+    {% endif %}
+
+</div>

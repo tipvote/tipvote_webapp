@@ -1,0 +1,14 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='images/coins/bch/btccash_long.png')  }}" width="40%">
+    </div>
+
+    {% include 'wallet_bch/_overview.html' %}
+    {% include 'wallet_bch/_deposit.html' %}
+    {% include 'wallet_bch/_withdraw.html' %}
+    {% include 'wallet_bch/_history.html' %}
+
+
+{% endblock %}

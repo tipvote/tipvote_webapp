@@ -1,0 +1,32 @@
+
+<div class="col-12  text-white  mt-0 pt-2">
+    <!--- Show tips -->
+    <div class="row text-center justify-content-center">
+        <a class="text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+            {% if post.post_donations == None %}
+            {% else %}
+                {% if post.post_donations.total_recieved_btc > 0 %}
+                    {{ post.post_donations.total_recieved_btc|btctostring }} BTC
+                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
+                         width="20px" height="20px">
+                {% else %}
+                    0.00000000 BTC <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                {% endif %}
+            {% endif %}
+        </a>
+        &nbsp;&nbsp;&nbsp;
+        <a class="text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+            {% if post.post_donations == None %}
+            {% else %}
+                {% if post.post_donations.total_recieved_bch > 0 %}
+                    {{ post.post_donations.total_recieved_bch }} BCH
+                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                {% else %}
+                    0.00000000 BCH <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
+                                        width="20px" height="20px">
+                {% endif %}
+            {% endif %}
+        </a>
+    </div>
+</div>
+

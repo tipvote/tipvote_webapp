@@ -1,0 +1,49 @@
+
+
+  <div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2">
+
+        <div class="row second_color">
+            <div class="col-12 text-center">
+                  <img  src="{{ url_for('static', filename='images/coins/bch/btccash_long.png')  }}" width="40%">
+            </div>
+            <form method="post" action="{{ url_for('promote.promotepost_bch',subname=thesub.subcommon_name, postid=post.id) }}">
+                {{ form_bch.csrf_token }}
+                <div class="form-group row mt-5">
+                    <label  class="col-4 col-form-label text-md-right">Amount in BCH:</label>
+                    <div class="col-8">
+                        {{ render_field(form_bch.custom_amount, class="bg-dark text-white ") }} BCH
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label  class="col-4 col-form-label text-md-right"></label>
+                    <div class="col-8">
+                        {{ render_field(form_bch.submit,  value="Send Coin", autocomplete="off", class="btn btn-success ") }}
+                    </div>
+                </div>
+
+
+                <div class="col-12 mt-2  mb-2 text-center">
+                    <h5>Quick Promote</h5>
+                </div>
+                <div class="form-group row text-center justify-content-center">
+
+                    {{ render_field(form_bch.cent_bch,  value="0.01$", autocomplete="off", class="btn btn-success mr-1") }}
+
+                    {{ render_field(form_bch.quarter_bch,  value="0.25$", autocomplete="off", class="btn btn-success mr-1") }}
+
+                    {{ render_field(form_bch.dollar_bch,  value="1.00$", autocomplete="off", class="btn btn-success mr-1") }}
+
+                    {{ render_field(form_bch.five_dollar_bch,  value="5.00$", autocomplete="off", class="btn btn-success mr-1") }}
+
+                    {{ render_field(form_bch.ten_dollar_bch,  value="10.00$", autocomplete="off", class="btn btn-success mr-1") }}
+
+                </div>
+
+                <div class="col-12">
+                    Please Note: Once you hit an amount above, it will be automatically taken
+                    from your wallet and given to post/commenter/poster.  There is no confirm screen after this.
+                </div>
+            </form>
+        </div>
+
+    </div>

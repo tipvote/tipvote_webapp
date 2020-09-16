@@ -1,0 +1,48 @@
+
+<div class="col-12 second_color rounded mb-3 p-1  border border-dark">
+    <div class="col-12 mb-2">
+    <div class="row ">
+
+        <div class="col-6"> <h5>Following</h5></div>
+        <div class="col-4 ">
+            <a href="{{ url_for('profile.profile_following_user', user_name=theuser.user_name) }}">
+                Followers
+            </a>
+        </div>
+</div>
+    </div>
+
+        <div class="row  m-0">
+            {% for follower in get_followers %}
+                {% if follower %}
+
+                    <div class="col-3 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-2 m-l-0 mr-0 text-center ">
+                        <a href="{{ url_for('profile.main', user_name = follower.user_name)}}">
+                            {% if follower.profileimage == '' %}
+                                <img class="img-responsive rounded"
+                                     src="{{ url_for('static',
+                                 filename='images/noprofile.png') }}"
+                                     width="75px" height="75px"
+                                >
+                            {% else %}
+                                <img class="img-responsive rounded"
+                                     src="{{ url_for('common.profile_image',
+                                 filename= follower.profileimage) }}"
+                                     width="70px" height="70px"
+                                >
+                            {% endif %}
+                            <div class="col-12 text-center text-white">
+                                {{ follower.user_name }}
+                            </div>
+                        </a>
+                    </div>
+
+                {% else %}
+                    <div class="text-center">
+                        {{ theuser.user_name }} is not following anyone
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+</div>

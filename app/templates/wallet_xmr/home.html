@@ -1,0 +1,11 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="text-center">
+        <img  src="{{ url_for('static', filename='images/coins/xmr/xmr_logo_long.png')  }}" width="30%">
+    </div>
+   {% include 'wallet_xmr/_deposit.html' %}
+   {% include 'wallet_xmr/_withdraw.html' %}
+   {% include 'wallet_xmr/_history.html' %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="text-center text-danger ">
+        <h5>Monero (XMR) Stagenet</h5>
+    </div>
+
+   {% include 'wallet_xmr_stagenet/_deposit.html' %}
+
+   {% include 'wallet_xmr_stagenet/_withdraw.html' %}
+
+   {% include 'wallet_xmr_stagenet/_history.html' %}
+
+{% endblock %}

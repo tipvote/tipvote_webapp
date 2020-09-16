@@ -1,0 +1,144 @@
+
+<div class="container-fluid mb-3">
+    <div class="col-12" >
+        <a href="{{ url_for('index') }}">
+            <img class="center" src="{{ url_for('static', filename='images/logo2.png')  }}">
+        </a>
+    </div>
+    <div class="row pt-2 pl-0 pr-0 headercolor">
+        <div class="col-12">
+            <a class="btn btn-dark text-white" href="{{ url_for('index') }}">
+                All
+            </a>
+            <a class=" btn btn-dark text-white" href="{{ url_for('frontpage.frontpage_home') }}">
+                Rooms
+            </a>
+            <a class=" btn btn-dark text-white" href="{{ url_for('people.people_home') }}">
+                People
+            </a>
+            <a class=" btn btn-dark text-white" href="{{ url_for('followers.followers_home') }}">
+                Followers
+            </a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                    <button class="btn btn-dark   text-right">
+                        <b> {{ current_user.user_name }}</b>
+                    </button>
+                </a>
+            {% else %}
+
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row pt-3 pl-0 pr-0 headercolor">
+        <div class="col-12">
+
+            <a class="btn btn-dark" href="{{ url_for('wallet_btc.home') }}">
+                <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Btc Wallet</b>
+            </a>
+            <a  class="btn btn-dark" href="{{ url_for('wallet_bch.home') }}">
+                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bch Wallet</b>
+            </a>
+                        <a  class="btn btn-dark" href="{{ url_for('wallet_xmr.home') }}">
+                <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>XMR Wallet</b>
+            </a>
+            <a class="btn btn-dark"  href="{{ url_for('coins.bank') }}">
+                <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"><b>Tipvote Coins</b>
+            </a>
+        </div>
+    </div>
+    <div class="row pt-3 pl-0 pr-0 headercolor">
+        {% if current_user.is_authenticated %}
+            <div class="col-10">
+                {% if current_user.is_authenticated %}
+                    <a class="btn btn-dark" href="{{ url_for('mysubscriptions') }}" role="button">
+                        My Rooms
+                    </a>
+                {% else %}
+                {% endif %}
+                <a class="btn btn-dark" href="{{ url_for('create.createsubforum') }}">
+                    Create a Room
+                </a>
+            </div>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            {% if thenotes %}
+                <div class="float-right">
+                    {% if thenotes == 0 %}
+                        <div class="btn btn-dark" role="button">
+                            <a class="bg-dark text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
+                        </div>
+                    {% elif thenotes > 0   %}
+                        <div class="btn btn-danger" role="button">
+                            <a class="bg-danger text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i>{{ thenotes }}</a>
+                        </div>
+                    {% else %}
+                        <div class="btn btn-dark" role="button">
+                            <a class="bg-dark text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="float-right">
+                    <div class="btn btn-dark" role="button">
+                        <a class="bg-dark text-white p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            <div class="col-2">
+            <div class="dropdown">
+                <button class="btn btn-dark  dropdown-toggle " type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bars fa-1x"></i>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        <b>View Profile</b>
+                    </a>
+                    <a class="dropdown-item" href="{{ url_for('mysubscriptions') }}">
+                        <b>My Rooms</b>
+                    </a>
+                    <a class="dropdown-item" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
+                        <b>Account</b>
+                    </a>
+                    <a class="dropdown-item" href="{{ url_for('profileedit.viewsavedposts') }}">
+                        <b>Saved Posts</b>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
+                        <b> Logout</b>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+    <div class="row pt-2 pl-0 pr-0 headercolor">
+        <div class="col-12">
+
+        </div>
+    </div>
+
+    <div class="row pt-3 headercolor">
+
+        <div class="col-12 text-center mb-3">
+            {% if current_user.is_authenticated %}
+
+            {% else %}
+                <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
+                    Login
+                </a>
+                <a class="btn btn-tipvote-up" href="{{ url_for('users.register') }}" role="button">
+                    Register
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>

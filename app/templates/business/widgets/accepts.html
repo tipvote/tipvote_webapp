@@ -1,0 +1,37 @@
+<div class="col-12 mb-3 second_color rounded p-3  border border-dark">
+
+        <div class="col-12 mb-2">
+            <div class="row ">
+                <div class="col-4"><h5>Accepting</h5></div>
+                <div class="col-4">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.user_name == thebiz.user_name %}
+                            <a href="{{ url_for('business_edit.acceptswhatcurrency', business_name=thebiz.business_name) }}">
+                                Edit Accepting
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" style="font-size: 14px">
+            <p>
+                {% if thebiz.biz_accepts.accepts_bitcoin == 1 %}
+                     &nbsp;&nbsp; <i class="fa fa-check fa-2x bg-success"></i> Accepts Bitcoin <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"> <br>
+
+                {% endif %}
+
+                {% if thebiz.biz_accepts.accepts_bitcoin == 1 %}
+                    &nbsp;&nbsp;  <i class="fa fa-check fa-2x bg-success"></i>Accepts Bitcoin Cash <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                {% endif %}
+
+                {% if thebiz.biz_accepts.accepts_monero == 1 %}
+                 &nbsp;&nbsp; &nbsp;  <i class="fa fa-check fa-2x bg-success"></i>Accepts Monero<br>
+                {% endif %}
+
+
+            </p>
+        </div>
+
+</div>

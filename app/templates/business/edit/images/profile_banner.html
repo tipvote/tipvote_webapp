@@ -1,0 +1,45 @@
+{% extends "business/edit/layout.html" %}
+{% block content %}
+    <div class="col-12">
+    <div class="row justify-content-center second_color">
+        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ url_for('business_edit.bannerpicture', business_id = thebiz.id) }}">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                <label class="col-12 text-center"><b>Banner Image</b></label>
+                <div class="col-12 text-center">
+                    {% if thebiz.bannerimage == '' %}
+                       <img class="img-responsive" src="{{ url_for('static', filename='images/nobanner.png') }}" style="width:500px; height:100px ">
+                    {% else %}
+
+                        <img src="{{ url_for('common.business_image', filename=thebiz.bannerimage)  }}" width="500px" height="250px">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-12">
+                    <label><b>Upload A Banner Image</b></label>
+                    {{ render_field(form.imageprofile, class="form-inline",
+                                value=thebiz.bannerimage) }}
+                    <div id="form_error">
+                    <span class="error">
+                          {% if form.imageprofile.errors %}
+                              {% for error in form.imageprofile.errors %}
+                                  {{ error }}. Only 'png', 'jpeg', 'jpg', 'png', 'gif'
+                                  extensions allowed.  Images below 5mb only.
+                              {% endfor %}
+                          {% endif %}
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                {% if thebiz.bannerimage == '' %}
+                {% else %}
+                    {{ render_field(form.delete, value="Delete Image", class='btn btn-danger') }}
+                {% endif %}
+                {{ render_field(form.submit, value="Update Banner Picture", autocomplete="off", class="btn btn-success ") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

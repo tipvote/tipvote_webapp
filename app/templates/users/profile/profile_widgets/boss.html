@@ -1,0 +1,75 @@
+
+
+<div class="col-12 second_color rounded mb-2 p-1  border border-dark">
+        {% if moddingcount > 0 %}
+
+    <div class="text-center "> <b>Modding</b></div>
+        <br>
+        <div class="pl-0 linkcolor">
+            {% for subs in usersubforums %}
+                {% if subs %}
+                    <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub',  subname= subs.subscriber.subcommon_name )}} ">
+                        {% if subs.subscriber.mini_image == '' %}
+                            <div class="row " style="margin-bottom: -5px">
+                                <div class="col-3 ml-0">
+                                    <span class="dot" style="background-color: dodgerblue;"></span>
+                                </div>
+                                <div class="col-9 pt-2  pl-0 ml-0" style="margin-top: -5px;">
+                                   {{ subs.subscriber.subcommon_name }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="row">
+                                <div class="col-3 ml-0">
+                                    <img class="rndimg"
+                                         alt={{ subs.subscriber.subcommon_name }}
+                                         src="{{ url_for('common.banner_image', filename=subs.subscriber.mini_image) }}"
+                                         width="20px"
+                                    >
+                                </div>
+                                <div class="col-9 pl-0 ml-0">
+                              {{ subs.subscriber.subcommon_name }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </a>
+                    <br>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if ownercount > 0 %}
+            <div class="text-center mt-2"> <b>Boss</b></div>
+
+        <div class="pl-0 linkcolor">
+            {% for sub in seeifowner %}
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+                    {% if sub.mini_image == '' %}
+                        <div class="row " >
+                            <div class="col-3">
+                                <span class="dot" style="background-color: dodgerblue;"></span>
+                            </div>
+                            <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                {{ sub.subcommon_name }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row " >
+                            <div class="col-3">
+                                <img class="rndimg"
+                                     alt={{ sub.subcommon_name }}
+                                     src="{{ url_for('common.banner_image',filename=sub.mini_image) }}" width="20px"
+                                 >
+                            </div>
+                            <div class="col-9 pl-0 ">
+                                {{ sub.subcommon_name }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+

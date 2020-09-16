@@ -1,0 +1,60 @@
+<div class="col-12 mb-3 second_color rounded p-3  border border-dark">
+
+    <div class="col-12 mb-2">
+        <div class="row ">
+            <div class="col-4"><h5>Profile</h5></div>
+            <div class="col-4">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.user_name == thebiz.user_name %}
+                        <a href="{{ url_for('business_edit.view_bio', business_name=thebiz.business_name) }}">
+                            Edit Bio
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12" style="font-size: 14px">
+        <p>
+        {% if thebiz.biz_info.about_clean  %}
+            {% if thebiz.biz_info.about_clean|length > 1 %}
+                <i class="fa fa-info fa-1x"></i> &nbsp;&nbsp; {{ thebiz.biz_info.about_clean }} <br> <br>
+                <hr class="bg-white">
+            {% endif %}
+        {% endif %}
+
+        {% if thebiz.biz_info.email_clean  %}
+            {% if thebiz.biz_info.email_clean|length > 1 %}
+                <i class="fa fa-envelope fa-1x"></i> &nbsp;&nbsp;  {{ thebiz.biz_info.email_clean }} <br>
+            {% endif %}
+        {% endif %}
+
+        {% if thebiz.biz_info.phone_number_clean  %}
+            {% if thebiz.biz_info.phone_number_clean|length > 1 %}
+                <i class="fa fa-phone fa-1x"></i>  &nbsp;&nbsp; &nbsp;{{ thebiz.biz_info.phone_number_clean }} <br>
+            {% endif %}
+        {% endif %}
+
+        {% if thebiz.biz_info.website_clean  %}
+            {% if thebiz.biz_info.website_clean|length > 1 %}
+                <i class="fa fa-window-maximize fa-1x"></i>  &nbsp;&nbsp; {{ thebiz.biz_info.website_clean }} <br>
+            {% endif %}
+        {% endif %}
+
+        {% if thebiz.biz_info.facebook_clean  %}
+            {% if thebiz.biz_info.facebook_clean|length > 1 %}
+                <i class="fa fa-facebook fa-1x"></i> &nbsp; &nbsp;&nbsp; {{ thebiz.biz_info.facebook_clean }} <br>
+            {% endif %}
+        {% endif %}
+
+        {% if thebiz.biz_info.twitter_clean  %}
+            {% if thebiz.biz_info.twitter_clean|length > 1 %}
+                <i class="fa fa-twitter fa-1x"></i>  &nbsp;&nbsp; {{ thebiz.biz_info.twitter_clean }} <br>
+            {% endif %}
+        {% endif %}
+
+        </p>
+    </div>
+
+</div>

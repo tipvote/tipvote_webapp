@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% include 'layout/basic/metadata.html' %}
+{% include 'layout/headers/header.html' %}
+    {% include 'layout/headers/depositheader.html' %}
+{% from "_formhelper.html" import render_field %}
+<div class="wrapper">
+    <body>
+    {% include 'layout/headers/depositheader.html' %}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-3  second_color">
+                {% include "legal/_sidebar.html" %}
+            </div>
+            <div class="col-9">
+                {% include "flashbar.html" %}
+                <div class="row mb-2">
+                    <div class="col-12">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+    </body>
+</div>
+    {% include 'layout/basic/_footer.html' %}
+</html>

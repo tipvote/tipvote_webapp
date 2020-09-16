@@ -1,0 +1,61 @@
+
+    <div class="col-12 second_color border border-dark p-2 mb-2" >
+        <ul class="nav nav-tabs linkcolor_topbar mb-3">
+            <li class="nav-item w-50">
+                <a class="nav-link btn-tipvote-up text-dark">Post to a Room</a>
+            </li>
+            <li class="nav-item w-50">
+                <a class="nav-link"
+                   href="{{ url_for('profile.main',user_name=current_user.user_name) }}">
+                    Post to your wall
+                </a>
+            </li>
+        </ul>
+
+        <form method="post"
+              action="{{ url_for('create.create_post_room_all',userid=current_user.id) }}"
+              enctype="multipart/form-data">
+            {{ mainpostform.csrf_token }}
+
+            <!-- Post Message -->
+            <div class="form-group col-12 mb-3 mt-0 ">
+                {{ render_field(mainpostform.post_message,
+            autocomplete="off",
+            class="form-control bg-dark text-white",
+             placeholder="Post to a room  ...") }}
+            </div>
+
+            <!--Select Room -->
+            <div class="form-group col-12 mb-3 mt-0 ">
+                {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
+            </div>
+
+            <!--Image -->
+            <div class="form-group col-12 mb-3 mt-0">
+                <div class="row second_color">
+                    <div class="col second_color">
+                        {{ render_field(mainpostform.image_one) }}
+                    </div>
+                </div>
+            </div>
+
+            <!--Over 18 -->
+            <div class="form-group col-12 mb-0 mt-0">
+                <div class="row bg-dark">
+                    <div class="col-12 second_color">
+                        {{ render_field(mainpostform.age) }}
+                        Over 18 post?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Post -->
+            <div class="form-group text-center col-12 mb-0 mt-4 ">
+                <div class="row">
+                    <div class="col-12" >
+                        {{ render_field(mainpostform.submit,value="Post", class="btn btn-block btn-tipvote-up w-100") }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

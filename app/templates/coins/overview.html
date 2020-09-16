@@ -1,0 +1,93 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h3>  Earn Tipvote Coins and Rewards by Leveling </h3>
+        </div>
+    </div>
+
+
+    <div class="row ">
+        <div class="col-12 text-center">
+            <h5> Get More Coins </h5>
+        </div>
+    </div>
+
+    <div class="row " style="height: 250px; overflow: hidden">
+
+        <div class="col align-self-start bg-warning text-dark h-25  ">
+            <b> Post, Comment, or even upvote to level up </b>
+        </div>
+        <div class="col align-self-center  bg-warning text-dark  h-25  ">
+            <b> Every level gives a random coins  </b>
+        </div>
+        <div class="col align-self-end bg-warning text-dark h-25 ">
+            <b> Spend Coins to boost your post or another users post </b>
+        </div>
+    </div>
+
+
+
+
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <h5> New coins added frequently.</h5>
+        </div>
+    </div>
+
+
+
+    <table class="table table-dark text-center table-striped">
+        <thead>
+        <tr>
+            <th scope="col">
+
+            </th>
+            <th scope="col">Name</th>
+            <th scope="col">Rarity</th>
+            <th scope="col" class="d-none d-lg-block">Description</th>
+            <th scope="col">Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for coin in allcoins %}
+            <tr>
+                <th scope="row">
+                    <img src="{{ url_for('static', filename='images/coins/tipvote/' + coin.image_thumbnail  + '.png')  }}" width="50px" height="50px">
+                </th>
+                <td>{{ coin.coin_name }}</td>
+                <td style="font-size: 14px">
+                    {% if coin.coin_rarity == 1 %}
+                        <div class="commoncoin">
+                            <b>Common</b>
+                        </div>
+                    {% elif coin.coin_rarity == 2 %}
+                        <div class="semicommoncoin">
+                            <b>SemiCommon</b>
+                        </div>
+                    {% elif coin.coin_rarity == 3 %}
+                        <div class="rarecoin">
+                            <b>Rare</b>
+                        </div>
+                    {% elif coin.coin_rarity == 4 %}
+                        <div class="epiccoin">
+                            <b>Epic</b>
+                        </div>
+                    {% elif coin.coin_rarity == 5 %}
+                        <div class="legendarycoin">
+                            <b>Legendary</b>
+                        </div>
+                    {% else %}
+                    {% endif %}
+                </td>
+                <td class="d-none d-lg-block" style="font-size: 12px">{{ coin.coin_description }}</td>
+                <td>{{ coin.points_value }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

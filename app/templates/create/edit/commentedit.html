@@ -1,0 +1,41 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="row second_color">
+                <div class="col-12 text-center">
+                    Edit Comment
+                </div>
+                <div class="col-12">
+                    <hr>
+                    <div class="form-group row">
+                        <label  class="col-4 col-form-label text-md-right"> Commenter: </label>
+                        <div class="col-6 pt-2">
+                            {{ thecomment.user_name }}
+                        </div>
+                        <div class="col-2">
+                        </div>
+                    </div>
+                    <hr>
+                    <form method="post" action="{{ url_for('edit.comment_edit_text', commentid=thecomment.id) }}">
+                        {{ editcommenttextform.csrf_token }}
+
+                        <div class="form-group row mt-5">
+                            <label  class="col-4 col-form-label text-md-right">Comment:</label>
+                            <div class="col-8">
+                                {{ render_field(editcommenttextform.postmessage,class="bg-dark text-white w-100",style="width: 100%") }}
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-4 col-form-label text-md-right"></label>
+                            <div class="col-8">
+                                {{ render_field(editcommenttextform.submit,  value="Edit Comment", autocomplete="off", class="btn btn-dark w-100 ") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

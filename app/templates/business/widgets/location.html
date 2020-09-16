@@ -1,0 +1,38 @@
+<div class="col-12 mb-3 second_color rounded p-3  border border-dark">
+
+    <div class="col-12 mb-2">
+        <div class="row ">
+            <div class="col-4"><h5>Location</h5></div>
+            <div class="col-4">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.user_name == thebiz.user_name %}
+                        <a href="{{ url_for('business_edit.view_location', business_name=thebiz.business_name) }}">
+                            Edit Location
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <p>
+            {% if thebiz.biz_location.address_clean|length > 1 %}
+                {{ thebiz.biz_location.address_clean }} <br>
+            {% else %}
+            {% endif %}
+
+            {% if thebiz.biz_location.town_clean|length > 1 %}
+                {{ thebiz.biz_location.town_clean }},
+                {{ thebiz.biz_location.state_or_province_clean }}
+
+                {{ thebiz.biz_location.zipcode_clean }} <br>
+                {{ thebiz.biz_location.country_clean }}
+            {% else %}
+            {% endif %}
+
+        </p>
+
+    </div>
+
+</div>

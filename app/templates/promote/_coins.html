@@ -1,0 +1,63 @@
+
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2">
+    <div class="row second_color">
+        <div class="col-12 text-center justify-content-center mb-3">
+            <img src="{{ url_for('static', filename='images/logo.png')  }}">
+        </div>
+
+        <div class="col-12">
+            <div class="row mb-5">
+                <div class="col-12">
+                    {% if usercoins %}
+                        <table class="table table-dark text-center table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="d-none d-sm-block">
+                                    Coin
+                                </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col" >Description</th>
+                                <th scope="col">Points</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% if usercoins %}
+                                {% for coin in usercoins %}
+
+                                    <form method="post" action="{{ url_for('promote.promotepost_coin',
+                                             subname=thesub.subcommon_name,
+                                             postid=post.id,
+                                             coinid=coin.coin_id) }}">
+                                        {{ givecoinform.csrf_token }}
+                                        <tr>
+                                            <th scope="row" >
+                                                <img src="{{ url_for('static', filename='images/coins/tipvote/' + coin.image_thumbnail  + '.png')  }}" width="50px" height="50px">
+                                            </th>
+                                            <td>{{ coin.coin_name }}</td>
+                                            <td>{{ coin.quantity }}</td>
+                                            <td style="font-size: 12px" class="d-none d-sm-block">{{ coin.coin_description }}</td>
+                                            <td>
+                                                {{ coin.points_value }}
+                                            </td>
+                                            <td>{{ render_field(givecoinform.give_coin,  value="Give 1 Coin", autocomplete="off", class="btn btn-success") }}</td>
+                                        </tr>
+                                    </form>
+                                {% endfor %}
+                            {% else %}
+                            {% endif %}
+
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="text-center"><h4>  You have no coins!  Level up to earn more.</h4></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

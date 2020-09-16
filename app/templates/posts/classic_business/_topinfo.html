@@ -1,0 +1,133 @@
+<div class="col-12 ml-0 mr-0 mt-0 mb-1 ">
+    <div class="row ">
+        {% if post.shared_post == 0 %}
+
+            {% if post.visible_user_name.profileimage == '' %}
+                <img src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                     style="width:50px;height: 50px">
+            {% else %}
+                <a href="{{ url_for('business.main', business_name=post.business_name) }}">
+                    <img alt="{{ url_for('static', filename='images/noprofile.png')  }}"
+                         class="img-responsive"
+                         src="{{ url_for('common.business_image',
+                         filename=post.bizownerposts.profileimage) }}"
+                         style="width:50px;height: 50px"
+                    >
+                </a>
+            {% endif %}
+
+
+            <div class="col">
+            <div class="linkcolor_normal"  style="display: inline; font-size: 15px">
+                <a href="{{ url_for('business.main', business_name=post.bizownerposts.business_name) }}">
+                    {% if post.bizownerposts.official_business_name|length > 1 %}
+                        {{ post.bizownerposts.official_business_name }}
+                    {% else %}
+                        {{ post.bizownerposts.business_name }}
+                    {% endif %}
+                </a>
+            </div>
+        {% else %}
+            {% if post.posterposts.profileimage == '' %}
+                <img src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
+            {% else %}
+                <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
+                    <img
+                            alt="{{ url_for('static', filename='images/noprofile.png')  }}"
+                            class="img-responsive"
+                            src="{{ url_for('common.profile_image',
+                            filename=post.posterposts.profileimage) }}"
+                            style="width:50px;height: 50px"
+                    >
+                </a>
+            {% endif %}
+            <div class="col">
+            <div class="linkcolor_normal"  style="display: inline; font-size: 15px">
+                <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
+                    {{ post.user_name }}
+                </a>
+            </div>
+        {% endif %}
+
+
+        <!-- If to the wall -->
+        {% if post.subcommon_id == 1 %}
+            {% if post.content_user_name == post.user_name %}
+                {% if post.poster_user_id == post.user_id %}
+                {% else %}
+                    <div class="post_text_color"  style="display: inline;">
+                        to
+                    </div>
+                    <div class="linkcolor_normal"  style="display: inline; font-size: 15px">
+                        <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
+                            {{ post.poster_user_name }}
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+            {% endif %}
+            <!-- To A Room -->
+
+        {% elif post.subcommon_id == 13 %}
+
+        {% else %}
+            <div class="post_text_color"  style="display: inline;">
+                to
+            </div>
+            <div class="linkcolor_normal"  style="display: inline; font-size: 15px">
+                <a  href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                    a/{{ post.subcommon_name }}
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="col border-bottom border-dark mb-2 ml-0 p-0">
+            <div class="post_text_color"  style="display: inline; font-size: 12px">
+                Posted   {{ moment(timestamp=post.created, local=False).fromNow(refresh=True)  }}
+                {% if post.created != post.edited %}
+                    |    Edited:   {{ moment(timestamp=post.edited, local=False).fromNow(refresh=True)  }}
+                {% else %}
+                {% endif %}
+                {% if post.age == 1 %}
+                    <p class="text-danger font-weight-bold text-center" style="display: inline">  NSFW</p>
+                {% endif %}
+            </div>
+            {% include 'posts/classic/_donations.html' %}
+            {% include 'posts/classic/_coins.html' %}
+        </div>
+
+        {% if deleteposttextform  %}
+            {% if thebiz %}
+                {% if thebiz != None %}
+                    {% if current_user.id == thebiz.user_id %}
+                        {% if post.hidden == 0 %}
+                            <form method="post" action="{{ url_for('edit.post_delete_text',postid=post.id) }}" class="d-inline">
+                                {{ deleteposttextform.csrf_token }}
+                                {{ render_field(deleteposttextform.submit,  value="Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% else %}
+                        {% endif %}
+
+                        {% if post.hidden == 0 %}
+                            {% if post.type_of_post !=3 %}
+                                <a class="btn btn-dark btn-sm " href="{{ url_for('edit.viewpost_edit', postid=post.id) }}">
+                                    Edit
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+ </div>
+
+        <div class="col" style="max-width: 75px">
+            <div class="row " >
+                {% include 'posts/classic/_post_votes.html' %}
+            </div>
+        </div>
+
+
+    </div>
+</div>

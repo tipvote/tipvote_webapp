@@ -1,0 +1,47 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+
+
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h5>  Tipvote Coins </h5>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+           {% if usercoins %}
+            <table class="table table-dark text-center table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for coin in usercoins %}
+                    <tr>
+                        <th scope="row">
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/' + coin.image_thumbnail  + '.png')  }}" width="50px" height="50px">
+                        </th>
+                        <td>{{ coin.coin_name }}</td>
+                        <td>{{ coin.quantity }}</td>
+                        <td style="font-size: 12px">{{ coin.coin_description }}</td>
+                        <td>{{ coin.points_value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+                <div class="text-center"><h4>  You have no coins!  Level up to earn more.</h4></div>
+        {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

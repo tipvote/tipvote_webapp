@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% include 'layout/basic/metadata.html' %}
+{% include 'layout/headers/header.html' %}
+
+
+<div class="wrapper">
+    <body>
+    {% from "_formhelper.html" import render_field %}
+        {% include 'layout/headers/depositheader.html' %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3 second_color">
+                {% include "users/account/_sidebar.html" %}
+            </div>
+            <div class="col-9">
+                {% include "flashbar.html" %}
+                <div class="row mb-2">
+                    <div class="col-12 text-center"><h5>Account</h5></div>
+                    <div class="col-12">
+
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+</div>
+    {% include 'layout/basic/_footer.html' %}
+</html>

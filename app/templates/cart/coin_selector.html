@@ -1,0 +1,55 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Payment</div>
+                <div class="card-body">
+                       <form method="post" action="{{ url_for('cart.buycoinconfirm', coinid=getthecoin.id) }}">
+                        {{ form.csrf_token }}
+                        <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">Coin</label>
+                            <div class="col-md-6">
+                               {{ getthecoin.coin_name }}
+                            </div>
+                        </div>
+                       <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">Price Per Coin</label>
+                            <div class="col-md-6">
+                               {{ getthecoin.usd_value_per_coin }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">Coin Amount</label>
+                            <div class="col-md-6">
+                                {{ render_field(form.amount_of_coins, placeholder="Number of Coins", autocomplete="off", class="form-control") }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label  class="col-md-4 col-form-label text-md-right">Payment Type</label>
+                            <div class="col-md-6">
+                                {{ render_field(form.payment_type)  }}
+                            </div>
+                        </div>
+                             <div class="col-md-6 offset-md-4" style="font-size: 11px;">
+                          Minimum checkout amount is 1.00$
+
+                        </div>
+                        <hr>
+
+                        <div class="col-md-6 offset-md-4 ">
+                            {{ render_field(form.submit,  value="Submit", autocomplete="off", class="btn btn-success ") }}
+                            <br><br>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

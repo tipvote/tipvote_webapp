@@ -1,0 +1,75 @@
+<div class="row border border-dark second_color mb-3">
+    <!---Up / Down Votes -->
+    <div class="col-1" style="max-width: 45px">
+        <div class="row" >
+            <div class="col-12">
+                <form method="post" action="{{ url_for('vote.post_vote',votetype=1, postid=post.id,  subname=subname) }}">
+                    <button type="submit" class="btn btn-default" style="margin-left:-10px;">
+                        <img class="mx-auto d-block" src="{{ url_for('static', filename='images/arrows/uparrow.png')  }}"
+                             width="20px" height="20px">
+                    </button>
+                </form>
+            </div>
+            <div class="col-12 text-right" style="margin-top: -20px">
+                {{ post.highest_exp_reached }}
+            </div>
+
+            <div class="col-12" style="margin-top: -5px">
+                <form method="post" action="{{ url_for('vote.post_vote',votetype=2, postid=post.id,  subname=subname) }}">
+                    <button type="submit" class="btn btn-default" style="margin-left:-10px;">
+                        <img class="float-left" src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
+                             width="20px" height="20px">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!---Info -->
+    <div class="col-11">
+
+        <!--text post-->
+        {# if user text#}
+
+        {% if post.post_text %}
+            {{ post.post_text|markdown }}
+        {% endif %}
+
+        {% if post.shared_post == 0 %}
+            {% if post.url_of_post %}
+                <div class="col-12 border-dark border third_color p-0 mb-2"  style="font-size: 14px">
+                    <div class="col-12">
+                        {% if post.url_image_server  %}
+                            <div class="col-12 w-100" style="overflow: hidden">
+                                <img  class="img-responsive wallimage" src="{{ url_for('common.post_file',filename=post.url_image_server) }}"  style="max-width:450px;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 " style="font-size: 10px;">
+                        {% if post.url_of_post %}
+                            {{ post.url_of_post }}
+                        {% endif %}
+                    </div>
+                    <div class="col-12" style="font-size: 16px;">
+                        {% if post.url_title  %}
+                            {{ post.url_title }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if post.url_image_server == '' %}
+            {% else %}
+                {% if post.image_server_1  %}
+                    <div class="col-12 " style="overflow: hidden">
+                        <img  class="img-responsive wallimage" src="{{ url_for('common.post_file',filename=post.image_server_1) }}"  style="max-width:450px;">
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+
+
+    </div>
+    {% include 'create/edit/_posteditform.html' %}
+</div>
+

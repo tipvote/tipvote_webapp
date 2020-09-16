@@ -1,0 +1,25 @@
+    <div class="col-12 headercolor mt-2 pb-1 pt-1">
+
+        <div class="col-12 text-center">
+            <h4><b>Deposit Funds</b></h4>
+        </div>
+
+        <div class="col-12 text-center" style="font-size: 14px;">
+            To deposit funds send bitcoins to the address below.
+            The balance will appear after 6 confirmations.
+            <br>
+            <div style="color: red; font-size: 14px">
+                The minimum amount for the deposit is 0.00005 BTC if the
+                amount is below the limit it will not be added.  Only 5 deposits can be added at a time per user.
+            </div>
+        </div>
+        <div class="col-12 text-center mt-4 mb-2">
+            <img src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
+        </div>
+        <div class="col-12 text-center mt-3 mb-3">
+            <p class="font-weight-bold">
+                {{ wallet.address1 }}
+            </p>
+        </div>
+
+    </div>

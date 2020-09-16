@@ -1,0 +1,33 @@
+{% extends "users/profile/profile_forms/layout_edit_profile.html" %}
+{% block content %}
+    <div class="col-12 ">
+        <div class="row">
+            <div class="col-12 mb-3 text-center"><h5>Currently Blocking</h5></div>
+        </div>
+        {% if blocked_users %}
+            {% for f in blocked_users %}
+
+                <div class="row ">
+                    <div class="col-3"></div>
+                    <div class="col-4 second_color">
+                            {{ f.blocked_user_name }}
+                    </div>
+
+                    <div class="col-2 second_color text-center">
+                        <a class="btn btn-danger text-white"
+                           href="{{ url_for('profileedit.unblockuser', user_name=f.blocked_user_name) }}">
+                            Unblock
+                        </a>
+                    </div>
+                   <div class="col-3"></div>
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <div class="text-center mt-5 p-5">
+            You are not blocking anyone at this time
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+       <div class="col-12 ">
+            <a class="btn btn-dark text-white mb-3" href="{{ url_for('index') }}">
+                Back to my tipvote all
+            </a>
+        </div>
+    <div class="col-12  second_color pb-3 pt-3">
+        <div class="text-center mb-5">
+            <h4>Weekly Reward</h4>
+        </div>
+        <div class="card-deck">
+            <div class="card bg-warning text-dark">
+
+                <div class="card-body">
+                    <h5 class="card-title text-center font-weight-bold">Post Promotions go towards the rewards</h5>
+                    <p class="card-text font-weight-bold">Every time a post is promoted, the coin is added to the rewards.</p>
+
+                </div>
+            </div>
+            <div class="card bg-warning">
+
+                <div class="card-body text-dark">
+                    <h5 class="card-title text-center font-weight-bold">Get Upvotes</h5>
+                    <p class="card-text font-weight-bold">
+                        The post with the most amount of upvotes per week gets the reward.
+                    </p>
+
+                </div>
+            </div>
+            <div class="card bg-warning">
+
+                <div class="card-body text-dark">
+                    <h5 class="card-title text-center font-weight-bold">Our contribution</h5>
+                    <p class="card-text font-weight-bold">
+                        In order to make the rewards more interesting, we will contribute 100 USD to the start
+                    of every week
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-5 mb-3">
+            Frequently Asked Questions
+        </div>
+        <div class="accordion bg-dark" id="accordionExample">
+            <div class="card bg-dark">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link  w-100" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            How is the coin collected?
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body text-white ">
+                        When a post is boosted through "promotions", the coin is added to a seperate fund that is distrubuted
+                        to the highest post content creator that week.
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark text-white">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed w-100" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            What if its a shared post?  Say a celebrity shares my post and gets a billion likes..who gets the coin?
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse text-white" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body text-white ">
+                        The Originol content creator gets the coin, not the person who shared it.  If its shared several times, the person who created the content
+                        still gets the coin.
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark text-white">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link collapsed w-100" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What if a person creates a ton of accounts to fix the system?  Or someone rigs the points
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body text-white ">
+                        We are working to determine integrity of accounts used to vote for the post.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

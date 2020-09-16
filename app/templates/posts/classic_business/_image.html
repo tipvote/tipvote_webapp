@@ -1,0 +1,10 @@
+{% if post.url_image_server %}
+
+{% else %}
+    {% if post.image_server_1  %}
+        <div class="col-12 " s>
+            <img  class="img-responsive wallimage" src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
+                  style="max-width:500px;">
+        </div>
+    {% endif %}
+{% endif %}

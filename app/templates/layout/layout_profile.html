@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang='en'>
+    {% include 'layout/basic/metadata.html' %}
+    {% include 'layout/headers/header.html' %}
+
+{% from "_formhelper.html" import render_field %}
+<div class="wrapper">
+    <body>
+
+    {% block content %}
+    {% endblock %}
+
+    <div class="mb-5 "></div>
+    </body>
+</div>
+    {% include 'layout/basic/_footer.html' %}
+
+</html>

@@ -1,0 +1,15 @@
+{% if current_user.is_authenticated %}
+    <div class="dropdown show">
+        <button class="btn dropdown-toggle  bg-dark text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My Subscriptions
+        </button>
+        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+            {% for subs in usersubforums %}
+                <a class="dropdown-item " href="{{ url_for('subforum.sub',subname=subs.subscriber.subcommon_name ) }}">
+                    <b> {{ subs.subscriber.subcommon_name }}</b>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+{% endif %}

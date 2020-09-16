@@ -1,0 +1,150 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+    <div class="text-center">
+        <a href="{{ url_for('discoversubs') }}">
+            <h3> Discover New Rooms</h3>
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h5>My Subscriptions</h5>
+                </div>
+                <div class="col-12">
+                    {% for sub in getlistofmysubs %}
+                        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subscriber.subcommon_name) }}">
+                            {% if sub.subscriber.mini_image == '' %}
+                                <div class="row " >
+                                    <div class="col-3">
+                                        <span class="dot" style="background-color: dodgerblue;"></span>
+                                    </div>
+                                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                        {{ sub.subscriber.subcommon_name }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row " >
+                                    <div class="col-3">
+                                        <img class="rndimg" alt={{ sub.subscriber.subcommon_name }} src="{{ url_for('common.banner_image',filename=sub.subscriber.mini_image) }}" width="20px">
+                                    </div>
+                                    <div class="col-9 pl-0 ">
+                                        {{ sub.subscriber.subcommon_name }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center justify-content-center">
+                    {% if prev_url %}
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer </a>
+                    {% endif %}
+                    {% if next_url %}
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated %}
+            <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
+
+                <div class="text-center"><h5>Modding</h5></div>
+                {% if moddingcount > 0 %}
+
+
+
+                    <div class="pl-0 linkcolor">
+                        {% for subs in usersubforums %}
+                            {% if subs %}
+
+
+                                <a class="btn btn-dark text-white w-100 mb-2"
+                                   href="{{ url_for('subforum.sub',subname= subs.subscriber.subcommon_name )}} "
+                                >
+                                    {% if subs.subscriber.mini_image == '' %}
+                                        <div class="row ">
+                                            <div class="col-3 ml-0">
+                                                <span class="dot" style="background-color: dodgerblue;"></span>
+                                            </div>
+                                            <div class="col-9 pt-2  pl-0 ml-0" >
+                                                {{ subs.subscriber.subcommon_name }}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row ">
+                                            <div class="col-3 ml-0">
+                                                <img class="rndimg"
+                                                     alt={{ subs.subscriber.subcommon_name }}
+                                                             src="{{ url_for('common.banner_image',
+                                                     filename=subs.subscriber.mini_image) }}"
+                                                     width="20px">
+                                            </div>
+                                            <div class="col-9 pl-0 ml-0">
+                                                {{ subs.subscriber.subcommon_name }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </a>
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center mb-3"> Your are not modding any rooms</div>
+
+                {% endif %}
+            </div>
+
+
+            <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
+                {% if ownercount > 0 %}
+
+                    <div class="text-center"><b> Boss of</b></div>
+
+                    <div class="pl-0 linkcolor">
+                        {% for sub in seeifowner %}
+                            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+                                {% if sub.mini_image == '' %}
+                                    <div class="row " >
+                                        <div class="col-3">
+                                            <span class="dot" style="background-color: dodgerblue;"></span>
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                            {{ sub.subcommon_name }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="row " >
+                                        <div class="col-3">
+                                            <img class="rndimg" alt={{ sub.subcommon_name }} src="{{ url_for('common.banner_image',filename=sub.mini_image) }}" width="20px">
+                                        </div>
+                                        <div class="col-9 pl-0 ">
+                                            {{ sub.subcommon_name }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                    </div>
+                {% else %}
+                    You do run any rooms
+
+                    <br>
+                    Create a room
+                {% endif %}
+
+            </div>
+
+        {% else %}
+
+        {% endif %}
+
+    </div>
+{% endblock %}

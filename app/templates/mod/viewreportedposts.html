@@ -1,0 +1,43 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-12 ">
+        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+            Back to {{ thesub.subcommon_name }}
+        </a>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-6 offset-md-3 text-center mb-5"><h5>Reported Posts for <br>{{ thesub.subcommon_name }}</h5></div>
+        <div class="col-12 col-sm-12 col-md-6 offset-md-3">
+
+            {% for post in reportedposts %}
+                {% include 'posts/master.html' %}
+                <div class="input-group justify-content-center text-center">
+                    <form method="post" action="{{ url_for('mod.deletereportedposts',postid=post.id, subname=post.subcommon_name) }}" class="form-inline pr-2">
+                        {{ deletepostform.csrf_token }}
+                        {{ render_field(deletepostform.submit,  value="Delete Post", autocomplete="off", class="btn btn-danger btn-sm ") }}
+                    </form>
+                    <form method="post" action="{{ url_for('mod.deletereportedpostsandbanuser',postid=post.id, subname=post.subcommon_name) }}"  class="form-inline pr-2">
+                        {{ deletepostbanuserform.csrf_token }}
+                        {{ render_field(deletepostbanuserform.submit,  value="Delete and Ban", autocomplete="off", class="btn btn-danger btn-sm ") }}
+                    </form>
+                    <form method="post" action="{{ url_for('mod.unreportposts',postid=post.id, subname=post.subcommon_name) }}"  class="form-inline pr-2">
+                        {{ unreport.csrf_token }}
+                        {{ render_field(unreport.submit,  value="Remove Report", autocomplete="off", class="btn btn-success btn-sm ") }}
+                    </form>
+                </div>
+                <hr class="text-white bg-white">
+
+            {% endfor %}
+
+        <div class="row mt-5">
+            <div class="col-12 text-center justify-content-center">
+                {% if prev_url %}
+                    <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
+                {% endif %}
+                {% if next_url %}
+                    <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

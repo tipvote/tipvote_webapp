@@ -1,0 +1,31 @@
+<ul class="nav nav-tabs linkcolor_topbar mb-3">
+    <li class="nav-item">
+        {% if navlink == 1 %}
+            <a class="nav-link btn-tipvote-up text-dark"  href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
+        {% else %}
+            <a class="nav-link"  href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
+        {% endif %}
+    </li>
+    <li class="nav-item">
+        {% if navlink == 2 %}
+            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
+        {% else %}
+            <a class="nav-link" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
+        {% endif %}
+    </li>
+    <li class="nav-item">
+        {% if navlink == 3 %}
+            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_active', subname=subname) }}">Active</a>
+        {% else %}
+            <a class="nav-link" href="{{ url_for('subforum.sub_active', subname=subname) }}">Active</a>
+        {% endif %}
+    </li>
+
+    <li class="nav-item">
+        {% if navlink == 5 %}
+            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_top', subname=subname) }}">Top</a>
+        {% else %}
+            <a class="nav-link" href="{{ url_for('subforum.sub_top', subname=subname) }}">Top</a>
+        {% endif %}
+    </li>
+</ul>
