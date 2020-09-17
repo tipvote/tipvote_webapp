@@ -1,7 +1,6 @@
 
-<p align="center">
 ![alt text](https://www.tipvote.com/images/logo.png)
-</p>
+
  	
 Tipvote.com is a social media site powered by the blockchain.  We enable ways to support content through CryptoCurrency.
  	
