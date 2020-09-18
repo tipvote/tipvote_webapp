@@ -49,29 +49,7 @@
                     </div>
                 </div>
             </a>
-            {% if current_user.admin != 0 %}
-                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_xmr_stagenet.home') }}">
-                    <div class="row " >
-                        <div class="col-3">
-                            <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
-                        </div>
-                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
-                            Monero Stagenet
-                        </div>
-                    </div>
-                </a>
-                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('wallet_btc_test.home') }}">
-                    <div class="row " >
-                        <div class="col-3">
-                            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-                        </div>
-                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
-                            Bitcoin Test
-                        </div>
-                    </div>
-                </a>
 
-            {% endif %}
         </div>
     </div>
     <div class="col-2"></div>

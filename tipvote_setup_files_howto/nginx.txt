@@ -1,0 +1,93 @@
+upstream tipvote.com {
+    server 64.225.10.117:5000;
+}
+server {
+    if ($host = www.tipvote.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = tipvote.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+   listen 80;
+   server_name tipvote.com www.tipvote.com;
+
+   location / {
+        proxy_pass http://127.0.0.1:5000/;
+        proxy_intercept_errors on;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_secret_header;
+        add_header X-Cache-Status $upstream_cache_status;
+   }
+}
+
+
+server{
+
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        server_name www.tipvote.com tipvote.com;
+
+        if ($host = 'tipvote.com') {
+        return 301 https://www.tipvote.com$request_uri;
+        }
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_session_timeout 1d;
+        ssl_ciphers         HIGH:!aNULL:!MD5;
+        ssl_session_cache shared:SSL:50m;
+        ssl_stapling on;
+        ssl_stapling_verify on;
+
+        ssl_certificate /etc/letsencrypt/live/tipvote.com-0001/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/tipvote.com-0001/privkey.pem; # managed by Certbot
+        error_page 400 401 402 403 405 495 496 497          /404.html;
+        error_page 500 501 502 504 505 506 507 508 510 511  /500.html;
+        error_page 503                                      /503.html;
+
+    location / {
+
+        include proxy_params;
+        proxy_pass http://127.0.0.1:5000/;
+        proxy_intercept_errors on;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_secret_header;
+        add_header X-Cache-Status $upstream_cache_status;
+        client_max_body_size 100M;
+        proxy_headers_hash_max_size 512;
+        proxy_headers_hash_bucket_size 128;
+
+
+
+    }
+
+    location = /404.html {
+        root   /home/droid/tipvote/app/templates/errors;
+        internal;
+    }
+
+    location = /500.html {
+        root   /home/droid/tipvote/app/templates/errors;
+        internal;
+    }
+
+    location = /503.html {
+        root   /home/droid/tipvote/app/templates/errors;
+        internal;
+    }
+
+
+
+    location /static/ {
+        alias /home/droid/tipvote/app/static;
+    }
+
+    location /media/ {
+        alias  /nfs;
+    }
