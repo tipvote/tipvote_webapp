@@ -124,17 +124,21 @@ def login_post():
             if user is not None:
                 if User.decryptpassword(pwdhash=user.password_hash,
                                         password=form.password_hash.data):
-                    if user.locked == 0:
+                    if user.banned == 1:
+                        if user.locked == 0:
+                            user.fails = 0
 
-                        user.fails = 0
-                        db.session.add(user)
-                        db.session.commit()
-                        login_user(user)
-                        current_user.is_authenticated()
-                        current_user.is_active()
-                        return redirect(url_for('index'))
+                            db.session.add(user)
+                            db.session.commit()
+                            login_user(user)
+                            current_user.is_authenticated()
+                            current_user.is_active()
+                            return redirect(url_for('index'))
+                        else:
+                            return redirect(url_for('users.account_locked'))
                     else:
-                        return redirect(url_for('users.account_locked'))
+                        flash("This account has been banned.")
+                        return redirect(url_for('index'))
                 else:
                     x = user.fails
                     y = x + 1
@@ -143,7 +147,6 @@ def login_post():
                     db.session.commit()
 
                     if int(user.fails) >= 5:
-
                         user.locked = 1
 
                         db.session.add(user)

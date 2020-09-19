@@ -2299,6 +2299,19 @@ class Followers(db.Model):
     followed_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
 
 
+class BannedUser(db.Model):
+    __tablename__ = 'banneduser'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    user_name = db.Column(db.String(140))
+    user_id = db.Column(db.Integer)
+    reason_for_ban = db.Column(db.TEXT)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
+    banner_user_id = db.Column(db.Integer)
+    banner_user_name = db.Column(db.String(140))
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     __bind_key__ = 'avengers'
