@@ -133,6 +133,7 @@ def login_post():
                         current_user.is_authenticated()
                         current_user.is_active()
                         return redirect(url_for('index'))
+
                     else:
                         return redirect(url_for('users.account_locked'))
                 else:

@@ -4,7 +4,7 @@
         <div class="col-6 col-sm-6 col-md-3 text-white text-center pt-2 pb-2 btn-ee text-white"
              onclick="window.location.href='{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}';">
             <a class="btn-ee text-white" href="{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}">
-                {{ post.comment_count }} replys
+                {{ post.comment_count }} comments
             </a>
         </div>
 

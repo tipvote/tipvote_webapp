@@ -321,3 +321,5 @@ def post_vote(votetype, postid):
             # commit to db
             db.session.commit()
             return redirect((request.args.get('next', request.referrer)))
+
+
