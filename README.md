@@ -41,8 +41,10 @@ We don't require any info except an email address.  Takes a few seconds to sign 
 Docker will need to be done in a future update. For now manual installation. 
 Tested and running on ubuntu 18.04, 20.04, and windows ubuntu
 ```
-Git Pull https://github.com/tipvote/tipvote_webapp.git
 sudo apt-get update 
+
+git pull https://github.com/tipvote/tipvote_webapp.git
+
 sudo pip3 install virtualenv
 source virtualenv venv -p python3
 pip3 install -r requirements.txt
