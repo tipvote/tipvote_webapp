@@ -125,7 +125,6 @@ def login_post():
                 if User.decryptpassword(pwdhash=user.password_hash,
                                         password=form.password_hash.data):
                     if user.locked == 0:
-
                         user.fails = 0
                         db.session.add(user)
                         db.session.commit()

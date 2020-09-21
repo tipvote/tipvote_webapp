@@ -1,9 +1,17 @@
 
+
 <div class="col-12 text-center" style="max-height: 30px">
-    <form method="post" action="{{ url_for('vote.post_vote',votetype=1,postid=post.id, subname=post.subcommon_name) }}">
-           {{ voteform.csrf_token }}
-        <button type="submit" class="btn btn-upvote">
-            <img src="{{ url_for('static', filename='images/arrows/uparrow.png')  }}"
+    <form method="post">
+        {{ voteform.csrf_token }}
+        <button
+                class="btn btn-upvote"
+                id="click-btn"
+                value="{{ post.id }}"
+                type="button"
+        >
+            <div id="response"></div>
+            <img src="{{ url_for('static',
+             filename='images/arrows/uparrow.png')  }}"
                  width="20px" height="20px">
         </button>
     </form>
@@ -47,7 +55,7 @@
 
 <div class="col-12  text-center" style="max-height: 30px">
     <form method="post" action="{{ url_for('vote.post_vote',votetype=2, postid=post.id, subname=post.subcommon_name) }}">
-           {{ voteform.csrf_token }}
+        {{ voteform.csrf_token }}
         <button type="submit" class="btn btn-downvote" >
             <img src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
                  width="20px" height="20px">

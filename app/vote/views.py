@@ -321,3 +321,20 @@ def post_vote(votetype, postid):
             # commit to db
             db.session.commit()
             return redirect((request.args.get('next', request.referrer)))
+
+
+@vote.route('/upvotepost', methods=['POST', 'GET'])
+def upvote_post():
+    from flask import jsonify
+
+    if request.method == "POST":
+        try:
+
+            clicked = request.data
+
+            return clicked
+        except Exception as e:
+            print(str(e))
+            return jsonify({'error': str(e)})
+
+
