@@ -5,25 +5,23 @@
 <div class="col-12 text-center" style="max-height: 30px">
     <form method="post" action="{{ url_for('vote.upvote_post', postid=post.id) }}">
         {{ voteform.csrf_token }}
+
         <button
-                class="btn btn-upvote"
-                id="click-btn-upvote-post-{{ post.id }}"
-                value="{{ post.id }}"
-                type="button"
+            class="btn btn-upvote"
+            id="click-btn-upvote-post-{{ post.id }}"
+            value="{{ post.id }}"
+            type="button"
         >
 
-            <img src="{{ url_for('static',
+            <img alt='' src="{{ url_for('static',
              filename='images/arrows/uparrow.png')  }}"
                  width="20px" height="20px">
         </button>
     </form>
 </div>
 
-
-
 <div class="col-12 mb-0 text-center">
     <div class="row">
-        {#        {% if post.hotness_rating_now == 0 %}#}
         <div class="col-12 h5 m-0 " id="number_before_{{ post.id }}">
             {{ post.highest_exp_reached }}
         </div>
@@ -39,13 +37,15 @@
 <div class="col-12  text-center" style="max-height: 30px">
     <form method="post" action="{{ url_for('vote.downvote_post', postid=post.id) }}">
         {{ voteform.csrf_token }}
+
         <button
             class="btn btn-downvote"
             id="click-btn-downvote-post-{{ post.id }}"
             value="{{ post.id }}"
             type="button"
         >
-            <img src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
+
+            <img alt='' src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
                  width="20px" height="20px">
         </button>
     </form>

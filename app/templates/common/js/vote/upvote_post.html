@@ -13,11 +13,17 @@
             success: function(data)
             {
 
-                $('div#number_before_' + data.thepostid).remove();
-                $('div#number_after_up_' + data.thepostid).append(data.newnumber);
-                console.log("SUCCESS");
-                console.log(data);
-                return data;
+                if (data.result == 'Upvoted!') {
+                    $('div#number_before_' + data.thepostid).remove();
+                    $('div#number_after_up_' + data.thepostid).append(data.newnumber);
+                    console.log("SUCCESS");
+                    console.log(data);
+                    return data;
+                }
+                else
+                {
+                    console.log(data.result)
+                }
             },
 
             error: function()
