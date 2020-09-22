@@ -3,7 +3,9 @@ from flask import \
     redirect, \
     url_for, \
     flash, \
-    request
+    request, \
+    jsonify
+
 from flask_login import current_user
 
 from app import db
@@ -13,14 +15,14 @@ from app.common.decorators import login_required
 
 from app.vote import vote
 
-from app.models import\
-    CommentsUpvotes,\
-    PostUpvotes,\
+from app.models import \
+    CommentsUpvotes, \
+    PostUpvotes, \
     Banned, \
-    CommonsPost,\
-    Comments,\
-    PrivateMembers,\
-    SubForums,\
+    CommonsPost, \
+    Comments, \
+    PrivateMembers, \
+    SubForums, \
     UserStats
 
 
@@ -184,18 +186,18 @@ def comment_vote(votetype, postid, commentid, subname):
             return redirect((request.args.get('next', request.referrer)))
 
 
-# post - down/up vote
-@vote.route('/post_vote/<int:votetype>/<int:postid>', methods=['POST'])
-@login_required
-def post_vote(votetype, postid):
+@vote.route('/upvotepost/<int:postid>', methods=['POST'])
+def upvote_post(postid):
     """
-    up/downvote post
+    upvote post
     """
     # get the post by its id
     if request.method == 'POST':
 
         getpost = db.session.query(CommonsPost).get(postid)
-        getcurrentsub = db.session.query(SubForums).filter(SubForums.id == getpost.subcommon_id).first_or_404()
+        getcurrentsub = db.session.query(SubForums) \
+            .filter(SubForums.id == getpost.subcommon_id) \
+            .first()
         if getpost is None:
             flash("The post has been removed or doesnt exist", category='danger')
             return redirect(url_for('index'))
@@ -212,8 +214,10 @@ def post_vote(votetype, postid):
             return redirect((request.args.get('next', request.referrer)))
 
         # see if user already voted or not
-        seeifvoted = db.session.query(PostUpvotes).filter(PostUpvotes.user_id == current_user.id,
-                                                          PostUpvotes.post_id == postid).first()
+        seeifvoted = db.session.query(PostUpvotes) \
+            .filter(PostUpvotes.user_id == current_user.id,
+                    PostUpvotes.post_id == postid) \
+            .first()
         if seeifvoted is not None:
 
             flash("Already voted", category='danger')
@@ -226,115 +230,185 @@ def post_vote(votetype, postid):
             # 1 = private
             # 2 = censored
             # see if banned or if private
-            seeifbanned = db.session.query(Banned).filter(current_user.id == Banned.user_id,
-                                                          Banned.subcommon_id == subid).first()
+            seeifbanned = db.session.query(Banned)\
+                .filter(current_user.id == Banned.user_id,
+                      Banned.subcommon_id == subid)\
+                .first()
             # if user on banned list turn him away
             if seeifbanned is not None:
                 flash("You were banned from this sub.", category="success")
                 return redirect(url_for('banned', subname=getpost.subcommon_name))
             # if sub is private
             if subtype == 1:
-                seeifuserinvited = db.session.query(PrivateMembers).filter(current_user.id == PrivateMembers.user_id,
-                                                                           PrivateMembers.subcommon_id == subid).first()
+                seeifuserinvited = db.session.query(PrivateMembers) \
+                    .filter(current_user.id == PrivateMembers.user_id,
+                            PrivateMembers.subcommon_id == subid) \
+                    .first()
                 # if user is not on the list turn him away
                 if seeifuserinvited is None:
                     flash("Sub Is a private Community.", category="success")
                     return redirect(url_for('private', subname=getpost.subcommon_name))
 
-            # upvoted
-            if votetype == 1:
-                currentupvotes = getpost.upvotes_on_post
-                # add the vote to current votes
-                newvotes_up = currentupvotes + 1
-                # set post variable to this new post number
-                getpost.upvotes_on_post = newvotes_up
-                # subtract from downvotes
-                getpostexp = newvotes_up + getpost.downvotes_on_post
-                # set exp number to exp_commons
-                getpost.total_exp_commons = getpostexp
+            currentupvotes = getpost.upvotes_on_post
+            # add the vote to current votes
+            newvotes_up = currentupvotes + 1
+            # set post variable to this new post number
+            getpost.upvotes_on_post = newvotes_up
+            # subtract from downvotes
+            getpostexp = newvotes_up + getpost.downvotes_on_post
+            # set exp number to exp_commons
+            getpost.total_exp_commons = getpostexp
 
-                # current hotness rating
-                currenthotness = getpost.hotness_rating_now
-                newhotness = currenthotness + 1
+            # current hotness rating
+            currenthotness = getpost.hotness_rating_now
+            newhotness = currenthotness + 1
 
-                getpost.hotness_rating_now = newhotness
-                # add and commit
-                db.session.add(getpost)
+            getpost.hotness_rating_now = newhotness
+            # add and commit
+            db.session.add(getpost)
 
-                # add exp points
-                exppoint(user_id=current_user.id, type=8)
-                exppoint(user_id=getpost.user_id, type=3)
-                # add to user stats
-                if getpost.user_id != 0:
-                    post_owner_stats = db.session.query(UserStats).filter(UserStats.user_id == getpost.user_id).first()
-                    current_upvotes_posts = post_owner_stats.post_upvotes
-                    new_upvotes_posts = current_upvotes_posts + 1
-                    post_owner_stats.post_upvotes = new_upvotes_posts
-                    db.session.add(post_owner_stats)
-                    flash("Upvoted", category='success')
+            # add exp points
+            exppoint(user_id=current_user.id, type=8)
+            exppoint(user_id=getpost.user_id, type=3)
+            # add to user stats
+            if getpost.user_id != 0:
+                post_owner_stats = db.session.query(UserStats)\
+                    .filter(UserStats.user_id == getpost.user_id)\
+                    .first()
+                current_upvotes_posts = post_owner_stats.post_upvotes
+                new_upvotes_posts = current_upvotes_posts + 1
+                post_owner_stats.post_upvotes = new_upvotes_posts
+                db.session.add(post_owner_stats)
 
-            # downvoted
-            elif votetype == 2:
-                currentdownvotes = getpost.downvotes_on_post
-                # add the vote to current votes
-                newvotes_down = currentdownvotes - 1
-                # set post variable to this new post number
-                getpost.downvotes_on_post = newvotes_down
-                # subtract from downvotes
-                getpostexp = getpost.upvotes_on_post + newvotes_down
-                # set exp number to exp_commons
-                getpost.total_exp_commons = getpostexp
-
-                # current hotness rating
-                currenthotness = getpost.hotness_rating_now
-                newhotness = currenthotness - 1
-
-                getpost.hotness_rating_now = newhotness
-
-                # add and commit
-                db.session.add(getpost)
-
-                # add stats to voter
-                exppoint(user_id=current_user.id, type=8)
-                exppoint(user_id=getpost.user_id, type=4)
-
-                # add to user stats
-                if getpost.user_id != 0:
-                    post_owner_stats = db.session.query(UserStats).filter(UserStats.user_id == getpost.user_id).first()
-
-                    current_downvotes_posts = post_owner_stats.post_downvotes
-                    new_downvotes_posts = current_downvotes_posts + 1
-                    post_owner_stats.post_downvotes = new_downvotes_posts
-                    db.session.add(post_owner_stats)
-                    flash("Downvoted", category='danger')
-            else:
-                flash("Vote was incorrect", category='danger')
-                return redirect((request.args.get('next', request.referrer)))
-
-            # add user_id to vote
-            create_new_vote = PostUpvotes(
-                user_id=current_user.id,
-                post_id=getpost.id,
-            )
-            db.session.add(create_new_vote)
-
-            # commit to db
-            db.session.commit()
-            return redirect((request.args.get('next', request.referrer)))
+            str_post_id = str(postid)
+            return jsonify({
+                'result': 'Upvoted!',
+                'thepostid': str_post_id,
+                'newnumber': newhotness
+            })
 
 
-@vote.route('/upvotepost', methods=['POST', 'GET'])
-def upvote_post():
-    from flask import jsonify
+@vote.route('/downvotepost/<int:postid>', methods=['POST'])
+def downvote_post(postid):
+    """
+    downvote post
+    """
+    # get the post by its id
+    str_post_id = str(postid)
 
-    if request.method == "POST":
-        try:
+    if request.method == 'POST':
 
-            clicked = request.data
+        getpost = db.session.query(CommonsPost).get(postid)
+        getcurrentsub = db.session.query(SubForums) \
+            .filter(SubForums.id == getpost.subcommon_id) \
+            .first()
+        if getpost is None:
+            flash("The post has been removed or doesnt exist", category='danger')
+            return redirect(url_for('index'))
 
-            return clicked
-        except Exception as e:
-            print(str(e))
-            return jsonify({'error': str(e)})
+        if getpost.hidden == 1:
+            return jsonify({
+                'result': 'Post has been deleted',
+                'thepostid': str_post_id,
+                'newnumber': getpost.hotness_rating_now
+            })
 
+        if getpost.locked == 1:
+            return jsonify({
+                'result': 'Post has been locked.',
+                'thepostid': str_post_id,
+                'newnumber': getpost.hotness_rating_now
+            })
 
+        if getpost.user_id == current_user.id:
+            return jsonify({
+                'result': 'You cannot upvote your own posts.',
+                'thepostid': str_post_id,
+                'newnumber': getpost.hotness_rating_now
+            })
+
+        # see if user already voted or not
+        seeifvoted = db.session.query(PostUpvotes) \
+            .filter(PostUpvotes.user_id == current_user.id,
+                    PostUpvotes.post_id == postid) \
+            .first()
+
+        if seeifvoted is not None:
+            return jsonify({
+                'result': 'You already voted',
+                'thepostid': str_post_id,
+                'newnumber': getpost.hotness_rating_now
+            })
+
+        else:
+            # type of subcommon
+            subid = getcurrentsub.id
+            subtype = getcurrentsub.type_of_subcommon
+            # 0 = Public
+            # 1 = private
+            # 2 = censored
+            # see if banned or if private
+            seeifbanned = db.session.query(Banned)\
+                .filter(current_user.id == Banned.user_id,
+                      Banned.subcommon_id == subid)\
+                .first()
+            # if user on banned list turn him away
+            if seeifbanned is not None:
+                return jsonify({
+                    'result': 'You were banned from this room.',
+                    'thepostid': str_post_id,
+                    'newnumber': getpost.hotness_rating_now
+                })
+            # if sub is private
+            if subtype == 1:
+                seeifuserinvited = db.session.query(PrivateMembers) \
+                    .filter(current_user.id == PrivateMembers.user_id,
+                            PrivateMembers.subcommon_id == subid) \
+                    .first()
+                # if user is not on the list turn him away
+                if seeifuserinvited is None:
+
+                    return jsonify({
+                        'result': 'Room Is a private Community.',
+                        'thepostid': str_post_id,
+                        'newnumber': getpost.hotness_rating_now
+                    })
+            currentdownvotes = getpost.downvotes_on_post
+            # add the vote to current votes
+            newvotes_down = currentdownvotes - 1
+            # set post variable to this new post number
+            getpost.downvotes_on_post = newvotes_down
+            # subtract from downvotes
+            getpostexp = getpost.upvotes_on_post + newvotes_down
+            # set exp number to exp_commons
+            getpost.total_exp_commons = getpostexp
+
+            # current hotness rating
+            currenthotness = getpost.hotness_rating_now
+            newhotness = currenthotness - 1
+
+            getpost.hotness_rating_now = newhotness
+
+            # add and commit
+            db.session.add(getpost)
+
+            # add stats to voter
+            exppoint(user_id=current_user.id, type=8)
+            exppoint(user_id=getpost.user_id, type=4)
+
+            # add to user stats
+            if getpost.user_id != 0:
+                post_owner_stats = db.session.query(UserStats)\
+                    .filter(UserStats.user_id == getpost.user_id)\
+                    .first()
+
+                current_downvotes_posts = post_owner_stats.post_downvotes
+                new_downvotes_posts = current_downvotes_posts + 1
+                post_owner_stats.post_downvotes = new_downvotes_posts
+                db.session.add(post_owner_stats)
+
+            return jsonify({
+                'result': 'Downvoted!',
+                'thepostid': str_post_id,
+                'newnumber': newhotness
+            })
