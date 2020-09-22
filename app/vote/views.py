@@ -314,6 +314,8 @@ def upvote_post(postid):
                 post_id=getpost.id,
             )
 
+            postrating = getpost.highest_exp_reached + 1
+
             # add and commit
             db.session.add(create_new_vote)
             db.session.add(getpost)
@@ -323,7 +325,7 @@ def upvote_post(postid):
             return jsonify({
                 'result': 'Upvoted!',
                 'thepostid': str_post_id,
-                'newnumber': newhotness
+                'newnumber': postrating
             })
 
 
@@ -446,11 +448,14 @@ def downvote_post(postid):
             current_downvotes_posts = post_owner_stats.post_downvotes
             new_downvotes_posts = current_downvotes_posts + 1
             post_owner_stats.post_downvotes = new_downvotes_posts
+
             # add user_id to vote
             create_new_vote = PostUpvotes(
                 user_id=current_user.id,
                 post_id=getpost.id,
             )
+
+            postrating = getpost.highest_exp_reached - 1
 
             # add and commit
             db.session.add(create_new_vote)
@@ -461,5 +466,5 @@ def downvote_post(postid):
             return jsonify({
                 'result': 'Downvoted!',
                 'thepostid': str_post_id,
-                'newnumber': newhotness
+                'newnumber': postrating
             })

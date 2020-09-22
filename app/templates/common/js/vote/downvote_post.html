@@ -3,11 +3,15 @@
 <script type = "text/javascript" >
     $(document).on('click', '#click-btn-downvote-post-{{ post.id }}', function(event)
     {
+        var csrf_token = "{{ csrf_token() }}";
         $.ajax({
             url: "{{ url_for('vote.downvote_post', postid=post.id) }}",
             type: "post",
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify($(this).attr("value")),
+                        headers: {
+                "X-CSRFToken": csrf_token,
+            },
             dataType: 'json',
 
             success: function(data)

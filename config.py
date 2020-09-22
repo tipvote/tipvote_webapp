@@ -69,7 +69,7 @@ ALLOWED_EXTENSIONS = ['png', 'jpeg', 'jpg', 'png', 'gif']
 SECRET_KEY = secretkey
 WTF_CSRF_TIME_LIMIT = None
 WTF_CSRF_SECRET_KEY = wtfkey
-WTF_CSRF_ENABLED = False
+WTF_CSRF_ENABLED = True
 SESSION_PERMANENT = True
 
 
