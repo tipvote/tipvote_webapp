@@ -567,7 +567,7 @@ def createcomment(subname, postid, parentid):
                     visible_user_id=visible_user_id,
                     visible_user_name=visible_user_name,
                     userhidden=userhidden,
-                    parent=getsubcomment,
+
                     hidden=0,
                     active=1,
                     thread_timestamp=figured_thread_timestamp,
@@ -601,14 +601,17 @@ def createcomment(subname, postid, parentid):
                 post.last_active = now
                 post.active = 1
 
-                # add notification for poster about new comment
-                add_new_notification(user_id=post.user_id,
-                                     subid=subid,
-                                     subname=subname,
-                                     postid=post.id,
-                                     commentid=0,
-                                     msg=1,
-                                     )
+
+                # if the commenter doesnt equal the poster
+                if post.user_id != current_user.id:
+                    # add notification for poster about new comment
+                    add_new_notification(user_id=post.user_id,
+                                         subid=subid,
+                                         subname=subname,
+                                         postid=post.id,
+                                         commentid=0,
+                                         msg=1,
+                                         )
                 # add to db
                 db.session.add(post)
                 db.session.add(getuser_timers)
@@ -752,8 +755,7 @@ def share_post_text(postid):
                     created=now,
                     edited=now,
                     post_text=form.postmessage.data,
-                    decay_rate=1,
-
+                    decay_rate='1',
                     shared_post=sharedid,
                     shared_time=post.created,
                     shared_thoughts=sharedthoughtstext,
@@ -868,7 +870,7 @@ def share_post(postid):
                 hidden=0,
                 muted=0,
                 crawlneed=0,
-                decay_rate=1,
+                decay_rate='1',
                 shared_post=sharedid,
                 shared_time=post.created,
                 shared_thoughts=sharedthoughtstext,
@@ -1006,7 +1008,7 @@ def create_post_wall(userid):
                 last_active=now,
                 hotness_rating_now=0,
                 page_views=0,
-                decay_rate=1,
+                decay_rate='1',
 
                 # admin
                 sticky=0,
@@ -1217,7 +1219,7 @@ def create_post_room(subname):
                 url_image=urlimagefound,
                 url_title=urltitlefound,
                 url_image_server='',
-                decay_rate=1,
+                decay_rate='1',
 
                 # images
                 image_server_1='',
@@ -1588,7 +1590,7 @@ def create_post_business_wall(businessid):
                 last_active=now,
                 hotness_rating_now=0,
                 page_views=0,
-                decay_rate=1,
+                decay_rate='1',
                 sticky=0,
                 active=1,
                 locked=0,
@@ -1740,7 +1742,7 @@ def create_post_business_wall_other(businessid):
                 last_active=now,
                 hotness_rating_now=0,
                 page_views=0,
-                decay_rate=1,
+                decay_rate='1',
 
                 # admin
                 sticky=0,
