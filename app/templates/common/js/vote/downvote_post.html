@@ -1,0 +1,39 @@
+
+
+<script type = "text/javascript" >
+    $(document).on('click', '#click-btn-downvote-post-{{ post.id }}', function(event)
+    {
+        $.ajax({
+            url: "{{ url_for('vote.downvote_post', postid=post.id) }}",
+            type: "post",
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify($(this).attr("value")),
+            dataType: 'json',
+
+            success: function(data)
+            {
+                if (data.result == 'Downvoted!') {
+                    $('div#number_before_' + data.thepostid).remove();
+                    $('div#number_after_down_' + data.thepostid).append(data.newnumber);
+                    console.log("SUCCESS");
+                    console.log(data);
+                    return data;
+                }
+                else
+                {
+                    console.log(data)
+                }
+            },
+
+            error: function()
+            {
+                console.log("data");
+                console.log("ERROR");
+            },
+
+        });
+        event.preventDefault();
+    });
+
+
+</script>
