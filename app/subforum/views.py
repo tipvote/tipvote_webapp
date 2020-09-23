@@ -82,7 +82,9 @@ def sub(subname):
     currentltcprice = db.session.query(LtcPrices).get(1)
 
     # get the sub
-    thesub = db.session.query(SubForums).filter(func.lower(SubForums.subcommon_name) == subname.lower()).first_or_404()
+    thesub = db.session.query(SubForums)\
+        .filter(func.lower(SubForums.subcommon_name) == subname.lower())\
+        .first_or_404()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
         return redirect(url_for('index'))
@@ -94,15 +96,23 @@ def sub(subname):
     if thesub.room_deleted == 1:
         return redirect(url_for('subforum.sub_deleted', subname=subname))
     # get the stats
-    substats = db.session.query(SubForumStats).filter(SubForumStats.subcommon_name == subname.lower()).first()
+    substats = db.session.query(SubForumStats)\
+        .filter(SubForumStats.subcommon_name == subname.lower())\
+        .first()
     # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom).filter(SubForumCustom.subcommon_id == thesub.id).first()
+    subcustom_stuff = db.session.query(SubForumCustom)\
+        .filter(SubForumCustom.subcommon_id == thesub.id)\
+        .first()
     # get sub info box
-    subinfobox = db.session.query(SubForumCustomInfoOne).filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname.lower()).first()
+    subinfobox = db.session.query(SubForumCustomInfoOne)\
+        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname.lower())\
+        .first()
     subtype = thesub.type_of_subcommon
     subname = thesub.subcommon_name
     subid = int(thesub.id)
-    mods = db.session.query(Mods).filter(Mods.subcommon_id == subid).all()
+    mods = db.session.query(Mods)\
+        .filter(Mods.subcommon_id == subid)\
+        .all()
 
     if subcustom_stuff is None:
         subcustom_setup = None
@@ -277,7 +287,9 @@ def sub(subname):
     getpost = getpost.filter(CommonsPost.hidden == 0)
     getpost = getpost.filter(or_(CommonsPost.age == post_18, CommonsPost.age == allpost))
     getpost = getpost.filter(CommonsPost.sticky == 0)
-    getpost = getpost.order_by(CommonsPost.hotness_rating_now.desc(), CommonsPost.created.desc())
+    getpost = getpost.order_by(CommonsPost.created.desc(),
+                               CommonsPost.hotness_rating_now.desc(),
+                               )
 
     posts = getpost.paginate(page, app.config['POSTS_PER_PAGE'], False)
 
@@ -360,15 +372,24 @@ def sub_newest(subname):
         thenotes = 0
 
     # get the sub
-    thesub = db.session.query(SubForums).filter(func.lower(SubForums.subcommon_name) == subname).first()
+    thesub = db.session.query(SubForums)\
+        .filter(func.lower(SubForums.subcommon_name) == subname)\
+        .first()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
         return redirect(url_for('index'))
     # get the stats
-    substats = db.session.query(SubForumStats).filter(func.lower(SubForumStats.subcommon_name) == subname).first_or_404()
+    substats = db.session.query(SubForumStats)\
+        .filter(func.lower(SubForumStats.subcommon_name) == subname)\
+        .first_or_404()
     # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom).filter(SubForumCustom.subcommon_id == thesub.id).first()
-    subinfobox = db.session.query(SubForumCustomInfoOne).filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname).first()
+    subcustom_stuff = db.session.query(SubForumCustom)\
+        .filter(SubForumCustom.subcommon_id == thesub.id).first()
+
+    subinfobox = db.session.query(SubForumCustomInfoOne)\
+        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname)\
+        .first()
+
     # get id of the sub
     subid = int(thesub.id)
     if subcustom_stuff is None:
@@ -405,7 +426,6 @@ def sub_newest(subname):
     else:
         useramod = 0
         userowner = 0
-
 
     subtype = thesub.type_of_subcommon
     subname = thesub.subcommon_name
@@ -582,7 +602,6 @@ def sub_newest(subname):
                            recent_tippers_post=recent_tippers_post,
                            recent_tippers_post_count=recent_tippers_post_count,
                            mods=mods,
-
                            useramod=useramod,
                            userowner=userowner,
                            lockpostform=lockpostform,
@@ -595,12 +614,10 @@ def sub_newest(subname):
                            posts=posts.items,
                            next_url=next_url,
                            prev_url=prev_url,
-
                            currentbtcprice=currentbtcprice,
                            currentxmrprice=currentxmrprice,
                            currentbchprice=currentbchprice,
                            currentltcprice=currentltcprice,
-
                            )
 
 
@@ -634,15 +651,23 @@ def sub_active(subname):
         thenotes = 0
 
     # get the sub
-    thesub = db.session.query(SubForums).filter(func.lower(SubForums.subcommon_name) == subname).first()
+    thesub = db.session.query(SubForums)\
+        .filter(func.lower(SubForums.subcommon_name) == subname)\
+        .first()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
         return redirect(url_for('index'))
     # get the stats
-    substats = db.session.query(SubForumStats).filter(func.lower(SubForumStats.subcommon_name) == subname).first_or_404()
+    substats = db.session.query(SubForumStats)\
+        .filter(func.lower(SubForumStats.subcommon_name) == subname)\
+        .first_or_404()
     # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom).filter(SubForumCustom.subcommon_id == thesub.id).first()
-    subinfobox = db.session.query(SubForumCustomInfoOne).filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname).first()
+    subcustom_stuff = db.session.query(SubForumCustom)\
+        .filter(SubForumCustom.subcommon_id == thesub.id)\
+        .first()
+    subinfobox = db.session.query(SubForumCustomInfoOne)\
+        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname)\
+        .first()
     if subcustom_stuff is None:
         subcustom_setup = None
     else:
@@ -679,7 +704,6 @@ def sub_active(subname):
     else:
         useramod = 0
         userowner = 0
-
 
     subtype = thesub.type_of_subcommon
     subname = thesub.subcommon_name
