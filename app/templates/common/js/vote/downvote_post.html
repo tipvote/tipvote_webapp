@@ -19,20 +19,18 @@
                 if (data.result == 'Downvoted!') {
                     $('div#number_before_' + data.thepostid).remove();
                     $('div#number_after_down_' + data.thepostid).append(data.newnumber);
-                    console.log("SUCCESS");
-                    console.log(data);
+
                     return data;
                 }
                 else
                 {
-                    console.log(data)
+
                 }
             },
 
             error: function()
             {
-                console.log("data");
-                console.log("ERROR");
+
             },
 
         });

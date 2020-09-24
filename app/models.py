@@ -174,27 +174,33 @@ class Comments(db.Model):
     __table_args__ = {"schema": "avengers_comments", 'useexisting': True}
 
     id = db.Column(db.Integer, primary_key=True)
-    # user_name
-    user_name = db.Column(db.String(140))
-    user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
+
+    # future variable perhaps for security
+    realid = db.Column(db.String(40))
+
+    # time created
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
 
     # connect for vote commentupvotes
     commons_post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
 
-    realid = db.Column(db.String(40))
-    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
-
+    # user_name
+    user_name = db.Column(db.String(140))
+    user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
     visible_user_id = db.Column(db.Integer)
     visible_user_name = db.Column(db.String(140))
     userhidden = db.Column(db.Integer)
 
+    # stats
     total_exp_commons = db.Column(db.Integer)
     downvotes_on_comment = db.Column(db.Integer)
     upvotes_on_comment = db.Column(db.Integer)
+
     # reported
     active = db.Column(db.Integer)
     hidden = db.Column(db.Integer)
     deleted = db.Column(db.Integer)
+
     # donations
     total_recieved_btc = db.Column(db.DECIMAL(20, 8))
     total_recieved_btc_usd = db.Column(db.DECIMAL(20, 2))
@@ -211,11 +217,12 @@ class Comments(db.Model):
     thread_upvotes = db.Column(db.Integer)
     thread_downvotes = db.Column(db.Integer)
 
+    # pathing
     path = db.Column(db.TEXT, index=True)
-
     comment_parent_id = db.Column(db.Integer, db.ForeignKey('avengers_comments.avengers_comments_comments.id'))
     replies = db.relationship('Comments', backref=db.backref('parent', remote_side=[id]), lazy='dynamic')
 
+    # the content
     body = db.Column(db.TEXT)
     body_clean = db.Column(db.Text)
 
@@ -245,8 +252,6 @@ class Comments(db.Model):
 
 
 db.event.listen(Comments.body, 'set', Comments.on_changed_body)
-
-
 
 
 class LegalMessages(db.Model):

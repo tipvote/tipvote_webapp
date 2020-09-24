@@ -3,7 +3,8 @@
 {% include 'common/js/vote/downvote_post.html' %}
 
 <div class="col-12 text-center" style="max-height: 30px">
-    <form method="post" action="{{ url_for('vote.upvote_post', postid=post.id) }}">
+    <form method="post"
+          action="{{ url_for('vote.upvote_post', postid=post.id) }}">
         {{ voteform.csrf_token }}
 
         <button
@@ -12,7 +13,6 @@
             value="{{ post.id }}"
             type="button"
         >
-
             <img alt='' src="{{ url_for('static',
              filename='images/arrows/uparrow.png')  }}"
                  width="20px" height="20px">

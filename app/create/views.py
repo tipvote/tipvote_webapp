@@ -496,6 +496,7 @@ def createcomment(subname, postid, parentid):
 
         else:
             getsubcomment = db.session.query(Comments).filter(Comments.id == parentid).first()
+
             figured_thread_timestamp = getsubcomment.thread_timestamp
             figured_thread_upvotes = getsubcomment.thread_upvotes
             figured_thread_downvotes = getsubcomment.thread_downvotes
@@ -567,7 +568,7 @@ def createcomment(subname, postid, parentid):
                     visible_user_id=visible_user_id,
                     visible_user_name=visible_user_name,
                     userhidden=userhidden,
-
+                    parent=getsubcomment,
                     hidden=0,
                     active=1,
                     thread_timestamp=figured_thread_timestamp,
@@ -600,7 +601,6 @@ def createcomment(subname, postid, parentid):
                 # update post to active
                 post.last_active = now
                 post.active = 1
-
 
                 # if the commenter doesnt equal the poster
                 if post.user_id != current_user.id:
@@ -678,7 +678,7 @@ def share_post_text(postid):
                                )
 
     if request.method == 'POST':
-        # TIMERS
+        # Timer
         seeiftimerallowed, timeleft = lastposted(user_id=current_user.id)
         # if there is enough time
         if seeiftimerallowed == 0:
@@ -705,6 +705,8 @@ def share_post_text(postid):
 
                 newpostnumber = user_stats.total_posts + 1
 
+                user_stats.total_posts = newpostnumber
+
                 newpost = CommonsPost(
 
                     # creator
@@ -713,29 +715,23 @@ def share_post_text(postid):
                     visible_user_id=current_user.id,
                     visible_user_name=current_user.user_name,
                     userhidden=0,
-
                     poster_user_name=current_user.user_name,
                     poster_user_id=current_user.id,
                     poster_visible_user_id=p_user_id,
                     poster_visible_user_name=p_user_name,
                     poster_userhidden=p_user_hidden,
-
                     creator_anon=post.creator_anon,
                     content_user_name=post.content_user_name,
                     content_user_id=post.content_user_id,
-
                     realid=uniqueid,
                     subcommon_id=1,
                     subcommon_name='wall',
-
                     type_of_post=post.type_of_post,
-
                     url_of_post=post.url_of_post,
                     url_description=post.url_description,
                     url_image=post.url_image,
                     url_title=post.url_title,
                     url_image_server=post.url_image_server,
-
                     image_server_1=post.image_server_1,
                     total_exp_commons=0,
                     highest_exp_reached=0,
@@ -761,15 +757,12 @@ def share_post_text(postid):
                     shared_thoughts=sharedthoughtstext,
                     age=post.age,
                     business_id=post.business_id
-
                 )
-
-                user_stats.total_posts = newpostnumber
 
                 # commit
                 db.session.add(user_stats)
-
                 db.session.add(newpost)
+
                 db.session.commit()
 
                 flash("Shared!", category="success")

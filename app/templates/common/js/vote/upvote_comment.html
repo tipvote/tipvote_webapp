@@ -1,11 +1,11 @@
 
 
 <script type = "text/javascript" >
-    $(document).on('click', '#click-btn-upvote-post-{{ post.id }}', function(event)
+    $(document).on('click', '#click-btn-upvote-comment-{{ comment.id }}', function(event)
     {
         var csrf_token = "{{ csrf_token() }}";
         $.ajax({
-            url: "{{ url_for('vote.upvote_post', postid=post.id) }}",
+            url: "{{ url_for('vote.upvote_comment', commentid=comment.id) }}",
             type: "post",
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify($(this).attr("value")),
@@ -16,15 +16,15 @@
 
             success: function(data)
             {
-
                 if (data.result == 'Upvoted!') {
-                    $('div#number_before_' + data.thepostid).remove();
-                    $('div#number_after_up_' + data.thepostid).append(data.newnumber);
+                    $('div#number_before_' + data.thecommentid).remove();
+                    $('div#number_after_up_' + data.thecommentid).append(data.newnumber).show();
+
                     return data;
                 }
                 else
                 {
-                    console.log(data)
+
                 }
             },
 
