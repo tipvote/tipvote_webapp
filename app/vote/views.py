@@ -154,10 +154,10 @@ def downvote_comment(commentid):
         # set exp number to exp_commons
         getcomment.total_exp_commons = getcommentexp
 
-        # add to user stats
-        current_downvotes_comment = comment_owner_stats.comment_downvotes
-        new_downvotes_comment = current_downvotes_comment + 1
-        comment_owner_stats.comment_downvotes = new_downvotes_comment
+        # number used to show ajax response
+        # It takes the current exp (upvotes - downvotes) then adds 1
+        # downvote comment
+        newvotenumber = getcomment.total_exp_commons - 1
 
         # raise all in path for thread votes down
         if getcomment.comment_parent_id is None:
@@ -169,6 +169,11 @@ def downvote_comment(commentid):
 
             getcomment.thread_downvotes = newvotes_down
             db.session.add(getcomment)
+
+        # add to user stats
+        current_downvotes_comment = comment_owner_stats.comment_downvotes
+        new_downvotes_comment = current_downvotes_comment + 1
+        comment_owner_stats.comment_downvotes = new_downvotes_comment
 
         # add exp points
         exppoint(user_id=current_user.id, type=8)
@@ -188,7 +193,7 @@ def downvote_comment(commentid):
         return jsonify({
             'result': 'Downvoted!',
             'thecommentid': str_comment_id,
-            'newnumber': getcommentexp
+            'newnumber': newvotenumber
         })
 
 
@@ -319,22 +324,29 @@ def upvote_comment(commentid):
         getcommentexp = newvotes_up + newvotes_down
         # set exp number to exp_commonts
         getcomment.total_exp_commons = getcommentexp
-        # add to user stats
-        current_upvotes_comment = comment_owner_stats.comment_upvotes
-        new_upvotes_comment = current_upvotes_comment + 1
-        comment_owner_stats.comment_upvotes = new_upvotes_comment
+
+        # number used to show ajax response
+        # It takes the current exp (upvotes - downvotes) then adds 1
+        # upvote comment
+        newvotenumber = getcomment.total_exp_commons + 1
 
         # get comments of this comment and raise
         # there thread upvotes for sorting purposes
         if getcomment.comment_parent_id is None:
             getrelativecomments = db.session.query(Comments) \
                 .filter(Comments.path.like(getcomment.path + '%'))
+
             for comment in getrelativecomments:
                 comment.thread_upvotes = newvotes_up
 
                 db.session.add(comment)
             getcomment.thread_upvotes = newvotes_up
             db.session.add(getcomment)
+
+        # add to user stats
+        current_upvotes_comment = comment_owner_stats.comment_upvotes
+        new_upvotes_comment = current_upvotes_comment + 1
+        comment_owner_stats.comment_upvotes = new_upvotes_comment
 
         # add exp points
         exppoint(user_id=current_user.id, type=8)
@@ -354,7 +366,7 @@ def upvote_comment(commentid):
         return jsonify({
             'result': 'Upvoted!',
             'thecommentid': str_comment_id,
-            'newnumber': getcommentexp
+            'newnumber': newvotenumber
         })
 
 
@@ -374,6 +386,7 @@ def upvote_post(postid):
         getcurrentsub = db.session.query(SubForums) \
             .filter(SubForums.id == getpost.subcommon_id) \
             .first()
+
         subid = getcurrentsub.id
         subtype = getcurrentsub.type_of_subcommon
 
@@ -386,6 +399,11 @@ def upvote_post(postid):
         seeifbanned = db.session.query(Banned)\
             .filter(current_user.id == Banned.user_id,
                     Banned.subcommon_id == subid)\
+            .first()
+
+        # post owner stats
+        post_owner_stats = db.session.query(UserStats) \
+            .filter(UserStats.user_id == getpost.user_id) \
             .first()
 
         if subtype == 1:
@@ -448,10 +466,7 @@ def upvote_post(postid):
                     'thepostid': str_post_id,
                     'newnumber': getpost.hotness_rating_now
                 })
-            else:
-                pass
         else:
-
             currentupvotes = getpost.upvotes_on_post
             # add the vote to current votes
             newvotes_up = currentupvotes + 1
@@ -465,17 +480,18 @@ def upvote_post(postid):
             # current hotness rating
             currenthotness = getpost.hotness_rating_now
             newhotness = currenthotness + 1
-
             getpost.hotness_rating_now = newhotness
+
+            # number used to show ajax response
+            # It takes the current exp (upvotes - downvotes) then adds 1
+            # upvote post
+            newvotenumber = getpost.highest_exp_reached + 1
 
             # add exp points
             exppoint(user_id=current_user.id, type=8)
             exppoint(user_id=getpost.user_id, type=3)
-            # add to user stats
 
-            post_owner_stats = db.session.query(UserStats)\
-                .filter(UserStats.user_id == getpost.user_id)\
-                .first()
+            # add to user stats
             current_upvotes_posts = post_owner_stats.post_upvotes
             new_upvotes_posts = current_upvotes_posts + 1
             post_owner_stats.post_upvotes = new_upvotes_posts
@@ -484,8 +500,6 @@ def upvote_post(postid):
                 user_id=current_user.id,
                 post_id=getpost.id,
             )
-
-            postrating = getpost.highest_exp_reached + 1
 
             # add and commit
             db.session.add(create_new_vote)
@@ -496,7 +510,7 @@ def upvote_post(postid):
             return jsonify({
                 'result': 'Upvoted!',
                 'thepostid': str_post_id,
-                'newnumber': postrating
+                'newnumber': newvotenumber
             })
 
 
@@ -516,6 +530,7 @@ def downvote_post(postid):
         getcurrentsub = db.session.query(SubForums) \
             .filter(SubForums.id == getpost.subcommon_id) \
             .first()
+
         subid = getcurrentsub.id
         subtype = getcurrentsub.type_of_subcommon
 
@@ -528,6 +543,11 @@ def downvote_post(postid):
         seeifbanned = db.session.query(Banned)\
             .filter(current_user.id == Banned.user_id,
                     Banned.subcommon_id == subid)\
+            .first()
+
+        # add to user stats
+        post_owner_stats = db.session.query(UserStats) \
+            .filter(UserStats.user_id == getpost.user_id) \
             .first()
 
         if subtype == 1:
@@ -613,10 +633,6 @@ def downvote_post(postid):
             exppoint(user_id=getpost.user_id, type=4)
 
             # add to user stats
-            post_owner_stats = db.session.query(UserStats)\
-                .filter(UserStats.user_id == getpost.user_id)\
-                .first()
-
             current_downvotes_posts = post_owner_stats.post_downvotes
             new_downvotes_posts = current_downvotes_posts + 1
             post_owner_stats.post_downvotes = new_downvotes_posts
@@ -627,7 +643,7 @@ def downvote_post(postid):
                 post_id=getpost.id,
             )
 
-            postrating = getpost.highest_exp_reached - 1
+            newvotenumber = getpost.highest_exp_reached - 1
 
             # add and commit
             db.session.add(create_new_vote)
@@ -638,5 +654,5 @@ def downvote_post(postid):
             return jsonify({
                 'result': 'Downvoted!',
                 'thepostid': str_post_id,
-                'newnumber': postrating
+                'newnumber': newvotenumber
             })

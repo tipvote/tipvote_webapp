@@ -131,17 +131,28 @@
 
                     <div class="col-auto text-white" id="number_before_{{ comment.id }}">
                       Points   {{ comment.total_exp_commons }}
+                        <div style="color:#00ff00;display: inline;">({{ comment.upvotes_on_comment }}) </div>
+                        <div style="color:#D50000;display: inline;"> ({{ comment.downvotes_on_comment }})</div>
+
                     </div>
 
                     <div class="col-auto upgreen" id="number_after_up_{{ comment.id }}" style="display: none;">
                       Points  {{ newnumber }}
+                        <div style="color:#00ff00;display: inline;">({{ comment.upvotes_on_comment }}) </div>
+                        <div style="color:#D50000;display: inline;"> ({{ comment.downvotes_on_comment }})</div>
+
                     </div>
 
                     <div class="col-auto downred" id="number_after_down_{{ comment.id }}" style="display: none;">
                       Points  {{ newnumber }}
+                        <div style="color:#00ff00;display: inline;">({{ comment.upvotes_on_comment }}) </div>
+                        <div style="color:#D50000;display: inline;"> ({{ comment.downvotes_on_comment }})</div>
+
                     </div>
 
+                    <div class="col-auto">
 
+                    </div>
                 </div>
             </div>
         </div>
