@@ -159,9 +159,9 @@ def index():
                                                SubForums.room_deleted == 0,
                                                SubForums.room_suspended == 0
                                                )
-        guestsubforums = guestsubforums.filter(SubForums.id != 1)
+        guestsubforums = guestsubforums.filter(SubForums.id != 1, SubForums.id != 13)
         guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
-        guestsubforums = guestsubforums.limit(20)
+        guestsubforums = guestsubforums.limit(7)
         usersubforums = None
         seeifmod = None
         moddingcount = None

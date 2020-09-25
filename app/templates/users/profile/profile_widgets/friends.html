@@ -6,7 +6,7 @@
             <div class="col-6"> <h5>Following</h5></div>
             <div class="col-4 ">
                 <a href="{{ url_for('profile.profile_following_user', user_name=theuser.user_name) }}">
-                    Following
+                    See All
                 </a>
             </div>
         </div>
@@ -32,8 +32,8 @@
                             {% endif %}
 
                         </a>
-                       <div class="col-12 text-center text-white  p-0">
-                                {{ follower.user_name }}
+                       <div class="col-12 text-center text-white  p-0 " style="font-size: 11px">
+                                {{ follower.user_name|truncate(14) }}
                             </div>
                     </div>
 

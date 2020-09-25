@@ -19,14 +19,10 @@
         {% endif %}
 
         <!--- Profile Image voting -->
-        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 pl-0 pt-0" style="max-width: 55px">
             {% if comment.usercomments.profileimage  %}
                 {% if comment.usercomments.profileimage == '' %}
 
-                    <img
-                        src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                        style="width:50px;height: 50px"
-                    >
 
                 {% else %}
 
@@ -42,14 +38,13 @@
 
                 {% endif %}
             {% else %}
-                <img src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                     style="width:50px;height: 50px">
+
             {% endif %}
 
 
         </div>
         <!--- left side voting -->
-        <div class="col-2 col-xl-1 mb-0 m-0" style="max-width: 55px">
+        <div class="col-2 col-xl-1 mb-0 m-0" style="max-width: 50px">
             {% include 'common/js/vote/upvote_comment.html' %}
             {% include 'common/js/vote/downvote_comment.html' %}
 
