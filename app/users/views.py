@@ -266,9 +266,9 @@ def register():
                     comment_downvotes=0,
                     total_posts=0,
                     total_comments=0,
-                    user_level=0,
+                    user_level=1,
                     user_exp=0,
-                    user_width_next_level=0
+                    user_width_next_level='0'
                 )
 
                 users_timers = UserTimers(

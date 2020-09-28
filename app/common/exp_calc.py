@@ -31,15 +31,15 @@ def exppoint(user_id, type):
 
     currentpoints = guser.user_exp
     if 1 <= guser.user_level <= 3:
-        experienceperlevel = 300
+        experienceperlevel = 200
     elif 4 <= guser.user_level <= 7:
-        experienceperlevel = 500
+        experienceperlevel = 300
     elif 8 <= guser.user_level <= 10:
-        experienceperlevel = 1000
+        experienceperlevel = 500
     elif 11 <= guser.user_level <= 14:
-        experienceperlevel = 1500
+        experienceperlevel = 1000
     elif 16 <= guser.user_level <= 20:
-        experienceperlevel = 2000
+        experienceperlevel = 1500
     elif 21 <= guser.user_level <= 25:
         experienceperlevel = 2250
     elif 26 <= guser.user_level <= 30:
@@ -47,13 +47,13 @@ def exppoint(user_id, type):
     elif 26 <= guser.user_level <= 30:
         experienceperlevel = 10000
     elif 26 <= guser.user_level <= 30:
-        experienceperlevel = 15000
+        experienceperlevel = 10000
     elif 30 <= guser.user_level <= 50:
-        experienceperlevel = 20000
+        experienceperlevel = 10000
     elif 51 <= guser.user_level <= 100:
-        experienceperlevel = 25000
+        experienceperlevel = 10000
     elif 101 <= guser.user_level <= 151:
-        experienceperlevel = 50000
+        experienceperlevel = 10000
     else:
         experienceperlevel = 1000
 
@@ -77,12 +77,11 @@ def exppoint(user_id, type):
 
     # type 2 = User commented
     elif type == 2:
-        # ads current points to variable points
+        # adds current points to variable points
         addpoints = int(currentpoints + created_comment)
         # uses exp per level chema
         levels_up, exp_to_next = divmod(addpoints, experienceperlevel)
         # add stats to user
-
 
         # add exp table
         exp = ExpTable(
@@ -96,7 +95,7 @@ def exppoint(user_id, type):
 
     # type 3 = got upvoted
     elif type == 3:
-        # ads current points to variable points
+        # adds current points to variable points
         addpoints = int(currentpoints + points_upvote)
         # uses exp per level chema
         levels_up, exp_to_next = divmod(addpoints, experienceperlevel)
@@ -114,7 +113,7 @@ def exppoint(user_id, type):
 
     # type 4 = got downvote
     elif type == 4:
-        # ads current points to variable points
+        # adds current points to variable points
         addpoints = int(currentpoints + points_downvote)
         # uses exp per level chema
         levels_up, exp_to_next = divmod(addpoints, experienceperlevel)
@@ -147,7 +146,7 @@ def exppoint(user_id, type):
 
     # type 6 = recieved coin
     elif type == 6:
-        # ads current points to variable points
+        # adds current points to variable points
         addpoints = int(currentpoints + points_recievedcoin)
         # uses exp per level chema
         levels_up, exp_to_next = divmod(addpoints, experienceperlevel)
@@ -165,7 +164,7 @@ def exppoint(user_id, type):
 
     # type 7 = created sub
     elif type == 7:
-        # ads current points to variable points
+        # adds current points to variable points
         addpoints = int(currentpoints + points_createdsub)
         # uses exp per level chema
         levels_up, exp_to_next = divmod(addpoints, experienceperlevel)
@@ -210,23 +209,20 @@ def exppoint(user_id, type):
         randomcoin(user_id=user_id, newlevel=guser.user_level)
         # random coin
 
-
-
-
     if 1 <= guser.user_level <= 3:
-        user1width_calculator = (guser.user_exp / 300) * 100
+        user1width_calculator = (guser.user_exp / 200) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 4 <= guser.user_level <= 7:
-        user1width_calculator = (guser.user_exp / 500) * 100
+        user1width_calculator = (guser.user_exp / 300) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 8 <= guser.user_level <= 10:
-        user1width_calculator = (guser.user_exp / 1000) * 100
+        user1width_calculator = (guser.user_exp / 500) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 11 <= guser.user_level <= 14:
-        user1width_calculator = (guser.user_exp / 1500) * 100
+        user1width_calculator = (guser.user_exp / 1000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 16 <= guser.user_level <= 20:
-        user1width_calculator = (guser.user_exp / 2000) * 100
+        user1width_calculator = (guser.user_exp / 1500) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 21 <= guser.user_level <= 25:
         user1width_calculator = (guser.user_exp / 2250) * 100
@@ -238,13 +234,13 @@ def exppoint(user_id, type):
         user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 26 <= guser.user_level <= 30:
-        user1width_calculator = (guser.user_exp / 15000) * 100
+        user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 30 <= guser.user_level <= 50:
-        user1width_calculator = (guser.user_exp / 20000) * 100
+        user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     elif 51 <= guser.user_level <= 100:
-        user1width_calculator = (guser.user_exp / 25000) * 100
+        user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     else:
         user1width_calculator = (guser.user_exp / 1000) * 100
