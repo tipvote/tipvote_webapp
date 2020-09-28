@@ -1,0 +1,60 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-4 mb-5">
+        <a class="text-white text-center btn btn-dark btn-block"
+           href="{{ url_for('index') }}">
+            Back to tipvote
+        </a>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12  col-md-6 offset-md-3 text-center">
+            <p class="font-weight-bold">
+            <h5>Our goal is to show how Tipvote is evolving.
+            We offer transparency with our open source project.
+            </h5>
+            </p>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-3 third_color">
+            <h3 class="text-center">Updates</h3>
+            {% if current_user.admin != 0 %}
+                <a href="{{ url_for('admin_add_update') }}">
+                    Add update
+                </a>
+            {% endif %}
+            {% for f in all_updates %}
+                <hr class="bg-white">
+                <a href="{{ url_for('specific_update', update_id=f.id) }}">
+                    Update {{ f.update_version }}
+                </a>
+                <br>
+                {{ f.update_title }}
+
+            {% endfor %}
+        </div>
+
+
+        <div class="col-9 second_color">
+            <h2 class="text-center">
+                {{ the_update.update_version }} - {{ the_update.update_title }}
+            </h2>
+            <p>{{ the_update.created }}</p>
+
+            <p>Github Commit:
+                <a href="{{ the_update.github_url }}">
+                    {{ the_update.github_url }}
+                </a>
+            </p>
+
+            <br><br>
+
+            <p>
+                {{ the_update.information|markdown }}
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}

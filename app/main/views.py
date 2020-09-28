@@ -11,11 +11,11 @@ from app.sendmsg import send_email
 from werkzeug.datastructures import CombinedMultiDict
 from flask_login import current_user
 from datetime import datetime
-from sqlalchemy import or_, tuple_
+from sqlalchemy import or_
 from app.common.decorators import login_required
 
 from app import db, app
-from app.main.forms import ApplyToPrivate
+from app.main.forms import ApplyToPrivate, CreateUpdateForm
 from app.subforum.forms import SubscribeForm
 from app.vote.forms import VoteForm
 from app.create.forms import MainPostForm
@@ -38,7 +38,8 @@ from app.models import \
     BusinessFollowers, \
     Messages,\
     Mods, \
-    GiveawayAll
+    GiveawayAll, \
+    Updates
 
 from app.mod.forms import \
     QuickBanDelete, \
@@ -1533,7 +1534,6 @@ def markdownguide():
     else:
         themsgs = 0
 
-
     return render_template('main/markdown.html',
                            now=datetime.utcnow(),
                            themsgs=themsgs
@@ -1638,3 +1638,94 @@ def affiliate():
 
     if request.method == 'POST':
         pass
+
+
+@app.route('/updates', methods=['GET'])
+def updates():
+    # get sidebar list of updates
+    all_updates = db.session.query(Updates).all()
+    # get the latest update
+    the_update = db.session.query(Updates)\
+        .order_by(Updates.created.desc())\
+        .first()
+
+    if request.method == 'GET':
+
+        return render_template('main/updates.html',
+                               all_updates=all_updates,
+                               the_update=the_update
+                               )
+
+    if request.method == 'POST':
+        pass
+
+
+@app.route('/update/<int:update_id>', methods=['GET'])
+@login_required
+def specific_update(update_id):
+    # get sidebar list of updates
+    all_updates = db.session.query(Updates).all()
+    # get the specific update from update id
+    the_update = db.session.query(Updates)\
+        .filter(Updates.id == update_id)\
+        .first()
+
+    if request.method == 'GET':
+
+        return render_template('main/updates.html',
+                               all_updates=all_updates,
+                               the_update=the_update
+                               )
+
+    if request.method == 'POST':
+        pass
+
+
+@app.route('/updateadd', methods=['GET'])
+@login_required
+def admin_add_update():
+    form = CreateUpdateForm()
+
+    if request.method == 'GET':
+        # only admins can see page
+        if current_user.admin == 0:
+            return redirect(url_for('index'))
+
+        # get sidebar list of updates
+        all_updates = db.session.query(Updates).all()
+
+        return render_template('main/addupdate.html',
+                               form=form,
+                               all_updates=all_updates,
+                               )
+
+    if request.method == 'POST':
+        pass
+
+
+@app.route('/update/post', methods=['POST'])
+def admin_post_update():
+    form = CreateUpdateForm()
+    now = datetime.utcnow()
+    if request.method == 'GET':
+        pass
+
+    if request.method == 'POST':
+        # only admins can see page
+        if current_user.admin == 0:
+            return redirect(url_for('index'))
+
+        # add update
+        newupdate = Updates(
+            created=now,
+            update_version=form.version.data,
+            update_title=form.title.data,
+            information=form.description.data,
+            github_url=form.giturl.data,
+        )
+        db.session.add(newupdate)
+        db.session.commit()
+
+        flash("Added update", category='success')
+
+        return redirect(url_for('specific_update', update_id=newupdate.id))

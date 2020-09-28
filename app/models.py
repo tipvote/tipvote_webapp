@@ -9,6 +9,18 @@ import bleach
 from markdown import markdown
 
 
+class Updates(db.Model):
+    __tablename__ = 'updates'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
+    update_version = db.Column(db.String(140))
+    update_title = db.Column(db.String(140))
+    information = db.Column(db.TEXT)
+    github_url = db.Column(db.TEXT)
+
+
 class GiveawayAll(db.Model):
     __tablename__ = 'avengers_promotion_giveaway_all'
     __bind_key__ = 'avengers'
@@ -2315,6 +2327,8 @@ class BannedUser(db.Model):
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     banner_user_id = db.Column(db.Integer)
     banner_user_name = db.Column(db.String(140))
+
+
 
 
 class User(UserMixin, db.Model):

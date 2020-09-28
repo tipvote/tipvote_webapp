@@ -1,0 +1,91 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-4 mb-5">
+        <a class="text-white text-center btn btn-dark btn-block"
+           href="{{ url_for('index') }}">
+            Back to tipvote
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-3 third_color">
+            <h3 class="text-center">Updates</h3>
+            {% if current_user.admin != 0 %}
+                <a href="{{ admin_add_update }}">
+                    Add an update
+                </a>
+            {% endif %}
+            {% for f in all_updates %}
+                <hr class="bg-white">
+                <a href="{{ url_for('specific_update', update_id=f.id) }}">
+                    Update {{ f.update_version }}
+                </a>
+                <br>
+                {{ f.update_title }}
+
+            {% endfor %}
+        </div>
+
+
+        <div class="col-9 second_color">
+
+
+    <div class="col-12 second_color border border-dark p-2 mb-2" >
+        <h5 class="text-center mb-5 mt-2">Add an Update</h5>
+        <form method="post"
+              action="{{ url_for('admin_post_update') }}"
+              >
+            {{ form.csrf_token }}
+
+            <!-- Post Message -->
+            <div class="form-group col-12 mb-3 mt-0 ">
+                {{ render_field(form.title,
+            autocomplete="off",
+            class="form-control bg-dark text-white",
+             placeholder="Title of update") }}
+            </div>
+
+            <!--Select Room -->
+            <div class="form-group col-12 mb-3 mt-0 ">
+                {{ render_field(form.version,
+                class="form-control bg-dark text-white",
+                placeholder="Version of update") }}
+            </div>
+
+            <!--Image -->
+            <div class="form-group col-12 mb-3 mt-0">
+                <div class="row second_color">
+                    <div class="col second_color">
+                        {{ render_field(form.giturl,
+                        class="form-control bg-dark text-white",
+                placeholder="GIT URL of update" ) }}
+                    </div>
+                </div>
+            </div>
+
+            <!--Over 18 -->
+            <div class="form-group col-12 mb-0 mt-0">
+                <div class="row bg-dark">
+                    <div class="col-12 second_color">
+                        {{ render_field(form.description,
+                        class="form-control bg-dark text-white",
+                placeholder="Description of update") }}
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Post -->
+            <div class="form-group text-center col-12 mb-0 mt-4 ">
+                <div class="row">
+                    <div class="col-12" >
+                        {{ render_field(form.submit,value="Post Update", class="btn btn-block btn-tipvote-up w-100") }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+        </div>
+    </div>
+
+
+{% endblock %}

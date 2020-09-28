@@ -30,3 +30,16 @@ class ApplyToPrivate(FlaskForm):
                        ' or underscores')
     ])
     submit = SubmitField()
+
+
+class CreateUpdateForm(FlaskForm):
+    """
+    Form for adding an update.  Usuable by admin only
+    """
+    title = StringField()
+    version = StringField()
+    description = TextAreaField()
+    giturl = TextAreaField()
+
+    submit = SubmitField()
+
