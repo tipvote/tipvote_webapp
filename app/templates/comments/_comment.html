@@ -95,13 +95,13 @@
         <!--- END left side voting -->
         <!--- RIGHT SIDE INFO -->
         {% if comment.body_clean|length < 20 %}
-            <div class="col-4 third_color rounded mb-0">
+            <div class="col-4 third_color rounded m-0 p-1">
         {% elif 20 <=comment.body_clean|length <= 40 %}
-            <div class="col-5 third_color rounded mb-0">
+            <div class="col-5 third_color rounded m-0 p-1">
         {% elif 50 <=comment.body_clean|length <= 80 %}
-            <div class="col-6 third_color rounded mb-0">
+            <div class="col-6 third_color rounded m-0 p-1">
         {% else %}
-            <div class="col-8 third_color rounded mb-0">
+            <div class="col-8 third_color rounded m-0 p-1">
         {% endif %}
         <div class="row">
             <!-- username line -->
@@ -149,36 +149,34 @@
                         {% endif %}
                     {% endif %}
 
-                    <div class="col-auto text-white" id="number_before_{{ comment.id }}">
+                    <div class="col-auto text-white p-0 m-0"
+                         id="number_before_{{ comment.id }}">
                         Points   {{ comment.total_exp_commons }}
-                        (
-                        <div style="color:#00ff00;display: inline;">+{{ comment.upvotes_on_comment }}</div>
-                        |
-                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>
-                        )
+
                     </div>
 
-                    <div class="col-auto upgreen" id="number_after_up_{{ comment.id }}" style="display: none;">
+                    <div class="col-auto upgreen p-0 m-0"
+                         id="number_after_up_{{ comment.id }}"
+                         style="display: none;">
                         Points  {{ newnumber }}
-                        (
-                        <div style="color:#00ff00;display: inline;">+{{ comment.upvotes_on_comment }}</div>
-                        |
-                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>
-                        )
                     </div>
 
-                    <div class="col-auto downred" id="number_after_down_{{ comment.id }}" style="display: none;">
+                    <div class="col-auto downred p-0 m-0"
+                         id="number_after_down_{{ comment.id }}"
+                         style="display: none;">
                         Points  {{ newnumber }}
-                        (
-                        <div style="color:#00ff00;display: inline;">+{{ comment.upvotes_on_comment }} </div>
+                    </div>
+                    <div class="col-auto pl-2 m-0 ml-1 d-none d-md-block">
+                        (<div style="color:#00ff00;display: inline;">+{{ comment.upvotes_on_comment }} </div>
                         |
-                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>
-                        )
+                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>)
+
                     </div>
 
                     <div class="col-12 user_name_color mb-3" style="font-size: 11px">
                     {{ moment(timestamp=comment.created, local=False).fromNow(refresh=True)  }}
                     </div>
+
                 </div>
             </div>
         </div>
