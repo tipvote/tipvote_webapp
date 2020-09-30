@@ -413,3 +413,11 @@ def create_message():
             return redirect((url_for('legal.view_message', msgid=seeifpostexists.id)))
 
 
+@legal.route('/postrules', methods=['GET'])
+def postrules():
+    if request.method == 'GET':
+
+        return render_template('legal/post_rules.html')
+
+    if request.method == 'POST':
+        pass

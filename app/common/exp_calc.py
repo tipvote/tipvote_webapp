@@ -27,8 +27,8 @@ def exppoint(user_id, type):
     getuser = db.session.query(UserStats)
     getuser = getuser.filter(UserStats.user_id == user_id)
     guser = getuser.first()
-    # current user points
 
+    # current user points
     currentpoints = guser.user_exp
     if 1 <= guser.user_level <= 3:
         experienceperlevel = 200
@@ -209,6 +209,7 @@ def exppoint(user_id, type):
         randomcoin(user_id=user_id, newlevel=guser.user_level)
         # random coin
 
+    # set new width of exp bar
     if 1 <= guser.user_level <= 3:
         user1width_calculator = (guser.user_exp / 200) * 100
         user1width = floating_decimals(user1width_calculator, 0)
@@ -243,7 +244,7 @@ def exppoint(user_id, type):
         user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
     else:
-        user1width_calculator = (guser.user_exp / 1000) * 100
+        user1width_calculator = (guser.user_exp / 10000) * 100
         user1width = floating_decimals(user1width_calculator, 0)
 
     guser.user_exp = exp_to_next
@@ -265,12 +266,17 @@ def randomcoin(user_id, newlevel):
     findrandomcoin = random.randint(2, 5)
     findrandomcoin_2 = random.randint(2, 5)
     howmanycoins = 1
-    userlevelstring = str(newlevel)
+    userlevelstring = int(newlevel)
 
     # coin 1
-    getthatcoin = db.session.query(Coins).filter(Coins.id == findrandomcoin).first()
-    seeifuserhascoin1 = db.session.query(UserCoins).filter(UserCoins.user_id == user_id,
-                                                           UserCoins.coin_name == getthatcoin.coin_name).first()
+    getthatcoin = db.session.query(Coins)\
+        .filter(Coins.id == findrandomcoin)\
+        .first()
+    seeifuserhascoin1 = db.session.query(UserCoins)\
+        .filter(UserCoins.user_id == user_id,
+                UserCoins.coin_name == getthatcoin.coin_name)\
+        .first()
+
     if seeifuserhascoin1 is None:
 
         createnewcoin = UserCoins(
@@ -332,7 +338,6 @@ def randomcoin(user_id, newlevel):
                     points_value_1=getsecondcoin.points_value,
                     seen_by_user=0,
                     new_user_level=userlevelstring,
-
                     )
 
     db.session.add(createdisplayflash)

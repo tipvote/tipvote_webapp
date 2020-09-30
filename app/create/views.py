@@ -115,13 +115,13 @@ def createsubforum():
     userlevel = userstats.user_level
 
     # redirect for security incase bypass button
-    if userlevel == 0:
-        flash("You need to be level 1 in order to create a room.  "
+    if userlevel == 1:
+        flash("You need to be level 2 in order to create a room.  "
               "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
         return redirect(url_for('index'))
 
     # determine how many subs a user can have and show them
-    if 1 <= userlevel <= 9:
+    if 2 <= userlevel <= 9:
         maxsubcount = 1 - usersubcount
     elif 10 <= userlevel <= 19:
         maxsubcount = 5 - usersubcount
@@ -154,7 +154,7 @@ def createsubforum():
             return redirect((request.args.get('next', request.referrer)))
 
         # security for level
-        if 1 <= userlevel <= 9:
+        if 2 <= userlevel <= 9:
             if usersubcount >= 1:
                 flash("You need to be level 10 in order to create more rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")

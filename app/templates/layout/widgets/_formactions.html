@@ -18,13 +18,13 @@
         </div>
 
         {% if current_user.is_authenticated %}
-            {% if current_user.user_stats_common.user_level != 0 %}
+            {% if current_user.user_stats_common.user_level != 1 %}
                 <div class="text-center mb-3">
                     <a class="text-white text-center btn btn-dark" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
                 </div>
             {% else %}
                     <div class="text-center mb-3">
-                <p> You must be level 1 in order to create a room</p>
+                <p> You must be level 2 in order to create a room</p>
                 <a class="text-white text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
             </div>
             {% endif %}

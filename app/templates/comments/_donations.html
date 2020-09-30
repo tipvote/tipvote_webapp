@@ -27,6 +27,19 @@
                 {% endif %}
             {% endif %}
         </a>
+        &nbsp;&nbsp;&nbsp;
+        <a class="text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+            {% if post.post_donations == None %}
+            {% else %}
+                {% if post.post_donations.total_recieved_xmr > 0 %}
+                    {{ post.post_donations.total_recieved_xmr }} XMR
+                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                {% else %}
+                     0.00000000 XMR <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
+                                        width="20px" height="20px">
+                {% endif %}
+            {% endif %}
+        </a>
     </div>
 </div>
 
