@@ -341,5 +341,4 @@ def randomcoin(user_id, newlevel):
                     )
 
     db.session.add(createdisplayflash)
-
     db.session.commit()

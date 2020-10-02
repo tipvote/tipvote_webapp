@@ -157,7 +157,7 @@ def downvote_comment(commentid):
         # number used to show ajax response
         # It takes the current exp (upvotes - downvotes) then adds 1
         # downvote comment
-        newvotenumber = getcomment.total_exp_commons - 1
+        newvotenumber = getcomment.total_exp_commons
 
         # raise all in path for thread votes down
         if getcomment.comment_parent_id is None:
@@ -328,7 +328,7 @@ def upvote_comment(commentid):
         # number used to show ajax response
         # It takes the current exp (upvotes - downvotes) then adds 1
         # upvote comment
-        newvotenumber = getcomment.total_exp_commons + 1
+        newvotenumber = getcomment.total_exp_commons
 
         # get comments of this comment and raise
         # there thread upvotes for sorting purposes

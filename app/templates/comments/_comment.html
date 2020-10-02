@@ -35,10 +35,8 @@
                                 filename=comment.usercomments.profileimage) }}"
                             style="width:50px;height: 50px">
                     </a>
-
                 {% endif %}
             {% else %}
-
             {% endif %}
 
 
@@ -138,7 +136,8 @@
                             </div>
                         {% else %}
                             <div class="col-auto user_name_color" style="font-size: 15px">
-                                <a href="{{ url_for('profile.main', user_name=comment.user_name) }}">
+                                <a href="{{ url_for('profile.main',
+                                 user_name=comment.user_name) }}">
                                     {% if comment.visible_user_name|length > 10 %}
                                         {{ comment.visible_user_name }}
                                     {% else %}
@@ -150,14 +149,16 @@
                     {% endif %}
 
                     <div class="col-auto text-white p-0 m-0"
-                         id="number_before_{{ comment.id }}">
+                         id="number_before_{{ comment.id }}"
+                         style="font-size: 11px"
+                        >
                         Points   {{ comment.total_exp_commons }}
 
                     </div>
 
                     <div class="col-auto upgreen p-0 m-0"
                          id="number_after_up_{{ comment.id }}"
-                         style="display: none;">
+                         style="display: none; ">
                         Points  {{ newnumber }}
                     </div>
 
@@ -166,11 +167,10 @@
                          style="display: none;">
                         Points  {{ newnumber }}
                     </div>
-                    <div class="col-auto pl-2 m-0 ml-1 d-none d-md-block">
+                    <div class="col-auto pl-2 m-0 ml-1 d-none d-xl-block">
                         (<div style="color:#00ff00;display: inline;">+{{ comment.upvotes_on_comment }} </div>
-                        |
-                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>)
 
+                        <div style="color:#D50000;display: inline;">{{ comment.downvotes_on_comment }}</div>)
                     </div>
 
                     <div class="col-12 user_name_color mb-3" style="font-size: 11px">

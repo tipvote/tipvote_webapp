@@ -74,7 +74,7 @@ def main():
 
         thereplys = db.session.query(Reply)
         thereplys = thereplys.filter(Reply.message_id == themessage.id)
-        thereplys = thereplys.order_by(Reply.created.asc())
+        thereplys = thereplys.order_by(Reply.created.desc())
         replys = thereplys.all()
 
         if themessage.msg_type == 1:
@@ -166,7 +166,7 @@ def view_message(msgid):
             thereplys = db.session.query(Reply)
 
             thereplys = thereplys.filter(Reply.message_id == msgid)
-            thereplys = thereplys.order_by(Reply.created.asc())
+            thereplys = thereplys.order_by(Reply.created.desc())
             replys = thereplys.all()
 
             if themessage.msg_type == 1:
