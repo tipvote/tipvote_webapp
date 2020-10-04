@@ -1418,8 +1418,6 @@ def mysubscriptions():
 @login_required
 def welcome():
 
-    now = datetime.utcnow()
-
     user = User.query.filter_by(id=current_user.id).first()
     # subscribe users to basic subs
 
@@ -1430,9 +1428,9 @@ def welcome():
             user_id=user.id,
             subcommon_id=1,
         )
-        subto_biz = Subscribed(
+        subto_general = Subscribed(
             user_id=user.id,
-            subcommon_id=13,
+            subcommon_id=31,
         )
         subto_bitcoin = Subscribed(
             user_id=user.id,
@@ -1465,7 +1463,8 @@ def welcome():
         # PAGES
 
         bizstats = BusinessStats.query.filter(BusinessStats.business_id == 4).first()
-        # sub to tipvote
+
+        # sub to tipvote business
         subtoit = BusinessFollowers(
             user_id=current_user.id,
             business_id=4,
@@ -1476,10 +1475,12 @@ def welcome():
         addmembers = current_members + 1
         bizstats.total_followers = addmembers
 
-        db.session.add(subto_bugs)
+        # add for commit
+
         db.session.add(bizstats)
+        db.session.add(subto_general)
+        db.session.add(subto_bugs)
         db.session.add(subtoit)
-        db.session.add(subto_biz)
         db.session.add(subto_wall)
         db.session.add(subto_worldnews)
         db.session.add(subto_usnews)
@@ -1489,6 +1490,7 @@ def welcome():
         db.session.add(subto_help)
         db.session.commit()
 
+    # get user subforums
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
@@ -1502,6 +1504,8 @@ def welcome():
         token=password_reset_serializer.dumps(user.email,
                                               salt='password-reset-salt'),
         _external=True)
+
+    # account email
     accountreg = render_template('users/email/welcome.html',
                                  user=user.user_name,
                                  now=datetime.utcnow(),
@@ -1511,6 +1515,7 @@ def welcome():
         # end email stuff
     except:
         pass
+
     return render_template('main/welcome.html',
                            now=datetime.utcnow(),
                            usersubforums=usersubforums

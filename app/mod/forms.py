@@ -144,6 +144,22 @@ class InviteUserForm(FlaskForm):
             return False
 
 
+# -----------------------------------------------------
+class NSFWForm(FlaskForm):
+    """
+    Marks a post as NSFW
+    """
+
+    submit = SubmitField()
+
+    def validate(self):
+
+        rv = FlaskForm.validate(self)
+        if rv:
+            return True
+        else:
+            return False
+
 class RemoveUserForm(FlaskForm):
     """
     Removes a user from a sub

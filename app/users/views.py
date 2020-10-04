@@ -310,7 +310,11 @@ def register():
                 db.session.commit()
                 # make a user a directory
                 getusernodelocation = userimagelocation(x=newuser.id)
-                userfolderlocation = os.path.join(UPLOADED_FILES_DEST, current_disk, 'user', getusernodelocation, str(newuser.id))
+                userfolderlocation = os.path.join(UPLOADED_FILES_DEST,
+                                                  current_disk,
+                                                  'user',
+                                                  getusernodelocation,
+                                                  str(newuser.id))
                 mkdir_p(path=userfolderlocation)
                 # login new user
 

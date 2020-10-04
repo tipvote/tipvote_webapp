@@ -27,7 +27,8 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute, \
     StickyPostForm, \
-    UnStickyPostForm
+    UnStickyPostForm, \
+    NSFWForm
 
 from app.edit.forms import \
     EditPostTextForm, \
@@ -72,6 +73,7 @@ def sub(subname):
     lockpostform = QuickLock()
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
+    nsfwform = NSFWForm()
     mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
 
     navlink = 1
@@ -302,6 +304,7 @@ def sub(subname):
                            now=datetime.utcnow(),
                            mainpostform=mainpostform,
                            voteform=voteform,
+                           nsfwform=nsfwform,
                            subname=subname,
                            subform=subform,
                            subinfobox=subinfobox,
@@ -1647,6 +1650,7 @@ def viewpost(subname, postid):
 
     form = CreateCommentForm()
     saveform = SaveForm()
+    nsfwform = NSFWForm()
     subform = SubscribeForm()
     reportform = ReportForm()
     reportcommentform = ReportForm()
@@ -1705,7 +1709,6 @@ def viewpost(subname, postid):
     else:
         useramod = 0
         userowner = 0
-
 
     # see if user is invited
     if subtype == 1:
@@ -1801,6 +1804,7 @@ def viewpost(subname, postid):
                            # forms
                            form=form,
                            saveform=saveform,
+                           nsfwform=nsfwform,
                            viewpost=viewpost,
                            voteform=voteform,
                            reportform=reportform,
@@ -1849,6 +1853,7 @@ def viewpost_newest(subname, postid):
     form = CreateCommentForm()
     subform = SubscribeForm()
     reportform = ReportForm()
+    nsfwform = NSFWForm()
     reportcommentform = ReportForm()
     editposttextform = EditPostTextForm()
     stickypostform = StickyPostForm()
@@ -1856,7 +1861,6 @@ def viewpost_newest(subname, postid):
     voteform = VoteForm()
     deleteposttextform = DeletePostTextForm()
     deletecommenttextform = DeleteCommentTextForm()
-
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -1905,7 +1909,6 @@ def viewpost_newest(subname, postid):
     else:
         useramod = 0
         userowner = 0
-
 
     # see if user is invited
     if subtype == 1:
@@ -1990,6 +1993,7 @@ def viewpost_newest(subname, postid):
                            # forms
                            form=form,
                            voteform=voteform,
+                           nsfwform=nsfwform,
                            reportform=reportform,
                            stickypostform=stickypostform,
                            unstickypostform=unstickypostform,
@@ -2035,6 +2039,7 @@ def viewpost_oldest(subname, postid):
     subform = SubscribeForm()
     reportform = ReportForm()
     reportcommentform = ReportForm()
+    nsfwform = NSFWForm()
     editposttextform = EditPostTextForm()
     stickypostform = StickyPostForm()
     unstickypostform = UnStickyPostForm()
@@ -2173,6 +2178,7 @@ def viewpost_oldest(subname, postid):
                            # forms
                            form=form,
                            reportform=reportform,
+                           nsfwform=nsfwform,
                            stickypostform=stickypostform,
                            unstickypostform=unstickypostform,
                            seeifsubbed=seeifsubbed,
@@ -2218,6 +2224,7 @@ def viewpost_downvoted(subname, postid):
 
     subform = SubscribeForm()
     reportform = ReportForm()
+    nsfwform = NSFWForm()
     reportcommentform = ReportForm()
     editposttextform = EditPostTextForm()
     stickypostform = StickyPostForm()
@@ -2357,6 +2364,7 @@ def viewpost_downvoted(subname, postid):
                            form=form,
                            voteform=voteform,
                            reportform=reportform,
+                           nsfwform=nsfwform,
                            stickypostform=stickypostform,
                            unstickypostform=unstickypostform,
                            seeifsubbed=seeifsubbed,

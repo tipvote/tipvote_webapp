@@ -39,7 +39,8 @@ from app.mod.forms import\
     SubCustomForm, \
     SubCustomThumbnailForm, \
     ChangeSubInfoBoxOne,\
-    DeleteRoomForm
+    DeleteRoomForm,\
+    NSFWForm
 
 from app.models import \
     SubForums, \
@@ -867,6 +868,30 @@ def quicklockpost(subname, postid):
         db.session.add(thepost)
         db.session.commit()
         flash("Locked Post. No comments or votes allowed.", category="success")
+        return redirect((request.args.get('next', request.referrer)))
+
+    return redirect((request.args.get('next', request.referrer)))
+
+
+@mod.route('/quick/nsfwpost/<string:subname>/<int:postid>', methods=['POST'])
+@login_required
+def quicknsfwpost(subname, postid):
+
+    thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
+    thepost = db.session.query(CommonsPost).filter(CommonsPost.id == postid).first()
+
+    if request.method == 'POST':
+
+        user_status = modcheck(thesub=thesub, theuser=current_user)
+        if user_status == 0:
+            flash("You are not a mod of this sub.", category="danger")
+            return redirect(url_for('subforum.sub', subname=thesub.subcommon_name))
+
+        thepost.age = 1
+        # commit to db
+        db.session.add(thepost)
+        db.session.commit()
+        flash("Post is now NSFW Post.", category="success")
         return redirect((request.args.get('next', request.referrer)))
 
     return redirect((request.args.get('next', request.referrer)))
