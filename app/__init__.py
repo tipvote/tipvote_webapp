@@ -226,6 +226,11 @@ from .create import create as create_blueprint
 app.register_blueprint(create_blueprint, url_prefix='/create')
 from .create import views
 
+# learn
+from .learn import learn as learn_blueprint
+app.register_blueprint(learn_blueprint, url_prefix='/learn')
+from .learn import views
+
 # edit
 from .edit import edit as edit_blueprint
 app.register_blueprint(edit_blueprint, url_prefix='/edit')

@@ -1548,14 +1548,16 @@ def subunsubtoforum(subname):
                 # see if user already subbed
 
                 if subform.subscribe.data is True:
-                    seeifsubbed = db.session.query(Subscribed).filter(Subscribed.user_id == current_user.id,
-                                                                      Subscribed.subcommon_id == subid).first()
+                    seeifsubbed = db.session.query(Subscribed)\
+                        .filter(Subscribed.user_id == current_user.id,
+                                Subscribed.subcommon_id == subid)\
+                        .first()
+
                     if seeifsubbed is None:
                         # add subscribition
                         subtoit = Subscribed(
                             user_id=current_user.id,
                             subcommon_id=subid,
-
                         )
                         # add new member to sub
                         current_members = thesub.members
@@ -1566,7 +1568,9 @@ def subunsubtoforum(subname):
                         db.session.add(subtoit)
                         db.session.commit()
                         flash("subscribed.", category="success")
+
                         return redirect(url_for('subforum.sub', subname=subname))
+
                     else:
 
                         flash("You are already subbed.", category="success")

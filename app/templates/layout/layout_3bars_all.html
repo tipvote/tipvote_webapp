@@ -39,9 +39,8 @@
                         {% include 'create/posts/master/_fake_create_post.html' %}
                     {% endif %}
 
-
                     {% include 'charity/_tails.html' %}
-
+                    {% include 'learn/_coins_learn_main_wall.html' %}
                     {% block content %}
                     {% endblock %}
                 </div>
@@ -50,6 +49,7 @@
             <!-- Right -->
             <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
                 {% include 'layout/widgets/_formactions.html' %}
+                {% include 'learn/_coins_learn_side.html' %}
                 {% include 'layout/widget_stats/all/newest_tippers.html' %}
                 {% include 'layout/widgets/mightbebugs.html' %}
                  {% include 'layout/widgets/_rules_for_posts.html' %}

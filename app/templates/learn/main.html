@@ -1,0 +1,77 @@
+{% extends "layout/layout_plain.html" %}
+{% block content %}
+    <div class="col-4 mb-5">
+        <a class="text-white text-center btn btn-dark btn-block"
+           href="{{ url_for('index') }}">
+            Back to tipvote
+        </a>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="col-12">
+                <h2 class="text-center">
+                    Getting Started Guide
+                </h2>
+            </div>
+        </div>
+        <div class="card-columns  font-weight-bold text-center" >
+            <div class="card border-dark bg-dark text-white">
+
+                <div class="card-body">
+                    <h4 class="card-title">Bitcoin <br> (BTC)</h4>
+                    <a href="https://bitcoin.org/en/getting-started">
+                        <img src="{{ url_for('static', filename='images/coins/btc/btc-logo.png')  }}"
+                             width="150px" height="150px">
+                    </a>
+                    <p class="card-text">Bitcoin Guide
+                        <br>
+                        <a href="https://bitcoin.org/en/getting-started">View the official guide</a>
+                    </p>
+
+                    <a class="btn btn-success text-white w-100 mb-2 disabled" href="{{ url_for('learn.learn_btc') }}">
+                        Tipvotes Guide <br>
+                        (Comming Soon)
+                    </a>
+
+                </div>
+            </div>
+            <div class="card border-dark bg-dark text-white">
+                <div class="card-body">
+                    <h4 class="card-title">Monero <br>(XMR)</h4>
+                    <a href="https://www.getmonero.org/resources/user-guides/">
+                        <img src="{{ url_for('static', filename='images/coins/xmr/2.png')  }}"
+                             width="150px" height="150px">
+                    </a>
+                    <p class="card-text">Monero Guide
+                        <br>
+                        <a href="https://www.getmonero.org/resources/user-guides/">View the official guide</a>
+                    </p>
+                    <a class="btn btn-success text-white w-100 mb-2 disabled" href="{{ url_for('learn.learn_xmr') }}">
+                        Tipvotes Guide <br>
+                        (Comming Soon)
+                    </a>
+                </div>
+            </div>
+            <div class="card border-dark bg-dark text-white">
+
+                <div class="card-body">
+                    <h4 class="card-title ">Bitcoin Cash <br>(BCH)</h4>
+                    <a href="https://www.bitcoincash.org/">
+                        <img src="{{ url_for('static', filename='images/coins/bch/bitcoin-cash-bch.png')  }}"
+                             width="150px" height="150px">
+                    </a>
+                    <p class="card-text">BCH Guide
+                        <br>
+                        <a href="https://www.bitcoincash.org/">View the official guide</a>
+                    </p>
+                    <a class="btn btn-success text-white w-100 mb-2 disabled" href="{{ url_for('learn.learn_bch') }}">
+                        Tipvotes Guide <br>
+                        (Comming Soon)
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
