@@ -48,9 +48,7 @@ from app.mod.forms import \
     QuickMute
 
 
-
 @app.route('/', methods=['GET', 'POST'])
-
 def index():
 
     """
@@ -66,8 +64,6 @@ def index():
     lockpostform = QuickLock()
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
-
-
 
     currentbtcprice = BtcPrices.query.get(1)
     currentxmrprice = MoneroPrices.query.get(1)
@@ -1643,6 +1639,8 @@ def affiliate():
 
     if request.method == 'POST':
         pass
+
+
 
 
 @app.route('/updates', methods=['GET'])

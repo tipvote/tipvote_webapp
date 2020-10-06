@@ -1,244 +1,263 @@
 <div class="col-12 mt-2 text-white headercolor pb-1 pt-1 pr-0 pl-0 ml-0 mr-0 overflow-hidden">
-    <div class="col-12 text-left mt-3">
+    <div class="col-12 text-center mt-3 mb-4">
         <b>Withdraw and Depost History</b>
     </div>
 
     {% if transactcount >= 1 %}
-        <table class="table table-sm table-hover table-striped text-white">
-            <!-- set columns-->
-            <tr class="d-flex linkcolor">
-
-                <th class="col-3">Age</th>
-                <th class="col-5">Description</th>
-                <th class="col-2">Coin</th>
-                <th class="col-2">Balance</th>
-
-            </tr>
-
-            {% for t in transact %}
-                <tr class="d-flex linkcolor">
-                    <!--First column: Time/DATE-->
-                    <td class="col-3">
-                        {{ moment(timestamp=t.created).fromNow(refresh=True) }}
-                    </td>
-
-                    <!--Second column: Description-->
-                    <td class="col-5">
-                        <!--Wallet Created-->
-                        {%  if t.category == 1 %}
-                            <br>
+        <div class="d-none d-md-block">
+            <div class="row mb-4">
+                <!-- set columns-->
 
 
-                            <!--Money sent offsite-->
-                        {%  elif t.category == 2 %}
-                            Withdrawl<br>
-                            {% if t %}
-                                {% if t.confirmations >= 7 %}
+                <div class="col-12 col-sm-12 col-md-2">Age</div>
+                <div class="col-12 col-sm-3 col-md-3">Description</div>
+                <div class="col-12 col-sm-3 col-md-3">Coin</div>
+                <div class="col-12 col-sm-3 col-md-3">Balance</div>
 
-
-                                    <div style="font-size:10px;">
-                                        Fee: {{ t.fee }}
-                                        {{ t.txid }}
-                                    </div>
-
-                                    {% if t.commentbtc %}
-                                        <br>{{ t.commentbtc }}
-                                    {% endif %}
-                                {% else %}
-
-                                    <div style="font-size:10px;">
-                                        Fee: {{ t.fee }}
-                                        {{ t.txid }}
-                                    </div>
-                                    {% if t.commentbtc %}
-                                        <br>{{ t.commentbtc }}
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
-                            <br>
-
-
-                            <!--Deposit from offsite-->
-                        {% elif t.category == 3 %}
-                            Deposit<br>
-                            {% if t %}
-                                {% if t.confirmations >= 6 %}
-                                    <div class="text-success">Confirmed</div><br>
-                                    <div style="font-size:10px;">
-                                        {{ t.txid }}
-                                    </div>
-                                {% else %}
-                                    Confirmations: {{ t.confirmations }}<br>
-                                    <div style="font-size:10px;">
-                                        {{ t.txid }}
-                                    </div>
-                                {% endif %}
-                            {% endif %}
-
-
-
-                            <!--Money sent to tip a comment-->
-                        {% elif t.category == 4 %}
-                            Sent Comment tip to  <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
-                                {{ t.senderid|user_name }}
-                            </a>
-
-
-                            <!--Money recieved from a comment-->
-                        {%  elif t.category == 5 %}
-                            Recieved comment tip from  <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
-                                {{ t.senderid|user_name }}
-                            </a>
-
-
-
-                            <!--Money sent to tip a post-->
-                        {% elif t.category == 6 %}
-                            Sent tip to post from  <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
-                                {{ t.senderid|user_name }}
-                            </a>
-
-
-                            <!--Money recieved from a post-->
-                        {%  elif t.category == 7 %}
-                            Recieved tip from post from  <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
-                                {{ t.senderid|user_name }}
-                            </a>
-                            <br>
-
-                        {% else %}
-                            {% if t.orderid %}
-                                {{ t.commentbtc }}<br><br>
-                            {% endif %}
-                        {% endif %}
-                    </td>
-
-                    <td class="col-2">
-                        <!--Wallet Created-->
-                        {% if t.category == 1 %}
-                            --
-
-                            <!--Money sent offsite-->
-                        {% elif t.category == 2 %}
-                            -{{ t.amount|btctostring }}
-
-                            <!--Deposit from offsite-->
-                        {% elif t.category == 3 %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                <p class="text-success">{{ t.amount }}</p>
-                            {% else %}
-                                <p class="text-success">{{ t.amount|btctostring }}</p>
-                            {% endif %}
-
-                            <!--Money sent to tip a comment-->
-                        {% elif t.category == 4 %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                <p class="text-danger">-{{ t.amount }}</p>
-                            {% else %}
-                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
-                            {% endif %}
-
-                            <!--Money recieved from a comment-->
-                        {% elif t.category == 5 %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                <p class="text-success">{{ t.amount }}</p>
-                            {% else %}
-                                <p class="text-success">{{ t.amount|btctostring }}</p>
-                            {% endif %}
-                            <!--Money sent to tip a post-->
-                        {% elif t.category == 6 %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                <p class="text-danger">-{{ t.amount }}</p>
-                            {% else %}
-                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
-                            {% endif %}
-                            <!--Money recieved from a post-->
-                        {% elif t.category == 7 %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                <p class="text-success">{{ t.amount }}</p>
-                            {% else %}
-                                <p class="text-success">{{ t.amount|btctostring }}</p>
-                            {% endif %}
-                        {% else %}
-                            {% if 0 <= t.amount > 0.0001 %}
-                                {{ t.amount }}
-                            {% else %}
-                                {{ t.amount|btctostring }}
-                            {% endif %}
-                        {% endif %}
-                    </td>
-
-                    <!--Fourth  column: User balance-->
-                    <td class="col-2">
-                        {% if t.category == 1 %}
-
-                            <!--Money sent offsite-->
-                        {% elif t.category == 2 %}
-                            {{ t.balance }}
-
-                            <!--Deposit from offsite-->
-                        {% elif t.category == 3 %}
-                            {% if t.confirmed == 0 %}
-                                {{ t.balance - t.amount}} + {{ t.amount }}
-                            {% else %}
-                                {{ t.balance }}
-                            {% endif %}
-
-                            <!--Money sent to tip a comment-->
-                        {% elif t.category == 4 %}
-                            {% if 0 <= t.balance >= 0.0001 %}
-                                {{ t.balance }}
-                            {% else %}
-                                {{ t.balance|btctostring }}
-                            {% endif %}
-
-                            <!--Money recieved from a comment-->
-                        {% elif t.category == 5 %}
-                            {% if 0 <= t.balance >= 0.0001 %}
-                                {{ t.balance }}
-                            {% else %}
-                                {{ t.balance|btctostring }}
-                            {% endif %}
-
-                            <!--Money sent to tip a post-->
-                        {% elif t.category == 6 %}
-                            {% if 0 <= t.balance >= 0.0001 %}
-                                {{ t.balance }}
-                            {% else %}
-                                {{ t.balance|btctostring }}
-                            {% endif %}
-
-                            <!--Money recieved from a post-->
-                        {% elif t.category == 7 %}
-                            {% if 0 <= t.balance >= 0.0001 %}
-                                {{ t.balance }}
-                            {% else %}
-                                {{ t.balance|btctostring }}
-                            {% endif %}
-
-                        {% else %}
-                            {% if 0 <= t.balance >= 0.0001 %}
-                                {{ t.balance }}
-                            {% else %}
-                                {{ t.balance|btctostring }}
-                            {% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    <div class="row mt-5">
-        <div class="col-12 text-center justify-content-center">
-            {% if prev_url %}
-                <a class="btn btn-warning btn-sm" type="button"href="{{ prev_url }}">Newer Transactions</a>
-            {% endif %}
-            {% if next_url %}
-                <a class="btn btn-warning btn-sms" type="button" href="{{ next_url }}">Older Transactions</a>
-            {% endif %}
+            </div>
         </div>
-    </div>
+
+        {% for t in transact %}
+            <div class="row border border-dark third_color mb-1">
+                <!--First column: Time/DATE-->
+                <div class="col-12 col-sm-12 col-md-2 text-center mb-2">
+                    {{ moment(timestamp=t.created).fromNow(refresh=True) }}
+                </div>
+
+                <!--Second column: Description-->
+                <div class="col-12 col-sm-3 col-md-3 text-center">
+                    <!--Wallet Created-->
+                    {%  if t.category == 1 %}
+                        <br>
+                        <!--Money sent offsite-->
+                    {%  elif t.category == 2 %}
+                        Withdrawl<br>
+                        {% if t %}
+                            {% if t.confirmations >= 7 %}
+                                <div style="font-size:10px;">
+                                    Fee: {{ t.fee }}
+
+                                </div>
+
+                                {% if t.commentbtc %}
+                                    <br>{{ t.commentbtc }}
+                                {% endif %}
+                            {% else %}
+
+                                <div style="font-size:10px;">
+                                    Fee: {{ t.fee }}
+
+                                </div>
+                                {% if t.commentbtc %}
+                                    <br>{{ t.commentbtc }}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        <br>
+
+
+                        <!--Deposit from offsite-->
+                    {% elif t.category == 3 %}
+                        Deposit
+                        {% if t %}
+                            {% if t.confirmations >= 11 %}
+                                <div class="text-success">Confirmed</div><br>
+
+                            {% else %}
+                                Confirmations: {{ t.confirmations }}<br>
+
+                            {% endif %}
+                        {% endif %}
+
+                        <!--Money sent to tip a comment-->
+                    {% elif t.category == 4 %}
+                        Sent Comment tip to
+                        <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                            {{ t.senderid|user_name }}
+                        </a>
+
+                        <!--Money recieved from a comment-->
+                    {%  elif t.category == 5 %}
+                        Recieved comment tip from
+                        <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                            {{ t.senderid|user_name }}
+                        </a>
+
+                        <!--Money sent to tip a post-->
+                    {% elif t.category == 6 %}
+                        Sent tip to post from
+                        <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                            {{ t.senderid|user_name }}
+                        </a>
+
+                        <!--Money recieved from a post-->
+                    {%  elif t.category == 7 %}
+                        Recieved tip from post from
+                        <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
+                            {{ t.senderid|user_name }}
+                        </a>
+                        <br>
+
+                    {% else %}
+                        {% if t.orderid %}
+                            {{ t.commentbtc }}<br><br>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-12 col-sm-3 col-md-3 text-center">
+                    <!--Wallet Created-->
+                    {% if t.category == 1 %}
+                        --
+                        <!--Money sent offsite-->
+                    {% elif t.category == 2 %}
+                        Amount:
+                        -{{ t.amount|btctostring }}
+
+                        <!--Deposit from offsite-->
+                    {% elif t.category == 3 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-success">{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                        {% endif %}
+
+                        <!--Money sent to tip a comment-->
+                    {% elif t.category == 4 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-danger">-{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-danger">-{{ t.amount|btctostring }}</p>
+                        {% endif %}
+
+                        <!--Money recieved from a comment-->
+                    {% elif t.category == 5 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-success">{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                        {% endif %}
+                        <!--Money sent to tip a post-->
+                    {% elif t.category == 6 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-danger">-{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-danger">-{{ t.amount|btctostring }}</p>
+                        {% endif %}
+                        <!--Money recieved from a post-->
+                    {% elif t.category == 7 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-success">{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                        {% endif %}
+                    {% else %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            {{ t.amount }}
+                        {% else %}
+                            {{ t.amount|btctostring }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <!--Fourth  column: User balance-->
+                <div class="col-12 col-sm-3  col-md-3 text-center">
+                    {% if t.category == 1 %}
+
+                        <!--Money sent offsite-->
+                    {% elif t.category == 2 %}
+                        Balance:
+                        {{ t.balance }}
+
+                        <!--Deposit from offsite-->
+                    {% elif t.category == 3 %}
+                        Balance:
+                        {% if t.confirmed == 0 %}
+                            {% if t.balance == 0 %}
+                                0 + {{ t.amount }}
+                            {% else %}
+                                {{ t.balance - t.amount}} + {{ t.amount }}
+                            {% endif %}
+                        {% else %}
+                            {{ t.balance }}
+                        {% endif %}
+
+                        <!--Money sent to tip a comment-->
+                    {% elif t.category == 4 %}
+                        Balance:
+                        {% if 0 <= t.balance >= 0.0001 %}
+                            {{ t.balance }}
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                        <!--Money recieved from a comment-->
+                    {% elif t.category == 5 %}
+                       Balance:
+                        {% if 0 <= t.balance >= 0.0001 %}
+                            {{ t.balance }}
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                        <!--Money sent to tip a post-->
+                    {% elif t.category == 6 %}
+                        Balance:
+                        {% if 0 <= t.balance >= 0.0001 %}
+                            {{ t.balance }}
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                        <!--Money recieved from a post-->
+                    {% elif t.category == 7 %}
+                        Balance:
+                        {% if 0 <= t.balance >= 0.0001 %}
+                            {{ t.balance }}
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                    {% else %}
+                        Balance:
+                        {% if 0 <= t.balance >= 0.0001 %}
+                            {{ t.balance }}
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% if t.txid %}
+                    <div class="col-12 text-center" style="font-size: 11px">
+                        TXID<br> {{ t.txid }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-12 text-center justify-content-center">
+                {% if prev_url %}
+                    <a class="btn btn-warning btn-sm" type="button"href="{{ prev_url }}">
+                        Newer Transactions
+                    </a>
+                {% endif %}
+                {% if next_url %}
+                    <a class="btn btn-warning btn-sms" type="button" href="{{ next_url }}">
+                        Older Transactions
+                    </a>
+                {% endif %}
+            </div>
+        </div>
 
     {% else %}
         <div class="col-12 text-center"></div>
     {% endif %}
-</div>

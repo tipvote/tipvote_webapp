@@ -133,3 +133,4 @@ dmypy.json
 /ca-certificate.crt
 /colors.txt
 /passwords.py
+/setup/

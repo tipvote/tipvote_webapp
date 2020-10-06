@@ -202,6 +202,9 @@ def exppoint(user_id, type):
         exp_to_next = guser.user_exp
         levels_up = 0
     # finished elif stuff
+    # try committing
+
+    db.session.commit()
 
     # if user leveled up
     if levels_up > 0:
