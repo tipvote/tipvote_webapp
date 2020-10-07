@@ -62,8 +62,7 @@ class PostPromote(db.Model):
     # amounts
     amount_btc = db.Column(db.DECIMAL(20, 8))
     amount_bch = db.Column(db.DECIMAL(20, 8))
-    amount_xmr = db.Column(db.DECIMAL(20, 8))
-
+    amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -216,7 +215,7 @@ class Comments(db.Model):
     # donations
     total_recieved_btc = db.Column(db.DECIMAL(20, 8))
     total_recieved_btc_usd = db.Column(db.DECIMAL(20, 2))
-    total_recieved_xmr = db.Column(db.DECIMAL(20, 8))
+    total_recieved_xmr = db.Column(db.DECIMAL(20, 12))
     total_recieved_xmr_usd = db.Column(db.DECIMAL(20, 2))
     total_recieved_bch = db.Column(db.DECIMAL(20, 8))
     total_recieved_bch_usd = db.Column(db.DECIMAL(20, 2))
@@ -919,6 +918,7 @@ class MoneroTransactions(db.Model):
     block = db.Column(db.INTEGER)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     address = db.Column(db.TEXT)
+    note = db.Column(db.TEXT)
     fee = db.Column(db.DECIMAL(20, 12))
     orderid = db.Column(db.INTEGER)
     digital_currency = db.Column(db.INTEGER)
@@ -1304,7 +1304,7 @@ class PostPromotions(db.Model):
     total_recieved_bch = db.Column(db.DECIMAL(20, 8))
     total_recieved_bch_usd = db.Column(db.DECIMAL(20, 2))
 
-    total_recieved_xmr = db.Column(db.DECIMAL(20, 8))
+    total_recieved_xmr = db.Column(db.DECIMAL(20, 12))
     total_recieved_xmr_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1322,7 +1322,7 @@ class PostDonations(db.Model):
     total_recieved_bch = db.Column(db.DECIMAL(20, 8))
     total_recieved_bch_usd = db.Column(db.DECIMAL(20, 2))
 
-    total_recieved_xmr = db.Column(db.DECIMAL(20, 8))
+    total_recieved_xmr = db.Column(db.DECIMAL(20, 12))
     total_recieved_xmr_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1559,7 +1559,6 @@ class Muted(db.Model):
     muted_end = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
 
 
-
 class BtcCommentTips(db.Model):
     __tablename__ = 'avengers_tips_btc_comments'
     __bind_key__ = 'avengers'
@@ -1606,7 +1605,7 @@ class XmrCommentTips(db.Model):
     comment_id = db.Column(db.Integer)
 
     # amounts
-    amount_xmr = db.Column(db.DECIMAL(20, 8))
+    amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1678,7 +1677,7 @@ class XmrPostTips(db.Model):
     post_id = db.Column(db.Integer,  db.ForeignKey('avengers_post.avengers_posts_posts.id'))
 
     # amounts
-    amount_xmr = db.Column(db.DECIMAL(20, 8))
+    amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1730,7 +1729,7 @@ class PayoutSubOwner(db.Model):
     currency_type = db.Column(db.Integer)
     amount_btc = db.Column(db.DECIMAL(20, 8))
     amount_bch = db.Column(db.DECIMAL(20, 8))
-    amount_xmr = db.Column(db.DECIMAL(20, 8))
+    amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1756,7 +1755,7 @@ class RecentTips(db.Model):
     currency_type = db.Column(db.Integer)
     amount_btc = db.Column(db.DECIMAL(20, 8))
     amount_bch = db.Column(db.DECIMAL(20, 8))
-    amount_xmr = db.Column(db.DECIMAL(20, 8))
+    amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
 
@@ -1874,19 +1873,19 @@ class UserStatsXMR(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
 
     # given to posters/commenters
-    total_donated_to_postcomments_xmr = db.Column(db.DECIMAL(20, 8))
+    total_donated_to_postcomments_xmr = db.Column(db.DECIMAL(20, 12))
     total_donated_to_postcomments_usd = db.Column(db.DECIMAL(20, 2))
 
     # recieved from posting
-    total_recievedfromposts_xmr = db.Column(db.DECIMAL(20, 8))
+    total_recievedfromposts_xmr = db.Column(db.DECIMAL(20, 12))
     total_recievedfromposts_usd = db.Column(db.DECIMAL(20, 2))
 
     # recieved from comments
-    total_recievedfromcomments_xmr = db.Column(db.DECIMAL(20, 8))
+    total_recievedfromcomments_xmr = db.Column(db.DECIMAL(20, 12))
     total_recievedfromcomments_usd = db.Column(db.DECIMAL(20, 2))
 
     # given to charities
-    total_donated_to_cause_xmr = db.Column(db.DECIMAL(20, 8))
+    total_donated_to_cause_xmr = db.Column(db.DECIMAL(20, 12))
     total_donated_to_cause_usd = db.Column(db.DECIMAL(20, 2))
 
 

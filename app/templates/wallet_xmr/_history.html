@@ -78,21 +78,21 @@
 
                         <!--Money recieved from a comment-->
                     {%  elif t.category == 5 %}
-                        Recieved comment tip from
+                        Recieved comment tip
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>
 
                         <!--Money sent to tip a post-->
                     {% elif t.category == 6 %}
-                        Sent tip to post from
+                        Sent tip to post
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>
 
                         <!--Money recieved from a post-->
                     {%  elif t.category == 7 %}
-                        Recieved tip from post from
+                        Recieved tip from post
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>

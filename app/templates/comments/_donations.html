@@ -6,7 +6,7 @@
             {% if post.post_donations == None %}
             {% else %}
                 {% if post.post_donations.total_recieved_btc > 0 %}
-                    {{ post.post_donations.total_recieved_btc|btctostring }} BTC
+                    {{ post.post_donations.total_recieved_btc|btctostring  }} BTC
                     <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
                          width="20px" height="20px">
                 {% else %}
@@ -19,7 +19,7 @@
             {% if post.post_donations == None %}
             {% else %}
                 {% if post.post_donations.total_recieved_bch > 0 %}
-                    {{ post.post_donations.total_recieved_bch }} BCH
+                    {{ post.post_donations.total_recieved_bch|btctostring  }} BCH
                     <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
                 {% else %}
                     0.00000000 BCH <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
@@ -32,10 +32,10 @@
             {% if post.post_donations == None %}
             {% else %}
                 {% if post.post_donations.total_recieved_xmr > 0 %}
-                    {{ post.post_donations.total_recieved_xmr }} XMR
+                    {{ post.post_donations.total_recieved_xmr|xmrtostring  }} XMR
                     <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
                 {% else %}
-                     0.00000000 XMR <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
+                     0.000000000000 XMR <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
                                         width="20px" height="20px">
                 {% endif %}
             {% endif %}

@@ -80,4 +80,4 @@ def formatxmrtostring(value):
 
 @app.template_filter('xmrtostring')
 def xmrtostring(value):
-    return '%.08f' % value
+    return '%.12f' % value

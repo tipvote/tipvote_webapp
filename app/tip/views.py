@@ -706,7 +706,25 @@ def create_tip_comment_xmr(subname, postid, commentid):
                 getcurrentprice = db.session.query(MoneroPrices).get(1)
                 xmr_current_price_usd = getcurrentprice.price
 
-                if form_xmr.cent.data:
+                if form_xmr.submit.data:
+                    # regex test
+                    seeifcoin = re.compile(btcamount)
+                    doesitmatch = seeifcoin.match(form_xmr.custom_amount.data)
+                    if doesitmatch:
+                        # if it passes
+                        xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
+                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 8)
+                        #
+                        xmr_amount = decimalform_of_amount
+                        # get usd amount
+                        bt = (Decimal(getcurrentprice.price) * xmr_amount)
+                        formatteddollar = '{0:.2f}'.format(bt)
+                        usd_amount = formatteddollar
+                    else:
+                        flash("Invalid coin amount", category="danger")
+                        return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
+
+                elif form_xmr.cent.data:
                     xmr_amount = Decimal(0.01) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.01
                 elif form_xmr.quarter.data:
@@ -945,7 +963,24 @@ def create_tip_post_xmr(subname, postid):
                 getcurrentprice = db.session.query(MoneroPrices).get(1)
                 xmr_current_price_usd = getcurrentprice.price
 
-                if form_xmr.cent.data:
+                if form_xmr.submit.data:
+                    # run regex to see if not being tricked
+                    seeifcoin = re.compile(btcamount)
+                    doesitmatch = seeifcoin.match(form_xmr.custom_amount.data)
+                    if doesitmatch:
+                        # if it passes regex test
+                        xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
+                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 8)
+                        xmr_amount = decimalform_of_amount
+                        # get usd amount
+                        bt = (Decimal(getcurrentprice.price) * xmr_amount)
+                        formatteddollar = '{0:.2f}'.format(bt)
+                        usd_amount = formatteddollar
+                    else:
+                        flash("Invalid coin amount.  Did you enter the amount wrong?", category="danger")
+                        return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
+
+                elif form_xmr.cent.data:
                     xmr_amount = Decimal(0.01) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.01
                 elif form_xmr.quarter.data:
@@ -967,12 +1002,13 @@ def create_tip_post_xmr(subname, postid):
                     xmr_amount = Decimal(100.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 100.00
                 else:
-                    xmr_amount = 0
-                    usd_amount = 0.00
+                    flash("Invalid coin amount.  Did you enter the amount wrong?", category="danger")
+                    return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
 
                 final_amount = (floating_decimals(xmr_amount, 8))
 
                 lowestdonation = 0.000001
+
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -982,19 +1018,19 @@ def create_tip_post_xmr(subname, postid):
 
                 if Decimal(usercoinsamount.currentbalance) >= Decimal(xmr_amount):
 
-                    # btc amount
+                    # xmr amount
                     amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
-                    # Btc amount
+                    # xmr amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
 
                     if payout == 1:
                         # subowner gets payout
@@ -1004,12 +1040,10 @@ def create_tip_post_xmr(subname, postid):
                             subcommon_name=thesub.subcommon_name,
                             post_id=post.id,
                             comment_id=0,
-
                             sub_owner_user_id=thesub.creator_user_id,
                             sub_owner_user_name=thesub.creator_user_name,
                             tipper_user_id=current_user.id,
                             tipper_user_name=current_user.user_name,
-
                             currency_type=3,
                             amount_btc=0,
                             amount_bch=0,
@@ -1065,8 +1099,10 @@ def create_tip_post_xmr(subname, postid):
                     newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd + Decimal(poster_usd_amount), 2))
                     changeposterxmrstats.total_recievedfromposts_usd = newamount_poster_usd
 
-                    # ad to posts
-                    seeifpostdonates = PostDonations.query.filter(PostDonations.post_id == idofpost).first()
+                    # add to posts
+                    seeifpostdonates = PostDonations.query\
+                        .filter(PostDonations.post_id == idofpost)\
+                        .first()
 
                     if seeifpostdonates is None:
                         addstatstopost = PostDonations(
@@ -1147,10 +1183,10 @@ def create_tip_post_xmr(subname, postid):
                     flash("Tip was successful.", category="success")
                     return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
                 else:
-                    flash("Cannot tip yourself", category="danger")
+                    flash("Not enough coin in your wallet.", category="danger")
                     return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
             else:
-                flash("Not enough coin in your wallet", category="danger")
+                flash("Cannot tip yourself.", category="danger")
                 return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
         else:
             flash("Invalid Form.  Did you enter the amount correctly?", category="danger")

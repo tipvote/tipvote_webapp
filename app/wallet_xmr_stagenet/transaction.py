@@ -4,7 +4,7 @@ from app.models import MoneroTransactionsStagenet
 
 
 # this function will move the coin from holdings back to vendor.  This is for vendor verification
-def monero_addtransaction(category, amount, user_id, orderid, balance, senderid, comment):
+def monero_addtransaction(category, amount, user_id, orderid, balance, senderid):
 
     now = datetime.utcnow()
     orderid = int(orderid)
@@ -20,7 +20,7 @@ def monero_addtransaction(category, amount, user_id, orderid, balance, senderid,
         block=0,
         created=now,
         address='',
-        commentxmr=comment,
+
         fee=0,
         orderid=orderid,
         digital_currency=4,

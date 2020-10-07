@@ -45,7 +45,7 @@
                     {% if current_user.btc.currentbalance == 0 %}
                         <span class="btcorange">0.00000000</span >
                     {% else %}
-                        <span class="btcorange">{{ current_user.btc.currentbalance  }}</span >
+                        <span class="btcorange">{{ current_user.btc.currentbalance|btctostring  }}</span >
                     {% endif %}
                 </b>
             </div>
@@ -55,7 +55,7 @@
                     {% if current_user.bch.currentbalance == 0 %}
                         <span class="btccashgreen">0.00000000</span >
                     {% else %}
-                        <span class="btccashgreen">{{ current_user.bch.currentbalance }}</span >
+                        <span class="btccashgreen">{{ current_user.bch.currentbalance|btctostring }}</span >
                     {% endif %}
                 </b>
             </div>
@@ -63,9 +63,9 @@
                 XMR Balance <br>
                 <b>
                     {% if current_user.xmr.currentbalance == 0 %}
-                        <span class="moneroorange">0.00000000</span >
+                        <span class="moneroorange">0.000000000000</span >
                     {% else %}
-                        <span class="moneroorange">{{ current_user.xmr.currentbalance }}</span >
+                        <span class="moneroorange">{{ current_user.xmr.currentbalance|xmrtostring }}</span >
                     {% endif %}
                 </b>
             </div>
