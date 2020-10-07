@@ -5,6 +5,7 @@
             <div class="col-10 second_color pb-2 border border-dark">
                 <div class="text-center mb-3">
                     <h5>Recent Tippers</h5>
+
                 </div>
 
                 {% for tip in recent_tippers_post %}
@@ -18,15 +19,15 @@
 
                             <br>
 
-                            <a class="" href="{{ url_for('subforum.sub', subname=tip.subcommon_name) }}">
-                                a/{{ tip.subcommon_name }}
-                            </a>
+                             {{ moment(timestamp=tip.created).fromNow(refresh=True) }}
                             <br>
+
+
                             <a class=""
                                href="{{ url_for('subforum.viewpost',subname=tip.subcommon_name, postid = tip.post_id) }}">
                                 View Post
                             </a>
-                            <br>
+                            <br><br>
                             {% if tip.amount_btc != 0 %}
                                 <p class="btcorange" style="display: inline">
                                     {{ tip.amount_btc|btctostring }} BTC
@@ -41,6 +42,7 @@
                                 </p>
                             {% else %}
                             {% endif %}
+                        <br>
 
                         </div>
 

@@ -181,6 +181,9 @@ def index():
     recent_tippers_post = recent_tippers_post.limit(5)
     recent_tippers_post_count = recent_tippers_post.count()
 
+    # get total tips
+    totaltips = db.session.query(RecentTips).count()
+
     if current_user.is_authenticated:
         if current_user.over_age is False:
             post_18 = 0
@@ -231,6 +234,7 @@ def index():
                            navlink=navlink,
                            thenotes=thenotes,
                            thegiveaway=thegiveaway,
+                           totaltips=totaltips,
 
                            # queries/pagination
                            recent_tippers_post=recent_tippers_post,
