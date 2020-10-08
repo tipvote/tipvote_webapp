@@ -74,13 +74,13 @@
                 <div class="col-12 mt-0 mb-0  pb-0 pt-0 text-center upgreen"
                      id="number_after_up_{{ comment.id }}"
                      style="display: none;">
-                      {{ newnumber }}
+                    {{ newnumber }}
                 </div>
 
                 <div class="col-12 mt-0 mb-0  pb-0 pt-0 text-center downred"
                      id="number_after_down_{{ comment.id }}"
                      style="display: none;">
-                      {{ newnumber }}
+                    {{ newnumber }}
                 </div>
 
 
@@ -187,7 +187,7 @@
             <div class="row">
                 <div class="col-12 btcorange"  style="font-size: 14px;">
                     <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
-                         width="20px" height="20px"> Tips:   {{ comment.total_recieved_btc }}
+                         width="20px" height="20px"> {{ comment.total_recieved_btc }}
                 </div>
             </div>
         {% endif %}
@@ -195,7 +195,15 @@
             <div class="row">
                 <div class="col-12 btcorange"  style="font-size: 14px;">
                     <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
-                         width="20px" height="20px"> Tips:   {{ comment.total_recieved_bch }}
+                         width="20px" height="20px"> {{ comment.total_recieved_bch }}
+                </div>
+            </div>
+        {% endif %}
+        {% if comment.total_recieved_xmr > 0  %}
+            <div class="row">
+                <div class="col-12 moneroorange"  style="font-size: 14px;">
+                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
+                         width="20px" height="20px">{{ comment.total_recieved_xmr }}
                 </div>
             </div>
         {% endif %}

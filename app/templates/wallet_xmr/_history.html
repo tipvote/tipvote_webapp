@@ -112,7 +112,7 @@
                         <!--Money sent offsite-->
                     {% elif t.category == 2 %}
                         Amount:
-                        -{{ t.amount|btctostring }}
+                        -{{ t.amount|xmrtostring }}
 
                         <!--Deposit from offsite-->
                     {% elif t.category == 3 %}
@@ -120,7 +120,7 @@
                         {% if 0 <= t.amount > 0.0001 %}
                             <p class="text-success">{{ t.amount }}</p>
                         {% else %}
-                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                            <p class="text-success">{{ t.amount|xmrtostring }}</p>
                         {% endif %}
 
                         <!--Money sent to tip a comment-->
@@ -129,7 +129,7 @@
                         {% if 0 <= t.amount > 0.0001 %}
                             <p class="text-danger">-{{ t.amount }}</p>
                         {% else %}
-                            <p class="text-danger">-{{ t.amount|btctostring }}</p>
+                            <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
                         {% endif %}
 
                         <!--Money recieved from a comment-->
@@ -138,7 +138,7 @@
                         {% if 0 <= t.amount > 0.0001 %}
                             <p class="text-success">{{ t.amount }}</p>
                         {% else %}
-                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                            <p class="text-success">{{ t.amount|xmrtostring }}</p>
                         {% endif %}
                         <!--Money sent to tip a post-->
                     {% elif t.category == 6 %}
@@ -146,7 +146,7 @@
                         {% if 0 <= t.amount > 0.0001 %}
                             <p class="text-danger">-{{ t.amount }}</p>
                         {% else %}
-                            <p class="text-danger">-{{ t.amount|btctostring }}</p>
+                            <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
                         {% endif %}
                         <!--Money recieved from a post-->
                     {% elif t.category == 7 %}
@@ -154,14 +154,14 @@
                         {% if 0 <= t.amount > 0.0001 %}
                             <p class="text-success">{{ t.amount }}</p>
                         {% else %}
-                            <p class="text-success">{{ t.amount|btctostring }}</p>
+                            <p class="text-success">{{ t.amount|xmrtostring }}</p>
                         {% endif %}
                     {% else %}
                         Amount:
                         {% if 0 <= t.amount > 0.0001 %}
                             {{ t.amount }}
                         {% else %}
-                            {{ t.amount|btctostring }}
+                            {{ t.amount|xmrtostring }}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -194,7 +194,7 @@
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
-                            {{ t.balance|btctostring }}
+                            {{ t.balance|xmrtostring }}
                         {% endif %}
 
                         <!--Money recieved from a comment-->
@@ -203,7 +203,7 @@
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
-                            {{ t.balance|btctostring }}
+                            {{ t.balance|xmrtostring }}
                         {% endif %}
 
                         <!--Money sent to tip a post-->
@@ -212,7 +212,7 @@
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
-                            {{ t.balance|btctostring }}
+                            {{ t.balance|xmrtostring }}
                         {% endif %}
 
                         <!--Money recieved from a post-->
@@ -221,7 +221,7 @@
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
-                            {{ t.balance|btctostring }}
+                            {{ t.balance|xmrtostring }}
                         {% endif %}
 
                     {% else %}
@@ -229,7 +229,7 @@
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
-                            {{ t.balance|btctostring }}
+                            {{ t.balance|xmrtostring }}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -261,3 +261,4 @@
     {% else %}
         <div class="col-12 text-center"></div>
     {% endif %}
+</div>
