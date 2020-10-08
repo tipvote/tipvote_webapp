@@ -19,7 +19,7 @@
         {% endif %}
 
         <!--- Profile Image voting -->
-        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 pl-0 pt-0" style="max-width: 55px">
+        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-1 pl-0 pt-0" style="max-width: 55px">
             {% if comment.usercomments.profileimage  %}
                 {% if comment.usercomments.profileimage == '' %}
 
@@ -83,20 +83,10 @@
                     {{ newnumber }}
                 </div>
 
-
-
-
-
-
-
-
-
-
                 <div class="col-12 pb-0 mt-0 mb-0 pb-0 pt-0">
-                    <form method="post" action="{{ url_for('vote.downvote_comment',commentid=comment.id) }}">
-
+                    <form method="post"
+                          action="{{ url_for('vote.downvote_comment',commentid=comment.id) }}">
                         {{ voteform.csrf_token }}
-
                         <button
                                 id="click-btn-downvote-comment-{{ comment.id }}"
                                 value="{{ comment.id }}"
@@ -117,13 +107,13 @@
         <!--- END left side voting -->
         <!--- RIGHT SIDE INFO -->
         {% if comment.body_clean|length < 20 %}
-            <div class="col-4 third_color rounded m-0 p-1">
+            <div class="col-6 col-sm-6 col-md-4 third_color rounded m-0 p-1">
         {% elif 20 <=comment.body_clean|length <= 40 %}
-            <div class="col-5 third_color rounded m-0 p-1">
+            <div class="col-7 col-sm-7 col-md-5 third_color rounded m-0 p-1">
         {% elif 50 <=comment.body_clean|length <= 80 %}
-            <div class="col-6 third_color rounded m-0 p-1">
+            <div class="col-8 col-sm-8 col-md-6 third_color rounded m-0 p-1">
         {% else %}
-            <div class="col-8 third_color rounded m-0 p-1">
+            <div class="col-10 col-sm-10 col-md-8 third_color rounded m-0 p-1">
         {% endif %}
         <div class="row">
             <!-- username line -->

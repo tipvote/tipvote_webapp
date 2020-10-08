@@ -25,36 +25,36 @@
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You have a comment on your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a>
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post.</a>
                             </td>
                         {% endif %}
 
                     {% elif note.msg_type == 2 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You were tipped with Bitcoin for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a>
+                                You were tipped with Bitcoin for your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post!</a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You were tipped with Bitcoin for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a>
+                                You were tipped with Bitcoin for for your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post!</a>
                             </td>
                         {% endif %}
 
                     {% elif note.msg_type == 3 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You were tipped with Monero for
-                                <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
-                                    {{ note.post_id }}
+                                You were tipped with Monero for your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    View post!
                                 </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You were tipped with Monero for
-                                <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
-                                    {{ note.post_id }}
+                                You were tipped with Monero for your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    View post!
                                 </a>
                             </td>
                         {% endif %}
@@ -62,27 +62,27 @@
                     {% elif note.msg_type == 4 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You were tipped with Bitcoin for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">comment</a>
+                                You were tipped with Bitcoin (BTC) on your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                             </td>
                         {% else %}
                             <td class="col-10 border border-dark">
-                                You were tipped with Bitcoin for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">comment</a>
+                                You were tipped with Bitcoin (BTC) on your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                             </td>
                         {% endif %}
 
                     {% elif note.msg_type == 5 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You were tipped with Monero for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">comment</a>
+                                You were tipped with Monero (XMR) on your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                                 }}
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You were tipped with Monero for your
-                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">comment</a>
+                                You were tipped with Monero (XMR) on your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                             </td>
                         {% endif %}
 
@@ -103,12 +103,12 @@
                         {% if note.read == 1 %}
                             <td class="col-12">
                                 You were removed as a mod from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }} </a>.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You were removed as a mod from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }} </a>.
                             </td>
                         {% endif %}
 
@@ -116,12 +116,12 @@
                         {% if note.read == 1 %}
                             <td class="col-12">
                                 You have been unbanned from {<a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }} </a>.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You have been unbanned from {<a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }} </a>.
                             </td>
                         {% endif %}
 
@@ -129,12 +129,12 @@
                         {% if note.read == 1 %}
                             <td class="col-12">
                                 You were invited to <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a> as a member
+                                {{ note.subcommon_name }} </a> as a member.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You were invited to <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a> as a member
+                                {{ note.subcommon_name }} </a> as a member.
                             </td>
                         {% endif %}
 
@@ -142,12 +142,12 @@
                         {% if note.read == 1 %}
                             <td class="col-12">
                                 You were removed from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a> as a member
+                                {{ note.subcommon_name }} </a> as a member.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You were removed from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a> as a member
+                                {{ note.subcommon_name }} </a> as a member.
                             </td>
                         {% endif %}
 
@@ -171,23 +171,23 @@
                         {% if note.read == 1 %}
                             <td class="col-12">
                                 You were banned from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }}. </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You were banned from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
-                                {{ note.subcommon_name }} </a>
+                                {{ note.subcommon_name }}. </a>
                             </td>
                         {% endif %}
 
                     {% elif note.msg_type == 13 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                Post # {{ note.post_id }} was locked by an administrator
+                                Post # {{ note.post_id }} was locked by an administrator.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                Post # {{ note.post_id }} was locked by an administrator
+                                Post # {{ note.post_id }} was locked by an administrator.
                             </td>
                         {% endif %}
                     {% elif note.msg_type == 14 %}
@@ -200,17 +200,18 @@
                                 Somebody posted on your <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">wall</a>
                             </td>
                         {% endif %}
+                        <!--# 15 subforum owner got a tip percent-->
                     {% elif note.msg_type == 15 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have recieved a percent of a tip from
+                                You have received profit from your room:
                                 <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                                     Post # {{ note.post_id }}
                                 </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have recieved a percent of a tip from
+                                You have received profit from your room:
                                 <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                                     Post # {{ note.post_id }}
                                 </a>
@@ -219,28 +220,112 @@
                     {% elif note.msg_type == 16 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                Somebody wrote on your wall
+                                Somebody wrote on your wall.
                                 <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                                     Post # {{ note.post_id }}
                                 </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                Somebody wrote on your wall
+                                Somebody wrote on your wall.
                                 <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                                     Post # {{ note.post_id }}
                                 </a>
                             </td>
                         {% endif %}
 
-                    {% elif note.msg_type == 50 %}
+                        <!--Post was tipped-->
+                    {% elif note.msg_type == 20 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message</a>
+                                You were tipped with Bitcoin Cash (BCH) on your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post</a>
+                                }}
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message</a>
+                                You were tipped with Bitcoin Cash (BCH) on your post!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post</a>
+                            </td>
+                        {% endif %}
+                        <!--Comment BCH was tipped-->
+                    {% elif note.msg_type == 21 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                                You were tipped with Bitcoin Cash (BCH) for your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
+                                }}
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                You were tipped with Bitcoin Cash (BCH) for your comment!
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
+                            </td>
+                        {% endif %}
+
+
+                        <!--# 25 subforum owner got a tip in bitcoin-->
+                    {% elif note.msg_type == 25 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                                Your room made a profit in Bitcoin:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                YYour room made a profit in Bitcoin:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% endif %}
+                        <!--# 26 subforum owner got a tip in bitcoin cash-->
+                    {% elif note.msg_type == 26 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                               Your room made a profit in Bitcoin Cash:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                Your room made a profit in Bitcoin Cash:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% endif %}
+                        <!--# 27 subforum owner got a tip in monero-->
+                    {% elif note.msg_type == 27 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                                Your room made a profit in Monero:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                Your room made a profit in Monero:
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    Post # {{ note.post_id }}
+                                </a>
+                            </td>
+                        {% endif %}
+
+
+                        <!--# New Message-->
+                    {% elif note.msg_type == 50 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                                You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message.</a>
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message.</a>
                             </td>
                         {% endif %}
 
@@ -252,13 +337,13 @@
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
                                     reply
                                 </a>
-                                to your message
+                                to your message.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You have a
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">reply </a>
-                                to your message
+                                to your message.
                             </td>
                         {% endif %}
 
@@ -268,14 +353,14 @@
                             <td class="col-12">
                                 You business has a new
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
-                                    message
+                                    message.
                                 </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You business has a new
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
-                                    message
+                                    message.
                                 </a>
                             </td>
                         {% endif %}
@@ -286,14 +371,14 @@
                                 You business has a new
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
                                     reply </a>
-                                to a message
+                                to a message.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
                                 You business has a new
                                 <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
                                     reply </a>
-                                to a message
+                                to a message.
                             </td>
                         {% endif %}
 
@@ -302,11 +387,11 @@
                     {% elif note.msg_type == 54 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}"> message</a>
+                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}"> message.</a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">message </a>
+                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">message. </a>
                             </td>
                         {% endif %}
 
@@ -314,11 +399,11 @@
                     {% elif note.msg_type == 55 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply </a>
+                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply. </a>
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply </a> to
+                                LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply. </a>
                             </td>
                         {% endif %}
 
@@ -397,11 +482,11 @@
                     {% elif note.msg_type == 103 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a Bitcoin address error in your withdrawl
+                                You have a Bitcoin address error in your withdrawl.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a Bitcoin address error in your withdrawl
+                                You have a Bitcoin address error in your withdrawl.
                             </td>
                         {% endif %}
 
@@ -409,11 +494,11 @@
                     {% elif note.msg_type == 104 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                Your Bitcoin withdraw was successful
+                                Your Bitcoin withdraw was successful.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                Your Bitcoin withdraw was successful
+                                Your Bitcoin withdraw was successful.
                             </td>
                         {% endif %}
 
@@ -421,11 +506,11 @@
                     {% elif note.msg_type == 105 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a new incomming Bitcoin deposit
+                                You have a new incomming Bitcoin deposit.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a new incomming Bitcoin deposit
+                                You have a new incomming Bitcoin deposit.
                             </td>
                         {% endif %}
 
@@ -469,11 +554,11 @@
                     {% elif note.msg_type == 203 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a Bitcoin Cash address error in your withdrawl
+                                You have a Bitcoin Cash address error in your withdrawl.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a Bitcoin Cash address error in your withdrawl
+                                You have a Bitcoin Cash address error in your withdrawl.
                             </td>
                         {% endif %}
 
@@ -481,11 +566,11 @@
                     {% elif note.msg_type == 204 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                Your Bitcoin Cash withdraw was successful
+                                Your Bitcoin Cash withdraw was successful.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                Your Bitcoin Cash withdraw was successful
+                                Your Bitcoin Cash withdraw was successful.
                             </td>
                         {% endif %}
 
@@ -493,11 +578,11 @@
                     {% elif note.msg_type == 205 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a new incomming Bitcoin Cash deposit
+                                You have a new incomming Bitcoin Cash deposit.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a new incomming Bitcoin Cash deposit
+                                You have a new incomming Bitcoin Cash deposit.
                             </td>
                         {% endif %}
 
@@ -538,11 +623,11 @@
                     {% elif note.msg_type == 303 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a Monero address error in your withdrawl
+                                You have a Monero address error in your withdrawl.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a Monero address error in your withdrawl
+                                You have a Monero address error in your withdrawl.
                             </td>
                         {% endif %}
 
@@ -550,11 +635,11 @@
                     {% elif note.msg_type == 304 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                Your Monero withdraw was successful
+                                Your Monero withdraw was successful.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                Your Monero withdraw was successful
+                                Your Monero withdraw was successful.
                             </td>
                         {% endif %}
 
@@ -562,11 +647,11 @@
                     {% elif note.msg_type == 305 %}
                         {% if note.read == 1 %}
                             <td class="col-12">
-                                You have a new incomming Monero deposit
+                                You have a new incomming Monero deposit.
                             </td>
                         {% else %}
                             <td class="col-12 border border-dark">
-                                You have a new incomming Monero deposit
+                                You have a new incomming Monero deposit.
                             </td>
                         {% endif %}
                     {% elif note.msg_type == 307 %}

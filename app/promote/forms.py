@@ -66,6 +66,35 @@ class CreatePromotePostBch(FlaskForm):
             return True
 
 
+class CreatePromotePostXmr(FlaskForm):
+    """
+    Creates a btc tip for a comment
+    """
+    cent_xmr = SubmitField()
+    quarter_xmr = SubmitField()
+    dollar_xmr = SubmitField()
+    five_dollar_xmr = SubmitField()
+    ten_dollar_xmr = SubmitField()
+    twentyfive_dollar_xmr = SubmitField()
+    hundred_dollar_xmr = SubmitField()
+
+    custom_amount = StringField(validators=[
+        Optional(),
+
+    ])
+    submit = SubmitField()
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+
+    def validate(self):
+
+        rv = FlaskForm.validate(self)
+        if rv is True:
+            return True
+
+
+
 class GiveCoin(FlaskForm):
     """
     Creates a coin giove to post

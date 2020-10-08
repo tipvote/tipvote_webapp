@@ -5,7 +5,7 @@ from app.models import MoneroWallet
 # end models
 
 
-def sendcoinusertouser_xmr_post(sender_id, amount, postid, room):
+def sendcointosite_post_promotion_xmr(sender_id, amount, postid, room):
 
     """
     # From user wallet to user wallet
@@ -17,8 +17,8 @@ def sendcoinusertouser_xmr_post(sender_id, amount, postid, room):
     :return:
     """
 
-    type_transaction_tip_post = 6
-    type_transaction_recieve_post = 7
+    type_transaction_tip_post = 8
+    type_transaction_recieve_post = 9
     senderwallet = MoneroWallet.query.filter_by(user_id=sender_id).first()
     recieverwallet = MoneroWallet.query.filter_by(user_id=1).first()
 
@@ -39,7 +39,7 @@ def sendcoinusertouser_xmr_post(sender_id, amount, postid, room):
     # add transaction for senders wallet
     monero_addtransaction(category=type_transaction_tip_post,
                           amount=amount,
-
+                          comment=room,
                           user_id=sender_id,
                           senderid=1,
                           orderid=postid,
@@ -49,6 +49,7 @@ def sendcoinusertouser_xmr_post(sender_id, amount, postid, room):
     monero_addtransaction(category=type_transaction_recieve_post,
                           amount=amount,
                           user_id=1,
+                          comment=room,
                           senderid=sender_id,
                           orderid=postid,
                           balance=newbalance_reciever

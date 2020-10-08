@@ -332,7 +332,7 @@ def create_tip_comment_btc(subname, postid, commentid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=thecomment.id,
-                                             msg=15
+                                             msg=25
                                              )
 
                     add_new_notification(user_id=thecomment.user_id,
@@ -611,7 +611,7 @@ def create_tip_post_btc(subname, postid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=0,
-                                             msg=15
+                                             msg=25
                                              )
 
                     take_coin_from_tipper_btc_post(sender_id=current_user.id,
@@ -752,7 +752,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
 
                 final_amount = (floating_decimals(xmr_amount, 12))
 
-                lowestdonation = 0.000001
+                lowestdonation = 0.00000001
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -864,7 +864,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=0,
-                                             msg=15
+                                             msg=27
                                              )
 
                     # add exp points to donater
@@ -1008,7 +1008,7 @@ def create_tip_post_xmr(subname, postid):
 
                 final_amount = (floating_decimals(xmr_amount, 12))
 
-                lowestdonation = 0.000001
+                lowestdonation = 0.00000001
 
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
@@ -1141,7 +1141,7 @@ def create_tip_post_xmr(subname, postid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=0,
-                                             msg=15
+                                             msg=27
                                              )
 
                     # add exp points to donater
@@ -1389,7 +1389,7 @@ def create_tip_comment_bch(subname, postid, commentid):
                                          subname=thesub.subcommon_name,
                                          postid=post.id,
                                          commentid=thecomment.id,
-                                         msg=4
+                                         msg=21
                                          )
 
                     if payout == 1:
@@ -1398,7 +1398,7 @@ def create_tip_comment_bch(subname, postid, commentid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=thecomment.id,
-                                             msg=15
+                                             msg=26
                                              )
 
                     # add exp points to donater
@@ -1659,7 +1659,7 @@ def create_tip_post_bch(subname, postid):
                                          subname=thesub.subcommon_name,
                                          postid=idofpost,
                                          commentid=0,
-                                         msg=2
+                                         msg=20
                                          )
 
                     if payout == 1:
@@ -1668,7 +1668,7 @@ def create_tip_post_bch(subname, postid):
                                              subname=thesub.subcommon_name,
                                              postid=post.id,
                                              commentid=0,
-                                             msg=15
+                                             msg=26
                                              )
 
                     # add exp points to donater

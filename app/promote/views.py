@@ -22,6 +22,7 @@ from app.promote import promote
 from app.promote.forms import \
     CreatePromotePostBtc,\
     CreatePromotePostBch,\
+    CreatePromotePostXmr,\
     GiveCoin
 from app.vote.forms import VoteForm
 
@@ -29,11 +30,14 @@ from app.vote.forms import VoteForm
 from app.models import\
     UserStatsBTC,\
     UserStatsBCH,\
+    UserStatsXMR,\
     BtcWallet,\
-    BchWallet, \
+    BchWallet,\
+    MoneroWallet,\
     CommonsPost, \
     SubForums,\
-    BchPrices, \
+    BchPrices,\
+    MoneroPrices,\
     BtcPrices,\
     UserCoins,\
     PostPromote, \
@@ -42,6 +46,7 @@ from app.models import\
 
 from app.wallet_btc.wallet_btc_promotion import sendcointosite_post_promotion_btc
 from app.wallet_bch.wallet_btccash_promotion import sendcointosite_post_promotion_bch
+from app.wallet_xmr.wallet_xmr_promotion import sendcointosite_post_promotion_xmr
 from app.message.add_notification import add_new_notification
 
 
@@ -54,6 +59,7 @@ def promotepost(subname, postid):
     """
     form_btc = CreatePromotePostBtc()
     form_bch = CreatePromotePostBch()
+    form_xmr = CreatePromotePostXmr()
     voteform = VoteForm()
     givecoinform = GiveCoin()
 
@@ -79,6 +85,7 @@ def promotepost(subname, postid):
                            # forms
                            form_btc=form_btc,
                            form_bch=form_bch,
+                           form_xmr=form_xmr,
                            voteform=voteform,
                            givecoinform=givecoinform,
                            # specific querues
@@ -575,6 +582,195 @@ def promotepost_bch(subname, postid):
                 return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
         else:
             flash("Invalid Amount", category="danger")
+            return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
+
+
+@promote.route('/monero/<string:subname>/<int:postid>', methods=['POST'])
+@login_required
+def promotepost_xmr(subname, postid):
+    """
+    Promotes a post
+    # xmr
+    """
+    if request.method == 'POST':
+        form_xmr = CreatePromotePostXmr()
+        now = datetime.utcnow()
+
+        # get the sub, post, comment
+        thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
+        post = db.session.query(CommonsPost).get(postid)
+
+        # see if user has enough
+        userwallet_xmr = db.session.query(MoneroWallet)
+        userwallet_xmr = userwallet_xmr.filter(MoneroWallet.user_id == current_user.id)
+        userwallet_xmr = userwallet_xmr.first()
+
+        # get amount donated
+        getcurrentprice_xmr = db.session.query(MoneroPrices).get(1)
+        xmr_current_price_usd = getcurrentprice_xmr.price
+
+        if post.shared_post != 0:
+            idofpost = post.shared_post
+        else:
+            idofpost = post.id
+
+        seeifpostpromotions = PostPromotions.query.\
+            filter(PostPromotions.post_id == idofpost)\
+            .first()
+        if thesub is None:
+            flash("Sub does not exist.", category="success")
+            return redirect(url_for('index'))
+        if post is None:
+            flash("Post does not exist.", category="success")
+            return redirect(url_for('subforum.sub', subname=thesub.subcommon_name))
+        if post.hidden == 1:
+            flash("Post has been removed.", category="success")
+            return redirect(url_for('subforum.sub', subname=thesub.subcommon_name))
+        # get user stats
+        if form_xmr.validate_on_submit():
+
+            if form_xmr.submit.data:
+                seeifcoin = re.compile(btcamount)
+                doesitmatch = seeifcoin.match(form_xmr.custom_amount.data)
+                if doesitmatch:
+                    xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
+                    decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 12)
+
+                    xmr_amount = decimalform_of_amount
+
+                    # get usd amount
+                    getcurrentprice = db.session.query(MoneroPrices).get(1)
+                    bt = (Decimal(getcurrentprice.price) * xmr_amount)
+                    formatteddollar = '{0:.2f}'.format(bt)
+                    usd_amount = formatteddollar
+                else:
+                    flash("Invalid Amount.  Did you not enter the amount correctly?", category="danger")
+                    return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
+
+            elif form_xmr.cent_xmr.data:
+                xmr_amount = Decimal(0.01) / Decimal(xmr_current_price_usd)
+                usd_amount = 0.01
+
+            elif form_xmr.quarter_xmr.data:
+                xmr_amount = Decimal(0.25) / Decimal(xmr_current_price_usd)
+                usd_amount = 0.25
+
+            elif form_xmr.dollar_xmr.data:
+                xmr_amount = Decimal(1.00) / Decimal(xmr_current_price_usd)
+                usd_amount = 1.00
+
+            elif form_xmr.five_dollar_xmr.data:
+                xmr_amount = Decimal(5.00) / Decimal(xmr_current_price_usd)
+                usd_amount = 5.00
+
+            elif form_xmr.ten_dollar_xmr.data:
+                xmr_amount = Decimal(10.00) / Decimal(xmr_current_price_usd)
+                usd_amount = 10.00
+
+            elif form_xmr.twentyfive_dollar_xmr.data:
+                xmr_amount = Decimal(25.00) / Decimal(xmr_current_price_usd)
+                usd_amount = 25.00
+
+            elif form_xmr.hundred_dollar_xmr.data:
+                xmr_amount = Decimal(100.00) / Decimal(xmr_current_price_usd)
+                usd_amount = 100.00
+            else:
+                flash("Post Promotion Failure.", category="success")
+                return redirect(url_for('index'))
+
+            final_amount_xmr = (floating_decimals(xmr_amount, 12))
+
+            if Decimal(userwallet_xmr.currentbalance) >= Decimal(xmr_amount):
+                if final_amount_xmr > 0:
+
+                    createnewpomotion = PostPromote(
+                            created=now,
+                            created_user_id=current_user.id,
+                            created_user_name=current_user.user_name,
+                            subcommon_id=thesub.id,
+                            subcommon_name=thesub.subcommon_name,
+                            post_id=idofpost,
+                            amount_bch=0,
+                            amount_btc=0,
+                            amount_xmr=final_amount_xmr,
+                            amount_usd=usd_amount
+                        )
+                    db.session.add(createnewpomotion)
+                    db.session.commit()
+
+                    changeuserxmrstats = db.session.query(UserStatsXMR)\
+                        .filter_by(user_id=current_user.id)\
+                        .first()
+
+                    # add stats to user who donated
+                    # coin
+                    current_amount_donated_to_posts = changeuserxmrstats.total_donated_to_postcomments_xmr
+                    newamount = (floating_decimals(current_amount_donated_to_posts + final_amount_xmr, 12))
+                    changeuserxmrstats.total_donated_to_postcomments_xmr = newamount
+                    # usd
+                    current_amount_donated_to_posts_usd = changeuserxmrstats.total_donated_to_postcomments_usd
+                    newamount_usd = (floating_decimals(current_amount_donated_to_posts_usd + Decimal(usd_amount), 2))
+                    changeuserxmrstats.total_donated_to_postcomments_usd = newamount_usd
+
+                    if seeifpostpromotions is None:
+                        addstatstopost = PostPromotions(
+                            post_id=idofpost,
+                            total_recieved_bch=0,
+                            total_recieved_bch_usd=0,
+                            total_recieved_btc=0,
+                            total_recieved_btc_usd=0,
+                            total_recieved_xmr=final_amount_xmr,
+                            total_recieved_xmr_usd=usd_amount,
+                        )
+                        db.session.add(addstatstopost)
+                    else:
+
+                        # modify post to show it got xmr
+                        current_post_xmr_amount = seeifpostpromotions.total_recieved_xmr
+                        current_amount_xmr_usd_amount = seeifpostpromotions.total_recieved_xmr_usd
+                        newamount_for_post = (floating_decimals(current_post_xmr_amount + final_amount_xmr, 12))
+                        newamount_for_post_usd = (floating_decimals(current_amount_xmr_usd_amount + Decimal(usd_amount), 2))
+                        # set post to active and update post
+                        seeifpostpromotions.total_recieved_xmr = newamount_for_post
+                        seeifpostpromotions.total_recieved_xmr_usd = newamount_for_post_usd
+
+                        db.session.add(seeifpostpromotions)
+
+                    # create Wallet Transaction for both users
+                    sendcointosite_post_promotion_xmr(sender_id=current_user.id,
+                                                      amount=final_amount_xmr,
+                                                      postid=postid,
+                                                      room=subname)
+                    post.active = 1
+                    post.last_active = now
+
+                    db.session.add(post)
+                    db.session.add(changeuserxmrstats)
+
+                    # send notification you got a coin promotion
+                    add_new_notification(user_id=post.poster_user_id,
+                                         subid=post.subcommon_id,
+                                         subname=post.subcommon_name,
+                                         postid=post.id,
+                                         commentid=0,
+                                         msg=62,
+                                         )
+
+                    db.session.commit()
+
+                    flash("Successfully Promoted Post with Monero. In a few minutes the score will be updated.",
+                          category="success")
+                    return redirect(url_for('subforum.viewpost',
+                                            subname=thesub.subcommon_name,
+                                            postid=post.id))
+                else:
+                    flash("Invalid Amount.", category="danger")
+                    return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
+            else:
+                flash("Not enough coin in your wallet.", category="danger")
+                return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
+        else:
+            flash("Invalid Amount.", category="danger")
             return redirect(url_for('promote.promotepost', subname=subname, postid=postid))
 
 

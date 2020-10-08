@@ -178,9 +178,9 @@
                             <!--Money recieved from a post-->
                             {% elif t.category == 7 %}
                                 <p class="text-success">{{ t.amount|btctostring }}</p>
-
+                            <!--Promoted a post-->
                             {% elif t.category == 8 %}
-                                <p class="text-success">{{ t.amount|btctostring }}</p>
+                                <p class="text-danger">-{{ t.amount|btctostring }}</p>
 
                             <!--subowner got part of a post tip-->
                             {%  elif t.category == 9 %}
@@ -252,7 +252,7 @@
                                     {{ t.balance|btctostring }}
                                 {% endif %}
 
-                            <!--Money recieved from a post-->
+                            <!--Promoted a post-->
                             {% elif t.category == 8 %}
                                 {% if 0 == t.balance  %}
                                     0

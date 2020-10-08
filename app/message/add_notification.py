@@ -18,7 +18,13 @@ from datetime import datetime
 # 14 you have a post on your wall
 # 15 subforum owner got a tip
 # 16 someone wrote on your wall
+# 20 tipped a post with bitcoin cash
+# 21 tipped a comment with btc cash
 
+
+# 25 subforum owner got a tip in bitcoin
+# 26 subforum owner got a tip in bitcoin cash
+# 27 subforum owner got a tip in monero
 # messaging
 
 # 50 = new message
@@ -27,12 +33,10 @@ from datetime import datetime
 # 54 = legal new message
 # 55 = legal new reply
 
-
+# coins
 # 60 sent a promotion coin
 
 # bitcoin
-
-
 # 100 =  too litte or too much at withdrawl
 # 101 = not enough funds
 # 102 = wallet error

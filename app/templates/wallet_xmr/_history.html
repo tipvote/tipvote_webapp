@@ -40,7 +40,7 @@
                                 </div>
 
                                 {% if t.commentbtc %}
-                                    <br>{{ t.commentbtc }}
+                                    <br>{{ t.note }}
                                 {% endif %}
                             {% else %}
 
@@ -49,7 +49,7 @@
 
                                 </div>
                                 {% if t.commentbtc %}
-                                    <br>{{ t.commentbtc }}
+                                    <br>{{ t.note }}
                                 {% endif %}
                             {% endif %}
                         {% endif %}
@@ -97,10 +97,26 @@
                             {{ t.senderid|user_name }}
                         </a>
                         <br>
+                        <!--Money recieved from a promotion-->
+                    {%  elif t.category == 8 %}
+                        Promoted post #
+                        <a href="{{ url_for('subforum.viewpost',subname=t.commentbtc, postid=t.orderid) }}">
+                            {{ t.orderid }}
+                        </a>
+                        <br>
+                        <!--subowner got part of a post tip-->
+                    {%  elif t.category == 9 %}
+                        Profit from a tip your room!
+                        <br>
+
+                        <!--subowner got part of a comment tip-->
+                    {%  elif t.category == 10 %}
+                        Profit from a tip your room!
+                        <br>
 
                     {% else %}
                         {% if t.orderid %}
-                            {{ t.commentbtc }}<br><br>
+                            {{ t.note }}<br><br>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -156,6 +172,23 @@
                         {% else %}
                             <p class="text-success">{{ t.amount|xmrtostring }}</p>
                         {% endif %}
+                        <!--Mwebsite profit-->
+                    {% elif t.category == 8 %}
+                        Amount:
+                        {% if 0 <= t.amount > 0.0001 %}
+                            <p class="text-danger">-{{ t.amount }}</p>
+                        {% else %}
+                            <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
+                        {% endif %}
+                        <!--subowner got part of a post tip-->
+                    {%  elif t.category == 9 %}
+                          Amount:<p class="text-success">{{ t.amount|xmrtostring }}</p>
+
+                        <!--subowner got part of a comment tip-->
+                    {%  elif t.category == 10 %}
+                          Amount:<p class="text-success">{{ t.amount|xmrtostring }}</p>
+
+
                     {% else %}
                         Amount:
                         {% if 0 <= t.amount > 0.0001 %}
@@ -199,7 +232,7 @@
 
                         <!--Money recieved from a comment-->
                     {% elif t.category == 5 %}
-                       Balance:
+                        Balance:
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
                         {% else %}
@@ -223,6 +256,26 @@
                         {% else %}
                             {{ t.balance|xmrtostring }}
                         {% endif %}
+                    {% elif t.category == 8 %}
+                        Balance:
+                        {% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|xmrtostring }}
+                        {% endif %}
+                    {% elif t.category == 9 %}
+                         Balance:{% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|xmrtostring }}
+                        {% endif %}
+                    {% elif t.category == 10 %}
+                         Balance:{% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|xmrtostring }}
+                        {% endif %}
+
 
                     {% else %}
                         Balance:

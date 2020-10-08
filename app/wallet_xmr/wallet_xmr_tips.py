@@ -89,7 +89,7 @@ def sendcoin_subowner_xmr_comment(sender_id, amount, commentid, recieverid):
 
     try:
 
-        type_transaction_recieve_post = 7
+        type_transaction_recieve_post = 10
 
         recieverwallet = MoneroWallet.query.filter_by(user_id=recieverid).first()
 
@@ -213,7 +213,7 @@ def sendcoin_subowner_xmr_post(sender_id, amount, postid, recieverid):
     :return:
     """
     try:
-        type_transaction_recieve_post = 7
+        type_transaction_recieve_post = 9
 
         recieverwallet = MoneroWallet.query.filter_by(user_id=recieverid).first()
 

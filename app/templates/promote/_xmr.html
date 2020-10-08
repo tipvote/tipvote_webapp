@@ -7,7 +7,7 @@
                   <img  src="{{ url_for('static', filename='images/coins/xmr/xmr_logo_long.png')  }}" width="40%">
             </div>
             <form method="post" action="{{ url_for('promote.promotepost_xmr',subname=thesub.subcommon_name, postid=post.id) }}">
-                {{ form_danger.csrf_token }}
+                {{ form_xmr.csrf_token }}
                 <div class="form-group row mt-5">
                     <label  class="col-4 col-form-label text-md-right">Amount in XMR:</label>
                     <div class="col-8">
@@ -17,7 +17,7 @@
                 <div class="form-group row">
                     <label  class="col-4 col-form-label text-md-right"></label>
                     <div class="col-8">
-                        {{ render_field(form_xmr.submit,  value="Send Coin", autocomplete="off", class="btn btn-success ") }}
+                        {{ render_field(form_xmr.submit,  value="Send Coin", autocomplete="off", class="btn btn-danger ") }}
                     </div>
                 </div>
 
