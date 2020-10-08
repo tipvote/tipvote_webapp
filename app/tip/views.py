@@ -485,6 +485,7 @@ def create_tip_post_btc(subname, postid):
                 final_amount = (floating_decimals(btc_amount, 8))
 
                 lowestdonation = 0.000001
+
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -970,7 +971,7 @@ def create_tip_post_xmr(subname, postid):
                     if doesitmatch:
                         # if it passes regex test
                         xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
-                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 8)
+                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 12)
                         xmr_amount = decimalform_of_amount
                         # get usd amount
                         bt = (Decimal(getcurrentprice.price) * xmr_amount)
@@ -1005,7 +1006,7 @@ def create_tip_post_xmr(subname, postid):
                     flash("Invalid coin amount.  Did you enter the amount wrong?", category="danger")
                     return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
 
-                final_amount = (floating_decimals(xmr_amount, 8))
+                final_amount = (floating_decimals(xmr_amount, 12))
 
                 lowestdonation = 0.000001
 
