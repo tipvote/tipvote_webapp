@@ -241,14 +241,14 @@ def create_tip_comment_btc(subname, postid, commentid):
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
                     # Btc amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * btc_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
                     if payout == 1:
                         # subowner gets payout
                         newpayout = PayoutSubOwner(
@@ -499,14 +499,14 @@ def create_tip_post_btc(subname, postid):
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
                     # Btc amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * btc_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
 
                     if payout == 1:
                         # subowner gets payout
@@ -714,7 +714,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     if doesitmatch:
                         # if it passes
                         xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
-                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 8)
+                        decimalform_of_amount = floating_decimals(xmr_amount_for_submission, 12)
                         #
                         xmr_amount = decimalform_of_amount
                         # get usd amount
@@ -750,7 +750,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     flash("Tip Failure.", category="success")
                     return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
 
-                final_amount = (floating_decimals(xmr_amount, 8))
+                final_amount = (floating_decimals(xmr_amount, 12))
 
                 lowestdonation = 0.000001
                 if final_amount >= lowestdonation:
@@ -766,14 +766,14 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
                     # Btc amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
 
                     if payout == 1:
                         # subowner gets payout
@@ -829,7 +829,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
 
                     # add stats to user
                     current_amount_donated_to_comments = changeuserxmrstats.total_donated_to_postcomments_xmr
-                    newamount = (floating_decimals(current_amount_donated_to_comments + final_amount, 8))
+                    newamount = (floating_decimals(current_amount_donated_to_comments + final_amount, 12))
                     changeuserxmrstats.total_donated_to_postcomments_xmr = newamount
                     current_amount_donated_to_comments_usd = changeuserxmrstats.total_donated_to_postcomments_usd
                     newamount_usd = (floating_decimals(current_amount_donated_to_comments_usd + Decimal(usd_amount), 2))
@@ -837,7 +837,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
 
                     # add stats to user who recieved coin
                     current_amount_recieved_to_comments = changecommenterxmrstats.total_recievedfromcomments_xmr
-                    newamount_poster = (floating_decimals(current_amount_recieved_to_comments + amount_to_poster, 8))
+                    newamount_poster = (floating_decimals(current_amount_recieved_to_comments + amount_to_poster, 12))
                     changecommenterxmrstats.total_recievedfromcomments_xmr = newamount_poster
                     current_amount_recieved_to_comments_usd = changecommenterxmrstats.total_recievedfromcomments_usd
                     newamount_poster_usd = (floating_decimals(current_amount_recieved_to_comments_usd + Decimal(poster_usd_amount), 2))
@@ -846,7 +846,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     # modify comments to show it got xmr
                     current_comment_xmr_amount = thecomment.total_recieved_xmr
                     current_comment_xmr_usd_amount = thecomment.total_recieved_xmr_usd
-                    newamount_for_comment = (floating_decimals(current_comment_xmr_amount + amount_to_poster, 8))
+                    newamount_for_comment = (floating_decimals(current_comment_xmr_amount + amount_to_poster, 12))
                     newamount_for_comment_usd = (floating_decimals(current_comment_xmr_usd_amount + Decimal(poster_usd_amount), 2))
                     thecomment.total_recieved_xmr = newamount_for_comment
                     thecomment.total_recieved_xmr_usd = newamount_for_comment_usd
@@ -1086,7 +1086,7 @@ def create_tip_post_xmr(subname, postid):
                     # add stats to user
                     # coin
                     current_amount_donated_to_comments = changeuserxmrstats.total_donated_to_postcomments_xmr
-                    newamount = (floating_decimals(current_amount_donated_to_comments + final_amount, 8))
+                    newamount = (floating_decimals(current_amount_donated_to_comments + final_amount, 12))
                     changeuserxmrstats.total_donated_to_postcomments_xmr = newamount
                     current_amount_donated_to_comments_usd = changeuserxmrstats.total_donated_to_postcomments_usd
                     newamount_usd = (floating_decimals(current_amount_donated_to_comments_usd + Decimal(usd_amount), 2))
@@ -1094,7 +1094,7 @@ def create_tip_post_xmr(subname, postid):
 
                     # add stats to user who recieved coin
                     current_amount_recieved_to_posts = changeposterxmrstats.total_recievedfromposts_xmr
-                    newamount_poster = (floating_decimals(current_amount_recieved_to_posts + amount_to_poster, 8))
+                    newamount_poster = (floating_decimals(current_amount_recieved_to_posts + amount_to_poster, 12))
                     changeposterxmrstats.total_recievedfromposts_xmr = newamount_poster
                     current_amount_recieved_to_posts_usd = changeposterxmrstats.total_recievedfromposts_usd
                     newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd + Decimal(poster_usd_amount), 2))
@@ -1120,7 +1120,7 @@ def create_tip_post_xmr(subname, postid):
                         # modify comments to show it got xmr
                         current_post_xmr_amount = seeifpostdonates.total_recieved_xmr
                         current_amount_xmr_usd_amount = seeifpostdonates.total_recieved_xmr_usd
-                        newamount_for_post = (floating_decimals(current_post_xmr_amount + amount_to_poster, 8))
+                        newamount_for_post = (floating_decimals(current_post_xmr_amount + amount_to_poster, 12))
                         newamount_for_post_usd = (floating_decimals(current_amount_xmr_usd_amount + Decimal(poster_usd_amount), 2))
                         seeifpostdonates.total_recieved_xmr = newamount_for_post
                         seeifpostdonates.total_recieved_xmr_usd = newamount_for_post_usd
@@ -1298,14 +1298,14 @@ def create_tip_comment_bch(subname, postid, commentid):
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
                     # Btc amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * bch_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
 
                     if payout == 1:
                         # subowner gets payout
@@ -1552,14 +1552,14 @@ def create_tip_post_bch(subname, postid):
                     # get usd amount
                     subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
                     subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = subownerformatteddollar
+                    subowner_usd_amount = float(subownerformatteddollar)
 
                     # Btc amount
                     amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
                     # get usd amount
                     posterbt = (Decimal(getcurrentprice.price) * bch_amount)
                     posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = posterformatteddollar
+                    poster_usd_amount = float(posterformatteddollar)
 
                     if payout == 1:
                         # subowner gets payout
