@@ -22,6 +22,9 @@
         {% if wallet.address1 == '' %}
             <p class="font-weight-bold" style="font-size: 10px;">Wallet is being created </p>
         {% else %}
+        <div class="col-12 text-center mt-4 mb-2">
+            <img alt='' src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
+        </div>
             <div class="d-sm-none">
                 <div class="moneroorange p-0" style="font-size: 7px">
                     {{ wallet.address1 }}
