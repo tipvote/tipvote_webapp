@@ -2,48 +2,51 @@
 
 <div class="col-12 col-sm-12 col-md-12 col-lg-8 mb-5 offset-lg-2">
 
-        <div class="row second_color">
-            <div class="col-12 text-center">
-                 <img  src="{{ url_for('static', filename='images/coins/btc/bitcoin_logo_long.png')  }}" width="30%">
-            </div>
-            <form method="post" action="{{ url_for('tip.create_tip_post_btc',subname=thesub.subcommon_name, postid=post.id) }}">
-                {{ form_btc.csrf_token }}
-                <div class="form-group row mt-5">
-                    <label  class="col-4 col-form-label text-md-right">Amount in BTC:</label>
-                    <div class="col-8">
-                        {{ render_field(form_btc.custom_amount, class="bg-dark text-white ") }} BTC
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label  class="col-4 col-form-label text-md-right"></label>
-                    <div class="col-8">
-                        {{ render_field(form_btc.submit,  value="Send Coin", autocomplete="off", class="btn btn-warning ") }}
-                    </div>
-                </div>
-
-
-                <div class="col-12 mt-2  mb-2 text-center">
-                    <h5>Quick Tip</h5>
-                </div>
-                <div class="form-group row text-center justify-content-center">
-
-                    {{ render_field(form_btc.cent,  value="0.01$", autocomplete="off", class="btn btn-warning mr-1") }}
-
-                    {{ render_field(form_btc.quarter,  value="0.25$", autocomplete="off", class="btn btn-warning mr-1") }}
-
-                    {{ render_field(form_btc.dollar,  value="1.00$", autocomplete="off", class="btn btn-warning mr-1") }}
-
-                    {{ render_field(form_btc.five_dollar,  value="5.00$", autocomplete="off", class="btn btn-warning mr-1") }}
-
-                    {{ render_field(form_btc.ten_dollar,  value="10.00$", autocomplete="off", class="btn btn-warning mr-1") }}
-
-                </div>
-
-                <div class="col-12">
-                    Please Note: Once you hit an amount above, it will be automatically taken
-                    from your wallet and given to post/commenter/poster.  There is no confirm screen after this.
-                </div>
-            </form>
+    <div class="row second_color">
+        <div class="col-12 text-center">
+            <img  src="{{ url_for('static', filename='images/coins/btc/bitcoin_logo_long.png')  }}" width="30%">
         </div>
+        <div class="col-12 text-center mt-5">
+            <h5> Balance: <span class="btcorange">{{ current_user.btc.currentbalance|btctostring  }}</span > </h5>
+        </div>
+        <form method="post" action="{{ url_for('tip.create_tip_post_btc',subname=thesub.subcommon_name, postid=post.id) }}">
+            {{ form_btc.csrf_token }}
+            <div class="form-group row mt-5">
+                <label  class="col-4 col-form-label text-md-right">Amount in BTC:</label>
+                <div class="col-8">
+                    {{ render_field(form_btc.custom_amount, class="bg-dark text-white ") }} BTC
+                </div>
+            </div>
+            <div class="form-group row">
+                <label  class="col-4 col-form-label text-md-right"></label>
+                <div class="col-8">
+                    {{ render_field(form_btc.submit,  value="Send Coin", autocomplete="off", class="btn btn-warning ") }}
+                </div>
+            </div>
 
+
+            <div class="col-12 mt-2  mb-2 text-center">
+                <h5>Quick Tip</h5>
+            </div>
+            <div class="form-group row text-center justify-content-center">
+
+                {{ render_field(form_btc.cent,  value="0.01$", autocomplete="off", class="btn btn-warning mr-1") }}
+
+                {{ render_field(form_btc.quarter,  value="0.25$", autocomplete="off", class="btn btn-warning mr-1") }}
+
+                {{ render_field(form_btc.dollar,  value="1.00$", autocomplete="off", class="btn btn-warning mr-1") }}
+
+                {{ render_field(form_btc.five_dollar,  value="5.00$", autocomplete="off", class="btn btn-warning mr-1") }}
+
+                {{ render_field(form_btc.ten_dollar,  value="10.00$", autocomplete="off", class="btn btn-warning mr-1") }}
+
+            </div>
+
+            <div class="col-12">
+                Please Note: Once you hit an amount above, it will be automatically taken
+                from your wallet and given to post/commenter/poster.  There is no confirm screen after this.
+            </div>
+        </form>
     </div>
+
+</div>
