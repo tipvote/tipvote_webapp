@@ -189,11 +189,12 @@ def usertotalcomment(user_id):
 def getuser_name(user_id):
     from app.models import User
     from app import db
-
-    userperson = db.session.query(User).filter(user_id == User.id).first()
-
-    thename = userperson.user_name
-    return thename
+    try:
+        userperson = db.session.query(User).filter(user_id == User.id).first()
+        thename = userperson.user_name
+        return thename
+    except:
+        return "tipvote"
 
 
 # Gets user btc stats recieved

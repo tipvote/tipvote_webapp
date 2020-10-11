@@ -21,6 +21,7 @@ from datetime import datetime
 # 20 tipped a post with bitcoin cash
 # 21 tipped a comment with btc cash
 
+# 22 reply to your comment
 
 # 25 subforum owner got a tip in bitcoin
 # 26 subforum owner got a tip in bitcoin cash

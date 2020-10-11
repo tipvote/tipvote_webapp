@@ -1,0 +1,40 @@
+
+
+<script type = "text/javascript" >
+    $(document).on('click', '#click-btn-join-room-{{ room.id }}', function(event)
+    {
+        var csrf_token = "{{ csrf_token() }}";
+        $.ajax({
+            url: "{{ url_for('subforum.sub_to_forum_no_redirect', subname=room.subcommon_name) }}",
+            type: "post",
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify($(this).attr("value")),
+                        headers: {
+                "X-CSRFToken": csrf_token,
+            },
+            dataType: 'json',
+
+            success: function(data)
+            {
+                if (data.result == 'joined') {
+                    $('div#number_before_' + data.thedivid).remove();
+                    $('div#number_after_up_' + data.thedivid).append(data.newnumber).show();
+                    return data;
+                }
+                else
+                {
+
+                }
+            },
+
+            error: function()
+            {
+
+            },
+
+        });
+        event.preventDefault();
+    });
+
+
+</script>

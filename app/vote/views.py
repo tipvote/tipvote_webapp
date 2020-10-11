@@ -176,8 +176,8 @@ def downvote_comment(commentid):
         comment_owner_stats.comment_downvotes = new_downvotes_comment
 
         # add exp points
-        exppoint(user_id=current_user.id, type=8)
-        exppoint(user_id=getcomment.user_id, type=4)
+        exppoint(user_id=current_user.id, category=8)
+        exppoint(user_id=getcomment.user_id, category=4)
 
         # add user_id to vote so user doesnt double vote
         create_new_vote = CommentsUpvotes(
@@ -349,8 +349,8 @@ def upvote_comment(commentid):
         comment_owner_stats.comment_upvotes = new_upvotes_comment
 
         # add exp points
-        exppoint(user_id=current_user.id, type=8)
-        exppoint(user_id=getcomment.user_id, type=3)
+        exppoint(user_id=current_user.id, category=8)
+        exppoint(user_id=getcomment.user_id, category=3)
 
         # add user_id to vote so user doesnt double vote
         create_new_vote = CommentsUpvotes(
@@ -488,8 +488,8 @@ def upvote_post(postid):
             newvotenumber = getpost.highest_exp_reached + 1
 
             # add exp points
-            exppoint(user_id=current_user.id, type=8)
-            exppoint(user_id=getpost.user_id, type=3)
+            exppoint(user_id=current_user.id, category=8)
+            exppoint(user_id=getpost.user_id, category=3)
 
             # add to user stats
             current_upvotes_posts = post_owner_stats.post_upvotes
@@ -629,8 +629,8 @@ def downvote_post(postid):
             getpost.hotness_rating_now = newhotness
 
             # add stats to voter
-            exppoint(user_id=current_user.id, type=8)
-            exppoint(user_id=getpost.user_id, type=4)
+            exppoint(user_id=current_user.id, category=8)
+            exppoint(user_id=getpost.user_id, category=4)
 
             # add to user stats
             current_downvotes_posts = post_owner_stats.post_downvotes

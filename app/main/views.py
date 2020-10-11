@@ -16,7 +16,7 @@ from app.common.decorators import login_required
 
 from app import db, app
 from app.main.forms import ApplyToPrivate, CreateUpdateForm
-from app.subforum.forms import SubscribeForm
+from app.subforum.forms import SubscribeForm, JoinRoomForm
 from app.vote.forms import VoteForm
 from app.create.forms import MainPostForm
 
@@ -1125,69 +1125,64 @@ def nsfw(subname):
 
 # this page is for finding new subs
 @app.route('/discover', methods=['GET'])
+@login_required
 def discoversubs():
     now = datetime.utcnow()
-    if current_user.is_authenticated:
-        usersubforums = db.session.query(Subscribed)
-        usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
-        usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
-        usersubforums = usersubforums.filter(SubForums.id != 1)
-        usersubforums = usersubforums.filter(SubForums.room_deleted == 0)
-        usersubforums = usersubforums.filter(SubForums.room_suspended == 0)
-        usersubforums = usersubforums.filter(SubForums.room_banned == 0)
-        usersubforums = usersubforums.all()
-        guestsubforums = None
-    else:
-        guestsubforums = db.session.query(SubForums)
-        guestsubforums = guestsubforums.filter(SubForums.age_required == 0)
-        guestsubforums = guestsubforums.filter(SubForums.type_of_subcommon == 0)
-        guestsubforums = guestsubforums.filter(SubForums.id != 1)
-        guestsubforums = guestsubforums.filter(SubForums.room_deleted == 0)
-        guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
-        guestsubforums = guestsubforums.limit(20)
-        usersubforums = None
 
-    if current_user.is_authenticated:
-        recmsgs = db.session.query(Messages)
-        recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
-        recmsgs = recmsgs.count()
+    subform = SubscribeForm()
 
-        sendmsgs = db.session.query(Messages)
-        sendmsgs = sendmsgs.filter(Messages.sender_user_id == current_user.id, Messages.read_send == 1)
-        sendmsgs = sendmsgs.count()
+    usersubforums = db.session.query(Subscribed)
+    usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
+    usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
+    usersubforums = usersubforums.filter(SubForums.id != 1)
+    usersubforums = usersubforums.filter(SubForums.room_deleted == 0)
+    usersubforums = usersubforums.filter(SubForums.room_suspended == 0)
+    usersubforums = usersubforums.filter(SubForums.room_banned == 0)
+    usersubforums = usersubforums.all()
 
-        themsgs = int(sendmsgs) + int(recmsgs)
-    else:
-        themsgs = 0
+    # add user subs to a list so we dont refind them
+    usersublist = []
+    for usersub in usersubforums:
+        usersublist.append(usersub.subcommon_id)
 
+    recmsgs = db.session.query(Messages)
+    recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
+    recmsgs = recmsgs.count()
+    sendmsgs = db.session.query(Messages)
+    sendmsgs = sendmsgs.filter(Messages.sender_user_id == current_user.id, Messages.read_send == 1)
+    sendmsgs = sendmsgs.count()
+    themsgs = int(sendmsgs) + int(recmsgs)
 
-    # newsubs = db.session.query(SubForums)
-    # newsubs = newsubs.filter(SubForums.type_of_subcommon == 0)
-    # newsubs = newsubs.filter(SubForums.id != 1)
-    # newsubs = newsubs.filter(SubForums.room_deleted == 0)
-    # newsubs = newsubs.filter(SubForums.room_suspended == 0)
-    # newsubs = newsubs.filter(SubForums.room_banned == 0)
-    # newsubs = newsubs.order_by(SubForums.created.desc())
-    # newsubs = newsubs.limit(10)
+    page = request.args.get('page', 1, type=int)
 
     popularsubs = db.session.query(SubForums)
     popularsubs = popularsubs.filter(SubForums.type_of_subcommon == 0)
     popularsubs = popularsubs.filter(SubForums.id != 1)
+    popularsubs = popularsubs.filter(SubForums.id != 14)
+    popularsubs = popularsubs.filter(SubForums.id.notin_(usersublist))
     popularsubs = popularsubs.filter(SubForums.room_deleted == 0)
     popularsubs = popularsubs.filter(SubForums.room_suspended == 0)
     popularsubs = popularsubs.filter(SubForums.room_banned == 0)
     popularsubs = popularsubs.order_by(SubForums.members.desc())
-    popularsubs = popularsubs.limit(100)
+    popularsubs = popularsubs.paginate(page, 20, False)
 
-
+    next_url = url_for('discoversubs', page=popularsubs.next_num) \
+        if popularsubs.has_next else None
+    prev_url = url_for('discoversubs', page=popularsubs.prev_num) \
+        if popularsubs.has_prev else None
 
     return render_template('main/discover.html',
+                           # forms
+                           subform=subform,
+                           # variables
                            now=now,
-                           popularsubs=popularsubs,
-
                            usersubforums=usersubforums,
-                           guestsubforums=guestsubforums,
                            themsgs=themsgs,
+                           # pagination
+                           popularsubs=popularsubs.items,
+                           next_url=next_url,
+                           prev_url=prev_url,
+
                            )
 
 
@@ -1262,7 +1257,6 @@ def discoverbiz():
     if request.method == "POST":
         pass
 
-
     if request.method == "GET":
 
         if current_user.is_authenticated:
@@ -1317,8 +1311,6 @@ def discoverbiz():
         seeifowner = seeifownering.all()
         ownercount = seeifownering.count()
 
-
-
         return render_template('main/discoverbiz.html',
                                newsubs=newsubs,
                                popbiz=popbiz,
@@ -1357,15 +1349,6 @@ def mysubscriptions():
         guestsubforums = guestsubforums.limit(20)
         usersubforums = None
 
-    page = request.args.get('page', 1, type=int)
-    getlistofmysubs = db.session.query(Subscribed)
-    getlistofmysubs = getlistofmysubs.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
-    getlistofmysubs = getlistofmysubs.filter(current_user.id == Subscribed.user_id)
-    getlistofmysubs = getlistofmysubs.filter(SubForums.room_banned == 0)
-    getlistofmysubs = getlistofmysubs.filter(SubForums.room_deleted == 0)
-
-    getlistofmysubs = getlistofmysubs.paginate(page, app.config['POSTS_PER_PAGE'], False)
-
     if current_user.is_authenticated:
         recmsgs = db.session.query(Messages)
         recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -1379,11 +1362,6 @@ def mysubscriptions():
     else:
         themsgs = 0
 
-    next_url = url_for('mysubscriptions', page=getlistofmysubs.next_num) \
-        if getlistofmysubs.has_next else None
-    prev_url = url_for('mysubscriptions', page=getlistofmysubs.prev_num) \
-        if getlistofmysubs.has_prev else None
-
     seeifmodding = db.session.query(Mods)
     seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
     seeifmod = seeifmodding.all()
@@ -1394,6 +1372,19 @@ def mysubscriptions():
     seeifownering = seeifownering.filter(SubForums.room_deleted != 1)
     seeifowner = seeifownering.all()
     ownercount = seeifownering.count()
+
+    page = request.args.get('page', 1, type=int)
+    getlistofmysubs = db.session.query(Subscribed)
+    getlistofmysubs = getlistofmysubs.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
+    getlistofmysubs = getlistofmysubs.filter(current_user.id == Subscribed.user_id)
+    getlistofmysubs = getlistofmysubs.filter(SubForums.room_banned == 0)
+    getlistofmysubs = getlistofmysubs.filter(SubForums.room_deleted == 0)
+
+    getlistofmysubs = getlistofmysubs.paginate(page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('mysubscriptions', page=getlistofmysubs.next_num) \
+        if getlistofmysubs.has_next else None
+    prev_url = url_for('mysubscriptions', page=getlistofmysubs.prev_num) \
+        if getlistofmysubs.has_prev else None
 
     return render_template('main/subscriptions.html',
                            now=now,

@@ -3,7 +3,8 @@ from flask import \
     render_template, \
     redirect, \
     url_for, \
-    flash
+    flash,\
+    jsonify
 from flask import request
 from flask_login import current_user
 from datetime import datetime
@@ -1616,6 +1617,141 @@ def subunsubtoforum(subname):
         else:
             flash("Form Error", category='danger')
             return redirect(url_for('subforum.sub', subname=subname))
+
+
+@subforum.route('/sub/<string:subname>', methods=['POST'])
+def sub_to_forum_no_redirect(subname):
+
+    # get the sub
+    subname = subname.lower()
+    thesub = db.session.query(SubForums)\
+        .filter(func.lower(SubForums.subcommon_name) == subname)\
+        .first()
+    if thesub is None:
+        return jsonify({
+            'result': 'This room does not exist.',
+        })
+
+    # get id of the sub
+    subid = int(thesub.id)
+
+    if request.method == 'POST':
+        # see if user subscribed
+        if current_user.is_authenticated:
+            # UNsubscribe to a sub
+            # see if user already subbed
+            seeifsubbed = db.session.query(Subscribed)\
+                .filter(Subscribed.user_id == current_user.id,
+                        Subscribed.subcommon_id == subid)\
+                .first()
+
+            if seeifsubbed is None:
+                # add subscribition
+                subtoit = Subscribed(
+                    user_id=current_user.id,
+                    subcommon_id=subid,
+                )
+                # add new member to sub
+                current_members = thesub.members
+                addmembers = current_members + 1
+                thesub.members = addmembers
+
+                db.session.add(thesub)
+                db.session.add(subtoit)
+                db.session.commit()
+                return jsonify({
+                    'result': 'joined',
+                    'thedivid': thesub.id,
+                    'newnumber': addmembers
+                })
+            else:
+                return jsonify({
+                    'result': 'You Are already a member.',
+                    'thedivid': thesub.id,
+                })
+
+        else:
+            return jsonify({
+                'result': 'Not Authorized'
+            })
+
+
+
+@subforum.route('/unsub/<string:subname>', methods=['POST'])
+def unsub_to_forum_no_redirect(subname):
+    subform = SubscribeForm()
+
+    # get the sub
+    subname = subname.lower()
+    thesub = db.session.query(SubForums)\
+        .filter(func.lower(SubForums.subcommon_name) == subname)\
+        .first()
+    if thesub is None:
+        return jsonify({
+            'result': 'This room does not exist.',
+        })
+
+    # get id of the sub
+    subid = int(thesub.id)
+
+    # subscribe to a sub
+    if request.method == 'POST':
+        if subform.validate_on_submit():
+            # see if user subscribed
+            if current_user.is_authenticated:
+                # see if user already subbed
+                if subform.unsubscribe.data is True:
+                    seeifmod = db.session.query(Mods)
+                    seeifmod = seeifmod.filter(Mods.subcommon_id == subid)
+                    seeifmod = seeifmod.filter(Mods.user_id == current_user.id)
+                    seeifmod = seeifmod.first()
+
+                    if seeifmod is not None:
+                        return jsonify({
+                            'result': 'You are a Mod cannot unsubscribe.',
+                            'thedivid': thesub.id,
+                        })
+
+                    if current_user.id == thesub.creator_user_id:
+                        return jsonify({
+                            'result': 'You are an owner cannot unsubscribe.',
+                            'thedivid': thesub.id,
+                        })
+
+                    # get the sub query and delete it
+                    unsubtoit = db.session.query(Subscribed)
+                    unsubtoit = unsubtoit.filter(Subscribed.user_id == current_user.id,
+                                                 Subscribed.subcommon_id == subid)
+                    unsubtoit = unsubtoit.first()
+
+                    # add new member to sub
+                    current_members = thesub.members
+                    addmembers = current_members - 1
+                    thesub.members = addmembers
+
+                    db.session.add(thesub)
+                    db.session.delete(unsubtoit)
+                    db.session.commit()
+
+                    if current_user.id == thesub.creator_user_id:
+                        return jsonify({
+                            'result': 'Unjoined',
+                            'thedivid': thesub.id,
+                            'newnumber': addmembers
+                        })
+                else:
+                    return jsonify({
+                        'result': 'No Selection',
+                        'thedivid': thesub.id,
+                    })
+            else:
+                return jsonify({
+                    'result': 'Not Authorized'
+                })
+        else:
+            return jsonify({
+                'result': 'Post Error'
+            })
 
 
 @subforum.route('/<string:subname>/banned', methods=['GET'])

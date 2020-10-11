@@ -7,24 +7,20 @@
 <div class="wrapper">
     <body>
     {% include 'layout/headers/depositheader.html' %}
-
     <div class="container-fluid mt-3">
-        <div class="row  " style="overflow: hidden">
+        <div class="row " style="overflow: hidden">
             <!-- Left Side -->
-            <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
+            <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-2  d-none d-lg-block main_color  p-0 m-0" style="max-width: 240px">
                 {% include 'layout/profile/main_profile.html' %}
                 {% include 'layout/widgets/_wallets.html' %}
             </div>
             <!-- Middle -->
-            <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 m-0">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-10  m-0 pr-1 pl-0">
                 {% include "flashbar.html" %}
                 {% block content %}
                 {% endblock %}
             </div>
-            <!-- Right -->
-            <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
 
-            </div>
         </div>
     </div>
     <div class="mb-5"></div>

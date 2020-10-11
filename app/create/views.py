@@ -254,7 +254,7 @@ def createsubforum():
                 getuser_timers.last_common_creation = now
 
                 # add exp points
-                exppoint(user_id=current_user.id, type=7)
+                exppoint(user_id=current_user.id, category=7)
                 db.session.add(newsubcustom)
                 db.session.add(substats)
                 db.session.add(getuser_timers)
@@ -422,7 +422,7 @@ def createbusinesspage():
                 getuser_timers.last_common_creation = now
 
                 # add exp points
-                exppoint(user_id=current_user.id, type=7)
+                exppoint(user_id=current_user.id, category=7)
 
                 db.session.add(biz_stats)
                 db.session.add(biz_info)
@@ -580,7 +580,7 @@ def createcomment(subname, postid, parentid):
                 create_new_comment.save()
 
                 # add exp points
-                exppoint(user_id=current_user.id, type=2)
+                exppoint(user_id=current_user.id, category=2)
 
                 # add comment count to the post
                 currentcommentcount = post.comment_count
@@ -612,6 +612,24 @@ def createcomment(subname, postid, parentid):
                                          commentid=0,
                                          msg=1,
                                          )
+
+                # need to loop through the path splitting at . find the comment id.  Then add a notification.
+                # if parentid != 0:
+                #     pass
+                #
+                #     getsubcomment = db.session.query(Comments).filter(Comments.id == parentid).first()
+                #     for f in getsubcomment:
+                #
+                #         add_new_notification(user_id=f.user_id,
+                #                              subid=subid,
+                #                              subname=subname,
+                #                              postid=post.id,
+                #                              commentid=0,
+                #                              msg=1,
+                #                              )
+
+
+
                 # add to db
                 db.session.add(post)
                 db.session.add(getuser_timers)
@@ -1068,7 +1086,7 @@ def create_post_wall(userid):
                 db.session.commit()
 
             # add exp points
-            exppoint(user_id=current_user.id, type=1)
+            exppoint(user_id=current_user.id, category=1)
 
             if current_user.id != theuser.id:
                 add_new_notification(user_id=theuser.id,
@@ -1279,7 +1297,7 @@ def create_post_room(subname):
                 db.session.commit()
 
             # add exp points
-            exppoint(user_id=current_user.id, type=1)
+            exppoint(user_id=current_user.id, category=1)
 
             flash("Post Created!", category="success")
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
@@ -1483,7 +1501,7 @@ def create_post_room_all(userid):
                 db.session.commit()
 
             # add exp points
-            exppoint(user_id=current_user.id, type=1)
+            exppoint(user_id=current_user.id, category=1)
 
             flash("Post Created!", category="success")
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
@@ -1632,7 +1650,7 @@ def create_post_business_wall(businessid):
                 db.session.commit()
 
             # add exp points
-            exppoint(user_id=current_user.id, type=1)
+            exppoint(user_id=current_user.id, category=1)
 
             flash("Post Created!", category="success")
             return redirect((url_for('business.main', business_name=thebiz.business_name)))
@@ -1786,7 +1804,7 @@ def create_post_business_wall_other(businessid):
                 db.session.commit()
 
             # add exp points
-            exppoint(user_id=current_user.id, type=1)
+            exppoint(user_id=current_user.id, category=1)
 
             flash("Post Created!", category="success")
             return redirect((url_for('business.main_post_to_another_wall', business_name=thebiz.business_name)))

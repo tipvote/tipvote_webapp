@@ -58,17 +58,20 @@
             </div>
             <div class="row">
 
-                <div class="col-12 col-sm-3 linkcolor">
+                <div class="col-12 col-sm-2 linkcolor">
                     <a class="" href="{{ url_for('subforum.sub', subname='worldnews') }}">a/worldnews</a>
                 </div>
-                <div class="col-12 col-sm-3 linkcolor">
+                <div class="col-12 col-sm-2 linkcolor">
                     <a class="" href="{{ url_for('subforum.sub', subname='USPolitics') }}">a/USPolitics</a>
                 </div>
-                <div class="col-12 col-sm-3 linkcolor">
+                <div class="col-12 col-sm-2 linkcolor">
                     <a class="" href="{{ url_for('subforum.sub', subname='USnews') }}">a/USnews</a>
                 </div>
-                <div class="col-12 col-sm-3 linkcolor">
+                <div class="col-12 col-sm-2 linkcolor">
                     <a class="" href="{{ url_for('subforum.sub', subname='Bitcoin') }}">a/Bitcoin</a>
+                </div>
+                <div class="col-12 col-sm-2 linkcolor">
+                    <a class="" href="{{ url_for('subforum.sub', subname='Bitcoin') }}">a/general</a>
                 </div>
             </div>
         </div>
@@ -81,7 +84,7 @@
                     Example:
                     <a class="" href="{{ url_for('subforum.sub',
                         subname='bitcoin' )}} ">
-                    tipvote.com/a/bitcoin </a>
+                        tipvote.com/a/bitcoin </a>
                 </div>
                 <div class="col-10 offset-1">
                     <b>User Profiles</b> - User profiles start with a "u/" <br>
@@ -93,13 +96,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mb-5">
-            <h5><b><div class="text-center">Be Civil.  Be Bold</div> </b></h5>
-            <p>
-                Please respect the members and rooms of this community. Have fun.
-                <br><br>
-                <a class="text-white text-center btn btn-warning btn-block" href="{{ url_for('frontpage.frontpage_home') }}">Go to my frontpage</a>
-            </p>
+
+        <div class="col-12 mb-5 text-center font-weight-bold h5">
+            Be Civil.  Be Bold
         </div>
-</div>
+
+        <div class="col-12 mb-5 text-center font-weight-bold mb-2">
+            Please respect the members and rooms of this community. Have fun.
+        </div>
+        <div class="col-12 mb-5 text-center">
+            <a class="text-dark text-center btn btn-warning mb-2"
+               href="{{ url_for('discoversubs') }}">
+                Discover Rooms
+            </a>
+        </div>
+
+        <div class="col-12 mb-5 text-center">
+            or
+        </div>
+
+        <div class="col-12 mb-5 text-center">
+            <a class="text-white text-center btn btn-dark"
+               href="{{ url_for('frontpage.frontpage_home') }}">
+                Im good, take my to front page.
+            </a>
+        </div>
+    </div>
+
 {% endblock %}

@@ -344,9 +344,9 @@ def create_tip_comment_btc(subname, postid, commentid):
                                          )
 
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=thecomment.user_id, type=6)
+                    exppoint(user_id=thecomment.user_id, category=6)
 
                     take_coin_from_tipper_btc_comment(sender_id=current_user.id,
                                                       amount=final_amount,
@@ -633,9 +633,9 @@ def create_tip_post_btc(subname, postid):
                                                    recieverid=thesub.creator_user_id
                                                    )
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=post.content_user_id, type=6)
+                    exppoint(user_id=post.content_user_id, category=6)
 
                     post.last_active = now
                     post.active = 1
@@ -868,9 +868,9 @@ def create_tip_comment_xmr(subname, postid, commentid):
                                              )
 
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=thecomment.user_id, type=6)
+                    exppoint(user_id=thecomment.user_id, category=6)
 
                     take_coin_from_tipper_xmr_comment(sender_id=current_user.id,
                                                       amount=final_amount,
@@ -1145,9 +1145,9 @@ def create_tip_post_xmr(subname, postid):
                                              )
 
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=post.content_user_id, type=6)
+                    exppoint(user_id=post.content_user_id, category=6)
 
                     post.last_active = now
                     post.active = 1
@@ -1402,9 +1402,9 @@ def create_tip_comment_bch(subname, postid, commentid):
                                              )
 
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=thecomment.user_id, type=6)
+                    exppoint(user_id=thecomment.user_id, category=6)
 
                     take_coin_from_tipper_bch_comment(sender_id=current_user.id,
                                                       amount=final_amount,
@@ -1672,9 +1672,9 @@ def create_tip_post_bch(subname, postid):
                                              )
 
                     # add exp points to donater
-                    exppoint(user_id=current_user.id, type=5)
+                    exppoint(user_id=current_user.id, category=5)
                     # add exp points to reciever
-                    exppoint(user_id=post.content_user_id, type=6)
+                    exppoint(user_id=post.content_user_id, category=6)
 
                     # create Wallet Transaction for both users
                     take_coin_from_tipper_bch_post(sender_id=current_user.id,

@@ -49,6 +49,7 @@ def monerocreatewallet(user_id):
         type=2,
         amount=0,
         sendto='',
+        txnumber=0,
         created=timestamp,
 
     )

@@ -19,9 +19,7 @@
                 {% include 'layout/widgets/_wallets.html' %}
                 {% if current_user.is_authenticated %}
 
-                    {% if ownercount > 0 or moddingcount > 0%}
-                        {% include 'layout/widgets/boss.html' %}
-                    {% endif %}
+
                     {% include 'layout/widgets/subscriptions.html' %}
                 {% else %}
                     {% include 'layout/widgets/subscriptions_guest.html' %}

@@ -321,14 +321,21 @@ def register():
                 try:
                     # Bitcoin
                     createwallet(user_id=newuser.id)
+                except:
+                    pass
+
+                try:
                     # bitcoin cash
                     bch_create_wallet(user_id=newuser.id)
+                except:
+                    pass
+
+                try:
                     # Monero
                     monerocreatewallet(user_id=newuser.id)
-                    # Monero stagenet
-                    monerocreatewallet_stagenet(user_id=newuser.id)
-                except Exception:
+                except:
                     pass
+
 
                 login_user(newuser)
                 current_user.is_authenticated()
@@ -336,7 +343,8 @@ def register():
 
                 flash("Successfully Registered."
                       "  If you want to access your wallets,"
-                      " you will need to confirm your email.", category="success")
+                      " you will need to confirm your email.  If you used an invalid email,"
+                      " you can change this in account settings.", category="success")
                 return redirect(url_for('welcome'))
             except Exception as e:
                 return redirect((request.args.get('next', request.referrer)))
@@ -546,7 +554,6 @@ def send_password_reset_email(user_email):
 @users.route('/changeemail', methods=['GET', 'POST'])
 @login_required
 def changeemail():
-    now = datetime.utcnow()
 
     form = ChangeEmailForm()
     user = User.query.filter_by(user_name=current_user.user_name).first()
