@@ -695,14 +695,13 @@ def share_post_text(postid):
                                currentltcprice=currentltcprice,
                                )
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         # Timer
         seeiftimerallowed, timeleft = lastposted(user_id=current_user.id)
         # if there is enough time
         if seeiftimerallowed == 0:
             flash("Please wait " + str(timeleft) + " seconds before creating another post", category="info")
             return redirect((request.args.get('next', request.referrer)))
-
         if form.validate_on_submit():
             if current_user.is_authenticated:
                 if post.shared_post == 0:
@@ -785,12 +784,19 @@ def share_post_text(postid):
 
                 flash("Shared!", category="success")
                 return redirect(url_for('profile.main', user_name=current_user.user_name))
+            else:
+                flash("User not authenticated.", category="danger")
+                return redirect((request.args.get('next', request.referrer)))
+
         else:
             flash("Post Creation Failure.", category="danger")
             for errors in form.postmessage.errors:
                 flash(errors, category="danger")
 
             return redirect((request.args.get('next', request.referrer)))
+    else:
+        flash("Post Creation Failure.", category="danger")
+        return redirect((request.args.get('next', request.referrer)))
 
 
 @create.route('/share/quick/<int:postid>', methods=['GET', 'POST'])

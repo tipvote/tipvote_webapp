@@ -1,36 +1,12 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
-    <div style="max-width: 600px; margin: auto">
-        <div class="row border border-dark second_color mb-3">
+    <div class="" style="max-width: 600px; margin: auto">
+        <div class="row border border-dark second_color mb-3 mt-5">
 
-            <!---Up / Down Votes -->
-            <div class="col-1" style="max-width: 45px">
-                <div class="row" >
-                    <div class="col-12">
-                        <form method="post" action="{{ url_for('vote.post_vote',votetype=1, postid=post.id,  subname=subname) }}">
-                            <button type="submit" class="btn btn-default" style="margin-left:-10px;">
-                                <img class="mx-auto d-block" src="{{ url_for('static', filename='images/arrows/uparrow.png')  }}"
-                                     width="20px" height="20px">
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-12 text-right" style="margin-top: -20px">
-                        {{ post.highest_exp_reached }}
-                    </div>
 
-                    <div class="col-12" style="margin-top: -5px">
-                        <form method="post" action="{{ url_for('vote.post_vote',votetype=2, postid=post.id,  subname=subname) }}">
-                            <button type="submit" class="btn btn-default" style="margin-left:-10px;">
-                                <img class="float-left" src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
-                                     width="20px" height="20px">
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <!---Info -->
             <div class="col-11">
-                <form method="post"
+                <form method="POST"
                       action="{{ url_for('create.share_post_text',postid=post.id) }}"
                       enctype="multipart/form-data">
                     {{ form.csrf_token }}
@@ -42,17 +18,17 @@
                              placeholder="Post some thoughts  ...")
                                 }}
                     </div>
-
-
-                    {% include 'posts/master.html' %}
-                    <!-- Submit Post -->
+ <!-- Submit Post -->
                     <div class="form-group text-center col-12 mb-3 mt-3">
-                        <div class="row">
+
                             <div class="col-12 col-sm-6 offset-sm-3" >
-                                {{ render_field(form.submit,value="Post", class="btn btn-warning btn-block") }}
+                                {{ render_field(form.submit, value="Post", class="btn btn-warning btn-block") }}
                             </div>
-                        </div>
+
                     </div>
+                    {% include 'posts/master.html' %}
+
+
                 </form>
             </div>
         </div>
