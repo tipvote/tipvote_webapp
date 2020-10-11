@@ -83,7 +83,7 @@ def main(user_name):
     get_followers = db.session.query(User)
     get_followers = get_followers.join(Followers, (User.id == Followers.followed_id))
     get_followers = get_followers.filter(Followers.follower_id == theuser.id)
-    get_followers = get_followers.limit(16)
+    get_followers = get_followers.limit(9)
 
     # get users posts
     userposts = db.session.query(CommonsPost)
@@ -175,7 +175,7 @@ def profile_other_posts_all(user_name):
     get_followers = db.session.query(User)
     get_followers = get_followers.join(Followers, (User.id == Followers.followed_id))
     get_followers = get_followers.filter(Followers.follower_id == theuser.id)
-    get_followers = get_followers.limit(16)
+    get_followers = get_followers.limit(9)
 
     # get users posts
     userposts = db.session.query(CommonsPost)
