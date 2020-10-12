@@ -404,7 +404,6 @@ def people_mostactive():
         allpost = 0
         post_18 = 1
 
-
     # POSTS sub queries
     page = request.args.get('page', 1, type=int)
     posts = db.session.query(CommonsPost)
