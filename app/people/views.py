@@ -140,7 +140,7 @@ def people_home():
 
     page = request.args.get('page', 1, type=int)
     # POSTS sub queries where user is subbed to list
-    # get posts by most exp
+
     posts = db.session.query(CommonsPost)
     posts = posts.filter(CommonsPost.subcommon_id == 1)
     posts = posts.filter(CommonsPost.hidden == 0)

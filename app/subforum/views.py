@@ -268,7 +268,7 @@ def sub(subname):
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     # Get Stickies
@@ -548,7 +548,7 @@ def sub_newest(subname):
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     # Get Stickies
@@ -825,7 +825,7 @@ def sub_active(subname):
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     # Get Stickies
@@ -1095,7 +1095,7 @@ def sub_top(subname):
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     # Get Stickies
