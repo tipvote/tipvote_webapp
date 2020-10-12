@@ -559,7 +559,7 @@ def createcomment(subname, postid, parentid):
                     # if first comment id is 0
                     new_index_id = 0
                 else:
-                    if latest_index_id_post.index_id == None:
+                    if latest_index_id_post.index_id is None:
                         # if replying to an old comment below id#1641
                         comment_count_on_post = db.session.query(Comments) \
                             .filter(Comments.commons_post_id == post.id) \
