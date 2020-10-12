@@ -185,7 +185,8 @@ class Comments(db.Model):
     __table_args__ = {"schema": "avengers_comments", 'useexisting': True}
 
     id = db.Column(db.Integer, primary_key=True)
-
+    # each comment increases..replaced id for comment pathing
+    index_id = db.Column(db.Integer)
     # future variable perhaps for security
     realid = db.Column(db.String(40))
 
@@ -193,7 +194,8 @@ class Comments(db.Model):
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
 
     # connect for vote commentupvotes
-    commons_post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
+    commons_post_id = db.Column(db.Integer,
+                                db.ForeignKey('avengers_post.avengers_posts_posts.id'))
 
     # user_name
     user_name = db.Column(db.String(140))
@@ -221,21 +223,26 @@ class Comments(db.Model):
     total_recieved_bch_usd = db.Column(db.DECIMAL(20, 2))
     subcommon_id = db.Column(db.Integer)
 
-    # factor how many digits ..6 = 1 million
-    _N = 6
     # used for sorting
     thread_timestamp = db.Column(db.TIMESTAMP())
     thread_upvotes = db.Column(db.Integer)
     thread_downvotes = db.Column(db.Integer)
 
-    # pathing
-    path = db.Column(db.TEXT, index=True)
-    comment_parent_id = db.Column(db.Integer, db.ForeignKey('avengers_comments.avengers_comments_comments.id'))
-    replies = db.relationship('Comments', backref=db.backref('parent', remote_side=[id]), lazy='dynamic')
-
     # the content
     body = db.Column(db.TEXT)
     body_clean = db.Column(db.Text)
+
+    # factor how many digits ..6 = 1 million
+    _N = 6
+
+    # pathing
+    path = db.Column(db.TEXT, index=True)
+    comment_parent_id = db.Column(db.Integer,
+                                  db.ForeignKey('avengers_comments.avengers_comments_comments.id'))
+    replies = db.relationship('Comments',
+                              backref=db.backref('parent',
+                                                 remote_side=[id]),
+                              lazy='dynamic')
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -254,7 +261,7 @@ class Comments(db.Model):
         db.session.add(self)
         db.session.commit()
         prefix = self.parent.path + '.' if self.parent else ''
-        self.path = prefix + '{:0{}d}'.format(self.id, self._N)
+        self.path = prefix + '{:0{}d}'.format(self.index_id, self._N)
 
         db.session.commit()
 

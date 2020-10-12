@@ -548,7 +548,31 @@ def createcomment(subname, postid, parentid):
 
                 uniqueid = id_generator(size=15)
 
+                # finds the last comment relating to a post
+                latest_index_id_post = db.session.query(Comments)\
+                    .filter(Comments.commons_post_id == post.id)\
+                    .order_by(Comments.id.desc())\
+                    .first()
+
+                # check to see if its first comment
+                if latest_index_id_post is None:
+                    # if first comment id is 0
+                    new_index_id = 0
+                else:
+                    if latest_index_id_post.index_id == None:
+                        # if replying to an old comment below id#1641
+                        comment_count_on_post = db.session.query(Comments) \
+                            .filter(Comments.commons_post_id == post.id) \
+                            .order_by(Comments.id.desc()) \
+                            .count()
+
+                        new_index_id = comment_count_on_post
+                    else:
+                        latest_index_id = latest_index_id_post.index_id
+                        new_index_id = latest_index_id + 1
+
                 create_new_comment = Comments(
+                    index_id=new_index_id,
                     user_id=current_user.id,
                     user_name=current_user.user_name,
                     subcommon_id=post.subcommon_id,

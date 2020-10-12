@@ -86,8 +86,6 @@ def before_request():
 
 
 from .common import filters, filters_btc, filters_xmr, filters_comments
-# comments
-app.jinja_env.filters['subcommentsofcomment'] = filters_comments.subcommentsofcomment
 
 # main
 app.jinja_env.filters['user_name'] = filters.getuser_name
