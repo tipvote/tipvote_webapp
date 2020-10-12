@@ -1,0 +1,91 @@
+
+<div class="row mb-5 pr-2">
+    <div class="col-2"></div>
+    <div class="col-10 second_color border border-dark pb-2">
+        <div class="text-center mb-3">
+            <h5> Newest Rooms </h5>
+        </div>
+
+        <div class="text-white mb-5" >
+            {% for room in new_rooms %}
+                {% include 'common/js/joinroom/join_room.html' %}
+
+                <div class="col-12 second_color mb-2">
+                                        {% if room.mini_image == '' %}
+                        <div class="row">
+                            <div class="col-2">
+                                 <img src="{{ url_for('static', filename='favicon-32x32.png')  }}" width="20px" height="20px">
+                            </div>
+                            <div class="col-10 ">
+                                <a class="text-white "
+                                   href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    a/{{ room.subcommon_name }}
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-2">
+                                <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    <img class="rndimg" alt={{ room.subcommon_name }}
+                                            src="{{ url_for('common.banner_image',
+                                        filename=room.mini_image) }}"
+                                         width="25px" height="25px">
+                                </a>
+                            </div>
+                            <div class="col-10 ">
+                                 <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                a/{{ room.subcommon_name }}
+                                 </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mb-3">
+            <h5> Random Rooms </h5>
+        </div>
+
+        <div class="text-white mb-3">
+            {% for room in random_rooms %}
+                {% include 'common/js/joinroom/join_room.html' %}
+
+                <div class="col-12 second_color mb-2">
+
+                    {% if room.mini_image == '' %}
+                        <div class="row">
+                            <div class="col-2">
+                                 <img src="{{ url_for('static', filename='favicon-32x32.png')  }}" width="20px" height="20px">
+                            </div>
+                            <div class="col-10 ">
+                                <a class="text-white"
+                                   href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    a/{{ room.subcommon_name }}
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-2">
+                                <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    <img class="rndimg" alt={{ room.subcommon_name }}
+                                            src="{{ url_for('common.banner_image',
+                                        filename=room.mini_image) }}"
+                                         width="25px" height="25px">
+                                </a>
+                            </div>
+                            <div class="col-10 ">
+                                 <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                a/{{ room.subcommon_name }}
+                                 </a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

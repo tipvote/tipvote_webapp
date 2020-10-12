@@ -1,29 +1,28 @@
 {% extends "layout/layout_2bars.html" %}
 {% block content %}
 
-    <div class="col-10 offset-1 col-sm-6 offset-sm-3 text-center mb-5 text-white border-bottom border-dark">
+    <div class="col-12 mb-5 text-left border-bottom border-dark">
         <h3>Discover New Rooms</h3>
 
     </div>
-    <div class="col-12 text-center mb-5">
+    <div class="col-12 text-left mb-5">
         <p class="h5">Find content you like to customize your experience.
             Dont see anything you like?
             After Level 2 you can create your own room.
         </p>
     </div>
-    <div class="col-10 offset-1 ">
-        <a class="col-12 col-sm-6 offset-sm-3 btn btn-warning text-dark font-weight-bold w-100 mb-4"
+    <div class="col-12 ">
+        <a class="col-12 col-sm-4  btn btn-warning text-dark font-weight-bold  mb-4"
            href="{{ url_for('index') }}">
             <h5>Go to the front page</h5>
         </a>
     </div>
-    <div class="col-12 offset-1">
+    <div class="col-12 ">
         <div class="row">
             {% for room in popularsubs %}
                 {% include 'common/js/joinroom/join_room.html' %}
 
-                <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-2 second_color border border-dark m-1 ">
-
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-2 second_color border border-dark  d-none d-md-block">
                     {% if room.mini_image == '' %}
                         <div class="row pt-2 " style="height:80px">
                             <div class="col-12 text-center ">
@@ -50,24 +49,18 @@
                             </div>
                         </div>
                     {% endif %}
-
-
                     <div class="col-12 border-bottom border-dark  p-0 text-center"
                          style="height:80px">
                         {{ room.description|truncate(80) }}
                     </div>
-
                     <div class="col-12 w-100 h5 m-0 pt-3 pb-3 text-center "
                          id="number_before_{{ room.id }}">
-
                     </div>
                     <div class="col-12 w-100 h5 m-0 pt-3 pb-3 text-center "
                          id="number_after_up_{{ room.id }}"
                          style="display: none;">
                         <div class="upgreen">JOINED</div>
-
                     </div>
-
                     <div class="col-12 pt-2 "
                          style="height: 45px;">
                         <form method="post"
@@ -83,7 +76,63 @@
                             </button>
                         </form>
                     </div>
+                </div>
 
+
+                <div class="col-12  second_color border border-dark  mb-2  d-md-none">
+                    {% if room.mini_image == '' %}
+                        <div class="row pt-2" style="">
+                            <div class="col-12 text-center ">
+                                <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    <h5> a/{{ room.subcommon_name }}</h5>
+                                </a>
+                            </div>
+                            <div class="col-12 text-center ">
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row pt-2" style="">
+                            <div class="col-12 text-center  ">
+                                <a class="text-white "
+                                   href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                    <h5> a/{{ room.subcommon_name }}</h5>
+                                </a>
+                            </div>
+                            <div class="col-12 text-center ">
+                                <img class="rndimg" alt={{ room.subcommon_name }}
+                                        src="{{ url_for('common.banner_image',
+                                        filename=room.mini_image) }}"
+                                     width="40px">
+                                <br>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="col-12  text-center"
+                         style="">
+                        {{ room.description|truncate(80) }}
+                    </div>
+                    <div class="col-12  h5 m-0   text-center "
+                         id="number_before_{{ room.id }}">
+                    </div>
+                    <div class="col-12  h5 m-0  text-center "
+                         id="number_after_up_{{ room.id }}"
+                         style="display: none;">
+                        <div class="upgreen">JOINED</div>
+                    </div>
+                    <div class="col-6 offset-3 pt-4">
+                        <form method="post"
+                              action="{{ url_for('subforum.sub_to_forum_no_redirect',
+                               subname=room.subcommon_name) }}">
+                            {{ subform.csrf_token }}
+
+                            <button class="col-12 col-sm-12  btn btn-success text-white  mb-2"
+                                    id="click-btn-join-room-{{ room.id }}"
+                                    value="{{ room.id }}"
+                                    type="button">
+                                Join
+                            </button>
+                        </form>
+                    </div>
                 </div>
             {% endfor %}
         </div>

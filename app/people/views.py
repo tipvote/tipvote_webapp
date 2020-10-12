@@ -145,7 +145,7 @@ def people_home():
     posts = posts.filter(CommonsPost.subcommon_id == 1)
     posts = posts.filter(CommonsPost.hidden == 0)
     posts = posts.filter(or_(CommonsPost.age == post_18, CommonsPost.age == allpost))
-    posts = posts.order_by(CommonsPost.created.desc(), CommonsPost.hotness_rating_now.desc())
+    posts = posts.order_by(CommonsPost.hotness_rating_now.desc(), CommonsPost.created.desc())
     posts = posts.paginate(page, app.config['POSTS_PER_PAGE'], False)
 
     next_url = url_for('people.people_home', page=posts.next_num) \

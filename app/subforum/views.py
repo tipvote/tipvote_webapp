@@ -8,7 +8,8 @@ from flask import \
 from flask import request
 from flask_login import current_user
 from datetime import datetime
-from sqlalchemy import func
+from sqlalchemy import func, select
+
 from werkzeug.datastructures import CombinedMultiDict
 # relative directory
 from app import db, app
@@ -185,9 +186,13 @@ def sub(subname):
         else:
             seeifsubbed = 1
         # get users saved subcommons
-        saved_subcommons = db.session.query(Subscribed).filter(Subscribed.user_id == current_user.id).all()
+        saved_subcommons = db.session.query(Subscribed)\
+            .filter(Subscribed.user_id == current_user.id)\
+            .all()
         # get users created subcommons
-        created_subcommons = db.session.query(SubForums).filter(SubForums.creator_user_id == current_user.id).all()
+        created_subcommons = db.session.query(SubForums)\
+            .filter(SubForums.creator_user_id == current_user.id)\
+            .all()
     else:
         # if user isnt subscribed to anything
         seeifsubbed = None
@@ -270,8 +275,10 @@ def sub(subname):
     stickypostfrommods = db.session.query(CommonsPost)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.subcommon_name == subname)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.sticky == 1)
+    stickypostfrommods = stickypostfrommods.filter(CommonsPost.hidden == 0)
     stickypostfrommods = stickypostfrommods.limit(2)
 
+    # see if user is over age
     if current_user.is_authenticated:
         if current_user.over_age is False:
             post_18 = 0
@@ -295,7 +302,6 @@ def sub(subname):
                                )
 
     posts = getpost.paginate(page, app.config['POSTS_PER_PAGE'], False)
-
     next_url = url_for('subforum.sub', subname=subname, page=posts.next_num) \
         if posts.has_next else None
     prev_url = url_for('subforum.sub', subname=subname, page=posts.prev_num) \
@@ -548,6 +554,7 @@ def sub_newest(subname):
     # Get Stickies
     stickypostfrommods = db.session.query(CommonsPost)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.subcommon_name == subname)
+    stickypostfrommods = stickypostfrommods.filter(CommonsPost.hidden == 0)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.sticky == 1)
     stickypostfrommods = stickypostfrommods.limit(2)
 
@@ -753,13 +760,13 @@ def sub_active(subname):
         seeifsubbed = db.session.query(Subscribed)
         seeifsubbed = seeifsubbed.filter(current_user.id == Subscribed.user_id)
         seeifsubbed = seeifsubbed.filter(Subscribed.subcommon_id == subid)
-
-
         seeifsubbed = seeifsubbed.first()
         if seeifsubbed is None:
             seeifsubbed = 0
         else:
             seeifsubbed = 1
+
+
         # get users saved subcommons
         saved_subcommons = db.session.query(Subscribed).filter(Subscribed.user_id == current_user.id).all()
         # get users created subcommons
@@ -824,6 +831,7 @@ def sub_active(subname):
     # Get Stickies
     stickypostfrommods = db.session.query(CommonsPost)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.subcommon_name == subname)
+    stickypostfrommods = stickypostfrommods.filter(CommonsPost.hidden == 0)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.sticky == 1)
     stickypostfrommods = stickypostfrommods.limit(2)
 
@@ -899,283 +907,6 @@ def sub_active(subname):
                            currentxmrprice=currentxmrprice,
                            currentbchprice=currentbchprice,
                            currentltcprice=currentltcprice,
-                           )
-
-
-@subforum.route('/<string:subname>/donated', methods=['GET'])
-def sub_donated(subname):
-
-    # forms
-    reportform = ReportForm()
-    subform = SubscribeForm()
-    banuserdeleteform = QuickBanDelete()
-    lockpostform = QuickLock()
-    deletepostform = QuickDelete()
-    muteuserform = QuickMute()
-    voteform = VoteForm()
-    mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
-
-    navlink = 4
-    subname = subname.lower()
-
-    currentbtcprice = db.session.query(BtcPrices).get(1)
-    currentxmrprice = db.session.query(MoneroPrices).get(1)
-    currentbchprice = db.session.query(BchPrices).get(1)
-    currentltcprice = db.session.query(LtcPrices).get(1)
-
-    if current_user.is_authenticated:
-        thenotes = db.session.query(Notifications)
-        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
-    else:
-        thenotes = 0
-    # get the sub
-    thesub = db.session.query(SubForums).filter(func.lower(SubForums.subcommon_name) == subname).first()
-    if thesub is None:
-        flash("Sub Doesnt Exist.", category="danger")
-        return redirect(url_for('index'))
-    # get the stats
-    substats = db.session.query(SubForumStats).filter(func.lower(SubForumStats.subcommon_name) == subname).first()
-    # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom).filter(SubForumCustom.subcommon_id == thesub.id).first()
-    subinfobox = db.session.query(SubForumCustomInfoOne).filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname).first()
-    if subcustom_stuff is None:
-        subcustom_setup = None
-    else:
-        subcustom_setup = 1
-    # get id of the sub
-    subid = int(thesub.id)
-
-    # see if user banned
-    if current_user.is_authenticated:
-        seeifbanned = db.session.query(Banned)
-        seeifbanned = seeifbanned.filter(current_user.id == Banned.user_id)
-        seeifbanned = seeifbanned.filter(Banned.subcommon_id == subid)
-        seeifbanned = seeifbanned.first()
-        # if user on banned list turn him away
-        if seeifbanned is not None:
-            return redirect(url_for('banned', subname=subname))
-
-    # get sub mods
-    mods = db.session.query(Mods).filter(Mods.subcommon_id == subid).all()
-    if current_user.is_authenticated:
-        # see if current user is a mod
-        seeifmod = db.session.query(Mods)
-        seeifmod = seeifmod.filter(Mods.subcommon_id == subid)
-        seeifmod = seeifmod.filter(Mods.user_id == current_user.id)
-        seeifmod = seeifmod.first()
-        if seeifmod is None:
-            useramod = 0
-        else:
-            useramod = 1
-        if current_user.id == thesub.creator_user_id:
-            userowner = 1
-        else:
-            userowner = 0
-    else:
-        useramod = 0
-        userowner = 0
-
-
-    # If private see if sub allows you to view it
-    # type of subcommon
-
-    subtype = thesub.type_of_subcommon
-    subname = thesub.subcommon_name
-    # 0 = Public
-    # 1 = private
-    # 2 = censored
-
-    if subtype == 1:
-        if useramod or userowner == 1:
-            pass
-        else:
-            if current_user.is_authenticated:
-                seeifuserinvited = db.session.query(PrivateMembers)
-                seeifuserinvited = seeifuserinvited.filter(current_user.id == PrivateMembers.user_id)
-                seeifuserinvited = seeifuserinvited.filter(PrivateMembers.subcommon_id == subid)
-                seeifuserinvited = seeifuserinvited.first()
-                if seeifuserinvited is None:
-                    return redirect(url_for('private', subname=subname))
-            else:
-                return redirect(url_for('private', subname=subname))
-
-    # if sub is private and user is a mod/owner
-    if useramod or userowner == 1:
-        if subtype == 1:
-            seeifanyapplications = db.session.query(PrivateApplications)
-            seeifanyapplications = seeifanyapplications.filter(PrivateApplications.subcommon_id == subid)
-            seeifanyapplications = seeifanyapplications.count()
-        else:
-            seeifanyapplications = 0
-
-        reportedposts = db.session.query(ReportedPosts)
-        reportedposts = reportedposts.filter(ReportedPosts.subcommon_name == subname)
-        reportedposts = reportedposts.count()
-
-        reportedcomments = db.session.query(ReportedComments)
-        reportedcomments = reportedcomments.filter(ReportedComments.subcommon_name == subname)
-        reportedcomments = reportedcomments.count()
-    else:
-        reportedposts = 0
-        reportedcomments = 0
-        seeifanyapplications = 0
-
-    # SIDEBAR
-    if current_user.is_authenticated:
-        # see if user is subscribed
-        seeifsubbed = db.session.query(Subscribed)
-        seeifsubbed = seeifsubbed.filter(current_user.id == Subscribed.user_id)
-        seeifsubbed = seeifsubbed.filter(Subscribed.subcommon_id == subid)
-        seeifsubbed = seeifsubbed.first()
-        if seeifsubbed is None:
-            seeifsubbed = 0
-        else:
-            seeifsubbed = 1
-        # get users saved subcommons
-        saved_subcommons = db.session.query(Subscribed).filter(Subscribed.user_id == current_user.id).all()
-        # get users created subcommons
-        created_subcommons = db.session.query(SubForums).filter(SubForums.creator_user_id == current_user.id).all()
-    else:
-        # if user isnt subscribed to anything
-        seeifsubbed = None
-        saved_subcommons = None
-        created_subcommons = None
-
-    if current_user.is_authenticated:
-        usersubforums = db.session.query(Subscribed)
-        usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
-        usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
-        usersubforums = usersubforums.filter(SubForums.id != 1)
-        usersubforums = usersubforums.filter(SubForums.room_banned == 0,
-                                             SubForums.room_deleted == 0,
-                                             SubForums.room_suspended == 0
-                                             )
-        usersubforums = usersubforums.all()
-        guestsubforums = None
-    else:
-        guestsubforums = db.session.query(SubForums)
-        guestsubforums = guestsubforums.filter(SubForums.age_required == 0)
-        guestsubforums = guestsubforums.filter(SubForums.id != 1)
-        guestsubforums = guestsubforums.filter(SubForums.room_banned == 0,
-                                               SubForums.room_deleted == 0,
-                                               SubForums.room_suspended == 0
-                                               )
-        guestsubforums = guestsubforums.filter(SubForums.type_of_subcommon == 0)
-        guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
-        guestsubforums = guestsubforums.limit(20)
-        usersubforums = None
-
-    # owned business
-    if current_user.is_authenticated:
-        userbusiness = db.session.query(Business)
-        userbusiness = userbusiness.filter(Business.user_id == current_user.id)
-        userbusinesses = userbusiness.all()
-        userbusinessescount = userbusiness.count()
-    else:
-        userbusinesses = None
-        userbusinessescount = 0
-
-    # business following
-    if current_user.is_authenticated:
-        bizfollowing = db.session.query(BusinessFollowers)
-        bizfollowing = bizfollowing.join(Business, (BusinessFollowers.business_id == Business.id))
-        bizfollowing = bizfollowing.filter(current_user.id == BusinessFollowers.user_id)
-
-        bizfollowing = bizfollowing.all()
-    else:
-        bizfollowing = None
-
-    # latest tips
-    recent_tippers_post = db.session.query(RecentTips)
-    recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
-    recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
-    recent_tippers_post_count = recent_tippers_post.count()
-
-    # Get Stickies
-    stickypostfrommods = db.session.query(CommonsPost)
-    stickypostfrommods = stickypostfrommods.filter(CommonsPost.subcommon_name == subname)
-    stickypostfrommods = stickypostfrommods.filter(CommonsPost.sticky == 1)
-    stickypostfrommods = stickypostfrommods.limit(2)
-
-    if current_user.is_authenticated:
-        if current_user.over_age is False:
-            post_18 = 0
-            allpost = 0
-        else:
-            allpost = 0
-            post_18 = 1
-    else:
-        post_18 = 0
-        allpost = 0
-
-
-    # POST QUERIES
-    page = request.args.get('page', 1, type=int)
-    getpost = db.session.query(CommonsPost)
-    getpost = getpost.filter(CommonsPost.subcommon_name == subname)
-    getpost = getpost.filter(CommonsPost.hidden == 0)
-    getpost = getpost.filter(or_(CommonsPost.age == post_18, CommonsPost.age == allpost))
-    getpost = getpost.filter(CommonsPost.sticky == 0)
-    getpost = getpost.order_by(CommonsPost.total_recieved_promotion_btc.desc(),
-                               CommonsPost.created.desc()
-                               )
-
-    posts = getpost.paginate(page, app.config['POSTS_PER_PAGE'], False)
-
-    next_url = url_for('subforum.sub_donated', subname=subname, page=posts.next_num) \
-        if posts.has_next else None
-    prev_url = url_for('subforum.sub_donated', subname=subname, page=posts.prev_num) \
-        if posts.has_prev else None
-
-    return render_template('subforums/sub.html',
-                           now=datetime.utcnow(),
-                           mainpostform=mainpostform,
-                           subname=subname,
-                           subform=subform,
-                           voteform=voteform,
-                           subcustom_stuff=subcustom_stuff,
-                           navlink=navlink,
-                           subinfobox=subinfobox,
-                           userbusinesses=userbusinesses,
-                           userbusinessescount=userbusinessescount,
-                           bizfollowing=bizfollowing,
-                           reportform=reportform,
-                           banuserdeleteform=banuserdeleteform,
-                           stickypostfrommods=stickypostfrommods,
-                           thesub=thesub,
-                           subcustom_setup=subcustom_setup,
-                           subid=subid,
-                           substats=substats,
-                           usersubforums=usersubforums,
-                           guestsubforums=guestsubforums,
-                           saved_subcommons=saved_subcommons,
-                           created_subcommons=created_subcommons,
-                           seeifsubbed=seeifsubbed,
-                           recent_tippers_post=recent_tippers_post,
-                           recent_tippers_post_count=recent_tippers_post_count,
-                           thenotes=thenotes,
-                           mods=mods,
-                           useramod=useramod,
-                           userowner=userowner,
-                           lockpostform=lockpostform,
-                           deletepostform=deletepostform,
-                           muteuserform=muteuserform,
-                           seeifanyapplications=seeifanyapplications,
-                           reportedposts=reportedposts,
-                           reportedcomments=reportedcomments,
-                           # pagination
-                           posts=posts.items,
-                           next_url=next_url,
-                           prev_url=prev_url,
-
-                           currentbtcprice=currentbtcprice,
-                           currentxmrprice=currentxmrprice,
-                           currentbchprice=currentbchprice,
-                           currentltcprice=currentltcprice,
-
                            )
 
 
@@ -1370,6 +1101,7 @@ def sub_top(subname):
     # Get Stickies
     stickypostfrommods = db.session.query(CommonsPost)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.subcommon_name == subname)
+    stickypostfrommods = stickypostfrommods.filter(CommonsPost.hidden == 0)
     stickypostfrommods = stickypostfrommods.filter(CommonsPost.sticky == 1)
     stickypostfrommods = stickypostfrommods.limit(2)
 
