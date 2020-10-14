@@ -466,25 +466,27 @@ def createcomment(subname, postid, parentid):
         #     flash("Please wait " + str(timeleft) + " minutes before creating another comment.", category="info")
         #     return redirect((request.args.get('next', request.referrer)))
 
-        post = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
+        thepost = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
 
         # see if blocked
-        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == post.user_id,
+        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == thepost.user_id,
                                                  BlockedUser.blocked_user == current_user.id).first()
         if isuserblocked:
             flash("Your Comment can not be added.", category="danger")
             return redirect(url_for('index'))
-        if post is None:
+        if thepost is None:
             flash("Post doesnt exist or has been removed", category="danger")
             return redirect((request.args.get('next', request.referrer)))
-        if post.hidden == 1:
+        if thepost.hidden == 1:
             flash("Post has been removed", category="danger")
             return redirect((request.args.get('next', request.referrer)))
-        if post.locked == 1:
+        if thepost.locked == 1:
             flash("Post has been locked", category="danger")
             return redirect((request.args.get('next', request.referrer)))
 
-        getcurrentsub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first_or_404()
+        getcurrentsub = db.session.query(SubForums) \
+            .filter(SubForums.subcommon_name == subname) \
+            .first_or_404()
         if getcurrentsub is None:
             return redirect((request.args.get('next', request.referrer)))
 
@@ -495,7 +497,9 @@ def createcomment(subname, postid, parentid):
             figured_thread_downvotes = 0
 
         else:
-            getsubcomment = db.session.query(Comments).filter(Comments.id == parentid).first()
+            getsubcomment = db.session.query(Comments) \
+                .filter(Comments.id == parentid) \
+                .first()
 
             figured_thread_timestamp = getsubcomment.thread_timestamp
             figured_thread_upvotes = getsubcomment.thread_upvotes
@@ -527,10 +531,9 @@ def createcomment(subname, postid, parentid):
 
                 # see if private
                 if subtype == 1:
-                    seeifuserinvited = db.session.query(PrivateMembers)
-                    seeifuserinvited = seeifuserinvited.filter(current_user.id == PrivateMembers.user_id,
-                                                               PrivateMembers.subcommon_id == subid)
-                    seeifuserinvited = seeifuserinvited.first()
+                    seeifuserinvited = db.session.query(PrivateMembers) \
+                        .filter(current_user.id == PrivateMembers.user_id, PrivateMembers.subcommon_id == subid) \
+                        .first()
                     if seeifuserinvited is None:
                         flash("Sub Is a private Community.", category="success")
                         return redirect(url_for('private', subname=subname))
@@ -549,9 +552,9 @@ def createcomment(subname, postid, parentid):
                 uniqueid = id_generator(size=15)
 
                 # finds the last comment relating to a post
-                latest_index_id_post = db.session.query(Comments)\
-                    .filter(Comments.commons_post_id == post.id)\
-                    .order_by(Comments.id.desc())\
+                latest_index_id_post = db.session.query(Comments) \
+                    .filter(Comments.commons_post_id == thepost.id) \
+                    .order_by(Comments.id.desc()) \
                     .first()
 
                 # check to see if its first comment
@@ -562,7 +565,7 @@ def createcomment(subname, postid, parentid):
                     if latest_index_id_post.index_id is None:
                         # if replying to an old comment below id#1641
                         comment_count_on_post = db.session.query(Comments) \
-                            .filter(Comments.commons_post_id == post.id) \
+                            .filter(Comments.commons_post_id == thepost.id) \
                             .order_by(Comments.id.desc()) \
                             .count()
 
@@ -575,8 +578,8 @@ def createcomment(subname, postid, parentid):
                     index_id=new_index_id,
                     user_id=current_user.id,
                     user_name=current_user.user_name,
-                    subcommon_id=post.subcommon_id,
-                    commons_post_id=post.id,
+                    subcommon_id=thepost.subcommon_id,
+                    commons_post_id=thepost.id,
                     realid=uniqueid,
                     body=posttxt,
                     created=now,
@@ -607,9 +610,9 @@ def createcomment(subname, postid, parentid):
                 exppoint(user_id=current_user.id, category=2)
 
                 # add comment count to the post
-                currentcommentcount = post.comment_count
+                currentcommentcount = thepost.comment_count
                 newcount = currentcommentcount + 1
-                post.comment_count = newcount
+                thepost.comment_count = newcount
 
                 if current_user.anon_mode == 0:
                     # add comment count to the user stats
@@ -623,45 +626,38 @@ def createcomment(subname, postid, parentid):
                 getuser_timers.last_comment = now
 
                 # update post to active
-                post.last_active = now
-                post.active = 1
-
-                # if the commenter doesnt equal the poster
-                if post.user_id != current_user.id:
-                    # add notification for poster about new comment
-                    add_new_notification(user_id=post.user_id,
-                                         subid=subid,
-                                         subname=subname,
-                                         postid=post.id,
-                                         commentid=0,
-                                         msg=1,
-                                         )
-
-                # need to loop through the path splitting at . find the comment id.  Then add a notification.
-                # if parentid != 0:
-                #     pass
-                #
-                #     getsubcomment = db.session.query(Comments).filter(Comments.id == parentid).first()
-                #     for f in getsubcomment:
-                #
-                #         add_new_notification(user_id=f.user_id,
-                #                              subid=subid,
-                #                              subname=subname,
-                #                              postid=post.id,
-                #                              commentid=0,
-                #                              msg=1,
-                #                              )
+                thepost.last_active = now
+                thepost.active = 1
 
 
 
                 # add to db
-                db.session.add(post)
+                db.session.add(thepost)
                 db.session.add(getuser_timers)
-                db.session.add(create_new_comment)
                 db.session.commit()
 
+                comment_start_path = create_new_comment.path[:5]
+
+                # if the commenter doesnt equal the poster
+                if thepost.user_id != current_user.id:
+                    # add notification for poster about new comment
+                    add_new_notification(user_id=thepost.user_id,
+                                         subid=subid,
+                                         subname=subname,
+                                         postid=thepost.id,
+                                         commentid=0,
+                                         msg=1,
+                                         )
+
+                notify_commenters(subid=subid,
+                                  subname=subname,
+                                  thepost=thepost,
+                                  commentpathstart=comment_start_path)
+
                 flash("Comment Added.", category="success")
-                return redirect(url_for('subforum.viewpost', subname=post.subcommon_name, postid=post.id))
+                return redirect(url_for('subforum.viewpost',
+                                        subname=thepost.subcommon_name,
+                                        postid=thepost.id))
 
             else:
                 flash("User must be logged in", category='danger')
@@ -670,6 +666,33 @@ def createcomment(subname, postid, parentid):
             for errors in form.postmessage.errors:
                 flash(errors, category="danger")
             return redirect((request.args.get('next', request.referrer)))
+
+
+def notify_commenters(subid, subname, thepost, commentpathstart):
+    # need to loop through the path splitting at . find the comment id.  Then add a notification.
+    list_user_ids = []
+
+    getsubcomments = db.session.query(Comments)\
+        .filter(Comments.commons_post_id == thepost.id)\
+        .all()
+
+    for f in getsubcomments:
+        if f.path[:5] == commentpathstart:
+            if f.user_id not in list_user_ids:
+                list_user_ids.append(f.user_id)
+    for h in getsubcomments:
+        flash(h.user_name)
+        flash(h.path, commentpathstart)
+    flash(list_user_ids)
+    for g in list_user_ids:
+        add_new_notification(user_id=g,
+                             subid=subid,
+                             subname=subname,
+                             postid=thepost.id,
+                             commentid=0,
+                             msg=30,
+                             )
+    #db.session.commit()
 
 
 @create.route('/share/text/<int:postid>/', methods=['GET', 'POST'])

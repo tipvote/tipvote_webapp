@@ -315,7 +315,23 @@
                                 </a>
                             </td>
                         {% endif %}
-
+                    <!--# 30 Comment on a Comment -->
+                    {% elif note.msg_type == 30 %}
+                        {% if note.read == 1 %}
+                            <td class="col-12">
+                                There was a reply to your
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    comment.
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="col-12 border border-dark">
+                                There was a reply to your
+                                <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                                    comment.
+                                </a>
+                            </td>
+                        {% endif %}
 
                         <!--# New Message-->
                     {% elif note.msg_type == 50 %}

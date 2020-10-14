@@ -28,6 +28,9 @@ from datetime import datetime
 # 27 subforum owner got a tip in monero
 # messaging
 
+# 30 New comment on message
+
+
 # 50 = new message
 # 51 = new reply
 # 53 = business new message
