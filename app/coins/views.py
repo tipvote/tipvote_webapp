@@ -32,13 +32,17 @@ def overview():
     currentltcprice = LtcPrices.query.get(1)
     allcoins = db.session.query(Coins).all()
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     if current_user.is_authenticated:
         usersubforums = db.session.query(Subscribed)
@@ -67,6 +71,7 @@ def overview():
                            usersubforums=usersubforums,
                            guestsubforums=guestsubforums,
                            thenotes=thenotes,
+                           thenotescount=thenotescount,
 
                            # coin prices
                            currentbtcprice=currentbtcprice,
@@ -93,10 +98,17 @@ def bank():
     currentbchprice = BchPrices.query.get(1)
     currentltcprice = LtcPrices.query.get(1)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
@@ -121,5 +133,6 @@ def bank():
                            currentltcprice=currentltcprice,
                            # queries
                            usercoins=usercoins,
+                           thenotescount=thenotescount,
                            allcoins=allcoins,
                            )

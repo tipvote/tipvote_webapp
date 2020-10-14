@@ -1,12 +1,12 @@
 
-<div class="container-fluid mb-3">
-    <div class="col-12" >
+<div class="container-fluid mb-3" >
+    <div class="col-12 ">
         <a href="{{ url_for('index') }}">
             <img class="center" src="{{ url_for('static', filename='images/logo2.png')  }}">
         </a>
     </div>
     <div class="row pt-2 pl-0 pr-0 headercolor">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <a class="btn btn-dark text-white" href="{{ url_for('index') }}">
                 All
             </a>
@@ -33,7 +33,7 @@
 
 
     <div class="row pt-3 pl-0 pr-0 headercolor">
-        <div class="col-12">
+        <div class="col-12 text-center">
 
             <a class="btn btn-dark" href="{{ url_for('wallet_btc.home') }}">
                 <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Btc Wallet</b>
@@ -41,104 +41,187 @@
             <a  class="btn btn-dark" href="{{ url_for('wallet_bch.home') }}">
                 <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bch Wallet</b>
             </a>
-                        <a  class="btn btn-dark" href="{{ url_for('wallet_xmr.home') }}">
+            <a  class="btn btn-dark" href="{{ url_for('wallet_xmr.home') }}">
                 <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>XMR Wallet</b>
-            </a>
-            <a class="btn btn-dark"  href="{{ url_for('coins.bank') }}">
-                <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"><b>Tipvote Coins</b>
             </a>
         </div>
     </div>
-    <div class="row pt-3 pl-0 pr-0 headercolor">
+    <div class="row pt-3 pl-0 pr-0 headercolor text-center">
         {% if current_user.is_authenticated %}
-            <div class="col-10">
-                {% if current_user.is_authenticated %}
-                    <a class="btn btn-dark" href="{{ url_for('mysubscriptions') }}" role="button">
-                        My Rooms
-                    </a>
-                {% else %}
-                {% endif %}
-                <a class="btn btn-dark" href="{{ url_for('create.createsubforum') }}">
-                    Create a Room
-                </a>
-            </div>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-            {% if thenotes %}
-                <div class="float-right">
-                    {% if thenotes == 0 %}
-                        <div class="btn btn-dark" role="button">
-                            <a class="bg-dark text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
+            <div class="col-12">
+            <div class="dropdown d-inline" >
+                <button class="btn btn-dark dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="false"
+                        aria-expanded="false">
+                    My Rooms
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                     style="width: 300px">
+                    <div class="col-12 second_color m-0">
+                        <div class="row ">
+                            {% for subs in usersubforums %}
+                                {% if subs %}
+                                    <a class="col-12 text-white font-weight-bold btn-ee mb-3"
+                                       href="{{ url_for('subforum.sub',subname=subs.subscriber.subcommon_name) }}">
+                                        {% if subs.subscriber.mini_image == '' %}
+                                            <div class="row btn-ee text-white pt-2 pb-2">
+                                                <div class="col-3">
+                                                    <span class="dot" style="background-color: #1e90ff;"></span>
+                                                </div>
+                                                <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                                    {{ subs.subscriber.subcommon_name }}
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="row btn-ee text-white pt-2 pb-2 ">
+                                                <div class="col-3">
+                                                    <img class="rndimg"
+                                                         src="{{ url_for('common.banner_image',
+                                                 filename=subs.subscriber.mini_image) }}"
+                                                         width="20px">
+                                                </div>
+                                                <div class="col-9 pl-0 ">
+                                                    {{ subs.subscriber.subcommon_name }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                    {% elif thenotes > 0   %}
-                        <div class="btn btn-danger" role="button">
-                            <a class="bg-danger text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i>{{ thenotes }}</a>
-                        </div>
-                    {% else %}
-                        <div class="btn btn-dark" role="button">
-                            <a class="bg-dark text-white  p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
-                        </div>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="float-right">
-                    <div class="btn btn-dark" role="button">
-                        <a class="bg-dark text-white p-2" href="{{ url_for('message.notifications') }}"><i class="fa fa-bell fa-1x pr-2"></i></a>
                     </div>
                 </div>
-            {% endif %}
-        {% else %}
-        {% endif %}
-        {% if current_user.is_authenticated %}
-            <div class="col-2">
-            <div class="dropdown">
-                <button class="btn btn-dark  dropdown-toggle " type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </div>
+
+            <a class="btn btn-dark" href="{{ url_for('create.createsubforum') }}">
+                Create a Room
+            </a>
+
+            <div class="dropdown d-inline">
+                <button class="btn btn-dark dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+
                     <i class="fa fa-bars fa-1x"></i>
                 </button>
 
-                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                        <b>View Profile</b>
-                    </a>
-                    <a class="dropdown-item" href="{{ url_for('mysubscriptions') }}">
-                        <b>My Rooms</b>
-                    </a>
-                    <a class="dropdown-item" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
-                        <b>Account</b>
-                    </a>
-                    <a class="dropdown-item" href="{{ url_for('profileedit.viewsavedposts') }}">
-                        <b>Saved Posts</b>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
-                        <b> Logout</b>
-                    </a>
+                <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                     aria-labelledby="dropdownMenuButton2">
+                    <div class="col-12 second_color m-0">
+                        <div class="row ">
+                            <a class="text-white col-12 mb-2 p-0" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                                <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                    <b>View Profile</b>
+                                </div>
+                            </a>
+                            <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
+                                <div class="col-12 btn-ee pt-2 pb-2 text-white ">
+                                    <b>My Rooms</b>
+                                </div>
+                            </a>
+                            <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
+                                <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                    <b>Account</b>
+                                </div>
+                            </a>
+                            <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">
+                                <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                    <b>Saved Posts</b>
+                                </div>
+                            </a>
+                            <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
+                                <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                    <b>Tipvote Coins</b>
+                                </div>
+                            </a>
+                            <div class="border-dark border-bottom mb-3"></div>
+
+                            <a class="text-white col-12 mt-2 mb-2 p-0"
+                               href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
+                                <div class="col-12 pt-2 pb-2 btn-ee text-white">
+                                    <b>Logout</b>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         {% endif %}
-        </div>
-
-    <div class="row pt-2 pl-0 pr-0 headercolor">
-        <div class="col-12">
-
-        </div>
-    </div>
-
-    <div class="row pt-3 headercolor">
-
-        <div class="col-12 text-center mb-3">
+        <div class="dropdown d-inline">
             {% if current_user.is_authenticated %}
-
+                {% if thenotescount %}
+                    {% if thenotescount > 0 %}
+                        <button class="btn dropdown-toggle btn-danger "
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-bell fa-1x pr-2 bg-danger"></i>
+                            {{ thenotescount }}
+                        </button>
+                    {% else %}
+                        <button class="btn dropdown-toggle btn-dark "
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-bell fa-1x pr-2 "></i>
+                        </button>
+                    {% endif %}
+                {% else %}
+                    <button class="btn dropdown-toggle btn-dark "
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        <i class="fa fa-bell fa-1x pr-2"></i>
+                    </button>
+                {% endif %}
+                <div class="dropdown-menu dropdown-menu-right bg-dark dropdown-content mt-0 mb-0 pt-0 pb-0 border border-dark"
+                     aria-labelledby="dropdownMenuButton"
+                     style="width: 400px">
+                    <div class="col-12 second_color">
+                        {% if thenotescount %}
+                            {% if thenotescount > 0 %}
+                                <btn class="col-6 offset-3 btn btn-danger text-white mb-2 p-2"
+                                     href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                    Mark All As Read
+                                </btn>
+                            {% else %}
+                            {% endif %}
+                        {% endif %}
+                        {% for note in thenotes %}
+                            {% include 'msg/_notifications_dropdown.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+                </div>
             {% else %}
-                <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
-                    Login
-                </a>
-                <a class="btn btn-tipvote-up" href="{{ url_for('users.register') }}" role="button">
-                    Register
-                </a>
             {% endif %}
+        <div class="row pt-3 headercolor">
+            <div class="col-12 text-center mb-3">
+                {% if current_user.is_authenticated %}
+                {% else %}
+                    <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
+                        Login
+                    </a>
+                    <a class="btn btn-tipvote-up" href="{{ url_for('users.register') }}" role="button">
+                        Register
+                    </a>
+                {% endif %}
+            </div>
+        </div>
         </div>
     </div>
-</div>
 </div>

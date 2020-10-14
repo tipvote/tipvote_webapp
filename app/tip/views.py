@@ -484,7 +484,8 @@ def create_tip_post_btc(subname, postid):
 
                 final_amount = (floating_decimals(btc_amount, 8))
 
-                lowestdonation = 0.000001
+                lowestdonation = 0.0000001
+
 
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07

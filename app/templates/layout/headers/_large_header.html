@@ -7,7 +7,7 @@
             </a>
         </div>
 
-        <div class="col-3 col-sm-5 col-md-5 col-lg-4 col-xl-3 m-0  p-0" style="overflow: visible">
+        <div class="col-3 col-sm-5 col-md-5 col-lg-4 col-xl-3 m-0 p-0" style="overflow: visible">
             <a class="btn btn-dark text-white" href="{{ url_for('index') }}">
                 All
             </a>
@@ -45,8 +45,7 @@
 
         <div class="col-md-4 col-lg-3 col-xl-4 " style="display: inline">
 
-            <div class="row justify-content-end">
-
+            <div class="row justify-content-end ">
                 {% if current_user.is_authenticated %}
                     <div class="text-center pr-1">
                         <a class=" btn btn-dark text-white" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
@@ -57,113 +56,168 @@
 
 
                 {% if current_user.is_authenticated %}
-                    <div class="pl-2 d-none d-xl-block">
+                    <div class="pl-1 pr-1 d-none d-xl-block">
                         <div class="dropdown ">
-                            <button class="btn btn-dark  dropdown-toggle justify-content-center" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-dark  dropdown-toggle justify-content-center pl-2"
+                                    type="button"
+                                    id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
                                 Wallets <i class="fab fa-btc pr-2"></i>
                             </button>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item " href="{{ url_for('wallet_btc.home') }}">
-                                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Bitcoin Wallet</b>
-                                </a>
-                                <a class="dropdown-item " href="{{ url_for('wallet_bch.home') }}">
-                                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bitcoin Cash Wallet</b>
-                                </a>
-                                <a class="dropdown-item " href="{{ url_for('wallet_xmr.home') }}">
-                                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>Monero Wallet</b>
-                                </a>
-                                <a class="dropdown-item" href="{{ url_for('coins.bank') }}">
-                                    <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"><b>Tipvote Coins</b>
-                                </a>
+                            <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="dropdownMenuLink mmt-0 mb-0 pt-0 pb-0 border border-dark"
+                                 style="width: 300px">
+                                <div class="row third_color">
+                                    <a class="btn-ee text-white col-12 mb-2 p-2" href="{{ url_for('wallet_btc.home') }}">
+                                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Bitcoin Wallet</b>
+                                    </a>
+                                    <a class="btn-ee text-white col-12  mb-2 p-2" href="{{ url_for('wallet_bch.home') }}">
+                                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bitcoin Cash Wallet</b>
+                                    </a>
+                                    <a class="btn-ee text-white col-12  mb-2 p-2" href="{{ url_for('wallet_xmr.home') }}">
+                                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>Monero Wallet</b>
+                                    </a>
+                                    <a class="btn-ee text-white col-12  mb-2 p-2" href="{{ url_for('coins.bank') }}">
+                                        <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"><b>Tipvote Coins</b>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 {% endif %}
 
-                {% if current_user.is_authenticated %}
-                    <div class="pl-2 ">
-                        {% if thenotes %}
-                            {% if thenotes == 0 %}
-                                <div class="btn btn-dark" role="button"   onclick="window.location.href='{{ url_for('message.notifications') }}';">
-                                    <a class="bg-dark text-white w-100" href="{{ url_for('message.notifications') }}">
-                                        <i class="bg-dark fa fa-bell fa-1x pr-2"></i>
-                                    </a>
-                                </div>
-                            {% elif thenotes > 0   %}
-                                <div class="btn btn-danger" role="button"    onclick="window.location.href='{{ url_for('message.notifications') }}';">
-                                    <a class="bg-danger text-white w-100 " href="{{ url_for('message.notifications') }}">
-                                        <i class="bg-danger fa fa-bell fa-1x pr-2"></i>{{ thenotes }}</a>
-                                </div>
+                <div class="dropdown d-inline pl-1 pr-1">
+                    {% if current_user.is_authenticated %}
+                        {% if thenotescount %}
+                            {% if thenotescount > 0 %}
+                                <button class="btn dropdown-toggle btn-danger pl-2"
+                                        type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="fa fa-bell fa-1x pr-2 bg-danger"></i>
+                                    {{ thenotescount }}
+                                </button>
                             {% else %}
-                                <div class="btn btn-dark" role="button"    onclick="window.location.href='{{ url_for('message.notifications') }}';">
-                                    <a class="bg-dark text-white w-100 " href="{{ url_for('message.notifications') }}">
-                                        <i class=" fa fa-bell fa-1x pr-2"></i>
-                                    </a>
-                                </div>
+                                <button class="btn dropdown-toggle btn-dark pl-2"
+                                        type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="fa fa-bell fa-1x pr-2 "></i>
+                                </button>
                             {% endif %}
                         {% else %}
-                            <div class="btn btn-dark" role="button"    onclick="window.location.href='{{ url_for('message.notifications') }}';">
-                                <a class="bg-dark text-white w-100" href="{{ url_for('message.notifications') }}">
-                                    <i class="bg-dark fa fa-bell fa-1x pr-2"></i>
-                                </a>
-                            </div>
+                            <button class="btn dropdown-toggle btn-dark pl-2"
+                                    type="button"
+                                    id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <i class="fa fa-bell fa-1x pr-2 "></i>
+                            </button>
                         {% endif %}
-                    </div>
+                        <div class="dropdown-menu dropdown-menu-right second_color dropdown-content bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                             aria-labelledby="dropdownMenuButton"
+                             style="width: 400px">
+                            <div class="col-12 second_color">
+                                {% if thenotescount %}
+                                    {% if thenotescount > 0 %}
+                                        <btn class="col-6 offset-3 btn btn-danger text-white mb-2 p-2"
+                                             href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                            Mark All As Read
+                                        </btn>
+                                    {% else %}
+                                    {% endif %}
+                                {% endif %}
 
-                {% else %}
-                {% endif %}
-
+                                {% for note in thenotes %}
+                                    {% include 'msg/_notifications_dropdown.html' %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+                    {% else %}
+                    {% endif %}
 
                 {% if current_user.is_authenticated %}
-                    <div class="dropdown pl-2  ">
-                        <button class="btn btn-dark  dropdown-toggle " type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown pl-1 pr-1">
+                        <button class="btn btn-dark dropdown-toggle "
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
                             <i class="fa fa-bars fa-1x"></i>
                         </button>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item"
-                               href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                                <b>View Profile</b>
-                            </a>
-                            <a class="dropdown-item"
-                               href="{{ url_for('mysubscriptions') }}">
-                                <b>My Rooms</b>
-                            </a>
-                            <a class="dropdown-item"
-                               href="{{ url_for('users.account', user_name=current_user.user_name) }}">
-                                <b>Account</b>
-                            </a>
-                            <a class="dropdown-item"
-                               href="{{ url_for('profileedit.viewsavedposts') }}">
-                                <b>Saved Posts</b>
-                            </a>
-                            <a class="dropdown-item "
-                               href="{{ url_for('wallet_btc.home') }}">
-                                <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Bitcoin Wallet</b>
-                            </a>
-                            <a class="dropdown-item "
-                               href="{{ url_for('wallet_bch.home') }}">
-                                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bitcoin Cash Wallet</b>
-                            </a>
-                                                        <a class="dropdown-item "
-                               href="{{ url_for('wallet_xmr.home') }}">
-                                <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>Monero Wallet</b>
-                            </a>
-                            <a class="dropdown-item"
-                               href="{{ url_for('coins.bank') }}">
-                                <img src="{{ url_for('static', filename='favicon-16x16.png')  }}" width="20px" height="20px"><b>Tipvote Coins</b>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
-                                <b> Logout</b>
-                            </a>
+                        <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                             aria-labelledby="dropdownMenuLink" style="width: 300px">
+                            <div class="col-12 second_color">
+                                <div class="row">
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            View Profile
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            My Rooms
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            Account
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            Saved Posts
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_btc.home') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
+                                                 width="20px" height="20px">
+                                            Bitcoin Wallet
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
+                                                 width="20px" height="20px">
+                                            Bitcoin Cash Wallet
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_xmr.home') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
+                                                 width="20px" height="20px">
+                                            Monero Wallet
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            <img src="{{ url_for('static', filename='favicon-16x16.png')  }}"
+                                                 width="20px" height="20px">
+                                            Tipvote Coins
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            Logout
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% else %}
-                    <div class="text-center ">
+                    <div class="text-center pl-1 pr-1">
                         <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
                             Login
                         </a>

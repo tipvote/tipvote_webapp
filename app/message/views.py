@@ -831,10 +831,10 @@ def notifications():
                            )
 
 
-@message.route('/marknotifications', methods=['POST'])
+@message.route('/marknotifications', methods=['GET'])
 @login_required
 def markallnotifications():
-    if request.method == 'POST':
+    if request.method == 'GET':
         # mod security
         notes = db.session.query(Notifications)
         notes = notes.filter(Notifications.user_id == current_user.id)
@@ -844,6 +844,13 @@ def markallnotifications():
             note.read = 1
             db.session.add(note)
         db.session.commit()
-        flash("Notifications marked as read", category="success")
-        return redirect(url_for('index'))
+
+        return redirect((request.args.get('next', request.referrer)))
+
+    elif request.method == 'POST':
+        pass
+
+    else:
+        pass
+
 

@@ -5,7 +5,7 @@ from flask import \
     flash, \
     request, \
     jsonify
-
+import time
 from flask_login import current_user
 
 from app import db
@@ -37,19 +37,19 @@ def downvote_comment(commentid):
     if request.method == 'POST':
 
         # get the comment
-        getcomment = db.session.query(Comments)\
-            .filter(Comments.id == commentid)\
+        getcomment = db.session.query(Comments) \
+            .filter(Comments.id == commentid) \
             .first()
 
         # get the post
-        post = db.session.query(CommonsPost)\
-            .filter(CommonsPost.id == getcomment.commons_post_id)\
+        post = db.session.query(CommonsPost) \
+            .filter(CommonsPost.id == getcomment.commons_post_id) \
             .first()
 
         # see if user voted
-        seeifvoted = db.session.query(CommentsUpvotes)\
+        seeifvoted = db.session.query(CommentsUpvotes) \
             .filter(CommentsUpvotes.user_id == current_user.id,
-                    CommentsUpvotes.comment_id == getcomment.id)\
+                    CommentsUpvotes.comment_id == getcomment.id) \
             .first()
 
         # get the current sub
@@ -58,14 +58,14 @@ def downvote_comment(commentid):
             .first()
 
         # get comment user stats
-        comment_owner_stats = db.session.query(UserStats)\
-            .filter(UserStats.user_id == getcomment.user_id)\
+        comment_owner_stats = db.session.query(UserStats) \
+            .filter(UserStats.user_id == getcomment.user_id) \
             .first()
 
         # see if banned or if private
-        seeifbanned = db.session.query(Banned)\
+        seeifbanned = db.session.query(Banned) \
             .filter(current_user.id == Banned.user_id,
-                    Banned.subcommon_id == getcurrentsub.id)\
+                    Banned.subcommon_id == getcurrentsub.id) \
             .first()
 
         # set easy variables
@@ -162,7 +162,8 @@ def downvote_comment(commentid):
         # raise all in path for thread votes down
         if getcomment.comment_parent_id is None:
             # get comments of this comment and raise there thread downvotes for sorting purposes
-            getrelativecomments = db.session.query(Comments).filter(Comments.path.like(getcomment.path + '%'))
+            getrelativecomments = db.session.query(Comments)\
+                .filter(Comments.path.like(getcomment.path + '%'))
             for comment in getrelativecomments:
                 comment.thread_downvotes = newvotes_down
                 db.session.add(comment)
@@ -190,11 +191,18 @@ def downvote_comment(commentid):
         db.session.add(create_new_vote)
         db.session.commit()
 
-        return jsonify({
-            'result': 'Downvoted!',
-            'thecommentid': str_comment_id,
-            'newnumber': newvotenumber
-        })
+        if seeifvoted is not None:
+            return jsonify({
+                'result': 'You have already voted.',
+                'thecommentid': str_comment_id,
+                'newnumber': None
+            })
+        else:
+            return jsonify({
+                'result': 'Downvoted!',
+                'thecommentid': str_comment_id,
+                'newnumber': newvotenumber
+            })
 
 
 @vote.route('/upvotecomment/<int:commentid>', methods=['POST'])
@@ -208,19 +216,19 @@ def upvote_comment(commentid):
     if request.method == 'POST':
 
         # get the comment
-        getcomment = db.session.query(Comments)\
-            .filter_by(id=commentid)\
+        getcomment = db.session.query(Comments) \
+            .filter_by(id=commentid) \
             .first()
 
         # get the post
-        post = db.session.query(CommonsPost)\
-            .filter_by(id=getcomment.commons_post_id)\
+        post = db.session.query(CommonsPost) \
+            .filter_by(id=getcomment.commons_post_id) \
             .first()
 
         # see if user voted
-        seeifvoted = db.session.query(CommentsUpvotes)\
+        seeifvoted = db.session.query(CommentsUpvotes) \
             .filter(CommentsUpvotes.user_id == current_user.id,
-                    CommentsUpvotes.comment_id == getcomment.id)\
+                    CommentsUpvotes.comment_id == getcomment.id) \
             .first()
 
         # get the current sub
@@ -229,14 +237,14 @@ def upvote_comment(commentid):
             .first()
 
         # get comment user stats
-        comment_owner_stats = db.session.query(UserStats)\
-            .filter(UserStats.user_id == getcomment.user_id)\
+        comment_owner_stats = db.session.query(UserStats) \
+            .filter(UserStats.user_id == getcomment.user_id) \
             .first()
 
         # see if banned or if private
-        seeifbanned = db.session.query(Banned)\
+        seeifbanned = db.session.query(Banned) \
             .filter(current_user.id == Banned.user_id,
-                    Banned.subcommon_id == getcurrentsub.id)\
+                    Banned.subcommon_id == getcurrentsub.id) \
             .first()
 
         # set easy variables
@@ -362,12 +370,18 @@ def upvote_comment(commentid):
         db.session.add(getcomment)
         db.session.add(create_new_vote)
         db.session.commit()
-
-        return jsonify({
-            'result': 'Upvoted!',
-            'thecommentid': str_comment_id,
-            'newnumber': newvotenumber
-        })
+        if seeifvoted is not None:
+            return jsonify({
+                'result': 'You have already voted.',
+                'thecommentid': str_comment_id,
+                'newnumber': None
+            })
+        else:
+            return jsonify({
+                'result': 'Upvoted!',
+                'thecommentid': str_comment_id,
+                'newnumber': newvotenumber
+            })
 
 
 @vote.route('/upvotepost/<int:postid>', methods=['POST'])
@@ -396,9 +410,9 @@ def upvote_post(postid):
                     PostUpvotes.post_id == postid) \
             .first()
 
-        seeifbanned = db.session.query(Banned)\
+        seeifbanned = db.session.query(Banned) \
             .filter(current_user.id == Banned.user_id,
-                    Banned.subcommon_id == subid)\
+                    Banned.subcommon_id == subid) \
             .first()
 
         # post owner stats
@@ -500,6 +514,11 @@ def upvote_post(postid):
                 user_id=current_user.id,
                 post_id=getpost.id,
             )
+            # see if user already voted or not
+            seeifvoted = db.session.query(PostUpvotes) \
+                .filter(PostUpvotes.user_id == current_user.id,
+                        PostUpvotes.post_id == postid) \
+                .first()
 
             # add and commit
             db.session.add(create_new_vote)
@@ -507,11 +526,18 @@ def upvote_post(postid):
             db.session.add(post_owner_stats)
             db.session.commit()
 
-            return jsonify({
-                'result': 'Upvoted!',
-                'thepostid': str_post_id,
-                'newnumber': newvotenumber
-            })
+            if seeifvoted is None:
+                return jsonify({
+                    'result': 'Upvoted!',
+                    'thepostid': str_post_id,
+                    'newnumber': newvotenumber
+                })
+            else:
+                return jsonify({
+                    'result': 'You already voted',
+                    'thepostid': str_post_id,
+                    'newnumber': getpost.hotness_rating_now
+                })
 
 
 @vote.route('/downvotepost/<int:postid>', methods=['POST'])
@@ -540,9 +566,9 @@ def downvote_post(postid):
                     PostUpvotes.post_id == postid) \
             .first()
 
-        seeifbanned = db.session.query(Banned)\
+        seeifbanned = db.session.query(Banned) \
             .filter(current_user.id == Banned.user_id,
-                    Banned.subcommon_id == subid)\
+                    Banned.subcommon_id == subid) \
             .first()
 
         # add to user stats
@@ -651,8 +677,15 @@ def downvote_post(postid):
             db.session.add(post_owner_stats)
             db.session.commit()
 
-            return jsonify({
-                'result': 'Downvoted!',
-                'thepostid': str_post_id,
-                'newnumber': newvotenumber
-            })
+            if seeifvoted is None:
+                return jsonify({
+                    'result': 'Upvoted!',
+                    'thepostid': str_post_id,
+                    'newnumber': newvotenumber
+                })
+            else:
+                return jsonify({
+                    'result': 'You already voted',
+                    'thepostid': str_post_id,
+                    'newnumber': getpost.hotness_rating_now
+                })
