@@ -13,10 +13,10 @@
                 <div class="col-12 second_color mb-2">
                                         {% if room.mini_image == '' %}
                         <div class="row">
-                            <div class="col-2">
+                            <div class="col-3">
                                  <img src="{{ url_for('static', filename='favicon-32x32.png')  }}" width="20px" height="20px">
                             </div>
-                            <div class="col-10 ">
+                            <div class="col-9">
                                 <a class="text-white "
                                    href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     a/{{ room.subcommon_name }}
@@ -25,7 +25,7 @@
                         </div>
                     {% else %}
                         <div class="row">
-                            <div class="col-2">
+                            <div class="col-3">
                                 <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <img class="rndimg" alt={{ room.subcommon_name }}
                                             src="{{ url_for('common.banner_image',
@@ -33,7 +33,7 @@
                                          width="25px" height="25px">
                                 </a>
                             </div>
-                            <div class="col-10 ">
+                            <div class="col-9">
                                  <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                 a/{{ room.subcommon_name }}
                                  </a>
@@ -56,19 +56,19 @@
 
                     {% if room.mini_image == '' %}
                         <div class="row">
-                            <div class="col-2">
+                            <div class="col-3">
                                  <img src="{{ url_for('static', filename='favicon-32x32.png')  }}" width="20px" height="20px">
                             </div>
-                            <div class="col-10 ">
+                            <div class="col-9">
                                 <a class="text-white"
                                    href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
-                                    a/{{ room.subcommon_name }}
+                                    a/{{ room.subcommon_name|truncate(13) }}
                                 </a>
                             </div>
                         </div>
                     {% else %}
                         <div class="row">
-                            <div class="col-2">
+                            <div class="col-3">
                                 <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <img class="rndimg" alt={{ room.subcommon_name }}
                                             src="{{ url_for('common.banner_image',
@@ -76,9 +76,9 @@
                                          width="25px" height="25px">
                                 </a>
                             </div>
-                            <div class="col-10 ">
+                            <div class="col-9">
                                  <a class="text-white" href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
-                                a/{{ room.subcommon_name }}
+                                a/{{ room.subcommon_name|truncate(13) }}
                                  </a>
                             </div>
                         </div>

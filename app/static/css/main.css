@@ -169,39 +169,6 @@ code {
 }
 
 
-/* Dropdowns */
-.dropdown-menu > li > a {
-    background-image:none; // before setting any background-color
-}
-.dropdown:hover > .dropdown-menu {
-    display: block;
-    background-color:#909090;
-    color: #FFFFFF;
-}
-.dropdown > .dropdown-toggle:active {
-
-    pointer-events: none;
-    background-color:#242424;
-
-}
-.dropdown .dropdown-menu {
-    background-color:#242424;
-
-}
-
-.dropdown-menu{
-    background-color: transparent;
-    border: transparent;
-    border: none;
-}
-.dropdown-menu .dropdown-item > li > a:hover {
-    background-image: none;
-    background-color: #e2e3e5!important;
-}
-
-
-
-
 
 .btn-group-xs > .btn, .btn-xs {
     padding: .25rem .4rem;
@@ -444,5 +411,3 @@ code {
     max-width: 600px;
 }
 
-
-/* timeline */

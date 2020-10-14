@@ -26,7 +26,7 @@ from app.models import\
     BchWalletFee, \
     BchWallet,\
     TransactionsBch,\
-    User
+    User, Notifications
 
 
 @wallet_bch.route('/', methods=['GET'])
@@ -54,6 +54,18 @@ def home():
                                          )
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.all()
+
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     # get walletfee
     walletthefee = db.session.query(BchWalletFee).get(1)
@@ -85,6 +97,8 @@ def home():
                            form=form,
                            # general
                            usersubforums=usersubforums,
+                           thenotes=thenotes,
+                           thenotescount=thenotescount,
                            wfee=wfee,
                            wallet=wallet,
                            transactcount=transactcount,

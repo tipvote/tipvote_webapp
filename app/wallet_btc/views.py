@@ -28,7 +28,7 @@ from app.models import \
     BtcWalletFee,\
     Subscribed,\
     SubForums,\
-    User
+    User, Notifications
 
 from app.wallet_btc.wallet_btc_work import walletstatus
 
@@ -56,6 +56,18 @@ def home():
                                          SubForums.room_suspended == 0
                                          )
     usersubforums = usersubforums.all()
+
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     # get walletfee
     walletthefee = db.session.query(BtcWalletFee).get(1)
@@ -87,6 +99,8 @@ def home():
                            form=form,
                            # general
                            wfee=wfee,
+                           thenotescount=thenotescount,
+                           thenotes=thenotes,
                            wallet=wallet,
                            transactcount=transactcount,
                            transact=transactfull.items,

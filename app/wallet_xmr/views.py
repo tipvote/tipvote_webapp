@@ -24,7 +24,7 @@ from app.models import \
     MoneroWalletFee, \
     MoneroTransactions,\
     User,\
-    MoneroWalletWork
+    MoneroWalletWork, Notifications
 
 
 @wallet_xmr.route('', methods=['GET'])
@@ -39,6 +39,18 @@ def home():
         monerocreatewallet(user_id=current_user.id)
     if wallet.address1status == 0:
         monerocreatewallet(user_id=current_user.id)
+
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     walletwork = MoneroWalletWork.query.filter_by(user_id=current_user.id).first()
     # walletfee
@@ -65,6 +77,8 @@ def home():
                            # wallet
                            wallet=wallet,
                            walletwork=walletwork,
+                           thenotes=thenotes,
+                           thenotescount=thenotescount,
                            wfee=wfee,
                            # transactions
                            transactcount=transactcount,

@@ -37,6 +37,7 @@ from app.mod.forms import \
 
 POSTS_PER_PAGE = 25
 
+
 @followers.route('', methods=['GET'])
 @login_required
 def followers_home():
@@ -63,11 +64,18 @@ def followers_home():
     currentltcprice = db.session.query(LtcPrices).get(1)
 
     try:
+        # get unread messages
+        if current_user.is_authenticated:
+            thenotes = db.session.query(Notifications)
+            thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+            thenotes = thenotes.order_by(Notifications.timestamp.desc())
+            thenotescount = thenotes.filter(Notifications.read == 0)
+            thenotescount = thenotescount.count()
+            thenotes = thenotes.limit(10)
+        else:
+            thenotes = 0
+            thenotescount = 0
 
-        thenotes = db.session.query(Notifications)
-        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
 
         recmsgs = db.session.query(Messages)
         recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -167,7 +175,6 @@ def followers_home():
         flash(str(e))
         return redirect(url_for('index'))
 
-
     return render_template('followers.html',
                            now=datetime.utcnow(),
                            # forms
@@ -183,9 +190,11 @@ def followers_home():
                            moddingcount=moddingcount,
                            seeifowner=seeifowner,
                            ownercount=ownercount,
+                           thenotescount=thenotescount,
                            subid=subid,
                            navlink=navlink,
                            themsgs=themsgs,
+
                            usersubforums=usersubforums,
                            # queries/pagination
                            trending=trending,
@@ -242,10 +251,19 @@ def followers_newest():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
+
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -256,7 +274,6 @@ def followers_newest():
     sendmsgs = sendmsgs.count()
 
     themsgs = int(sendmsgs) + int(recmsgs)
-
 
     seeifmodding = db.session.query(Mods)
     seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
@@ -325,6 +342,7 @@ def followers_newest():
                            deletepostform=deletepostform,
                            muteuserform=muteuserform,
                            # general
+                            thenotescount=thenotescount,
 
                            thenotes=thenotes,
                            themsgs=themsgs,
@@ -381,10 +399,17 @@ def followers_mostactive():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     seeifmodding = db.session.query(Mods)
     seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
@@ -456,7 +481,9 @@ def followers_mostactive():
                            currentltcprice=currentltcprice,
 
                            # forms
+                           thenotescount=thenotescount,
                            subform=subform,
+
                            voteform=voteform,
                            wall_post_form=wall_post_form,
                            banuserdeleteform=banuserdeleteform,
@@ -529,10 +556,19 @@ def followers_coinposts():
                                          )
     usersubforums = usersubforums.all()
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
+
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -592,6 +628,7 @@ def followers_coinposts():
 
                            # forms
                            thenotes=thenotes,
+                           thenotescount=thenotescount,
                            wall_post_form=wall_post_form,
                            voteform=voteform,
                            subform=subform,
@@ -599,6 +636,7 @@ def followers_coinposts():
                            lockpostform=lockpostform,
                            deletepostform=deletepostform,
                            muteuserform=muteuserform,
+
                            # general
                            seeifmod=seeifmod,
                            moddingcount=moddingcount,
@@ -654,10 +692,17 @@ def followers_top():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -729,6 +774,7 @@ def followers_top():
                            currentltcprice=currentltcprice,
                            # forms
                            subform=subform,
+
                            wall_post_form=wall_post_form,
                            voteform=voteform,
                            banuserdeleteform=banuserdeleteform,
@@ -742,6 +788,7 @@ def followers_top():
                            seeifowner=seeifowner,
                            ownercount=ownercount,
                            thenotes=thenotes,
+                           thenotescount=thenotescount,
                            subid=subid,
                            themsgs=themsgs,
                            navlink=navlink,

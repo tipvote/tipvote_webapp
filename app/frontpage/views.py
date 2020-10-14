@@ -61,10 +61,17 @@ def frontpage_home():
     currentbchprice = db.session.query(BchPrices).get(1)
     currentltcprice = db.session.query(LtcPrices).get(1)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     # see if user leveled up and has a display to flash
     seeiflevelup = db.session.query(DisplayCoins).filter(DisplayCoins.user_id == current_user.id).all()
@@ -214,6 +221,7 @@ def frontpage_home():
                            now=datetime.utcnow(),
                            # forms
                            subform=subform,
+                           thenotescount=thenotescount,
                            voteform=voteform,
                            mainpostform=mainpostform,
                            banuserdeleteform=banuserdeleteform,
@@ -290,12 +298,17 @@ def frontpage_newest():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
-
-
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -412,6 +425,7 @@ def frontpage_newest():
                            # general
                            thenotes=thenotes,
                            seeifmod=seeifmod,
+                           thenotescount=thenotescount,
                            moddingcount=moddingcount,
                            seeifowner=seeifowner,
                            ownercount=ownercount,
@@ -465,10 +479,17 @@ def frontpage_mostactive():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -479,7 +500,6 @@ def frontpage_mostactive():
     sendmsgs = sendmsgs.count()
 
     themsgs = int(sendmsgs) + int(recmsgs)
-
 
     # get subs user belongs too and add to list
     usersubforums = db.session.query(Subscribed)
@@ -582,6 +602,7 @@ def frontpage_mostactive():
                            subform=subform,
 
                            # general
+                           thenotescount=thenotescount,
                            new_rooms=new_rooms,
                            random_rooms=random_rooms,
                            seeifmod=seeifmod,
@@ -641,10 +662,17 @@ def frontpage_top():
     # Trending subforums
     trending = db.session.query(SubForums).order_by(SubForums.total_exp_subcommon.desc()).limit(10)
 
-    thenotes = db.session.query(Notifications)
-    thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-    thenotes = thenotes.filter(Notifications.read == 0)
-    thenotes = thenotes.count()
+    # get unread messages
+    if current_user.is_authenticated:
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
+    else:
+        thenotes = 0
+        thenotescount = 0
 
     recmsgs = db.session.query(Messages)
     recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -765,6 +793,7 @@ def frontpage_top():
 
                            # general
                            new_rooms=new_rooms,
+                           thenotescount=thenotescount,
                            random_rooms=random_rooms,
                            seeifmod=seeifmod,
                            moddingcount=moddingcount,

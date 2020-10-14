@@ -123,13 +123,17 @@ def sub(subname):
     else:
         subcustom_setup = 1
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     # see if user banned
     if current_user.is_authenticated:
@@ -313,6 +317,7 @@ def sub(subname):
                            voteform=voteform,
                            nsfwform=nsfwform,
                            subname=subname,
+                           thenotescount=thenotescount,
                            subform=subform,
                            subinfobox=subinfobox,
                            subcustom_stuff=subcustom_stuff,
@@ -373,13 +378,17 @@ def sub_newest(subname):
     currentbchprice = db.session.query(BchPrices).get(1)
     currentltcprice = db.session.query(LtcPrices).get(1)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     # get the sub
     thesub = db.session.query(SubForums)\
@@ -592,6 +601,7 @@ def sub_newest(subname):
                            subform=subform,
                            voteform=voteform,
                            navlink=navlink,
+                           thenotescount=thenotescount,
                            reportform=reportform,
                            banuserdeleteform=banuserdeleteform,
                            thesub=thesub,
@@ -653,13 +663,17 @@ def sub_active(subname):
     currentbchprice = db.session.query(BchPrices).get(1)
     currentltcprice = db.session.query(LtcPrices).get(1)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     # get the sub
     thesub = db.session.query(SubForums)\
@@ -873,6 +887,7 @@ def sub_active(subname):
                            subinfobox=subinfobox,
                            subcustom_stuff=subcustom_stuff,
                            reportform=reportform,
+                           thenotescount=thenotescount,
                            banuserdeleteform=banuserdeleteform,
                            thesub=thesub,
                            subcustom_setup=subcustom_setup,
@@ -930,13 +945,17 @@ def sub_top(subname):
     currentbchprice = db.session.query(BchPrices).get(1)
     currentltcprice = db.session.query(LtcPrices).get(1)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
     # get the sub
     thesub = db.session.query(SubForums).filter(func.lower(SubForums.subcommon_name) == subname).first()
     if thesub is None:
@@ -1144,6 +1163,7 @@ def sub_top(subname):
                            subinfobox=subinfobox,
                            subcustom_stuff=subcustom_stuff,
                            reportform=reportform,
+                           thenotescount=thenotescount,
                            banuserdeleteform=banuserdeleteform,
                            thesub=thesub,
                            subcustom_setup=subcustom_setup,
@@ -1556,13 +1576,17 @@ def viewpost(subname, postid):
 
     editcommenttextform = EditCommentForm(request.form)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     if current_user.is_authenticated:
         # see if current user is a mod
@@ -1693,6 +1717,7 @@ def viewpost(subname, postid):
                            useramod=useramod,
                            userowner=userowner,
                            subname=subname,
+                           thenotescount=thenotescount,
                            thesub=thesub,
                            subinfobox=subinfobox,
                            subcustom_stuff=subcustom_stuff,
@@ -1756,13 +1781,17 @@ def viewpost_newest(subname, postid):
     active = 2
     editcommenttextform = EditCommentForm(request.form)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     if current_user.is_authenticated:
         # see if current user is a mod
@@ -1883,6 +1912,7 @@ def viewpost_newest(subname, postid):
                            subname=subname,
                            thesub=thesub,
                            subinfobox=subinfobox,
+                           thenotescount=thenotescount,
                            subcustom_stuff=subcustom_stuff,
                            comments=comments,
                            post=post,
@@ -1940,13 +1970,17 @@ def viewpost_oldest(subname, postid):
     active = 3
     editcommenttextform = EditCommentForm(request.form)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     if current_user.is_authenticated:
         # see if current user is a mod
@@ -2052,6 +2086,7 @@ def viewpost_oldest(subname, postid):
                            reportform=reportform,
                            nsfwform=nsfwform,
                            stickypostform=stickypostform,
+                           thenotescount=thenotescount,
                            unstickypostform=unstickypostform,
                            seeifsubbed=seeifsubbed,
                            reportcommentform=reportcommentform,
@@ -2126,13 +2161,17 @@ def viewpost_downvoted(subname, postid):
     active = 4
     editcommenttextform = EditCommentForm(request.form)
 
+    # get unread messages
     if current_user.is_authenticated:
         thenotes = db.session.query(Notifications)
         thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.filter(Notifications.read == 0)
-        thenotes = thenotes.count()
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
     else:
         thenotes = 0
+        thenotescount = 0
 
     if current_user.is_authenticated:
         # see if current user is a mod
@@ -2237,6 +2276,7 @@ def viewpost_downvoted(subname, postid):
                            voteform=voteform,
                            reportform=reportform,
                            nsfwform=nsfwform,
+                           thenotescount=thenotescount,
                            stickypostform=stickypostform,
                            unstickypostform=unstickypostform,
                            seeifsubbed=seeifsubbed,
