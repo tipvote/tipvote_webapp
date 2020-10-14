@@ -127,10 +127,13 @@
                             <div class="col-12 second_color">
                                 {% if thenotescount %}
                                     {% if thenotescount > 0 %}
-                                        <btn class="col-6 offset-3 btn btn-danger text-white mb-2 p-2"
-                                             href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                         <a class="text-white" href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                        <btn class="col-6 offset-3 btn btn-danger text-white mb-2 p-2">
+
                                             Mark All As Read
+
                                         </btn>
+                                        </a>
                                     {% else %}
                                     {% endif %}
                                 {% endif %}
