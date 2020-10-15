@@ -651,7 +651,7 @@ def createcomment(subname, postid, parentid):
                                      subname=subname,
                                      postid=thepost.id,
                                      commentid=0,
-                                     msg=31,
+                                     msg=30,
                                      )
 
             # add to db
