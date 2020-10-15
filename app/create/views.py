@@ -469,9 +469,15 @@ def createcomment(subname, postid, parentid):
 
         thepost = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
 
+        getcurrentsub = db.session.query(SubForums) \
+            .filter(SubForums.subcommon_name == subname) \
+            .first()
+
         # see if blocked
-        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == thepost.user_id,
-                                                 BlockedUser.blocked_user == current_user.id).first()
+        isuserblocked = db.session.query(BlockedUser) \
+            .filter(BlockedUser.user_id == thepost.user_id,
+                    BlockedUser.blocked_user == current_user.id) \
+            .first()
         if isuserblocked:
             flash("Your Comment can not be added.", category="danger")
             return redirect(url_for('index'))
@@ -484,11 +490,8 @@ def createcomment(subname, postid, parentid):
         if thepost.locked == 1:
             flash("Post has been locked", category="danger")
             return redirect((request.args.get('next', request.referrer)))
-
-        getcurrentsub = db.session.query(SubForums) \
-            .filter(SubForums.subcommon_name == subname) \
-            .first_or_404()
         if getcurrentsub is None:
+            flash("Room not found.", category="danger")
             return redirect((request.args.get('next', request.referrer)))
 
         if parentid is 0:
@@ -509,194 +512,161 @@ def createcomment(subname, postid, parentid):
         subtype = getcurrentsub.type_of_subcommon
 
         if form.validate_on_submit():
-            if current_user.is_authenticated:
+            # see if banned
+            seeifbanned = db.session.query(Banned)
+            seeifbanned = seeifbanned.filter(current_user.id == Banned.user_id,
+                                             Banned.subcommon_id == subid)
+            seeifbanned = seeifbanned.first()
+            # if user on banned list turn him away
+            if seeifbanned is not None:
+                flash("You were banned from this sub.", category="success")
+                return redirect(url_for('banned', subname=subname))
+            # see if muted
+            seeifusermuted = db.session.query(Muted)
+            seeifusermuted = seeifusermuted.filter(Muted.user_id == current_user.id)
+            seeifusermuted = seeifusermuted.filter(Muted.subcommon_id == subid)
+            seeifusermuted = seeifusermuted.first()
+            if seeifusermuted is not None:
+                flash("You were muted for 24 hours.", category="danger")
+                return redirect(url_for('subforum.sub', subname=subname))
 
-                # see if banned
-                seeifbanned = db.session.query(Banned)
-                seeifbanned = seeifbanned.filter(current_user.id == Banned.user_id,
-                                                 Banned.subcommon_id == subid)
-                seeifbanned = seeifbanned.first()
-                # if user on banned list turn him away
-                if seeifbanned is not None:
-                    flash("You were banned from this sub.", category="success")
-                    return redirect(url_for('banned', subname=subname))
-                # see if muted
-                seeifusermuted = db.session.query(Muted)
-                seeifusermuted = seeifusermuted.filter(Muted.user_id == current_user.id)
-                seeifusermuted = seeifusermuted.filter(Muted.subcommon_id == subid)
-                seeifusermuted = seeifusermuted.first()
-                if seeifusermuted is not None:
-                    flash("You were muted for 24 hours.", category="danger")
-                    return redirect(url_for('subforum.sub', subname=subname))
-
-                # see if private
-                if subtype == 1:
-                    seeifuserinvited = db.session.query(PrivateMembers) \
-                        .filter(current_user.id == PrivateMembers.user_id, PrivateMembers.subcommon_id == subid) \
-                        .first()
-                    if seeifuserinvited is None:
-                        flash("Sub Is a private Community.", category="success")
-                        return redirect(url_for('private', subname=subname))
-
-                posttxt = form.postmessage.data
-
-                if current_user.anon_mode == 0:
-                    visible_user_id = current_user.id
-                    visible_user_name = current_user.user_name
-                    userhidden = 0
-                else:
-                    visible_user_id = 0
-                    visible_user_name = "Anonymous"
-                    userhidden = 1
-
-                uniqueid = id_generator(size=15)
-
-                # finds the last comment relating to a post
-                latest_index_id_post = db.session.query(Comments) \
-                    .filter(Comments.commons_post_id == thepost.id) \
-                    .order_by(Comments.id.desc()) \
+            # see if private
+            if subtype == 1:
+                seeifuserinvited = db.session.query(PrivateMembers) \
+                    .filter(current_user.id == PrivateMembers.user_id, PrivateMembers.subcommon_id == subid) \
                     .first()
+                if seeifuserinvited is None:
+                    flash("Sub Is a private Community.", category="success")
+                    return redirect(url_for('private', subname=subname))
 
-                # check to see if its first comment
-                if latest_index_id_post is None:
-                    # if first comment id is 0
-                    new_index_id = 0
-                else:
-                    if latest_index_id_post.index_id is None:
-                        # if replying to an old comment below id#1641
-                        comment_count_on_post = db.session.query(Comments) \
-                            .filter(Comments.commons_post_id == thepost.id) \
-                            .order_by(Comments.id.desc()) \
-                            .count()
+            posttxt = form.postmessage.data
 
-                        new_index_id = comment_count_on_post
-                    else:
-                        latest_index_id = latest_index_id_post.index_id
-                        new_index_id = latest_index_id + 1
-
-                create_new_comment = Comments(
-                    index_id=new_index_id,
-                    user_id=current_user.id,
-                    user_name=current_user.user_name,
-                    subcommon_id=thepost.subcommon_id,
-                    commons_post_id=thepost.id,
-                    realid=uniqueid,
-                    body=posttxt,
-                    created=now,
-                    total_exp_commons=0,
-                    downvotes_on_comment=0,
-                    upvotes_on_comment=0,
-                    total_recieved_btc=0,
-                    total_recieved_xmr=0,
-                    total_recieved_bch=0,
-                    total_recieved_btc_usd=0,
-                    total_recieved_xmr_usd=0,
-                    total_recieved_bch_usd=0,
-                    visible_user_id=visible_user_id,
-                    visible_user_name=visible_user_name,
-                    userhidden=userhidden,
-                    parent=getsubcomment,
-                    hidden=0,
-                    active=1,
-                    thread_timestamp=figured_thread_timestamp,
-                    thread_upvotes=figured_thread_upvotes,
-                    thread_downvotes=figured_thread_downvotes,
-                    deleted=0,
-
-                )
-                create_new_comment.save()
-
-                # add exp points
-                exppoint(user_id=current_user.id, category=2)
-
-                # add comment count to the post
-                currentcommentcount = thepost.comment_count
-                newcount = currentcommentcount + 1
-                thepost.comment_count = newcount
-
-                if current_user.anon_mode == 0:
-                    # add comment count to the user stats
-                    getuser_stats = db.session.query(UserStats).filter_by(user_id=current_user.id).first()
-                    current_user_comments = getuser_stats.total_comments
-                    getuser_stats.total_comments = current_user_comments + 1
-                    db.session.add(getuser_stats)
-
-                # reset users timer
-                getuser_timers = db.session.query(UserTimers).filter_by(user_id=current_user.id).first()
-                getuser_timers.last_comment = now
-
-                # update post to active
-                thepost.last_active = now
-                thepost.active = 1
-
-                # if the commenter doesnt equal the poster
-                if thepost.user_id != current_user.id:
-                    # add notification for poster about new comment
-                    add_new_notification(user_id=thepost.user_id,
-                                         subid=subid,
-                                         subname=subname,
-                                         postid=thepost.id,
-                                         commentid=0,
-                                         msg=1,
-                                         )
-                if parentid is not 0:
-                    add_new_notification(user_id=getsubcomment.user_id,
-                                         subid=subid,
-                                         subname=subname,
-                                         postid=thepost.id,
-                                         commentid=0,
-                                         msg=1,
-                                         )
-
-                # add to db
-                db.session.add(thepost)
-                db.session.add(getuser_timers)
-                db.session.commit()
-
-                comment_start_path = create_new_comment.path[:5]
-
-
-
-                flash("Comment Added.", category="success")
-                return redirect(url_for('subforum.viewpost',
-                                        subname=thepost.subcommon_name,
-                                        postid=thepost.id))
-
+            if current_user.anon_mode == 0:
+                visible_user_id = current_user.id
+                visible_user_name = current_user.user_name
+                userhidden = 0
             else:
-                flash("User must be logged in", category='danger')
-                return redirect((request.args.get('next', request.referrer)))
+                visible_user_id = 0
+                visible_user_name = "Anonymous"
+                userhidden = 1
+
+            uniqueid = id_generator(size=15)
+
+            # finds the last comment relating to a post
+            latest_index_id_post = db.session.query(Comments) \
+                .filter(Comments.commons_post_id == thepost.id) \
+                .order_by(Comments.id.desc()) \
+                .first()
+
+            # check to see if its first comment
+            if latest_index_id_post is None:
+                # if first comment id is 0
+                new_index_id = 0
+            else:
+                if latest_index_id_post.index_id is None:
+                    # if replying to an old comment below id#1641
+                    comment_count_on_post = db.session.query(Comments) \
+                        .filter(Comments.commons_post_id == thepost.id) \
+                        .order_by(Comments.id.desc()) \
+                        .count()
+
+                    new_index_id = comment_count_on_post
+                else:
+                    latest_index_id = latest_index_id_post.index_id
+                    new_index_id = latest_index_id + 1
+
+            create_new_comment = Comments(
+                index_id=new_index_id,
+                user_id=current_user.id,
+                user_name=current_user.user_name,
+                subcommon_id=thepost.subcommon_id,
+                commons_post_id=thepost.id,
+                realid=uniqueid,
+                body=posttxt,
+                created=now,
+                total_exp_commons=0,
+                downvotes_on_comment=0,
+                upvotes_on_comment=0,
+                total_recieved_btc=0,
+                total_recieved_xmr=0,
+                total_recieved_bch=0,
+                total_recieved_btc_usd=0,
+                total_recieved_xmr_usd=0,
+                total_recieved_bch_usd=0,
+                visible_user_id=visible_user_id,
+                visible_user_name=visible_user_name,
+                userhidden=userhidden,
+                parent=getsubcomment,
+                hidden=0,
+                active=1,
+                thread_timestamp=figured_thread_timestamp,
+                thread_upvotes=figured_thread_upvotes,
+                thread_downvotes=figured_thread_downvotes,
+                deleted=0,
+
+            )
+            create_new_comment.save()
+
+            # add exp points
+            exppoint(user_id=current_user.id, category=2)
+
+            # add comment count to the post
+            currentcommentcount = thepost.comment_count
+            newcount = currentcommentcount + 1
+            thepost.comment_count = newcount
+
+            if current_user.anon_mode == 0:
+                # add comment count to the user stats
+                getuser_stats = db.session.query(UserStats) \
+                    .filter_by(user_id=current_user.id) \
+                    .first()
+                current_user_comments = getuser_stats.total_comments
+                getuser_stats.total_comments = current_user_comments + 1
+                db.session.add(getuser_stats)
+
+            # reset users timer
+            getuser_timers = db.session.query(UserTimers) \
+                .filter_by(user_id=current_user.id) \
+                .first()
+            getuser_timers.last_comment = now
+
+            # update post to active
+            thepost.last_active = now
+            thepost.active = 1
+
+            # if the commenter doesnt equal the poster
+            if thepost.user_id != current_user.id:
+                # add notification for poster about new comment
+                add_new_notification(user_id=thepost.user_id,
+                                     subid=subid,
+                                     subname=subname,
+                                     postid=thepost.id,
+                                     commentid=0,
+                                     msg=1,
+                                     )
+            # send a notification to commenter
+            if parentid is not 0:
+                add_new_notification(user_id=getsubcomment.user_id,
+                                     subid=subid,
+                                     subname=subname,
+                                     postid=thepost.id,
+                                     commentid=0,
+                                     msg=31,
+                                     )
+
+            # add to db
+            db.session.add(thepost)
+            db.session.add(getuser_timers)
+            db.session.commit()
+
+            flash("Comment Added.", category="success")
+            return redirect(url_for('subforum.viewpost',
+                                    subname=thepost.subcommon_name,
+                                    postid=thepost.id))
         else:
             for errors in form.postmessage.errors:
                 flash(errors, category="danger")
             return redirect((request.args.get('next', request.referrer)))
-
-
-def notify_commenters(subid, subname, thepost, commentpathstart):
-    # need to loop through the path splitting at . find the comment id.  Then add a notification.
-    list_user_ids = []
-
-    getsubcomments = db.session.query(Comments)\
-        .filter(Comments.commons_post_id == thepost.id)\
-        .all()
-
-    for f in getsubcomments:
-        if f.path[:5] == commentpathstart:
-            flash(f.path[:5])
-            flash(commentpathstart)
-            if f.user_id not in list_user_ids:
-                if f.user_id != thepost.user_id:
-                    if f.user_id != current_user.id:
-                        list_user_ids.append(f.user_id)
-
-    for g in list_user_ids:
-        add_new_notification(user_id=g,
-                             subid=subid,
-                             subname=subname,
-                             postid=thepost.id,
-                             commentid=0,
-                             msg=30,
-                             )
-    db.session.commit()
 
 
 @create.route('/share/text/<int:postid>/', methods=['GET', 'POST'])
@@ -708,7 +678,9 @@ def share_post_text(postid):
     now = datetime.utcnow()
     uniqueid = id_generator(size=15)
 
-    user_stats = db.session.query(UserStats).filter(UserStats.user_id == current_user.id).first()
+    user_stats = db.session.query(UserStats) \
+        .filter(UserStats.user_id == current_user.id) \
+        .first()
     post = CommonsPost.query.filter(CommonsPost.id == postid).first()
 
     currentbtcprice = BtcPrices.query.get(1)
@@ -719,8 +691,10 @@ def share_post_text(postid):
     if request.method == 'GET':
 
         # see if blocked
-        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == post.user_id,
-                                                 BlockedUser.blocked_user == current_user.id).first()
+        isuserblocked = BlockedUser.query \
+            .filter(BlockedUser.user_id == post.user_id,
+                    BlockedUser.blocked_user == current_user.id) \
+            .first()
         if isuserblocked:
             flash("Your Post can not be added.", category="danger")
             return redirect(url_for('index'))
