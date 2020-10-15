@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 from app.create.create_id import id_generator
-
+from sqlalchemy import func
 from app.create.get_image_resize import convertimage
 from app.create.get_image_fromurl import getimage
 
@@ -161,22 +161,22 @@ def createsubforum():
                 return redirect(url_for('index'))
 
         elif 10 <= userlevel <= 19:
-            if usersubcount >= 5:
+            if usersubcount >= 3:
                 flash("You need to be level 20 in order to create more rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
         elif 20 <= userlevel <= 29:
-            if usersubcount >= 10:
+            if usersubcount >= 5:
                 flash("You need to be level 30 in order to create more rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
         elif 30 <= userlevel <= 39:
-            if usersubcount >= 15:
+            if usersubcount >= 10:
                 flash("You are at max level of rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
         else:
-            if usersubcount >= 15:
+            if usersubcount >= 10:
                 flash("You are at max level of rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
@@ -184,6 +184,7 @@ def createsubforum():
         if form.validate_on_submit():
             try:
                 name_of_subcommon = form.subcommonname.data
+
                 description_of_subcommon = form.subcommondescription.data
                 exp_req = 0
                 subtype = form.typeofsub.data
@@ -495,7 +496,6 @@ def createcomment(subname, postid, parentid):
             figured_thread_timestamp = datetime.utcnow()
             figured_thread_upvotes = 0
             figured_thread_downvotes = 0
-
         else:
             getsubcomment = db.session.query(Comments) \
                 .filter(Comments.id == parentid) \
@@ -629,15 +629,6 @@ def createcomment(subname, postid, parentid):
                 thepost.last_active = now
                 thepost.active = 1
 
-
-
-                # add to db
-                db.session.add(thepost)
-                db.session.add(getuser_timers)
-                db.session.commit()
-
-                comment_start_path = create_new_comment.path[:5]
-
                 # if the commenter doesnt equal the poster
                 if thepost.user_id != current_user.id:
                     # add notification for poster about new comment
@@ -648,11 +639,23 @@ def createcomment(subname, postid, parentid):
                                          commentid=0,
                                          msg=1,
                                          )
+                if parentid is not 0:
+                    add_new_notification(user_id=getsubcomment.user_id,
+                                         subid=subid,
+                                         subname=subname,
+                                         postid=thepost.id,
+                                         commentid=0,
+                                         msg=1,
+                                         )
 
-                notify_commenters(subid=subid,
-                                  subname=subname,
-                                  thepost=thepost,
-                                  commentpathstart=comment_start_path)
+                # add to db
+                db.session.add(thepost)
+                db.session.add(getuser_timers)
+                db.session.commit()
+
+                comment_start_path = create_new_comment.path[:5]
+
+
 
                 flash("Comment Added.", category="success")
                 return redirect(url_for('subforum.viewpost',
@@ -678,12 +681,13 @@ def notify_commenters(subid, subname, thepost, commentpathstart):
 
     for f in getsubcomments:
         if f.path[:5] == commentpathstart:
+            flash(f.path[:5])
+            flash(commentpathstart)
             if f.user_id not in list_user_ids:
-                list_user_ids.append(f.user_id)
-    for h in getsubcomments:
-        flash(h.user_name)
-        flash(h.path, commentpathstart)
-    flash(list_user_ids)
+                if f.user_id != thepost.user_id:
+                    if f.user_id != current_user.id:
+                        list_user_ids.append(f.user_id)
+
     for g in list_user_ids:
         add_new_notification(user_id=g,
                              subid=subid,
@@ -692,7 +696,7 @@ def notify_commenters(subid, subname, thepost, commentpathstart):
                              commentid=0,
                              msg=30,
                              )
-    #db.session.commit()
+    db.session.commit()
 
 
 @create.route('/share/text/<int:postid>/', methods=['GET', 'POST'])

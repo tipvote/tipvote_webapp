@@ -1690,7 +1690,7 @@ def ownerdeletesubconfirm(subname):
         if deleteform.sub_name.data == str(subname):
 
             # mark as deleted .. not actually deleted incase need to look at in future
-            thesub.room_deleted = 1
+
             deletethumbnailimage(user_id=current_user.id, subid=thesub.id, image=subcustom.mini_image)
             deletebannerimage(user_id=current_user.id, subid=thesub.id, image=subcustom.banner_image)
             db.session.add(thesub)
@@ -1699,10 +1699,12 @@ def ownerdeletesubconfirm(subname):
             getallsubs = db.session.query(Subscribed).filter(Subscribed.subcommon_id == thesub.id).all()
             for f in getallsubs:
                 db.session.delete(f)
-
+            db.session.delete(thesub)
             db.session.commit()
             flash("SUBFORUM HAS BEEN DELETED.", category="danger")
             return redirect(url_for('index'))
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
+        return redirect(url_for('index'))
+    else:
         return redirect(url_for('index'))

@@ -1239,7 +1239,7 @@ class SubForums(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     posts = db.relationship('CommonsPost', backref='posts', lazy='dynamic')
 
-    subscription = db.relationship('Subscribed', backref='subscriber', lazy='dynamic')
+    subscription = db.relationship('Subscribed', backref='subscriber', lazy='dynamic', ondelete='SET NULL')
     privmembers = db.relationship('PrivateMembers', backref='privatemembers', lazy='dynamic')
     privapps = db.relationship('PrivateMembers', backref='privateapps', lazy='dynamic')
     recenttips = db.relationship('RecentTips', backref='recentips', lazy='dynamic')
