@@ -200,11 +200,9 @@
         <div class="row ">
             <div class="col" style="font-size: 12px; ">
                 {% if comment.hidden == 0 %}
-                    {% if comment.body_clean %}
-                        {{ comment.body_clean| safe }}
-                    {% else %}
-                        {{ comment.body }}
-                    {% endif %}
+
+                        {{ comment.body| markdown }}
+
                 {% else %}
                     Removed
                 {% endif %}
@@ -242,7 +240,6 @@
                         {% endif %}
 
                         <div id="accordionone " style="display: inline">
-
                             <a data-toggle="collapse" data-target="#{{ comment.realid }}1" aria-expanded="true" aria-controls="collapseOne">
                                 Reply
                             </a>&nbsp

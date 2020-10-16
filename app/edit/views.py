@@ -50,6 +50,7 @@ from app.nodelocations import postnodelocation, current_disk
 from app.create.geturlinfo import geturl
 from app.create.get_image_fromurl import getimage
 from app.create.convert_markdown import transform_image_links_markdown
+from app.message.add_notification import add_new_notification
 
 
 # View / Reply to a post
@@ -252,7 +253,8 @@ def post_edit_text(postid):
 
             if editposttextform.submit.data:
                 urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(editposttextform.postmessage.data)
-                transformed_text = transform_image_links_markdown(editposttextform.postmessage.data)
+                transformed_text, notifyuser = transform_image_links_markdown(str(editposttextform.postmessage.data))
+
                 getpostnodelocation = postnodelocation(x=thepost.id)
                 postlocation = os.path.join(UPLOADED_FILES_DEST, current_disk, "post", getpostnodelocation, str(thepost.id))
                 thepost.post_text = transformed_text
@@ -277,6 +279,15 @@ def post_edit_text(postid):
                     os.rename(filenamenewfull, newfilenamedestination)
                     convertimage(imagelocation=postlocation, imagename=newfilename, thepost=thepost)
 
+                if notifyuser is not None:
+                    # add info
+                    add_new_notification(user_id=notifyuser.id,
+                                         subid=thepost.subcommon_id,
+                                         subname=thepost.subcommon_name,
+                                         postid=thepost.id,
+                                         commentid=0,
+                                         msg=32
+                                         )
             thepost.edited = now
             db.session.commit()
 
@@ -318,17 +329,31 @@ def comment_edit_text(commentid):
 
             thecomment = db.session.query(Comments).filter(Comments.id == int(commentid)).first()
             thesub = db.session.query(SubForums).filter(thecomment.subcommon_id == SubForums.id).first()
+            transformed_text, notifyuser = transform_image_links_markdown(str(editcommenttextform.postmessage.data))
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=thesub.id,
+                                     subname=thesub.subcommon_name,
+                                     postid=thecomment.commons_post_id,
+                                     commentid=0,
+                                     msg=32
+                                     )
             # see if user is a creator
             if thecomment.user_id == current_user.id:
-                thecomment.body = editcommenttextform.postmessage.data
+                thecomment.body = transformed_text
                 db.session.add(thecomment)
                 db.session.commit()
                 flash("Updated Comment.", category="success")
-                return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=thecomment.commons_post_id))
+                return redirect(url_for('subforum.viewpost',
+                                        subname=thesub.subcommon_name,
+                                        postid=thecomment.commons_post_id))
             else:
                 flash("You are not the creator of this post.", category="danger")
-                return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=thecomment.commons_post_id))
+                return redirect(url_for('subforum.viewpost',
+                                        subname=thesub.subcommon_name,
+                                        postid=thecomment.commons_post_id))
         else:
             for errors in editcommenttextform.postmessage.errors:
                 flash(errors, category="danger")

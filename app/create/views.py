@@ -11,7 +11,6 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 from app.create.create_id import id_generator
-from sqlalchemy import func
 from app.create.get_image_resize import convertimage
 from app.create.get_image_fromurl import getimage
 
@@ -539,8 +538,6 @@ def createcomment(subname, postid, parentid):
                     flash("Sub Is a private Community.", category="success")
                     return redirect(url_for('private', subname=subname))
 
-            posttxt = form.postmessage.data
-
             if current_user.anon_mode == 0:
                 visible_user_id = current_user.id
                 visible_user_name = current_user.user_name
@@ -575,6 +572,8 @@ def createcomment(subname, postid, parentid):
                     latest_index_id = latest_index_id_post.index_id
                     new_index_id = latest_index_id + 1
 
+            transformed_text, notifyuser = transform_image_links_markdown(str(form.postmessage.data))
+
             create_new_comment = Comments(
                 index_id=new_index_id,
                 user_id=current_user.id,
@@ -582,7 +581,7 @@ def createcomment(subname, postid, parentid):
                 subcommon_id=thepost.subcommon_id,
                 commons_post_id=thepost.id,
                 realid=uniqueid,
-                body=posttxt,
+                body=transformed_text,
                 created=now,
                 total_exp_commons=0,
                 downvotes_on_comment=0,
@@ -634,6 +633,15 @@ def createcomment(subname, postid, parentid):
             thepost.last_active = now
             thepost.active = 1
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=thepost.subcommon_id,
+                                     subname=thepost.subcommon_name,
+                                     postid=thepost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
             # if the commenter doesnt equal the poster
             if thepost.user_id != current_user.id:
                 # add notification for poster about new comment
@@ -1001,7 +1009,7 @@ def create_post_wall(userid):
             newpostnumber = user_stats.total_posts + 1
 
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(wall_post_form.post_message.data)
-            transformed_text = transform_image_links_markdown(wall_post_form.post_message.data)
+            transformed_text, notifyuser = transform_image_links_markdown(str(wall_post_form.post_message.data))
 
             # add post to db
             newpost = CommonsPost(
@@ -1079,16 +1087,6 @@ def create_post_wall(userid):
             db.session.add(newpost)
             db.session.commit()
 
-            if current_user.id != theuser.id:
-                # add notification for poster about new post
-                add_new_notification(user_id=theuser.id,
-                                     subid=chosen_subcommon_id,
-                                     subname=chosen_subcommon_name,
-                                     postid=newpost.id,
-                                     commentid=0,
-                                     msg=16,
-                                     )
-
             getusernodelocation = postnodelocation(x=newpost.id)
             postlocation = os.path.join(UPLOADED_FILES_DEST, current_disk, "post", getusernodelocation, str(newpost.id))
 
@@ -1119,6 +1117,26 @@ def create_post_wall(userid):
 
             # add exp points
             exppoint(user_id=current_user.id, category=1)
+
+            if current_user.id != theuser.id:
+                # add notification for poster about new post
+                add_new_notification(user_id=theuser.id,
+                                     subid=chosen_subcommon_id,
+                                     subname=chosen_subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=16,
+                                     )
+
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=newpost.subcommon_id,
+                                     subname=newpost.subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
 
             if current_user.id != theuser.id:
                 add_new_notification(user_id=theuser.id,
@@ -1223,8 +1241,7 @@ def create_post_room(subname):
             newpostnumber = user_stats.total_posts + 1
 
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(wall_post_form.post_message.data)
-            transformed_text = transform_image_links_markdown(wall_post_form.post_message.data)
-
+            transformed_text, notifyuser = transform_image_links_markdown(str(wall_post_form.post_message.data))
 
             # add post to db
             newpost = CommonsPost(
@@ -1330,15 +1347,23 @@ def create_post_room(subname):
             if wall_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
                 db.session.commit()
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=newpost.subcommon_id,
+                                     subname=newpost.subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
+
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
             flash("Post Created!", category="success")
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
         else:
-
             flash("Post Creation Failure.", category="danger")
-
             for errors in wall_post_form.image_one.errors:
                 flash(errors, category="danger")
             for errors in wall_post_form.post_message.errors:
@@ -1428,7 +1453,7 @@ def create_post_room_all(userid):
             newpostnumber = user_stats.total_posts + 1
 
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(wall_post_form.post_message.data)
-            transformed_text = transform_image_links_markdown(wall_post_form.post_message.data)
+            transformed_text, notifyuser = transform_image_links_markdown(str(wall_post_form.post_message.data))
             # add post to db
             newpost = CommonsPost(
 
@@ -1534,6 +1559,16 @@ def create_post_room_all(userid):
             if wall_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
                 db.session.commit()
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=newpost.subcommon_id,
+                                     subname=newpost.subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
+
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
@@ -1600,7 +1635,7 @@ def create_post_business_wall(businessid):
 
             # transform text
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(business_post_form.post_message.data)
-            transformed_text = transform_image_links_markdown(business_post_form.post_message.data)
+            transformed_text, notifyuser = transform_image_links_markdown(str(business_post_form.post_message.data))
 
             newpost = CommonsPost(
                 user_id=current_user.id,
@@ -1683,6 +1718,15 @@ def create_post_business_wall(businessid):
             if business_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
                 db.session.commit()
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=newpost.subcommon_id,
+                                     subname=newpost.subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
@@ -1738,7 +1782,7 @@ def create_post_business_wall_other(businessid):
         if business_post_form.validate_on_submit():
 
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(business_post_form.post_message.data)
-            transformed_text = transform_image_links_markdown(business_post_form.post_message.data)
+            transformed_text, notifyuser = transform_image_links_markdown(str(business_post_form.post_message.data))
             # add post to db
             newpost = CommonsPost(
 
@@ -1837,6 +1881,15 @@ def create_post_business_wall_other(businessid):
             if business_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
                 db.session.commit()
 
+            if notifyuser is not None:
+                # add info
+                add_new_notification(user_id=notifyuser.id,
+                                     subid=newpost.subcommon_id,
+                                     subname=newpost.subcommon_name,
+                                     postid=newpost.id,
+                                     commentid=0,
+                                     msg=32
+                                     )
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 

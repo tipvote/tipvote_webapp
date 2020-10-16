@@ -166,7 +166,6 @@ class CommonsPost(db.Model):
         target.post_text_clean = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
             tags=allowed_tags,
-            strip=True,
 
             attributes=allowed_attrs)
         )
@@ -244,18 +243,6 @@ class Comments(db.Model):
                                                  remote_side=[id]),
                               lazy='dynamic')
 
-    @staticmethod
-    def on_changed_body(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p', 'img', 'video', 'div', 'iframe',
-                        'br', 'span', 'hr', 'src', 'class']
-        allowed_attrs = {
-            'a': ['href', 'rel'],
-            'img': ['src', 'alt']}
-        target.body_clean = bleach.linkify(bleach.clean(
-            markdown(value, output_format='html'),
-            tags=allowed_tags, strip=True, strip_comments=True, attributes=allowed_attrs))
 
     def save(self):
         db.session.add(self)
@@ -268,8 +255,6 @@ class Comments(db.Model):
     def level(self):
         return len(self.path) // self._N - 1
 
-
-db.event.listen(Comments.body, 'set', Comments.on_changed_body)
 
 
 class LegalMessages(db.Model):
@@ -1239,7 +1224,7 @@ class SubForums(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     posts = db.relationship('CommonsPost', backref='posts', lazy='dynamic')
 
-    subscription = db.relationship('Subscribed', backref='subscriber', lazy='dynamic', ondelete='SET NULL')
+    subscription = db.relationship('Subscribed', backref='subscriber', lazy='dynamic')
     privmembers = db.relationship('PrivateMembers', backref='privatemembers', lazy='dynamic')
     privapps = db.relationship('PrivateMembers', backref='privateapps', lazy='dynamic')
     recenttips = db.relationship('RecentTips', backref='recentips', lazy='dynamic')
