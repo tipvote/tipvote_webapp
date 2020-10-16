@@ -679,7 +679,7 @@ def downvote_post(postid):
 
             if seeifvoted is None:
                 return jsonify({
-                    'result': 'Upvoted!',
+                    'result': 'Downvoted!',
                     'thepostid': str_post_id,
                     'newnumber': newvotenumber
                 })

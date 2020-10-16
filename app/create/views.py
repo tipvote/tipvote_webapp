@@ -646,13 +646,14 @@ def createcomment(subname, postid, parentid):
                                      )
             # send a notification to commenter
             if parentid is not 0:
-                add_new_notification(user_id=getsubcomment.user_id,
-                                     subid=subid,
-                                     subname=subname,
-                                     postid=thepost.id,
-                                     commentid=0,
-                                     msg=30,
-                                     )
+                if getsubcomment.user_id != current_user.id:
+                    add_new_notification(user_id=getsubcomment.user_id,
+                                         subid=subid,
+                                         subname=subname,
+                                         postid=thepost.id,
+                                         commentid=0,
+                                         msg=30,
+                                         )
 
             # add to db
             db.session.add(thepost)
@@ -1223,6 +1224,8 @@ def create_post_room(subname):
 
             urlfound, urltitlefound, urldescriptionfound, urlimagefound = geturl(wall_post_form.post_message.data)
             transformed_text = transform_image_links_markdown(wall_post_form.post_message.data)
+
+
             # add post to db
             newpost = CommonsPost(
                 # creator
