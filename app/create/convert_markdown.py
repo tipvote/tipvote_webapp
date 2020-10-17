@@ -30,7 +30,7 @@ def transform_image_links_markdown(stringsubmitted):
                     # see if user exists
                     get_user = db.session.query(User).filter(func.lower(User.user_name) == newname).first()
                     if get_user:
-                        theurl = "["+f+"](https://www.tipvote.com/u/" + newname + ")"
+                        theurl = "[" + str(get_user.user_name) + "](https://www.tipvote.com/u/" + str(get_user.user_name) + ")"
 
                         newstring = theurl
                         theword = f

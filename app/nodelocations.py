@@ -3,45 +3,45 @@ current_disk = 'disk1'
 
 
 def userimagelocation(x):
-    if 1 <= x <= 10000:
+    if 1 <= x <= 100000:
         return '1'
-    elif 10001 <= x <= 20000:
+    elif 100001 <= x <= 200000:
         return '2'
-    elif 20001 <= x <= 30000:
+    elif 200001 <= x <= 300000:
         return '3'
-    elif 30001 <= x <= 40000:
+    elif 300001 <= x <= 400000:
         return '4'
-    elif 40001 <= x <= 50000:
+    elif 400001 <= x <= 500000:
         return '5'
     else:
         return '1'
 
 
 def postnodelocation(x):
-    if 1 <= x <= 10000:
+    if 1 <= x <= 100000:
         return '1'
-    elif 10001 <= x <= 20000:
+    elif 100001 <= x <= 200000:
         return '2'
-    elif 20001 <= x <= 30000:
+    elif 200001 <= x <= 300000:
         return '3'
-    elif 30001 <= x <= 40000:
+    elif 300001 <= x <= 400000:
         return '4'
-    elif 40001 <= x <= 50000:
+    elif 400001 <= x <= 500000:
         return '5'
     else:
         return '1'
 
 
 def subforumnodelocation(x):
-    if 1 <= x <= 10000:
+    if 1 <= x <= 100000:
         return '1'
-    elif 10001 <= x <= 20000:
+    elif 100001 <= x <= 200000:
         return '2'
-    elif 20001 <= x <= 30000:
+    elif 200001 <= x <= 300000:
         return '3'
-    elif 30001 <= x <= 40000:
+    elif 300001 <= x <= 400000:
         return '4'
-    elif 40001 <= x <= 50000:
+    elif 400001 <= x <= 500000:
         return '5'
     else:
         return '1'
