@@ -109,6 +109,7 @@ def frontpage_home():
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.filter(SubForums.room_deleted != 1)
+    usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
     usersubforums = usersubforums.all()
 
     seeifmodding = db.session.query(Mods)
@@ -320,14 +321,13 @@ def frontpage_newest():
 
     themsgs = int(sendmsgs) + int(recmsgs)
 
-
     # get subs user belongs too and add to list
-
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.filter(SubForums.room_deleted != 1)
+    usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
     usersubforums = usersubforums.all()
 
     seeifmodding = db.session.query(Mods)
@@ -507,6 +507,7 @@ def frontpage_mostactive():
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.filter(SubForums.room_deleted != 1)
+    usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
     usersubforums = usersubforums.all()
 
     seeifmodding = db.session.query(Mods)
@@ -626,7 +627,6 @@ def frontpage_mostactive():
                            )
 
 
-
 @frontpage.route('/top', methods=['GET'])
 @login_required
 def frontpage_top():
@@ -684,14 +684,13 @@ def frontpage_top():
 
     themsgs = int(sendmsgs) + int(recmsgs)
 
-
-    # get subs user belongs too and add to list
-
+    # getsubs user belongs too and add to list
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.filter(SubForums.room_deleted != 1)
+    usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
     usersubforums = usersubforums.all()
 
     seeifmodding = db.session.query(Mods)

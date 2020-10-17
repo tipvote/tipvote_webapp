@@ -5,12 +5,8 @@
         <div class="text-center">
             <b> Info </b>
         </div>
-        <div class="col-12 mt-3">
-            {% if thesub.description_clean %}
-                 {{ thesub.description_clean| safe }}
-            {% else %}
-                {{ thesub.description }}
-            {% endif %}
+        <div class="col-12 mt-3" style="word-break: break-word">
+            {{ thesub.description }}
         </div>
     </div>
 </div>

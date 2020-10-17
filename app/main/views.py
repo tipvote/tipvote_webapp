@@ -137,19 +137,9 @@ def index():
                                              SubForums.room_suspended == 0
                                              )
         usersubforums = usersubforums.filter(SubForums.id != 1)
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
-
-        seeifmodding = db.session.query(Mods)
-        seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
-        seeifmod = seeifmodding.all()
-        moddingcount = seeifmodding.count()
-
-        seeifownering = db.session.query(SubForums)
-        seeifownering = seeifownering.filter(SubForums.creator_user_id == current_user.id)
-        seeifownering = seeifownering.filter(SubForums.room_deleted != 1)
-        seeifowner = seeifownering.all()
-        ownercount = seeifownering.count()
 
     else:
         guestsubforums = db.session.query(SubForums)
@@ -164,6 +154,20 @@ def index():
         guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
         guestsubforums = guestsubforums.limit(7)
         usersubforums = None
+
+    if current_user.is_authenticated:
+        # get subs user belongs too
+        seeifmodding = db.session.query(Mods)
+        seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
+        seeifmod = seeifmodding.all()
+        moddingcount = seeifmodding.count()
+
+        seeifownering = db.session.query(SubForums)
+        seeifownering = seeifownering.filter(SubForums.creator_user_id == current_user.id)
+        seeifownering = seeifownering.filter(SubForums.room_deleted != 1)
+        seeifowner = seeifownering.all()
+        ownercount = seeifownering.count()
+    else:
         seeifmod = None
         moddingcount = None
         seeifowner = None

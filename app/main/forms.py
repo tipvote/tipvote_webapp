@@ -2,20 +2,15 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, \
     SubmitField, \
-    TextAreaField, \
-    RadioField, \
-    BooleanField
+    TextAreaField
+
 from wtforms.validators import DataRequired, \
     Length, \
-    Regexp,\
-    Optional
+    Regexp
 
 
 from app.common.validation import\
-    subcommon_name, \
-    onlynumbers, \
-    user_names
-
+    subcommon_name
 
 # ------------------------------------------------------------------------------------
 class ApplyToPrivate(FlaskForm):

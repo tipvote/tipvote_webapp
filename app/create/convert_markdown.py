@@ -43,6 +43,30 @@ def transform_image_links_markdown(stringsubmitted):
                         pass
                 else:
                     pass
+
+            # see if username mentions
+            elif f.startswith('@'):
+                if 3 <= len(f) <= 25:
+
+                    newname = f[1:]
+                    newname = newname.lower()
+
+                    # see if user exists
+                    get_user = db.session.query(User).filter(func.lower(User.user_name) == newname).first()
+                    if get_user:
+                        theurl = "[" + str(get_user.user_name) + "](https://www.tipvote.com/u/" + str(get_user.user_name) + ")"
+
+                        newstring = theurl
+                        theword = f
+
+                        worktobedone.append(theword)
+                        worktobedone.append(newstring)
+
+                        extra_name = get_user
+                    else:
+                        pass
+                else:
+                    pass
             # see if room name mentions
             elif f.startswith('/a/'):
                 if 3 <= len(f) <= 50:

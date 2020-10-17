@@ -115,21 +115,17 @@ def createsubforum():
 
     # redirect for security incase bypass button
     if userlevel == 1:
-        flash("You need to be level 2 in order to create a room.  "
+        flash("You need to be level 5 in order to create a room.  "
               "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
         return redirect(url_for('index'))
 
     # determine how many subs a user can have and show them
-    if 2 <= userlevel <= 9:
+    if 5 <= userlevel <= 9:
         maxsubcount = 1 - usersubcount
-    elif 10 <= userlevel <= 19:
+    elif 10 <= userlevel <= 1000:
         maxsubcount = 5 - usersubcount
-    elif 20 <= userlevel <= 29:
-        maxsubcount = 10 - usersubcount
-    elif 30 <= userlevel <= 39:
-        maxsubcount = 15 - usersubcount
     else:
-        maxsubcount = 15 - usersubcount
+        maxsubcount = 0
 
     if request.method == 'GET':
 
@@ -144,7 +140,7 @@ def createsubforum():
                                currentltcprice=currentltcprice,
                                )
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
 
         # security for timer
         seeiftimerallowed, timeleft = lastcommoncreation(user_id=current_user.id)
@@ -153,30 +149,21 @@ def createsubforum():
             return redirect((request.args.get('next', request.referrer)))
 
         # security for level
-        if 2 <= userlevel <= 9:
+        if 5 <= userlevel <= 9:
             if usersubcount >= 1:
                 flash("You need to be level 10 in order to create more rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
 
-        elif 10 <= userlevel <= 19:
-            if usersubcount >= 3:
+        elif 10 <= userlevel <= 1000:
+            if usersubcount >= 5:
                 flash("You need to be level 20 in order to create more rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
-        elif 20 <= userlevel <= 29:
-            if usersubcount >= 5:
-                flash("You need to be level 30 in order to create more rooms.  "
-                      "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
-                return redirect(url_for('index'))
-        elif 30 <= userlevel <= 39:
-            if usersubcount >= 10:
-                flash("You are at max level of rooms.  "
-                      "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
-                return redirect(url_for('index'))
+
         else:
-            if usersubcount >= 10:
-                flash("You are at max level of rooms.  "
+            if usersubcount >= 5:
+                flash("You are at max number of rooms.  "
                       "This is to prevent bots, spammers, and oversaturation of rooms.", category="danger")
                 return redirect(url_for('index'))
 
@@ -275,6 +262,8 @@ def createsubforum():
             for errors in form.subcommondescription.errors:
                 flash(errors, category="danger")
             return redirect((request.args.get('next', request.referrer)))
+    else:
+        pass
 
 
 @create.route('/createbusiness', methods=['GET', 'POST'])
@@ -310,7 +299,7 @@ def createbusinesspage():
     # security
     lvlneeded = lvl_req(userid=current_user.id, lvlnumber=2)
     if lvlneeded is False:
-        flash("You need to be level 2 in order to create a business page.  "
+        flash("You need to be level 5 in order to create a business page.  "
               "This is to prevent bots, spammers from taking over the site.",
               category="success")
         return redirect(url_for('index'))
@@ -1183,10 +1172,12 @@ def create_post_room(subname):
         #     flash("Please wait " + str(timeleft) + " seconds before creating another post", category="info")
         #     return redirect((request.args.get('next', request.referrer)))
 
+        # get the sub posting in
         getcurrentsub = db.session.query(SubForums)
         getcurrentsub = getcurrentsub.filter(SubForums.subcommon_name == subname)
         getcurrentsub = getcurrentsub.first()
 
+        # get user time
         getuser_timers = db.session.query(UserTimers).filter_by(user_id=current_user.id).first()
 
         user_stats = db.session.query(UserStats).filter(UserStats.user_id == current_user.id).first()

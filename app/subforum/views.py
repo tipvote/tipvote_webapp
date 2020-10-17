@@ -212,6 +212,7 @@ def sub(subname):
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
     else:
@@ -518,6 +519,7 @@ def sub_newest(subname):
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
     else:
@@ -780,7 +782,6 @@ def sub_active(subname):
         else:
             seeifsubbed = 1
 
-
         # get users saved subcommons
         saved_subcommons = db.session.query(Subscribed).filter(Subscribed.user_id == current_user.id).all()
         # get users created subcommons
@@ -800,6 +801,7 @@ def sub_active(subname):
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
     else:
@@ -811,6 +813,7 @@ def sub_active(subname):
                                                SubForums.room_deleted == 0,
                                                SubForums.room_suspended == 0
                                                )
+
         guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
         guestsubforums = guestsubforums.limit(20)
         usersubforums = None
@@ -1003,10 +1006,8 @@ def sub_top(subname):
         useramod = 0
         userowner = 0
 
-
     # If private see if sub allows you to view it
-    # type of subcommon
-
+    # type of subcomon
     subtype = thesub.type_of_subcommon
     subname = thesub.subcommon_name
     # 0 = Public
@@ -1079,6 +1080,7 @@ def sub_top(subname):
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
     else:
