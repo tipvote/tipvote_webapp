@@ -322,7 +322,23 @@
                     </a>
                 </td>
             {% endif %}
-
+            <!--# 31 Mod kicked out a post -->
+        {% elif note.msg_type == 31 %}
+            {% if note.read == 1 %}
+                <td class="col-12">
+                    A mod removed your post from his room.  It was moved to
+                    <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                        /a/general
+                    </a>
+                </td>
+            {% else %}
+                <td class="col-12 border border-dark">
+                    A mod removed your post from his room.  It was moved to
+                    <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
+                        /a/general
+                    </a>
+                </td>
+            {% endif %}
         {% elif note.msg_type == 32 %}
             {% if note.read == 1 %}
                 <td class="col-12">

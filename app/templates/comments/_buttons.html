@@ -60,9 +60,16 @@
                 autocomplete="off",
                 role="submit") }}
         </form>
-
+        <a href="{{ url_for('mod.quickmmovepost',
+                        postid=post.id,
+                        subname=post.subcommon_name) }}"
+              class="d-inline btn btn-warning btn-sm ">
+        Move to /a/general
+        </a>
     {% else %}
     {% endif %}
+
+
 {% endif %}
 
 {% if post.sticky == 1 %}
@@ -73,8 +80,11 @@
         {{ render_field(unstickypostform.submit,
         value="UnSticky Post",
          autocomplete="off",
-         class="btn btn-danger btn-sm ") }}
+         class="btn btn-danger btn-sm text-white") }}
     </form>
+
+
 {% endif %}
+
 
 </div>

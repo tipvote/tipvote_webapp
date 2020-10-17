@@ -776,6 +776,53 @@ def quickmuteuser(subname, postid):
     return redirect((request.args.get('next', request.referrer)))
 
 
+@mod.route('/quick/moveuser/<string:subname>/<int:postid>', methods=['GET'])
+@login_required
+def quickmmovepost(subname, postid):
+
+    thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
+    thepost = db.session.query(CommonsPost).filter(CommonsPost.id == postid).first()
+    theuser = db.session.query(User).filter(thepost.user_id == User.id).first()
+
+    if request.method == 'GET':
+
+        user_status = modcheck(thesub=thesub, theuser=current_user)
+        if user_status == 0:
+            flash("You are not a mod of this sub.", category="danger")
+            return redirect(url_for('subforum.sub', subname=thesub.subcommon_name))
+
+        # move post to general
+        thepost.subcommon_name = 'general'
+        thepost.subcommon_id = 31
+
+        # get comments move those
+        the_post_comments = db.session.query(Comments)\
+            .filter(thepost.id == Comments.commons_post_id)\
+            .all()
+
+        for r in the_post_comments:
+            r.subcommid_id = 31
+            db.session.add(r)
+
+        add_new_notification(user_id=theuser.id,
+                             subid=thesub.id,
+                             subname=thesub.subcommon_name,
+                             postid=thepost.id,
+                             commentid=0,
+                             msg=31
+                             )
+
+        db.session.add(thepost)
+        db.session.commit()
+        flash("Moved post to /a/general", category="success")
+        return redirect((request.args.get('next', request.referrer)))
+
+    else:
+        pass
+
+    return redirect((request.args.get('next', request.referrer)))
+
+
 @mod.route('/quick/bananddelete/<string:subname>/<int:postid>', methods=['POST'])
 @login_required
 def quickbanuserdeletepost(subname, postid):
