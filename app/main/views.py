@@ -1313,25 +1313,25 @@ def welcome():
     usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
     usersubforums = usersubforums.filter(SubForums.id != 1)
     usersubforums = usersubforums.all()
+    if current_user.confirmed == 0:
+        # email stuff
+        password_reset_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        confirm_account_url = url_for(
+            'users.confirm_account_with_token',
+            token=password_reset_serializer.dumps(user.email,
+                                                  salt='password-reset-salt'),
+            _external=True)
 
-    # email stuff
-    password_reset_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    confirm_account_url = url_for(
-        'users.confirm_account_with_token',
-        token=password_reset_serializer.dumps(user.email,
-                                              salt='password-reset-salt'),
-        _external=True)
-
-    # account email
-    accountreg = render_template('users/email/welcome.html',
-                                 user=user.user_name,
-                                 now=datetime.utcnow(),
-                                 password_reset_url=confirm_account_url)
-    try:
-        send_email('Welcome to Tipvote!', [user.email], '', accountreg)
-        # end email stuff
-    except:
-        pass
+        # account email
+        accountreg = render_template('users/email/welcome.html',
+                                     user=user.user_name,
+                                     now=datetime.utcnow(),
+                                     password_reset_url=confirm_account_url)
+        try:
+            send_email('Welcome to Tipvote!', [user.email], '', accountreg)
+            # end email stuff
+        except:
+            pass
 
     return render_template('main/welcome.html',
                            now=datetime.utcnow(),

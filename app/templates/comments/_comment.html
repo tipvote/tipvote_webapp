@@ -106,11 +106,11 @@
 
         <!--- END left side voting -->
         <!--- RIGHT SIDE INFO -->
-        {% if comment.body_clean|length < 20 %}
+        {% if comment.body|length < 20 %}
             <div class="col-6 col-sm-6 col-md-4 third_color rounded m-0 p-1">
-        {% elif 20 <=comment.body_clean|length <= 40 %}
+        {% elif 20 <=comment.body|length <= 40 %}
             <div class="col-7 col-sm-7 col-md-5 third_color rounded m-0 p-1">
-        {% elif 50 <=comment.body_clean|length <= 80 %}
+        {% elif 50 <=comment.body|length <= 80 %}
             <div class="col-8 col-sm-8 col-md-6 third_color rounded m-0 p-1">
         {% else %}
             <div class="col-10 col-sm-10 col-md-8 third_color rounded m-0 p-1">
