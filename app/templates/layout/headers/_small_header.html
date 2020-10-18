@@ -1,38 +1,11 @@
 
 <div class="container-fluid mb-3" >
-    <div class="col-12 ">
-        <a href="{{ url_for('index') }}">
-            <img class="center" src="{{ url_for('static', filename='images/logo2.png')  }}">
-        </a>
-    </div>
-    <div class="row pt-2 pl-0 pr-0 headercolor">
-        <div class="col-12 text-center">
-            <a class="btn btn-dark text-white" href="{{ url_for('index') }}">
-                All
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('frontpage.frontpage_home') }}">
-                Rooms
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('people.people_home') }}">
-                People
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('followers.followers_home') }}">
-                Followers
-            </a>
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                    <button class="btn btn-dark   text-right">
-                        <b> {{ current_user.user_name }}</b>
-                    </button>
-                </a>
-            {% else %}
-
-            {% endif %}
-        </div>
-    </div>
-
-
     <div class="row pt-3 pl-0 pr-0 headercolor">
+        <div class="col-12 mb-2 ">
+            <a href="{{ url_for('index') }}">
+                <img class="mx-auto d-block" src="{{ url_for('static', filename='images/logo.png')  }}">
+            </a>
+        </div>
         <div class="col-12 text-center">
 
             <a class="btn btn-dark" href="{{ url_for('wallet_btc.home') }}">

@@ -285,11 +285,16 @@ def newest():
     now = datetime.utcnow()
     if current_user.is_authenticated:
         # see if user leveled up and has a display to flash
-        seeiflevelup = db.session.query(DisplayCoins).filter(DisplayCoins.user_id == current_user.id).all()
+        seeiflevelup = db.session.query(DisplayCoins)\
+            .filter(DisplayCoins.user_id == current_user.id)\
+            .all()
         if seeiflevelup is not None:
             for levelup in seeiflevelup:
-                flash("You have leveled up to level: " + str(levelup.new_user_level), category='success')
-                flash("Your have recieved 2 new coins", category='success')
+                flash("You have leveled up to level: " +
+                      str(levelup.new_user_level),
+                      category='success')
+                flash("Your have recieved 2 new coins",
+                      category='success')
                 db.session.delete(levelup)
             db.session.commit()
 
@@ -315,6 +320,7 @@ def newest():
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
 
@@ -351,26 +357,6 @@ def newest():
         themsgs = int(sendmsgs) + int(recmsgs)
     else:
         themsgs = 0
-
-    # owned business
-    if current_user.is_authenticated:
-        userbusiness = db.session.query(Business)
-        userbusiness = userbusiness.filter(Business.user_id == current_user.id)
-        userbusinesses = userbusiness.all()
-        userbusinessescount = userbusiness.count()
-    else:
-        userbusinesses = None
-        userbusinessescount = 0
-
-    # business following
-    if current_user.is_authenticated:
-        bizfollowing = db.session.query(BusinessFollowers)
-        bizfollowing = bizfollowing.join(Business, (BusinessFollowers.business_id == Business.id))
-        bizfollowing = bizfollowing.filter(current_user.id == BusinessFollowers.user_id)
-
-        bizfollowing = bizfollowing.all()
-    else:
-        bizfollowing = None
 
     # Trending
     recent_tippers_post = db.session.query(RecentTips)
@@ -413,10 +399,6 @@ def newest():
                            muteuserform=muteuserform,
                            mainpostform=mainpostform,
                            # general
-
-                           userbusinesses=userbusinesses,
-                           userbusinessescount=userbusinessescount,
-                           bizfollowing=bizfollowing,
                            thenotes=thenotes,
                            thenotescount=thenotescount,
                            themsgs=themsgs,

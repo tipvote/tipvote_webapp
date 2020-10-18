@@ -46,36 +46,29 @@ def followers_home():
     Returns index page and most exp posts
     :return:
     """
-
-    subform = SubscribeForm()
-    wall_post_form = MainPostForm(CombinedMultiDict((request.files, request.form)))
-    banuserdeleteform = QuickBanDelete()
-    lockpostform = QuickLock()
-    deletepostform = QuickDelete()
-    muteuserform = QuickMute()
-    voteform = VoteForm()
-
-    subid = 0
-    navlink = 1
-
-    currentbtcprice = db.session.query(BtcPrices).get(1)
-    currentxmrprice = db.session.query(MoneroPrices).get(1)
-    currentbchprice = db.session.query(BchPrices).get(1)
-    currentltcprice = db.session.query(LtcPrices).get(1)
-
     try:
-        # get unread messages
-        if current_user.is_authenticated:
-            thenotes = db.session.query(Notifications)
-            thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-            thenotes = thenotes.order_by(Notifications.timestamp.desc())
-            thenotescount = thenotes.filter(Notifications.read == 0)
-            thenotescount = thenotescount.count()
-            thenotes = thenotes.limit(10)
-        else:
-            thenotes = 0
-            thenotescount = 0
+        subform = SubscribeForm()
+        wall_post_form = MainPostForm(CombinedMultiDict((request.files, request.form)))
+        banuserdeleteform = QuickBanDelete()
+        lockpostform = QuickLock()
+        deletepostform = QuickDelete()
+        muteuserform = QuickMute()
+        voteform = VoteForm()
 
+        subid = 0
+        navlink = 3
+
+        currentbtcprice = db.session.query(BtcPrices).get(1)
+        currentxmrprice = db.session.query(MoneroPrices).get(1)
+        currentbchprice = db.session.query(BchPrices).get(1)
+        currentltcprice = db.session.query(LtcPrices).get(1)
+
+        thenotes = db.session.query(Notifications)
+        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
+        thenotes = thenotes.order_by(Notifications.timestamp.desc())
+        thenotescount = thenotes.filter(Notifications.read == 0)
+        thenotescount = thenotescount.count()
+        thenotes = thenotes.limit(10)
 
         recmsgs = db.session.query(Messages)
         recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -87,7 +80,6 @@ def followers_home():
 
         themsgs = int(sendmsgs) + int(recmsgs)
 
-
         usersubforums = db.session.query(Subscribed)
         usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
         usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
@@ -96,6 +88,7 @@ def followers_home():
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
 
         seeifmodding = db.session.query(Mods)
@@ -135,25 +128,24 @@ def followers_home():
         recent_tippers_post = db.session.query(RecentTips) \
             .order_by(RecentTips.created.desc()) \
             .limit(3)
+
         # Trending subforums
         trending = db.session.query(SubForums) \
             .order_by(SubForums.total_exp_subcommon.desc()) \
             .limit(10)
 
-        if current_user.is_authenticated:
-            if current_user.over_age is False:
-                post_18 = 0
-                allpost = 0
-            else:
-                allpost = 0
-                post_18 = 1
-        else:
+        if current_user.over_age is False:
             post_18 = 0
             allpost = 0
+        else:
+            allpost = 0
+            post_18 = 1
 
         # list of friends ids
         usersublist = []
-        usersubfriends = Followers.query.filter(Followers.follower_id == current_user.id).all()
+        usersubfriends = db.session.query(Followers)\
+            .filter(Followers.follower_id == current_user.id)\
+            .all()
         for userfriend in usersubfriends:
             usersublist.append(userfriend.followed_id)
 
@@ -171,8 +163,9 @@ def followers_home():
             if posts.has_next else None
         prev_url = url_for('followers.followers_home', page=posts.prev_num) \
             if posts.has_prev else None
+
     except Exception as e:
-        flash(str(e))
+        flash("There was an error")
         return redirect(url_for('index'))
 
     return render_template('followers.html',

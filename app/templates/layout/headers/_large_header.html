@@ -1,31 +1,17 @@
 
 <div class="container-fluid">
     <div class="row pt-2 headercolor ">
-        <div class="col-4 col-sm-4 col-md-3 col-lg-2 " >
+
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 " >
             <a href="{{ url_for('index') }}">
                 <img class="pl-2" src="{{ url_for('static', filename='images/logo.png')  }}">
             </a>
         </div>
 
-        <div class="col-3 col-sm-5 col-md-5 col-lg-4 col-xl-3 m-0 p-0" style="overflow: visible">
-            <a class="btn btn-dark text-white" href="{{ url_for('index') }}">
-                All
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('frontpage.frontpage_home') }}">
-                Rooms
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('people.people_home') }}">
-                All People
-            </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('followers.followers_home') }}">
-                Followers
-            </a>
-        </div>
+        <div class="col-md-4 col-lg-4 col-xl-4  ">
+            {% if currentbtcprice %}
+                <div class="row pb-0 mb-0  mx-auto d-block text-center h-100">
 
-        {% if currentbtcprice %}
-            <div class="col-lg-3 col-xl-3  d-block d-md-none d-lg-block   justify-content-end m-0">
-                <div class="row justify-content-end">
-                    <p class="justify-content-end">
                         <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
                         {{ currentbtcprice.price }} &nbsp; | &nbsp;
 
@@ -34,29 +20,16 @@
 
                         <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
                         {{ currentbchprice.price }}
-                    </p>
+
                 </div>
-            </div>
-        {% else %}
-            <div class="col-lg-3 col-xl-3  d-block d-md-none d-lg-block justify-content-end">
-            </div>
+            {% else %}
+            {% endif %}
+        </div>
 
-        {% endif %}
 
-        <div class="col-md-4 col-lg-3 col-xl-4 " style="display: inline">
+        <div class="col-md-4 col-lg-4 col-xl-4 justify-content-end " style="display: inline">
 
             <div class="row justify-content-end ">
-
-
-
-                {% if current_user.is_authenticated %}
-                    <div class="text-center pr-1">
-                        <a class=" btn btn-dark text-white" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                            {{ current_user.user_name }}
-                        </a>
-                    </div>
-                {% endif %}
-
 
                 {% if current_user.is_authenticated %}
                     <div class="pl-1 pr-1 d-none d-xl-block">
@@ -69,7 +42,6 @@
                                     aria-expanded="false">
                                 Wallets <i class="fab fa-btc pr-2"></i>
                             </button>
-
                             <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
                                  aria-labelledby="dropdownMenuLink"
                                  style="width: 300px">
