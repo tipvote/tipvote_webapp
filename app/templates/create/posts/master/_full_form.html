@@ -1,16 +1,6 @@
 
     <div class="col-12 second_color border border-dark p-2 mb-2" >
-        <ul class="nav nav-tabs linkcolor_topbar mb-3">
-            <li class="nav-item w-50">
-                <a class="nav-link btn-tipvote-up text-dark">Post to a Room</a>
-            </li>
-            <li class="nav-item w-50">
-                <a class="nav-link"
-                   href="{{ url_for('profile.main',user_name=current_user.user_name) }}">
-                    Post to your wall
-                </a>
-            </li>
-        </ul>
+
 
         <form method="post"
               action="{{ url_for('create.create_post_room_all',userid=current_user.id) }}"
@@ -53,7 +43,7 @@
             <div class="form-group text-center col-12 mb-0 mt-4 ">
                 <div class="row">
                     <div class="col-12" >
-                        {{ render_field(mainpostform.submit,value="Post", class="btn btn-block btn-tipvote-up w-100") }}
+                        {{ render_field(mainpostform.submit,value="Post", class="btn btn-block btn-dark w-100") }}
                     </div>
                 </div>
             </div>

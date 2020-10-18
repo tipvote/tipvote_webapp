@@ -38,12 +38,6 @@
 
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 ">
                     <div style="max-width: 550px; margin: auto">
-
-                        {% if current_user.is_authenticated %}
-                            {% include 'create/posts/master/_user_post.html' %}
-                        {% else %}
-                            {% include 'create/posts/master/_fake_create_post.html' %}
-                        {% endif %}
                         {% include 'users/profile/profile_widgets/_navtabs.html' %}
                         {% if current_user.is_authenticated %}
                             {% if postcount > 0 %}

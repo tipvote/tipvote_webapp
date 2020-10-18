@@ -29,11 +29,11 @@
                     {% include "flashbar.html" %}
 
                     {% if current_user.is_authenticated %}
-
-                        {% include 'create/posts/master/_people_post.html' %}
+                        {% include 'create/posts/master/_full_form.html' %}
                     {% else %}
                         {% include 'create/posts/master/_fake_create_post.html' %}
                     {% endif %}
+
 
                     {% block content %}
                     {% endblock %}

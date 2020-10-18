@@ -149,6 +149,14 @@ def followers_home():
         for userfriend in usersubfriends:
             usersublist.append(userfriend.followed_id)
 
+        if current_user.is_authenticated:
+            mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)), )
+            mainpostform.roomname.choices = \
+                [(str(row.subscriber.id), str(row.subscriber.subcommon_name)) for row in usersubforums]
+        else:
+            mainpostform = None
+
+
         # POSTS sub queries where user is subbed to list
         # get posts by most exp
         page = request.args.get('page', 1, type=int)
@@ -172,6 +180,7 @@ def followers_home():
                            now=datetime.utcnow(),
                            # forms
                            subform=subform,
+                           mainpostform=mainpostform,
                            voteform=voteform,
                            wall_post_form=wall_post_form,
                            banuserdeleteform=banuserdeleteform,

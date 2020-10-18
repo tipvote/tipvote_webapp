@@ -2,25 +2,23 @@
 <div class="container-fluid">
     <div class="row pt-2 headercolor ">
 
-        <div class="col-4 col-sm-4 col-md-4 col-lg-4 " >
+        <div class="col-4 col-sm-4 col-md-3 col-lg-4 " >
             <a href="{{ url_for('index') }}">
                 <img class="pl-2" src="{{ url_for('static', filename='images/logo.png')  }}">
             </a>
         </div>
 
-        <div class="col-md-4 col-lg-4 col-xl-4  ">
+        <div class="col-md-5 col-lg-4 col-xl-4  ">
             {% if currentbtcprice %}
                 <div class="row pb-0 mb-0  mx-auto d-block text-center h-100">
+                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                    {{ currentbtcprice.price }} &nbsp; | &nbsp;
 
-                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-                        {{ currentbtcprice.price }} &nbsp; | &nbsp;
+                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                    {{ currentxmrprice.price  }} &nbsp; | &nbsp;
 
-                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
-                        {{ currentxmrprice.price  }} &nbsp; | &nbsp;
-
-                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
-                        {{ currentbchprice.price }}
-
+                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
+                    {{ currentbchprice.price }}
                 </div>
             {% else %}
             {% endif %}
