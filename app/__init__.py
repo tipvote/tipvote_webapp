@@ -156,13 +156,8 @@ from .frontpage import views
 
 # followers
 from .followers import followers as followers_blueprint
-app.register_blueprint(followers_blueprint, url_prefix='/followers')
+app.register_blueprint(followers_blueprint, url_prefix='/following')
 from .followers import views
-
-# people
-from .people import people as people_blueprint
-app.register_blueprint(people_blueprint, url_prefix='/people')
-from .people import views
 
 # user
 from .users import users as users_blueprint

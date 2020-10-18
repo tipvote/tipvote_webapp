@@ -1,0 +1,23 @@
+<div class="row linkcolor_topbar mb-3">
+    <div class="col-4">
+        {% if navlink == 1 %}
+            <a class="btn btn-tipvote-up text-dark"  href="{{ url_for('index') }}">Popular</a>
+        {% else %}
+            <a class="btn-ee"  href="{{ url_for('index') }}">Popular</a>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        {% if navlink == 2 %}
+            <a class="btn btn-tipvote-up text-dark" href="{{ url_for('newest') }}">New</a>
+        {% else %}
+            <a class="btn-ee" href="{{ url_for('newest') }}">New</a>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        {% if navlink == 3 %}
+            <a class="btn btn-tipvote-up text-dark"  href="{{ url_for('followers.followers_home') }}">Following</a>
+        {% else %}
+            <a class="btn-ee"  href="{{ url_for('followers.followers_home') }}">Following</a>
+        {% endif %}
+    </div>
+</div>

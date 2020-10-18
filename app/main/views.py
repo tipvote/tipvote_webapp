@@ -285,11 +285,16 @@ def newest():
     now = datetime.utcnow()
     if current_user.is_authenticated:
         # see if user leveled up and has a display to flash
-        seeiflevelup = db.session.query(DisplayCoins).filter(DisplayCoins.user_id == current_user.id).all()
+        seeiflevelup = db.session.query(DisplayCoins)\
+            .filter(DisplayCoins.user_id == current_user.id)\
+            .all()
         if seeiflevelup is not None:
             for levelup in seeiflevelup:
-                flash("You have leveled up to level: " + str(levelup.new_user_level), category='success')
-                flash("Your have recieved 2 new coins", category='success')
+                flash("You have leveled up to level: " +
+                      str(levelup.new_user_level),
+                      category='success')
+                flash("Your have recieved 2 new coins",
+                      category='success')
                 db.session.delete(levelup)
             db.session.commit()
 
@@ -315,6 +320,7 @@ def newest():
                                              SubForums.room_deleted == 0,
                                              SubForums.room_suspended == 0
                                              )
+        usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
 
@@ -352,30 +358,10 @@ def newest():
     else:
         themsgs = 0
 
-    # owned business
-    if current_user.is_authenticated:
-        userbusiness = db.session.query(Business)
-        userbusiness = userbusiness.filter(Business.user_id == current_user.id)
-        userbusinesses = userbusiness.all()
-        userbusinessescount = userbusiness.count()
-    else:
-        userbusinesses = None
-        userbusinessescount = 0
-
-    # business following
-    if current_user.is_authenticated:
-        bizfollowing = db.session.query(BusinessFollowers)
-        bizfollowing = bizfollowing.join(Business, (BusinessFollowers.business_id == Business.id))
-        bizfollowing = bizfollowing.filter(current_user.id == BusinessFollowers.user_id)
-
-        bizfollowing = bizfollowing.all()
-    else:
-        bizfollowing = None
-
     # Trending
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     if current_user.is_authenticated:
@@ -413,10 +399,6 @@ def newest():
                            muteuserform=muteuserform,
                            mainpostform=mainpostform,
                            # general
-
-                           userbusinesses=userbusinesses,
-                           userbusinessescount=userbusinessescount,
-                           bizfollowing=bizfollowing,
                            thenotes=thenotes,
                            thenotescount=thenotescount,
                            themsgs=themsgs,
@@ -430,392 +412,6 @@ def newest():
                            posts=posts.items,
                            next_url=next_url,
                            prev_url=prev_url,
-                           currentbtcprice=currentbtcprice,
-                           currentxmrprice=currentxmrprice,
-                           currentbchprice=currentbchprice,
-                           currentltcprice=currentltcprice,
-                           )
-
-
-@app.route('/active', methods=['GET'])
-def mostactive():
-
-    """
-    Returns index page and hottest posts
-    :return:
-    """
-    subform = SubscribeForm()
-    voteform = VoteForm()
-
-    banuserdeleteform = QuickBanDelete()
-    lockpostform = QuickLock()
-    deletepostform = QuickDelete()
-    muteuserform = QuickMute()
-
-    navlink = 3
-
-    currentbtcprice = BtcPrices.query.get(1)
-    currentxmrprice = MoneroPrices.query.get(1)
-    currentbchprice = BchPrices.query.get(1)
-    currentltcprice = LtcPrices.query.get(1)
-    now = datetime.utcnow()
-    if current_user.is_authenticated:
-        # see if user leveled up and has a display to flash
-        seeiflevelup = db.session.query(DisplayCoins).filter(DisplayCoins.user_id == current_user.id).all()
-        if seeiflevelup is not None:
-            for levelup in seeiflevelup:
-                flash("You have leveled up to level: " + str(levelup.new_user_leve), category='success')
-                flash("Your have recieved 2 new coins", category='success')
-                db.session.delete(levelup)
-            db.session.commit()
-
-    # get unread messages
-    if current_user.is_authenticated:
-        thenotes = db.session.query(Notifications)
-        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.order_by(Notifications.timestamp.desc())
-        thenotescount = thenotes.filter(Notifications.read == 0)
-        thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
-    else:
-        thenotes = 0
-        thenotescount = 0
-
-    if current_user.is_authenticated:
-        recmsgs = db.session.query(Messages)
-        recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
-        recmsgs = recmsgs.count()
-
-        sendmsgs = db.session.query(Messages)
-        sendmsgs = sendmsgs.filter(Messages.sender_user_id == current_user.id, Messages.read_send == 1)
-        sendmsgs = sendmsgs.count()
-
-        themsgs = int(sendmsgs) + int(recmsgs)
-    else:
-        themsgs = 0
-
-    if current_user.is_authenticated:
-        usersubforums = db.session.query(Subscribed)
-        usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
-        usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
-        usersubforums = usersubforums.filter(SubForums.id != 1)
-        usersubforums = usersubforums.filter(SubForums.room_banned == 0,
-                                             SubForums.room_deleted == 0,
-                                             SubForums.room_suspended == 0
-                                             )
-        usersubforums = usersubforums.all()
-        guestsubforums = None
-
-        seeifmodding = db.session.query(Mods)
-        seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
-        seeifmod = seeifmodding.all()
-        moddingcount = seeifmodding.count()
-
-        seeifownering = db.session.query(SubForums)
-        seeifownering = seeifownering.filter(SubForums.creator_user_id == current_user.id)
-        seeifownering = seeifownering.filter(SubForums.room_deleted != 1)
-        seeifowner = seeifownering.all()
-        ownercount = seeifownering.count()
-
-    else:
-        guestsubforums = db.session.query(SubForums)
-        guestsubforums = guestsubforums.filter(SubForums.age_required == 0)
-        guestsubforums = guestsubforums.filter(SubForums.id != 1)
-        guestsubforums = guestsubforums.filter(SubForums.type_of_subcommon == 0)
-        guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
-        guestsubforums = guestsubforums.limit(20)
-        usersubforums = None
-        seeifmod = None
-        moddingcount = None
-        seeifowner = None
-        ownercount = None
-
-    if current_user.is_authenticated:
-        mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)), )
-        mainpostform.roomname.choices = [(str(row.subscriber.id), str(row.subscriber.subcommon_name)) for row in usersubforums]
-    else:
-        mainpostform = None
-
-    if current_user.is_authenticated:
-        if current_user.over_age is False:
-            post_18 = 0
-            allpost = 0
-        else:
-            allpost = 0
-            post_18 = 1
-    else:
-        post_18 = 0
-        allpost = 0
-
-    # owned business
-    if current_user.is_authenticated:
-        userbusiness = db.session.query(Business)
-        userbusiness = userbusiness.filter(Business.user_id == current_user.id)
-        userbusinesses = userbusiness.all()
-        userbusinessescount = userbusiness.count()
-    else:
-        userbusinesses = None
-        userbusinessescount = 0
-
-    # business following
-    if current_user.is_authenticated:
-        bizfollowing = db.session.query(BusinessFollowers)
-        bizfollowing = bizfollowing.join(Business, (BusinessFollowers.business_id == Business.id))
-        bizfollowing = bizfollowing.filter(current_user.id == BusinessFollowers.user_id)
-
-        bizfollowing = bizfollowing.all()
-    else:
-        bizfollowing = None
-
-    # Trending subforums
-    recent_tippers_post = db.session.query(RecentTips)
-    recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
-    recent_tippers_post_count = recent_tippers_post.count()
-
-    # POSTS sub queries
-    # get posts by most exp
-    page = request.args.get('page', 1, type=int)
-    posts = db.session.query(CommonsPost)
-    posts = posts.filter(or_(CommonsPost.age == post_18, CommonsPost.age == allpost))
-    posts = posts.filter(CommonsPost.hidden == 0)
-    posts = posts.order_by(CommonsPost.comment_count.desc())
-
-    posts = posts.paginate(page, app.config['POSTS_PER_PAGE'], False)
-
-    next_url = url_for('mostactive', page=posts.next_num) \
-        if posts.has_next else None
-    prev_url = url_for('mostactive', page=posts.prev_num) \
-        if posts.has_prev else None
-
-    return render_template('index.html',
-                           now=now,
-
-                           # forms
-                           subform=subform,
-                           voteform=voteform,
-                           banuserdeleteform=banuserdeleteform,
-                           lockpostform=lockpostform,
-                           deletepostform=deletepostform,
-                           muteuserform=muteuserform,
-                           thenotes=thenotes,
-                           mainpostform=mainpostform,
-
-                           # general
-                           seeifmod=seeifmod,
-                           thenotescount=thenotescount,
-                           moddingcount=moddingcount,
-                           seeifowner=seeifowner,
-                           ownercount=ownercount,
-                           userbusinesses=userbusinesses,
-                           userbusinessescount=userbusinessescount,
-                           bizfollowing=bizfollowing,
-                           usersubforums=usersubforums,
-                           guestsubforums=guestsubforums,
-                           navlink=navlink,
-                           themsgs=themsgs,
-
-                           # queries/pagination
-                           recent_tippers_post=recent_tippers_post,
-                           recent_tippers_post_count=recent_tippers_post_count,
-                           # pagination
-                           posts=posts.items,
-                           next_url=next_url,
-                           prev_url=prev_url,
-
-                           # prices
-                           currentbtcprice=currentbtcprice,
-                           currentxmrprice=currentxmrprice,
-                           currentbchprice=currentbchprice,
-                           currentltcprice=currentltcprice,
-                           )
-
-
-@app.route('/top', methods=['GET'])
-def top():
-
-    """
-    Returns index page and hottest posts
-    :return:
-    """
-    subform = SubscribeForm()
-    voteform = VoteForm()
-    banuserdeleteform = QuickBanDelete()
-    lockpostform = QuickLock()
-    deletepostform = QuickDelete()
-    muteuserform = QuickMute()
-
-    navlink = 5
-
-    currentbtcprice = BtcPrices.query.get(1)
-    currentxmrprice = MoneroPrices.query.get(1)
-    currentbchprice = BchPrices.query.get(1)
-    currentltcprice = LtcPrices.query.get(1)
-    now = datetime.utcnow()
-
-    # Trending subforums
-    recent_tippers_post = db.session.query(RecentTips)
-    recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(10)
-    recent_tippers_post_count = recent_tippers_post.count()
-
-    if current_user.is_authenticated:
-        # see if user leveled up and has a display to flash
-        seeiflevelup = db.session.query(DisplayCoins).filter(DisplayCoins.user_id == current_user.id).all()
-        if seeiflevelup is not None:
-            for levelup in seeiflevelup:
-                flash("You have leveled up to level: " + str(levelup.new_user_leve), category='success')
-                flash("Your have recieved 2 new coins", category='Success')
-                db.session.delete(levelup)
-            db.session.commit()
-
-    # get unread messages
-    if current_user.is_authenticated:
-        thenotes = db.session.query(Notifications)
-        thenotes = thenotes.filter(Notifications.user_id == current_user.id)
-        thenotes = thenotes.order_by(Notifications.timestamp.desc())
-        thenotescount = thenotes.filter(Notifications.read == 0)
-        thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
-    else:
-        thenotes = 0
-        thenotescount = 0
-
-    if current_user.is_authenticated:
-        recmsgs = db.session.query(Messages)
-        recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
-        recmsgs = recmsgs.count()
-
-        sendmsgs = db.session.query(Messages)
-        sendmsgs = sendmsgs.filter(Messages.sender_user_id == current_user.id, Messages.read_send == 1)
-        sendmsgs = sendmsgs.count()
-
-        themsgs = int(sendmsgs) + int(recmsgs)
-    else:
-        themsgs = 0
-
-    if current_user.is_authenticated:
-        usersubforums = db.session.query(Subscribed)
-        usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
-        usersubforums = usersubforums.filter(current_user.id == Subscribed.user_id)
-        usersubforums = usersubforums.filter(SubForums.id != 1)
-        usersubforums = usersubforums.filter(SubForums.room_banned == 0,
-                                             SubForums.room_deleted == 0,
-                                             SubForums.room_suspended == 0
-                                             )
-        usersubforums = usersubforums.all()
-        guestsubforums = None
-
-        seeifmodding = db.session.query(Mods)
-        seeifmodding = seeifmodding.filter(Mods.user_id == current_user.id)
-        seeifmod = seeifmodding.all()
-        moddingcount = seeifmodding.count()
-
-        seeifownering = db.session.query(SubForums)
-        seeifownering = seeifownering.filter(SubForums.creator_user_id == current_user.id)
-        seeifownering = seeifownering.filter(SubForums.room_deleted != 1)
-        seeifowner = seeifownering.all()
-        ownercount = seeifownering.count()
-
-
-    else:
-        guestsubforums = db.session.query(SubForums)
-        guestsubforums = guestsubforums.filter(SubForums.age_required == 0)
-        guestsubforums = guestsubforums.filter(SubForums.id != 1)
-        guestsubforums = guestsubforums.filter(SubForums.type_of_subcommon == 0)
-        guestsubforums = guestsubforums.order_by(SubForums.total_exp_subcommon.desc())
-        guestsubforums = guestsubforums.limit(20)
-        usersubforums = None
-        seeifmod = None
-        moddingcount = None
-        seeifowner = None
-        ownercount = None
-
-    if current_user.is_authenticated:
-        mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)), )
-        mainpostform.roomname.choices = [(str(row.subscriber.id), str(row.subscriber.subcommon_name)) for row in usersubforums]
-    else:
-        mainpostform = None
-
-    if current_user.is_authenticated:
-        if current_user.over_age is False:
-            post_18 = 0
-            allpost = 0
-        else:
-            allpost = 0
-            post_18 = 1
-    else:
-        post_18 = 0
-        allpost = 0
-
-    # owned business
-    if current_user.is_authenticated:
-        userbusiness = db.session.query(Business)
-        userbusiness = userbusiness.filter(Business.user_id == current_user.id)
-        userbusinesses = userbusiness.all()
-        userbusinessescount = userbusiness.count()
-    else:
-        userbusinesses = None
-        userbusinessescount = 0
-
-    # business following
-    if current_user.is_authenticated:
-        bizfollowing = db.session.query(BusinessFollowers)
-        bizfollowing = bizfollowing.join(Business, (BusinessFollowers.business_id == Business.id))
-        bizfollowing = bizfollowing.filter(current_user.id == BusinessFollowers.user_id)
-
-        bizfollowing = bizfollowing.all()
-    else:
-        bizfollowing = None
-
-    # POSTS sub queries
-    # get posts by most exp
-    page = request.args.get('page', 1, type=int)
-    posts = db.session.query(CommonsPost)
-    posts = posts.filter(or_(CommonsPost.age == post_18, CommonsPost.age == allpost))
-    posts = posts.filter(CommonsPost.hidden == 0)
-    posts = posts.order_by(CommonsPost.highest_exp_reached.desc())
-
-    posts = posts.paginate(page, app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('mostactive', page=posts.next_num) \
-        if posts.has_next else None
-    prev_url = url_for('mostactive', page=posts.prev_num) \
-        if posts.has_prev else None
-
-    return render_template('index.html',
-                           now=now,
-                           # forms
-                           subform=subform,
-                           voteform=voteform,
-                           banuserdeleteform=banuserdeleteform,
-                           lockpostform=lockpostform,
-                           deletepostform=deletepostform,
-                           muteuserform=muteuserform,
-                           mainpostform=mainpostform,
-                           # general
-                           seeifmod=seeifmod,
-                           thenotescount=thenotescount,
-                           moddingcount=moddingcount,
-                           seeifowner=seeifowner,
-                           ownercount=ownercount,
-                           thenotes=thenotes,
-                           userbusinesses=userbusinesses,
-                           userbusinessescount=userbusinessescount,
-                           bizfollowing=bizfollowing,
-                           usersubforums=usersubforums,
-                           guestsubforums=guestsubforums,
-                           navlink=navlink,
-                           themsgs=themsgs,
-
-                           # queries/pagination
-                           recent_tippers_post=recent_tippers_post,
-                           recent_tippers_post_count=recent_tippers_post_count,
-
-                           # pagination
-                           posts=posts.items,
-                           next_url=next_url,
-                           prev_url=prev_url,
-
                            currentbtcprice=currentbtcprice,
                            currentxmrprice=currentxmrprice,
                            currentbchprice=currentbchprice,

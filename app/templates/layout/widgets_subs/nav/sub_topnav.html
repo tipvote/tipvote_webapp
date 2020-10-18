@@ -1,31 +1,21 @@
-<ul class="nav nav-tabs linkcolor_topbar mb-3">
-    <li class="nav-item">
-        {% if navlink == 1 %}
-            <a class="nav-link btn-tipvote-up text-dark"  href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
-        {% else %}
-            <a class="nav-link"  href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
-        {% endif %}
-    </li>
-    <li class="nav-item">
-        {% if navlink == 2 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
-        {% endif %}
-    </li>
-    <li class="nav-item">
-        {% if navlink == 3 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_active', subname=subname) }}">Active</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('subforum.sub_active', subname=subname) }}">Active</a>
-        {% endif %}
-    </li>
 
-    <li class="nav-item">
-        {% if navlink == 5 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('subforum.sub_top', subname=subname) }}">Top</a>
+
+<div class="row linkcolor_topbar mb-3">
+    <div class="col-6">
+
+        {% if navlink == 1 %}
+            <a class="btn btn-tipvote-up text-dark btn-block"  role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
         {% else %}
-            <a class="nav-link" href="{{ url_for('subforum.sub_top', subname=subname) }}">Top</a>
+            <a class="btn btn-dark btn-block" role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
         {% endif %}
-    </li>
-</ul>
+    </div>
+    <div class="col-6">
+
+        {% if navlink == 2 %}
+            <a class="btn btn-tipvote-up text-dark btn-block" role="button" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
+        {% else %}
+            <a class="btn btn-dark btn-block" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
+        {% endif %}
+    </div>
+
+</div>
