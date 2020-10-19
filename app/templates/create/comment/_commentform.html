@@ -1,20 +1,20 @@
 
-    <div class="col-12 text-center second_color">
-        <form method="post"
-              action="{{ url_for('create.createcomment',subname=subname,postid=post.id, parentid=0) }}">
-            {{ form.csrf_token }}
-            <div class="form-group ">
-                Post a reply.
-                <div class="col-12 ">
-                    <!-- Post text -->
-                    {{ render_field(form.postmessage, class="bg-dark text-white", style="width: 100%") }}
-                </div>
+<div class="col-12 text-center second_color">
+    <form method="post"
+          action="{{ url_for('create.createcomment',subname=subname,postid=post.id, parentid=0) }}">
+        {{ form.csrf_token }}
+        <div class="form-group ">
+            Post a reply.
+            <div class="col-12 ">
+                <!-- Post text -->
+                {{ render_field(form.postmessage, class="bg-dark border-dark text-white form-control ", style="width: 100%") }}
             </div>
-            <!-- Submit Post -->
-            <div class="col-12 text-center">
-                <div class="col-12" >
-                    {{ render_field(form.submit,value="Reply",autocomplete="off",class="btn btn-dark") }}
-                </div>
+        </div>
+        <!-- Submit Post -->
+        <div class="col-12 text-center">
+            <div class="col-12" >
+                {{ render_field(form.submit,value="Reply",autocomplete="off",class="btn btn-dark") }}
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>

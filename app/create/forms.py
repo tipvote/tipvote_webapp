@@ -162,6 +162,30 @@ class CreateCommentForm(FlaskForm):
             return True
 
 
+class CreateCommentQuickForm(FlaskForm):
+    """
+    Used for creating a reply to a post
+    """
+
+    postmessage = StringField(validators=[
+        DataRequired(),
+        Length(1, 1000, message='Comments are between 1 and 1000 characters long'),
+
+    ])
+
+    submit = SubmitField()
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+
+    def validate(self):
+
+        rv = FlaskForm.validate(self)
+        if rv is True:
+
+            return True
+
+
 class RoomPostForm(FlaskForm):
     """
     Used for creating an image post

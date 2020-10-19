@@ -411,3 +411,6 @@ code {
     max-width: 600px;
 }
 
+.form-rounded {
+border-radius: 1rem;
+}

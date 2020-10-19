@@ -4,7 +4,9 @@
             <div class="col-12 text-center mb-4 mt-2">
                 {% if current_user.anon_mode == 0 %}
                     <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                        <div class="text-center upgreen"> <h5><b>{{ current_user.user_name }}</b></h5></div>
+                        <div class="text-center linkcolor_normal h5">
+                            {{ current_user.user_name }}
+                        </div>
                     </a>
                 {% else %}
                     <span style="color:#66FF99">
@@ -15,7 +17,8 @@
             <div class="col-12 mb-1 text-center">
                 {% if current_user.anon_mode == 0 %}
                     {% if current_user.profileimage == '' %}
-                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
+                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                             width="100%">
                     {% else %}
                         <img class="profileimage"
                              src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"

@@ -16,9 +16,9 @@ from app.common.decorators import login_required
 
 from app import db, app
 from app.main.forms import ApplyToPrivate, CreateUpdateForm
-from app.subforum.forms import SubscribeForm, JoinRoomForm
+from app.subforum.forms import SubscribeForm
 from app.vote.forms import VoteForm
-from app.create.forms import MainPostForm
+from app.create.forms import MainPostForm, CreateCommentQuickForm
 
 from app.models import \
     Subscribed, \
@@ -64,6 +64,7 @@ def index():
     lockpostform = QuickLock()
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
+    subpostcommentform = CreateCommentQuickForm()
 
     currentbtcprice = BtcPrices.query.get(1)
     currentxmrprice = MoneroPrices.query.get(1)
@@ -220,6 +221,7 @@ def index():
                            now=now,
                            # forms
                            subform=subform,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            mainpostform=mainpostform,
                            banuserdeleteform=banuserdeleteform,

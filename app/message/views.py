@@ -45,10 +45,11 @@ def main():
         theposts = theposts.order_by(Messages.last_message.desc())
         posts = theposts.limit(10)
 
-        themessage = Messages.query
-        themessage = themessage.filter(or_(Messages.sender_user_id == current_user.id, Messages.rec_user_id == current_user.id))
-        themessage = themessage.filter(Messages.sender_user_id == current_user.id)
-        themessage = themessage.order_by(Messages.id.desc())
+        themessage = db.session.query(Messages)
+        themessage = themessage.filter(or_(Messages.sender_user_id == current_user.id,
+                                           Messages.rec_user_id == current_user.id))
+
+        themessage = themessage.order_by(Messages.last_message.desc())
         themessage = themessage.first()
 
         if themessage is None:
@@ -141,7 +142,7 @@ def mark_as_read():
 def view_message(msgid):
     form = ReplyToMsg()
     if request.method == 'GET':
-        themessage = Messages.query.filter(Messages.id == msgid).first_or_404()
+        themessage = db.session.query(Messages).filter(Messages.id == msgid).first_or_404()
 
         if (themessage.rec_user_id == current_user.id) or (themessage.sender_user_id == current_user.id):
             theposts = db.session.query(Messages)
