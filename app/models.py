@@ -9,6 +9,15 @@ import bleach
 from markdown import markdown
 
 
+class Streaming(db.Model):
+    __tablename__ = 'streaming'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
+    online = db.Column(db.Integer)
+
+
 class Updates(db.Model):
     __tablename__ = 'updates'
     __bind_key__ = 'avengers'

@@ -39,7 +39,8 @@ from app.models import \
     Messages,\
     Mods, \
     GiveawayAll, \
-    Updates
+    Updates, \
+    Streaming
 
 from app.mod.forms import \
     QuickBanDelete, \
@@ -56,6 +57,7 @@ def index():
     :return:
     """
     now = datetime.utcnow()
+
     navlink = 1
 
     subform = SubscribeForm()
@@ -217,6 +219,12 @@ def index():
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
 
+    is_stream_live = db.session.query(Streaming).filter(Streaming.id == 1).first()
+    if is_stream_live.online == 1:
+        stream_live = 1
+    else:
+        stream_live = 0
+
     return render_template('index.html',
                            now=now,
                            # forms
@@ -231,6 +239,7 @@ def index():
 
                            # general
                            seeifmod=seeifmod,
+                           stream_live=stream_live,
                            moddingcount=moddingcount,
                            seeifowner=seeifowner,
                            ownercount=ownercount,

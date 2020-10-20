@@ -682,232 +682,237 @@ def createcommentquick(postid):
     # """
     # View / Reply to a post
     # """
-    user0 = json.loads(request.data)
-    user = (user0[1]['value'])
+    payload = json.loads(request.data)
+    postmessage = (payload[1]['value'])
 
-    return json.dumps({'status': 'OK','0': user, '1':user0, '2':postid, '3':current_user.user_name })
+    if request.method == 'POST':
 
-    #
-    # if request.method == 'POST':
-    #
-    #     now = datetime.utcnow()
-    #
-    #     # # TIMERS
-    #     # seeiftimerallowed, timeleft = lastcommont(user_id=current_user.id)
-    #     # # if there is enough time
-    #     # if seeiftimerallowed == 0:
-    #     #     flash("Please wait " + str(timeleft) + " minutes before creating another comment.", category="info")
-    #     #     return redirect((request.args.get('next', request.referrer)))
-    #
-    #     thepost = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
-    #
-    #     getcurrentsub = db.session.query(SubForums) \
-    #         .filter(SubForums.subcommon_name == thepost.subcommon_name) \
-    #         .first()
-    #
-    #     # see if blocked
-    #     isuserblocked = db.session.query(BlockedUser) \
-    #         .filter(BlockedUser.user_id == thepost.user_id,
-    #                 BlockedUser.blocked_user == current_user.id) \
-    #         .first()
-    #
-    #     if isuserblocked:
-    #         return jsonify({
-    #             'result': 'Your are blocked from this room.',
-    #             'commentbody': None,
-    #             'thepostid': None,
-    #         })
-    #     if thepost is None:
-    #         return jsonify({
-    #             'result': 'Post does not exist or has been removed.',
-    #             'commentbody': None,
-    #             'thepostid': None,
-    #         })
-    #     if thepost.hidden == 1:
-    #         return jsonify({
-    #             'result': 'Post has been removed.',
-    #             'commentbody': None,
-    #             'thepostid': thepost.id,
-    #         })
-    #     if thepost.locked == 1:
-    #         return jsonify({
-    #             'result': 'Post has been locked.',
-    #             'commentbody': None,
-    #             'thepostid': thepost.id,
-    #         })
-    #     if getcurrentsub is None:
-    #         return jsonify({
-    #             'result': 'Room not found.',
-    #             'commentbody': None,
-    #             'thepostid': thepost.id,
-    #         })
-    #
-    #     getsubcomment = None
-    #     figured_thread_timestamp = datetime.utcnow()
-    #     figured_thread_upvotes = 0
-    #     figured_thread_downvotes = 0
-    #
-    #     subid = getcurrentsub.id
-    #     subtype = getcurrentsub.type_of_subcommon
-    #
-    #     if subpostcommentform.validate_on_submit():
-    #         # see if banned
-    #         seeifbanned = db.session.query(Banned)
-    #         seeifbanned = seeifbanned.filter(current_user.id == Banned.user_id,
-    #                                          Banned.subcommon_id == subid)
-    #         seeifbanned = seeifbanned.first()
-    #         # if user on banned list turn him away
-    #         if seeifbanned is not None:
-    #             return jsonify({
-    #                 'result': 'You were banned from this room',
-    #                 'commentbody': None,
-    #                 'thepostid': thepost.id,
-    #             })
-    #         # see if muted
-    #         seeifusermuted = db.session.query(Muted)
-    #         seeifusermuted = seeifusermuted.filter(Muted.user_id == current_user.id)
-    #         seeifusermuted = seeifusermuted.filter(Muted.subcommon_id == subid)
-    #         seeifusermuted = seeifusermuted.first()
-    #         if seeifusermuted is not None:
-    #             return jsonify({
-    #                 'result': 'You were muted from this room for 24 hours.',
-    #                 'commentbody': None,
-    #                 'thepostid': thepost.id,
-    #             })
-    #
-    #         # see if private
-    #         if subtype == 1:
-    #             seeifuserinvited = db.session.query(PrivateMembers) \
-    #                 .filter(current_user.id == PrivateMembers.user_id,
-    #                         PrivateMembers.subcommon_id == subid) \
-    #                 .first()
-    #             if seeifuserinvited is None:
-    #                 return jsonify({
-    #                     'result': 'Room is a private community.',
-    #                     'commentbody': None,
-    #                     'thepostid': thepost.id,
-    #                 })
-    #
-    #         if current_user.anon_mode == 0:
-    #             visible_user_id = current_user.id
-    #             visible_user_name = current_user.user_name
-    #             userhidden = 0
-    #         else:
-    #             visible_user_id = 0
-    #             visible_user_name = "Anonymous"
-    #             userhidden = 1
-    #
-    #         uniqueid = id_generator(size=15)
-    #
-    #         # finds the last comment relating to a post
-    #         latest_index_id_post = db.session.query(Comments) \
-    #             .filter(Comments.commons_post_id == thepost.id) \
-    #             .order_by(Comments.id.desc()) \
-    #             .first()
-    #
-    #         # check to see if its first comment
-    #         if latest_index_id_post is None:
-    #             # if first comment id is 0
-    #             new_index_id = 0
-    #         else:
-    #             if latest_index_id_post.index_id is None:
-    #                 # if replying to an old comment below id#1641
-    #                 comment_count_on_post = db.session.query(Comments) \
-    #                     .filter(Comments.commons_post_id == thepost.id) \
-    #                     .order_by(Comments.id.desc()) \
-    #                     .count()
-    #
-    #                 new_index_id = comment_count_on_post
-    #             else:
-    #                 latest_index_id = latest_index_id_post.index_id
-    #                 new_index_id = latest_index_id + 1
-    #
-    #         transformed_text, notifyuser = transform_image_links_markdown(str(subpostcommentform.postmessage.data))
-    #
-    #         create_new_comment = Comments(
-    #             index_id=new_index_id,
-    #             user_id=current_user.id,
-    #             user_name=current_user.user_name,
-    #             subcommon_id=thepost.subcommon_id,
-    #             commons_post_id=thepost.id,
-    #             realid=uniqueid,
-    #             body=transformed_text,
-    #             created=now,
-    #             total_exp_commons=0,
-    #             downvotes_on_comment=0,
-    #             upvotes_on_comment=0,
-    #             total_recieved_btc=0,
-    #             total_recieved_xmr=0,
-    #             total_recieved_bch=0,
-    #             total_recieved_btc_usd=0,
-    #             total_recieved_xmr_usd=0,
-    #             total_recieved_bch_usd=0,
-    #             visible_user_id=visible_user_id,
-    #             visible_user_name=visible_user_name,
-    #             userhidden=userhidden,
-    #             parent=getsubcomment,
-    #             hidden=0,
-    #             active=1,
-    #             thread_timestamp=figured_thread_timestamp,
-    #             thread_upvotes=figured_thread_upvotes,
-    #             thread_downvotes=figured_thread_downvotes,
-    #             deleted=0,
-    #
-    #         )
-    #         create_new_comment.save()
-    #
-    #         # add exp points
-    #         exppoint(user_id=current_user.id, category=2)
-    #
-    #         # add comment count to the post
-    #         currentcommentcount = thepost.comment_count
-    #         newcount = currentcommentcount + 1
-    #         thepost.comment_count = newcount
-    #
-    #         if current_user.anon_mode == 0:
-    #             # add comment count to the user stats
-    #             getuser_stats = db.session.query(UserStats) \
-    #                 .filter_by(user_id=current_user.id) \
-    #                 .first()
-    #             current_user_comments = getuser_stats.total_comments
-    #             getuser_stats.total_comments = current_user_comments + 1
-    #             db.session.add(getuser_stats)
-    #
-    #         # reset users timer
-    #         getuser_timers = db.session.query(UserTimers) \
-    #             .filter_by(user_id=current_user.id) \
-    #             .first()
-    #         getuser_timers.last_comment = now
-    #
-    #         # update post to active
-    #         thepost.last_active = now
-    #         thepost.active = 1
-    #
-    #         if notifyuser is not None:
-    #             # add info
-    #             add_new_notification(user_id=notifyuser.id,
-    #                                  subid=thepost.subcommon_id,
-    #                                  subname=thepost.subcommon_name,
-    #                                  postid=thepost.id,
-    #                                  commentid=0,
-    #                                  msg=32
-    #                                  )
-    #         # if the commenter doesnt equal the poster
-    #         if thepost.user_id != current_user.id:
-    #             # add notification for poster about new comment
-    #             add_new_notification(user_id=thepost.user_id,
-    #                                  subid=thepost.subcommon_id,
-    #                                  subname=thepost.subcommon_name,
-    #                                  postid=thepost.id,
-    #                                  commentid=0,
-    #                                  msg=1,
-    #                                  )
-    #
-    #         # add to db
-    #         db.session.add(thepost)
-    #         db.session.add(getuser_timers)
-    #         db.session.commit()
+        now = datetime.utcnow()
 
+        thepost = db.session.query(CommonsPost)\
+            .filter_by(id=postid)\
+            .first()
+
+        getcurrentsub = db.session.query(SubForums) \
+            .filter(SubForums.subcommon_name == thepost.subcommon_name) \
+            .first()
+
+        # see if blocked
+        isuserblocked = db.session.query(BlockedUser) \
+            .filter(BlockedUser.user_id == thepost.user_id,
+                    BlockedUser.blocked_user == current_user.id) \
+            .first()
+
+        if isuserblocked:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'Your are blocked from this room.',
+                'thepostid': thepost.id,
+            })
+
+        if thepost is None:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'Post does not exist or has been removed.',
+                'thepostid': None,
+            })
+
+        if thepost.hidden == 1:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'Post has been removed.',
+                'thepostid': thepost.id,
+            })
+
+        if thepost.locked == 1:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'Post has been locked.',
+                'thepostid': thepost.id,
+            })
+        if getcurrentsub is None:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'Room not found.',
+                'thepostid': thepost.id,
+            })
+
+        figured_thread_timestamp = datetime.utcnow()
+        figured_thread_upvotes = 0
+        figured_thread_downvotes = 0
+
+        subid = getcurrentsub.id
+        subtype = getcurrentsub.type_of_subcommon
+
+        # see if banned
+        seeifbanned = db.session.query(Banned)
+        seeifbanned = seeifbanned.filter(current_user.id == Banned.user_id,
+                                         Banned.subcommon_id == subid)
+        seeifbanned = seeifbanned.first()
+        # if user on banned list turn him away
+        if seeifbanned is not None:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'You were banned from this room',
+                'thepostid': thepost.id,
+            })
+
+        # see if muted
+        seeifusermuted = db.session.query(Muted)
+        seeifusermuted = seeifusermuted.filter(Muted.user_id == current_user.id)
+        seeifusermuted = seeifusermuted.filter(Muted.subcommon_id == subid)
+        seeifusermuted = seeifusermuted.first()
+
+        if seeifusermuted is not None:
+            return jsonify({
+                'result': 'error',
+                'commentbody': 'You were muted from this room for 24 hours.',
+                'thepostid': thepost.id,
+            })
+
+        # see if private
+        if subtype == 1:
+            seeifuserinvited = db.session.query(PrivateMembers) \
+                .filter(current_user.id == PrivateMembers.user_id,
+                        PrivateMembers.subcommon_id == subid) \
+                .first()
+            if seeifuserinvited is None:
+                return jsonify({
+                    'result': 'error',
+                    'commentbody': 'Room is a private community.',
+                    'thepostid': thepost.id,
+                })
+
+        if current_user.anon_mode == 0:
+            visible_user_id = current_user.id
+            visible_user_name = current_user.user_name
+            userhidden = 0
+        else:
+            visible_user_id = 0
+            visible_user_name = "Anonymous"
+            userhidden = 1
+
+        uniqueid = id_generator(size=15)
+
+        # finds the last comment relating to a post
+        latest_index_id_post = db.session.query(Comments) \
+            .filter(Comments.commons_post_id == thepost.id) \
+            .order_by(Comments.id.desc()) \
+            .first()
+
+        # check to see if its first comment
+        if latest_index_id_post is None:
+            # if first comment id is 0
+            new_index_id = 0
+        else:
+            if latest_index_id_post.index_id is None:
+                # if replying to an old comment below id#1641
+                comment_count_on_post = db.session.query(Comments) \
+                    .filter(Comments.commons_post_id == thepost.id) \
+                    .order_by(Comments.id.desc()) \
+                    .count()
+
+                new_index_id = comment_count_on_post
+            else:
+                latest_index_id = latest_index_id_post.index_id
+                new_index_id = latest_index_id + 1
+
+        transformed_text, notifyuser = \
+            transform_image_links_markdown(str(postmessage))
+
+        create_new_comment = Comments(
+            index_id=new_index_id,
+            user_id=current_user.id,
+            user_name=current_user.user_name,
+            subcommon_id=thepost.subcommon_id,
+            commons_post_id=thepost.id,
+            realid=uniqueid,
+            body=transformed_text,
+            created=now,
+            total_exp_commons=0,
+            downvotes_on_comment=0,
+            upvotes_on_comment=0,
+            total_recieved_btc=0,
+            total_recieved_xmr=0,
+            total_recieved_bch=0,
+            total_recieved_btc_usd=0,
+            total_recieved_xmr_usd=0,
+            total_recieved_bch_usd=0,
+            visible_user_id=visible_user_id,
+            visible_user_name=visible_user_name,
+            userhidden=userhidden,
+            parent=None,
+            hidden=0,
+            active=1,
+            thread_timestamp=figured_thread_timestamp,
+            thread_upvotes=figured_thread_upvotes,
+            thread_downvotes=figured_thread_downvotes,
+            deleted=0,
+        )
+
+        create_new_comment.save()
+
+        # add exp points
+        exppoint(user_id=current_user.id, category=2)
+
+        # add comment count to the post
+        currentcommentcount = thepost.comment_count
+        newcount = currentcommentcount + 1
+        thepost.comment_count = newcount
+
+        if current_user.anon_mode == 0:
+            # add comment count to the user stats
+            getuser_stats = db.session.query(UserStats) \
+                .filter_by(user_id=current_user.id) \
+                .first()
+            current_user_comments = getuser_stats.total_comments
+            getuser_stats.total_comments = current_user_comments + 1
+            db.session.add(getuser_stats)
+
+        # reset users timer
+        getuser_timers = db.session.query(UserTimers) \
+            .filter_by(user_id=current_user.id) \
+            .first()
+        getuser_timers.last_comment = now
+
+        # update post to active
+        thepost.last_active = now
+        thepost.active = 1
+
+        if notifyuser is not None:
+            # add info
+            add_new_notification(user_id=notifyuser.id,
+                                 subid=thepost.subcommon_id,
+                                 subname=thepost.subcommon_name,
+                                 postid=thepost.id,
+                                 commentid=0,
+                                 msg=32
+                                 )
+
+        # if the commenter doesnt equal the poster
+        if thepost.user_id != current_user.id:
+            # add notification for poster about new comment
+            add_new_notification(user_id=thepost.user_id,
+                                 subid=thepost.subcommon_id,
+                                 subname=thepost.subcommon_name,
+                                 postid=thepost.id,
+                                 commentid=0,
+                                 msg=1,
+                                 )
+
+        # add to db
+        db.session.add(thepost)
+        db.session.add(getuser_timers)
+        db.session.commit()
+
+        return jsonify({
+            'result': 'ok',
+            'commentbody': postmessage,
+            'thepostid': thepost.id,
+        })
+
+    else:
+        pass
 
 
 @create.route('/share/text/<int:postid>/', methods=['GET', 'POST'])
