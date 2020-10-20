@@ -11,7 +11,7 @@
             url: "{{ url_for('create.createcommentquick', postid=post.id) }}",
             type: "POST",
             contentType: 'application/json;charset=UTF-8',
-            data: $('#subpostcommentform-{{ post.id }}').serialize() ,
+            data: JSON.stringify($('#subpostcommentform-{{ post.id }}').serializeArray()) ,
             headers: {
                 "X-CSRFToken": csrf_token,
             },

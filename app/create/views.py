@@ -682,10 +682,10 @@ def createcommentquick(postid):
     # """
     # View / Reply to a post
     # """
-    user = request.get_json()
-    form_data_list = json.loads(user)
+    user0 = json.loads(request.data)
+    user = (user0[1]['value'])
 
-    return json.dumps({'status': 'OK','0': user, '1': form_data_list })
+    return json.dumps({'status': 'OK','0': user, '1':user0, '2':postid, '3':current_user.user_name })
 
     #
     # if request.method == 'POST':
