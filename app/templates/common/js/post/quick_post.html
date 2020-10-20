@@ -1,0 +1,42 @@
+
+
+<script >
+    $(document).on('click', '#click-btn-post-comment-{{ post.id }}', function(event)
+        {
+
+        var csrf_token = "{{ csrf_token() }}";
+
+        event.preventDefault();
+        $.ajax({
+            url: "{{ url_for('create.createcommentquick', postid=post.id) }}",
+            type: "POST",
+            contentType: 'application/json;charset=UTF-8',
+            data: $('#subpostcommentform-{{ post.id }}').serialize() ,
+            headers: {
+                "X-CSRFToken": csrf_token,
+            },
+
+
+            success: function(data)
+            {
+                if (data.result == 'success') {
+                    $('div#success_post_' + data.thepostid).append(data.commentbody);
+                    return data;
+                }
+                else
+                {
+                    console.log(data)
+                }
+            },
+
+            error: function()
+            {
+
+            },
+
+        });
+        event.preventDefault();
+    });
+
+
+</script>
