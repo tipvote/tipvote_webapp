@@ -1,0 +1,36 @@
+
+
+<div class="col-12 p-0  mt-2 m-0 border-top border-dark pt-1"
+     id="success_post_show_{{ post.id }}" style="display: none">
+    <div class="d-flex pr-3 pb-3 pt-3">
+        <div class="d-flex pl-3 pr-1 pb-3 pt-3">
+            {% if current_user.profileimage  %}
+                {% if current_user.profileimage == '' %}
+                    <img
+                        src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                        style="width:30px;height: 30px"
+                    >
+                {% else %}
+                    <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        <img
+                            alt="{{ url_for('static', filename='images/noprofile.png')  }}"
+                            class="img-responsive"
+                            src="{{ url_for('common.profile_image',
+                                filename=current_user.profileimage) }}"
+                            style="width:30px;height: 30px">
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="d-flex rounded third_color">
+            <div class="row rounded p-2">
+                <div class="col-12 pb-2">
+                    {{ current_user.user_name }}
+                </div>
+                <div class="col-12" id="success_post_{{ post.id }}">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,6 @@
-
-
 <script >
     $(document).on('click', '#click-btn-post-comment-{{ post.id }}', function(event)
-        {
-
+    {
         var csrf_token = "{{ csrf_token() }}";
 
         event.preventDefault();
@@ -16,16 +13,19 @@
                 "X-CSRFToken": csrf_token,
             },
 
-
             success: function(data)
             {
-                if (data.result == 'success') {
-                    $('div#success_post_' + data.thepostid).append(data.commentbody);
+                if (data.result == 'ok') {
+
+                    $('div#success_post_show_' + data.thepostid).show();
+                    $('div#success_post_' + data.thepostid).append(data.commentbody).show();
+                    $('div#comment_post_form_' + data.thepostid).hide();
                     return data;
                 }
+
                 else
                 {
-                    console.log(data)
+                    console.log(response)
                 }
             },
 
@@ -37,6 +37,4 @@
         });
         event.preventDefault();
     });
-
-
 </script>

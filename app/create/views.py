@@ -908,6 +908,7 @@ def createcommentquick(postid):
         return jsonify({
             'result': 'ok',
             'commentbody': postmessage,
+            'commentid': create_new_comment.id,
             'thepostid': thepost.id,
         })
 

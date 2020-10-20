@@ -56,7 +56,9 @@
                 </div>
             {% endif %}
         {% else %}
-            <p class="text-danger font-weight-bold text-center col-12">Post has been deleted</p>
+            <p class="text-danger font-weight-bold text-center col-12">
+                Post has been deleted
+            </p>
         {% endif %}
     {% else %}
     {% endif %}
@@ -66,4 +68,5 @@
     {% include 'posts/classic/_buttons.html' %}
     {% include 'create/comment/_comment_post_form.html' %}
 
+    {% include 'posts/classic/_post_comment.html' %}
 </div>
