@@ -19,7 +19,8 @@ from sqlalchemy import or_
 # forms
 from app.create.forms import \
     CreateCommentForm, \
-    MainPostForm
+    MainPostForm, \
+    CreateCommentQuickForm
 from app.profile_edit.forms import \
     SaveForm
 from app.vote.forms import VoteForm
@@ -76,6 +77,7 @@ def sub(subname):
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
     nsfwform = NSFWForm()
+    subpostcommentform = CreateCommentQuickForm()
     mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
 
     navlink = 1
@@ -318,6 +320,7 @@ def sub(subname):
                            voteform=voteform,
                            nsfwform=nsfwform,
                            subname=subname,
+                            subpostcommentform=subpostcommentform,
                            thenotescount=thenotescount,
                            subform=subform,
                            subinfobox=subinfobox,
@@ -370,6 +373,7 @@ def sub_newest(subname):
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
     voteform = VoteForm()
+    subpostcommentform = CreateCommentQuickForm()
     mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
 
     navlink = 2
@@ -601,6 +605,7 @@ def sub_newest(subname):
                            mainpostform=mainpostform,
                            subname=subname,
                            subform=subform,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            navlink=navlink,
                            thenotescount=thenotescount,

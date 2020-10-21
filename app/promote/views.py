@@ -24,6 +24,7 @@ from app.promote.forms import \
     CreatePromotePostBch,\
     CreatePromotePostXmr,\
     GiveCoin
+from app.create.forms import CreateCommentQuickForm
 from app.vote.forms import VoteForm
 
 # other directories
@@ -62,7 +63,7 @@ def promotepost(subname, postid):
     form_xmr = CreatePromotePostXmr()
     voteform = VoteForm()
     givecoinform = GiveCoin()
-
+    subpostcommentform = CreateCommentQuickForm()
     # get the sub, post, comment
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
     post = db.session.query(CommonsPost).get(postid)
@@ -87,6 +88,7 @@ def promotepost(subname, postid):
                            form_bch=form_bch,
                            form_xmr=form_xmr,
                            voteform=voteform,
+                           subpostcommentform=subpostcommentform,
                            givecoinform=givecoinform,
                            # specific querues
                            thesub=thesub,

@@ -167,9 +167,9 @@ class CreateCommentQuickForm(FlaskForm):
     Used for creating a reply to a post
     """
 
-    postmessage = StringField(validators=[
+    postmessage = TextAreaField(validators=[
         DataRequired(),
-        Length(1, 1000, message='Comments are between 1 and 1000 characters long'),
+        Length(1, 5000, message='Comments are between 1 and 1000 characters long'),
 
     ])
 

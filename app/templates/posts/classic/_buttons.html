@@ -1,112 +1,131 @@
 <div class="col-12 text-center mt-2 mb-2 border-top border-dark pt-2" style="font-size: 11px">
     <!---large screen-->
-    <div class="d-none d-lg-block">
-        <div class="row ">
-            <div class="col-6 col-sm-6 col-md-3 text-white text-center pt-2 pb-2 btn-ee text-white"
-                 onclick="window.location.href='{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}">
+    <div class="row ">
+        <div class="col-6 col-sm-6 col-md-3 text-white text-center pt-2 pb-2 btn-ee text-white"
+             onclick="window.location.href='{{ url_for('subforum.viewpost',
+             subname=post.subcommon_name,
+              postid = post.id) }}';">
+
+            <a class="btn-ee text-white" style="display: block"
+               href="{{ url_for('subforum.viewpost',subname=post.subcommon_name,postid = post.id) }}">
+                <div class="d-inline" id="comment_count_before_{{ post.id }}">
                     {{ post.comment_count }} comments
-                </a>
-            </div>
+                </div>
 
-            <div class="col-6 col-sm-6 col-md-3 btn-ee pt-2 pb-2 " style="overflow: visible">
-                <div class=" dropdown show">
 
-                    <button class="btn-ee text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Share
-                    </button>
-                    <div class="dropdown-menu btn-ee text-white" aria-labelledby="dropdownMenuButton">
 
-                        <a class="dropdown-item " href="{{ url_for('create.share_post', postid = post.id) }}">
-                            <b>Quick Share </b>
-                        </a>
-                        <a class="dropdown-item " href="{{ url_for('create.share_post_text', postid = post.id) }}">
-                            <b>Write something </b>
-                        </a>
+                <div class="font-weight-bold"
+                     id="comment_count_after_{{ post.id }}"
+                     style="display: none; color: #00ff00; font-size: 14px">
+                     <i class=" fa fa-arrow-up fa-1x" style="color: #00ff00"></i>
+                </div>
+
+            </a>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-3 pt-2 pb-2 btn-ee text-white " data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
+            <button class="btn-ee text-white" type="button" data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
+                Write
+            </button>
+            <!-- Modal -->
+            <style>
+                .modal-header {
+                    background-color: #242425;
+                    color: white;
+                    border: none;
+                    text-align: center;
+                }
+                .modal-body {
+                    background-color: #242425;
+                    color: white;
+                    border: none;
+                }
+                .modal-footer {
+                    background-color: #242425;
+                    color: white;
+                    border: none;
+                }
+                .btn-modal-tipvote {
+                    box-shadow:inset 0px 1px 0px 0px #09468f;
+                    background:linear-gradient(to bottom, #083462 5%, #083462 100%);
+                    background-color:#083462;
+                    border-radius:6px;
+                    border:1px solid #083462;
+                    display:inline-block;
+                    cursor:pointer;
+                    color:#ffffff;
+                    font-family:Arial;
+                    font-size:15px;
+                    font-weight:bold;
+                    padding:6px 24px;
+                    text-decoration:none;
+                    text-shadow:0px 1px 0px #09478a;
+                }
+                .btn-modal-tipvote:hover {
+                    background:linear-gradient(to bottom, #083462 5%, #29629f 100%);
+                    background-color: #002a96;
+                }
+                .btn-modal-tipvote:active {
+                    position:relative;
+                    top:1px;
+                }
+
+            </style>
+            <div class="modal fade  border border-dark" id="WriteModal_{{ post.id }}" tabindex="-1"
+                 role="dialog" aria-labelledby="WriteModalLabel" aria-hidden="true">
+                <div class="modal-dialog  border border-dark" role="document">
+                    <div class="modal-content  border border-dark" style="">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="WriteModalLabel">
+                                Comment on {{ post.user_name }}'s post
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" >
+                            <div class="col-12 pb-3">
+                                {% if post.post_text %}
+                                    {{ post.post_text|truncate(125) }}
+                                {% else %}
+                                {% endif %}
+                            </div>
+                            {% include 'create/comment/_comment_post_form.html' %}
+                        </div>
+
+                        <div class="modal-footer">
+                            <button
+                                    class="btn-modal-tipvote"
+                                    id="click-btn-post-comment-{{ post.id }}"
+                                    value="submit"
+                                    type="button"
+                                    data-dismiss="modal"
+                            >
+                                Post
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-6 col-sm-6 col-md-3 pt-2 pb-2 btn-ee text-white"
-                 onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
-                    Promote
-                </a>
+        <div class="col-6 col-sm-6 col-md-3 pt-2 pb-2 btn-ee text-white"
+             onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
+            <a class="btn-ee text-white" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
+                Promote
+            </a>
 
-                <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
-                     width="20px" height="20px">
-            </div>
+            <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
+                 width="20px" height="20px">
+        </div>
 
-
-
-            <div class="col-6 col-sm-6 col-md-3 text-center text-white pt-2 pb-2 btn-ee"
-                 onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
-                    Tip
-                </a>
-                <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-            </div>
+        <div class="col-6 col-sm-6 col-md-3 text-center text-white pt-2 pb-2 btn-ee"
+             onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
+            <a class="btn-ee text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+                Tip
+            </a>
+            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
         </div>
     </div>
-    <!---Small screen-->
-    <div class="d-lg-none">
-        <div class="row w-100 mt-3 mr-0 ml-0">
-
-            <div class=" btn btn-dark col-5  text-white text-center pt-2 pb-2 btn-ee text-white"
-                 onclick="window.location.href='{{ url_for('profileedit.savepostnoform',postid = post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('profileedit.savepostnoform',postid = post.id) }}">
-                    Save Post
-                </a>
-            </div>
-            <div class="col-2"></div>
-            <div class=" btn btn-dark col-5 btn-ee pt-2 pb-2 " style="overflow: visible">
-                <div class=" dropdown show">
-
-                    <button class="btn-ee text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Share
-                    </button>
-                    <div class="dropdown-menu btn-ee text-white" aria-labelledby="dropdownMenuButton">
-
-                        <a class="dropdown-item " href="{{ url_for('create.share_post', postid = post.id) }}">
-                            <b>Quick Share </b>
-                        </a>
-                        <a class="dropdown-item " href="{{ url_for('create.share_post_text', postid = post.id) }}">
-                            <b>Write something </b>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row w-100 mt-3 mr-0 ml-0">
-
-            <div class=" btn btn-dark col-5 pt-2 pb-2 btn-ee text-white"
-                 onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
-                    Promote
-                </a>
-                <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
-                     width="20px" height="20px">
-            </div>
-
-            <div class="col-2"></div>
-
-            <div class=" btn btn-dark col-5  text-center text-white pt-2 pb-2 btn-ee"
-                 onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
-                    Tip
-                </a>
-                <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-            </div>
-        </div>
-        <div class="row w-100 mt-3 mr-0 ml-0">
-            <div class=" btn btn-dark col-12  text-white text-center pt-2 pb-2 btn-ee text-white"
-                 onclick="window.location.href='{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}';">
-                <a class="btn-ee text-white" href="{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }}">
-                    Comment on Post     ({{ post.comment_count }} comments)
-                </a>
-            </div>
-        </div>
-    </div>
-
 
 </div>

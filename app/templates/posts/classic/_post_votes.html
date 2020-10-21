@@ -7,6 +7,7 @@
           action="{{ url_for('vote.upvote_post', postid=post.id) }}">
         {{ voteform.csrf_token }}
 
+
         <button
             class="btn btn-upvote"
             id="click-btn-upvote-post-{{ post.id }}"
@@ -17,6 +18,8 @@
              filename='images/arrows/uparrow.png')  }}"
                  width="20px" height="20px">
         </button>
+
+
     </form>
 </div>
 

@@ -12,7 +12,7 @@ from app.followers import followers
 from sqlalchemy import or_
 from app.vote.forms import VoteForm
 from app.subforum.forms import SubscribeForm
-from app.create.forms import MainPostForm
+from app.create.forms import MainPostForm, CreateCommentQuickForm
 from app.models import \
     BtcPostTips, \
     RecentTips, \
@@ -54,6 +54,7 @@ def followers_home():
         deletepostform = QuickDelete()
         muteuserform = QuickMute()
         voteform = VoteForm()
+        subpostcommentform = CreateCommentQuickForm()
 
         subid = 0
         navlink = 3
@@ -180,6 +181,7 @@ def followers_home():
                            now=datetime.utcnow(),
                            # forms
                            subform=subform,
+                           subpostcommentform=subpostcommentform,
                            mainpostform=mainpostform,
                            voteform=voteform,
                            wall_post_form=wall_post_form,
@@ -232,6 +234,7 @@ def followers_newest():
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
     voteform = VoteForm()
+    subpostcommentform = CreateCommentQuickForm()
 
     subid = 0
     navlink = 2
@@ -337,6 +340,7 @@ def followers_newest():
                            currentltcprice=currentltcprice,
                            # form
                            wall_post_form=wall_post_form,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            subform=subform,
                            banuserdeleteform=banuserdeleteform,

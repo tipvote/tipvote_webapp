@@ -1,7 +1,7 @@
 {% if subpostcommentform %}
 
 
-    <div class="col-12  p-0 m-0 border-top border-dark pt-1" id="comment_post_form_{{ post.id }}">
+    <div class="col-12  p-0 m-0  pt-1" id="comment_post_form_{{ post.id }}">
         {% include 'common/js/post/quick_post.html' %}
         <form class="p-0 m-0" method="POST"
               action="{{ url_for('create.createcommentquick',postid=post.id) }}"
@@ -9,12 +9,12 @@
                >
              {{ subpostcommentform.csrf_token }}
             <div class="form-group row w-100 p-0 m-0 ">
-                <div class="col-1 p-0 m-0">
+                <div class="col-2 p-0 m-0">
                     {% if current_user.profileimage  %}
                         {% if current_user.profileimage == '' %}
                             <img
                                 src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                style="width:30px;height: 30px"
+                                style="width:50px;height: 50px"
                             >
                         {% else %}
                             <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
@@ -23,29 +23,17 @@
                                     class="img-responsive"
                                     src="{{ url_for('common.profile_image',
                                     filename=current_user.profileimage) }}"
-                                    style="width:30px;height: 30px">
+                                    style="width:50px;height: 50px">
                             </a>
                         {% endif %}
                     {% endif %}
                 </div>
-
+                <div class="col-1"></div>
                 <div class="col-9 p-0 m-0">
                     <!-- Post text -->
                     {{ render_field(subpostcommentform.postmessage,
                     class="bg-dark text-white form-control",
                     id="postmessage-{{ post.id }}") }}
-                </div>
-
-                <!-- Submit Post -->
-                <div class="col-2 pl-1 m-0">
-                   <button
-                        class="btn btn-dark"
-                        id="click-btn-post-comment-{{ post.id }}"
-                        value="submit"
-                        type="button"
-                >
-                       submit
-                   </button>
                 </div>
             </div>
         </form>

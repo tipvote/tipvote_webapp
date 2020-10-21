@@ -19,7 +19,7 @@ from app.common.functions import floating_decimals
 from app.common.exp_calc import exppoint
 from app.message.add_notification import add_new_notification
 from app.common.validation import btcamount
-
+from app.create.forms import CreateCommentQuickForm
 # relative directory
 from app.tip import tip
 from app.tip.forms import \
@@ -73,7 +73,7 @@ def create_tip_comment(subname, postid, commentid):
     form_btc = CreateTipBTC()
     form_bch = CreateTipBCH()
     form_xmr = CreateTipXMR()
-
+    subpostcommentform = CreateCommentQuickForm()
     # get the sub, post, comment
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
     thepost = db.session.query(CommonsPost).get(postid)
@@ -94,6 +94,7 @@ def create_tip_comment(subname, postid, commentid):
     return render_template('tips/tip_comment/tip_comment.html',
                            # forms
                            form_btc=form_btc,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            form_bch=form_bch,
                            form_xmr=form_xmr,
@@ -110,6 +111,7 @@ def create_tip_post(subname, postid):
     form_btc = CreateTipBTC()
     form_bch = CreateTipBCH()
     form_xmr = CreateTipXMR()
+    subpostcommentform = CreateCommentQuickForm()
     voteform = VoteForm()
     # get the sub, post
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
@@ -128,13 +130,13 @@ def create_tip_post(subname, postid):
     return render_template('tips/tip_post/tip_post.html',
                            # forms
                            form_btc=form_btc,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            form_bch=form_bch,
                            form_xmr=form_xmr,
                            # specific querues
                            thesub=thesub,
                            post=post,
-
                            )
 
 

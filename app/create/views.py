@@ -910,6 +910,7 @@ def createcommentquick(postid):
             'commentbody': postmessage,
             'commentid': create_new_comment.id,
             'thepostid': thepost.id,
+            'commentcount': newcount
         })
 
     else:

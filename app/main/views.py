@@ -286,7 +286,7 @@ def newest():
     lockpostform = QuickLock()
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
-
+    subpostcommentform = CreateCommentQuickForm()
     navlink = 2
 
     currentbtcprice = BtcPrices.query.get(1)
@@ -411,6 +411,7 @@ def newest():
                            mainpostform=mainpostform,
                            # general
                            thenotes=thenotes,
+                           subpostcommentform=subpostcommentform,
                            thenotescount=thenotescount,
                            themsgs=themsgs,
                            usersubforums=usersubforums,

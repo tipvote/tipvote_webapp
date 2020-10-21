@@ -13,16 +13,18 @@
                 "X-CSRFToken": csrf_token,
             },
 
+
             success: function(data)
+
+
             {
                 if (data.result == 'ok') {
+                    $('div#comment_count_before_' + data.thepostid).remove();
 
-                    $('div#success_post_show_' + data.thepostid).show();
-                    $('div#success_post_' + data.thepostid).append(data.commentbody).show();
-                    $('div#comment_post_form_' + data.thepostid).hide();
+                    $('div#comment_count_after_' + data.thepostid).append(data.commentcount).show();
+
                     return data;
                 }
-
                 else
                 {
                     console.log(response)
