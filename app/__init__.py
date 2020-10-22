@@ -88,6 +88,7 @@ def before_request():
 from .common import filters, filters_btc, filters_xmr, filters_comments
 
 # main
+app.jinja_env.filters['seeifvoted'] = filters_comments.seeifvoted
 app.jinja_env.filters['user_name'] = filters.getuser_name
 app.jinja_env.filters['profilepicture'] = filters.profilepicture
 app.jinja_env.filters['currentxmrprice'] = filters.currentxmrprice
