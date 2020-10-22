@@ -2,26 +2,172 @@
 {% include 'common/js/vote/upvote_post.html' %}
 {% include 'common/js/vote/downvote_post.html' %}
 
-<div class="col-12 text-center" style="max-height: 30px">
-    <form method="post"
-          action="{{ url_for('vote.upvote_post', postid=post.id) }}">
-        {{ voteform.csrf_token }}
+<style>
+    .btn-downvote,
+    .btn-downvote:active,
+    .btn-downvote:visited,
+    .btn-downvote:focus {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #D50000;
+        text-decoration: none;
+    }
+    .btn-downvote:hover {
+        background-color: #D50000;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #D50000;
+        text-decoration: none;
+    }
+    .btn-upvote,
+    .btn-upvote:active,
+    .btn-upvote:visited,
+    .btn-upvote:focus {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #00FD2B;
+        text-decoration: none;
+    }
+    .btn-upvote:hover {
+        background-color: #00FD2B;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #00FD2B;
+        text-decoration: none;
+    }
+    .btn-downvote-voted {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #D50000;
+        text-decoration: none;
+    }
+    .btn-downvote-negative {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #D50000;
+        text-decoration: none;
+    }
+    .btn-upvote-voted {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #00FD2B;
+        text-decoration: none;
+    }
+    .btn-upvote-negative {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        color: #00FD2B;
+        text-decoration: none;
+    }
 
+</style>
+{% set seeifvoted = post.id|seeifvoted %}
+<!--- if user voted up-->
+{% if seeifvoted == 1 %}
 
+    <div class="col-12 text-center"
+         style="max-height: 30px"
+         id="click-btn-upvote-post-{{ post.id }}"
+    >
         <button
-            class="btn btn-upvote"
-            id="click-btn-upvote-post-{{ post.id }}"
-            value="{{ post.id }}"
-            type="button"
-        >
+                class="btn btn-upvote-voted "
+                id="click-btn-upvote-post-{{ post.id }}"
+                value="{{ post.id }}"
+                type="button" >
             <img alt='' src="{{ url_for('static',
-             filename='images/arrows/uparrow.png')  }}"
+                     filename='images/arrows/uparrow_green.png')  }}"
                  width="20px" height="20px">
         </button>
+    </div>
+
+{% elif seeifvoted == 2 %}
+
+    <div class="col-12 text-center" style="max-height: 30px">
+        <button
+                class="btn btn-upvote-negative disabled"
+                id="click-btn-upvote-post-{{ post.id }}"
+                value="{{ post.id }}"
+                type="button" >
+            <img alt='' src="{{ url_for('static',
+                     filename='images/arrows/uparrow.png')  }}"
+                 width="20px" height="20px">
+        </button>
+    </div>
+{% else %}
+
+    <!--- if user voted up-->
+    <div class="col-12 text-center"
+         style="max-height: 30px"
+         id="upvote-post-before-{{ post.id }}">
+        <form method="post"
+              action="{{ url_for('vote.upvote_post', postid=post.id) }}">
+            {{ voteform.csrf_token }}
+            <button
+                    class="btn btn-upvote"
+                    id="click-btn-upvote-post-{{ post.id }}"
+                    value="{{ post.id }}"
+                    type="button"
+            >
+                <img alt='' src="{{ url_for('static',
+             filename='images/arrows/uparrow.png')  }}"
+                     width="20px" height="20px">
+            </button>
+        </form>
+    </div>
 
 
-    </form>
-</div>
+
+    <div class="col-12 text-center"
+         style="max-height: 30px; display: none"
+         id="upvote-post-after-{{ post.id }}">
+        <button
+                class="btn btn-upvote-voted "
+
+                value="{{ post.id }}"
+                type="button" >
+            <img alt='' src="{{ url_for('static',
+                     filename='images/arrows/uparrow_green.png')  }}"
+                 width="20px" height="20px">
+        </button>
+    </div>
+
+{% endif %}
+
+
+
+
+
+
 
 <div class="col-12 mb-0 text-center">
     <div class="row">
@@ -37,19 +183,71 @@
     </div>
 </div>
 
-<div class="col-12  text-center" style="max-height: 30px">
-    <form method="post" action="{{ url_for('vote.downvote_post', postid=post.id) }}">
-        {{ voteform.csrf_token }}
 
+
+
+
+
+
+
+{% if seeifvoted == 1 %}
+    <div class="col-12  text-center" style="max-height: 30px">
         <button
-            class="btn btn-downvote"
-            id="click-btn-downvote-post-{{ post.id }}"
-            value="{{ post.id }}"
-            type="button"
+                class="btn btn-downvote-negative disabled"
+                id="click-btn-downvote-post-{{ post.id }}"
+                value="{{ post.id }}"
+                type="button"
         >
-
             <img alt='' src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
                  width="20px" height="20px">
         </button>
-    </form>
-</div>
+    </div>
+
+{% elif seeifvoted == 2 %}
+
+    <div class="col-12  text-center" style="max-height: 30px">
+        <button
+                class="btn btn-downvote-voted "
+                id="click-btn-downvote-post-{{ post.id }}"
+                value="{{ post.id }}"
+                type="button"
+        >
+            <img alt='' src="{{ url_for('static', filename='images/arrows/downarrow_red.png')  }}"
+                 width="20px" height="20px">
+        </button>
+    </div>
+
+{% else %}
+
+    <div class="col-12  text-center"
+         style="max-height: 30px"
+         id="downvote-post-before-{{ post.id }}">
+        <form method="post" action="{{ url_for('vote.downvote_post', postid=post.id) }}">
+            {{ voteform.csrf_token }}
+            <button
+                    class="btn btn-downvote "
+                    id="click-btn-downvote-post-{{ post.id }}"
+                    value="{{ post.id }}"
+                    type="button"
+            >
+                <img alt='' src="{{ url_for('static', filename='images/arrows/downarrow.png')  }}"
+                     width="20px" height="20px">
+            </button>
+        </form>
+    </div>
+
+    <div class="col-12 text-center"
+         style="max-height: 30px; display: none"
+         id="downvote-post-after-{{ post.id }}">
+        <button
+                class="btn btn-downvote "
+                id="click-btn-downvote-post-{{ post.id }}"
+                value="{{ post.id }}"
+                type="button">
+            <img alt='' src="{{ url_for('static',
+            filename='images/arrows/downarrow_red.png')  }}"
+                 width="20px" height="20px">
+        </button>
+    </div>
+
+{% endif %}

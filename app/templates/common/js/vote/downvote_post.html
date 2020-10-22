@@ -22,6 +22,8 @@
                     $('div#number_before_' + data.thepostid).remove();
                     $('div#number_after_down_' + data.thepostid).append(data.newnumber);
 
+                    $('div#downvote-post-before-' + data.thepostid).remove();
+                    $('div#downvote-post-after-' + data.thepostid).show();
                     return data;
                 }
 

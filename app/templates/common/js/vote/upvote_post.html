@@ -20,7 +20,12 @@
                 if (data.result == 'Upvoted!') {
                     $('div#number_before_' + data.thepostid).remove();
                     $('div#number_after_up_' + data.thepostid).append(data.newnumber);
+
+                    $('div#upvote-post-before-' + data.thepostid).remove();
+                    $('div#upvote-post-after-' + data.thepostid).show();
+
                     return data;
+
                 }
                 else
                 {
