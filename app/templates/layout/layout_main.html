@@ -13,7 +13,7 @@
             <!-- Left Side -->
             <div class="col-3 main_color">
                 {% include 'layout/profile/main_profile.html' %}
-                {% include 'layout/widgets/_wallets.html' %}
+
                 {% if current_user.is_authenticated %}
                     {% include 'layout/widgets/_categoryside.html' %}
                 {% endif %}

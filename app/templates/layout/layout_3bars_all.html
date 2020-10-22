@@ -16,14 +16,7 @@
             <!-- Left Side -->
             <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
                 {% include 'layout/profile/main_profile.html' %}
-                {% include 'layout/widgets/_wallets.html' %}
-                {% if current_user.is_authenticated %}
 
-
-                    {% include 'layout/widgets/subscriptions.html' %}
-                {% else %}
-                    {% include 'layout/widgets/subscriptions_guest.html' %}
-                {% endif %}
             </div>
 
             <!-- Middle -->
@@ -37,7 +30,7 @@
                     {% else %}
                         {% include 'create/posts/master/_fake_create_post.html' %}
                     {% endif %}
-                    {% include 'learn/_coins_learn_main_wall.html' %}
+
                     {% include 'layout/widgets/_livestream.html' %}
                     {% block content %}
                     {% endblock %}

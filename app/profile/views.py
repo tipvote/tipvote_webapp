@@ -9,7 +9,7 @@ from werkzeug.datastructures import CombinedMultiDict
 from app.common.decorators import login_required
 
 from app.profile.forms import FriendForm
-from app.create.forms import MainPostForm
+from app.create.forms import MainPostForm, CreateCommentQuickForm
 from app.edit.forms import DeletePostTextForm
 from app.profile import profile
 from app.vote.forms import VoteForm
@@ -39,7 +39,7 @@ def main(user_name):
     lockpostform = QuickLock()
     deletepostform = QuickDelete()
     muteuserform = QuickMute()
-
+    subpostcommentform = CreateCommentQuickForm()
     navlink = 1
     wall_post_form = MainPostForm(CombinedMultiDict((request.files, request.form)))
     if user_name == 'Tipvote_Bot':
@@ -103,6 +103,7 @@ def main(user_name):
                            seeifmod=seeifmod,
                            postcount=postcount,
                            moddingcount=moddingcount,
+                           subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            ownercount=ownercount,
                            usersubforums=usersubforums,
@@ -137,7 +138,7 @@ def profile_other_posts_all(user_name):
     muteuserform = QuickMute()
     navlink = 2
     wall_post_form = MainPostForm(CombinedMultiDict((request.files, request.form)))
-
+    subpostcommentform = CreateCommentQuickForm()
     theuser = db.session.query(User).filter(User.user_name == user_name).first()
     if theuser is None:
         flash('User does not exist', category='warning')
@@ -191,6 +192,7 @@ def profile_other_posts_all(user_name):
                            wall_post_form=wall_post_form,
                            postcount=postcount,
                            voteform=voteform,
+                           subpostcommentform=subpostcommentform,
                            usersubforums=usersubforums,
                            seeifmod=seeifmod,
                            ownercount=ownercount,

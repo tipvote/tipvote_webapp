@@ -80,19 +80,6 @@
             </div>
             <hr>
 
-            <div class="col-12 mb-1 text-center" style="font-size: 11px;">
-                <b>
-                    {% if themsgs %}
-                        {% if themsgs == 0 %}
-                            <a class="btn btn-dark text-white w-100" href="{{ url_for('message.main') }}">Messenger</a>
-                        {% else %}
-                            <a class="btn btn-warning text-white w-100" href="{{ url_for('message.main') }}">Messenger &nbsp;&nbsp;({{ themsgs }})</a>
-                        {% endif %}
-                    {% else %}
-                        <a class="btn btn-dark text-white w-100" href="{{ url_for('message.main') }}">Messenger</a>
-                    {% endif %}
-                </b>
-            </div>
 
         {% else %}
             <div class="col-12 text-center">

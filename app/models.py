@@ -431,10 +431,11 @@ class PostUpvotes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     post_id = db.Column(db.Integer)
+    vote_up = db.Column(db.Integer)
+    vote_down = db.Column(db.Integer)
 
 
 # List of user ids and commentupvotes
-# used so no double upvoting
 class CommentsUpvotes(db.Model):
     __tablename__ = 'avengers_comments_upvotes'
     __bind_key__ = 'avengers'

@@ -1,36 +1,106 @@
+<style>
+    .sticky-top {
+        position: -webkit-sticky; /* Safari */
+        position: fixed;
+        top: 0;
+        width: 100%;
 
-<div class="container-fluid">
-    <div class="row pt-2 headercolor ">
+    }
+    .dropdown-height {
+        height:450px;
+        overflow-y: scroll;
+    }
+</style>
+<div class="container-fluid " style="margin-bottom: 65px">
 
-        <div class="col-4 col-sm-4 col-md-3 col-lg-4 " >
+    <div class="row pt-2 headercolor  sticky-top">
+
+        <div class="col-md-2 col-lg-2 col-xl-2" >
             <a href="{{ url_for('index') }}">
-                <img class="pl-2" src="{{ url_for('static', filename='images/logo.png')  }}">
+                <img class="pl-2 w-100" src="{{ url_for('static', filename='images/logo.png')  }}" style="max-width: 130px">
             </a>
         </div>
 
-        <div class="col-md-5 col-lg-4 col-xl-4  ">
-            {% if currentbtcprice %}
-                <div class="row pb-0 mb-0  mx-auto d-block text-center h-100">
-                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-                    {{ currentbtcprice.price }} &nbsp; | &nbsp;
+        {% if current_user.is_authenticated %}
+            <div class="col-md-2 col-xl-2 ">
 
-                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
-                    {{ currentxmrprice.price  }} &nbsp; | &nbsp;
+                <div class="dropdown d-inline" >
+                    <button class="btn btn-dark dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="false"
+                            aria-expanded="false">
+                        My Rooms
+                    </button>
 
-                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
-                    {{ currentbchprice.price }}
+
+                    <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
+                         style="width: 300px">
+                        <div class="col-12 second_color m-0">
+                            <div class="row ">
+                                <div class="col-7 offset-3  pt-3 pb-3">
+                                    <a class=" mt-3 mb-3 linkcolor" href="{{ url_for('discoversubs') }}">
+                                        Discover New Rooms
+                                    </a>
+                                </div>
+                                {% for subs in usersubforums %}
+                                    {% if subs %}
+                                        <a class="col-12 text-white font-weight-bold btn-ee mb-3"
+                                           href="{{ url_for('subforum.sub',subname=subs.subscriber.subcommon_name) }}">
+                                            {% if subs.subscriber.mini_image == '' %}
+                                                <div class="row btn-ee text-white pt-2 pb-2">
+                                                    <div class="col-3">
+                                                        <span class="dot" style="background-color: #1e90ff;"></span>
+                                                    </div>
+                                                    <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                                        {{ subs.subscriber.subcommon_name }}
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row btn-ee text-white pt-2 pb-2 ">
+                                                    <div class="col-3">
+                                                        <img class="rndimg"
+                                                             src="{{ url_for('common.banner_image',
+                                                 filename=subs.subscriber.mini_image) }}"
+                                                             width="20px">
+                                                    </div>
+                                                    <div class="col-9 pl-0 ">
+                                                        {{ subs.subscriber.subcommon_name }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            {% else %}
-            {% endif %}
-        </div>
+            </div>
 
 
-        <div class="col-md-4 col-lg-4 col-xl-4 justify-content-end " style="display: inline">
+            <div class="col-md-5 col-lg-4 col-xl-4 pr-0 pl-0">
+                {% if currentbtcprice %}
+                    <div class="row pb-0 mb-0 pr-0 pl-0 mx-auto d-block text-center h-100">
+                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                        {{ currentbtcprice.price }} &nbsp; | &nbsp;
 
-            <div class="row justify-content-end ">
+                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                        {{ currentxmrprice.price  }} &nbsp; | &nbsp;
 
-                {% if current_user.is_authenticated %}
-                    <div class="pl-1 pr-1 d-none d-xl-block">
+                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
+                        {{ currentbchprice.price }}
+                    </div>
+                {% else %}
+                {% endif %}
+            </div>
+
+
+            <div class="col-md-3 col-lg-4 col-xl-4 justify-content-end pl-0 pr-0" style="display: inline">
+                <div class="row justify-content-end pl-0 pr-0">
+
+                    <div class="pl-1 pr-1 ">
                         <div class="dropdown ">
                             <button class="btn btn-dark  dropdown-toggle justify-content-center pl-2"
                                     type="button"
@@ -38,7 +108,7 @@
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false">
-                                Wallets <i class="fab fa-btc pr-2"></i>
+                                <i class="fab fa-btc pr-2"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
                                  aria-labelledby="dropdownMenuLink"
@@ -78,10 +148,20 @@
                             </div>
                         </div>
                     </div>
-                {% endif %}
 
-                <div class="dropdown d-inline pl-1 pr-1">
-                    {% if current_user.is_authenticated %}
+
+                    {% if themsgs %}
+                        {% if themsgs == 0 %}
+                            <a class="btn btn-dark text-white" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
+                        {% else %}
+                            <a class="btn btn-warning text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                        {% endif %}
+                    {% else %}
+                        <a class="btn btn-dark text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                    {% endif %}
+
+                    <div class="dropdown d-inline pl-1 pr-1">
+
                         {% if thenotescount %}
                             {% if thenotescount > 0 %}
                                 <button class="btn dropdown-toggle btn-danger pl-2"
@@ -113,6 +193,7 @@
                                 <i class="fa fa-bell fa-1x pr-2 "></i>
                             </button>
                         {% endif %}
+
                         <div class="dropdown-menu dropdown-menu-right second_color dropdown-content bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
                              aria-labelledby="dropdownMenuButton"
                              style="width: 400px">
@@ -134,12 +215,10 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        </div>
-                    {% else %}
-                    {% endif %}
+                    </div>
 
-                {% if current_user.is_authenticated %}
-                    <div class="dropdown pl-1 pr-1">
+
+                    <div class="dropdown  pr-2">
                         <button class="btn btn-dark dropdown-toggle "
                                 type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown"
@@ -157,11 +236,7 @@
                                             View Profile
                                         </div>
                                     </a>
-                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
-                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                            My Rooms
-                                        </div>
-                                    </a>
+
                                     <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
                                         <div class="col-12 pt-2 pb-2 btn-ee text-white ">
                                             Account
@@ -210,17 +285,10 @@
                             </div>
                         </div>
                     </div>
-                {% else %}
-                    <div class="text-center pl-1 pr-1">
-                        <a class="btn btn-tipvote-up" href="{{ url_for('users.login') }}" role="button">
-                            Login
-                        </a>
-                        <a class="btn btn-tipvote-up" href="{{ url_for('users.register') }}" role="button">
-                            Register
-                        </a>
-                    </div>
-                {% endif %}
+
+                </div>
             </div>
-        </div>
+        {% else %}
+        {% endif %}
     </div>
 </div>
