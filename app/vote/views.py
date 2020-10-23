@@ -513,6 +513,9 @@ def upvote_post(postid):
             create_new_vote = PostUpvotes(
                 user_id=current_user.id,
                 post_id=getpost.id,
+                vote_up=1,
+                vote_down=0
+
             )
             # see if user already voted or not
             seeifvoted = db.session.query(PostUpvotes) \
@@ -667,6 +670,8 @@ def downvote_post(postid):
             create_new_vote = PostUpvotes(
                 user_id=current_user.id,
                 post_id=getpost.id,
+                vote_up=0,
+                vote_down=1
             )
 
             newvotenumber = getpost.highest_exp_reached - 1

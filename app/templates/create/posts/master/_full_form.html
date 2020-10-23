@@ -1,51 +1,119 @@
 
-    <div class="col-12 second_color border border-dark p-2 mb-2" >
+<style>
 
+    .file{
+        display:block;
+        position: relative;
+        width: 45px;
+        height: 45px;
 
-        <form method="post"
-              action="{{ url_for('create.create_post_room_all',userid=current_user.id) }}"
-              enctype="multipart/form-data">
-            {{ mainpostform.csrf_token }}
+        background-size: cover;
+    }
 
-            <!-- Post Message -->
-            <div class="form-group col-12 mb-3 mt-0 ">
-                {{ render_field(mainpostform.post_message,
-            autocomplete="off",
-            class="form-control bg-dark text-white",
-             placeholder="Post to a room  ...") }}
-            </div>
+    .file input{
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        cursor: pointer;
+    }
+</style>
 
-            <!--Select Room -->
-            <div class="form-group col-12 mb-3 mt-0 ">
-                {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
-            </div>
+<script>
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>
 
-            <!--Image -->
-            <div class="form-group col-12 mb-3 mt-0">
-                <div class="row second_color">
-                    <div class="col second_color">
-                        {{ render_field(mainpostform.image_one) }}
+<div class="col-12 justify-content-center mt-1 p-3 mb-3  w-100 second_color">
+
+    <button type="button " class="col-12 btn btn-ee btn-block" data-toggle="modal" data-target="#exampleModal">
+        <div id="header">
+            <div id="column1"><input class="form-control w-100 bg-dark text-white" type="text" placeholder="Post text ..."> </div>
+            <div id="column2"><i class="far fa-image fa-2x text-white"></i></div>
+            <div id="column3"><i class="fa fa-globe fa-2x w-25 text-white"></i></div>
+        </div>
+    </button>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <form method="post"
+                      action="{{ url_for('create.create_post_room_all',userid=current_user.id) }}"
+                      enctype="multipart/form-data">
+                    {{ mainpostform.csrf_token }}
+
+                    <!-- Post Message -->
+                    <div class="col-12 mb-3 mt-0 ">
+                        {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post something ...") }}
                     </div>
-                </div>
-            </div>
 
-            <!--Over 18 -->
-            <div class="form-group col-12 mb-0 mt-0">
-                <div class="row bg-dark">
-                    <div class="col-12 second_color">
-                        {{ render_field(mainpostform.age) }}
-                         NSFW (over 18) post
+                    <!--Select Room -->
+                    <div class=" col-6 offset-3 mb-3 mt-0 ">
+                        {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
                     </div>
-                </div>
-            </div>
 
-            <!-- Submit Post -->
-            <div class="form-group text-center col-12 mb-0 mt-4 ">
-                <div class="row">
-                    <div class="col-12" >
-                        {{ render_field(mainpostform.submit,value="Post", class="btn btn-block btn-dark w-100") }}
+                    <!--Image -->
+                    <div class="col-12 mb-3 mt-0">
+                        <div class="row">
+                            <div class="col-6  d-inline">
+                                <label class="file w-100" >
+
+                                    <button class="btn btn-dark"><i class="far fa-image fa-2x text-white"></i></button>
+
+                                    {{ render_field(mainpostform.image_one,  accept="image/*", onchange="loadFile(event)") }}
+                                </label >
+                            </div>
+                            <div class="col-12 mt-2" style="max-height: 300px; width: 100%">
+                                <img style="max-height: 300px;width: 100%" id="output"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <!--Over 18 -->
+                    <div class=" col-12 mb-0 mt-0">
+                        <div class="row">
+                            <div class="col-12 " >
+                                {{ render_field(mainpostform.age) }}
+                                NSFW (over 18) post
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Post -->
+                    <div class="text-center col-12 mb-0 mt-4 ">
+                        <div class="row">
+                            <div class="col-12" >
+                                {{ render_field(mainpostform.submit,value="Post", class="btn btn-block btn-success w-100") }}
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Rules -->
+                    <div class=" col-12 mb-0 mt-4">
+                        <div class="row">
+                            <div class="col-12 text-center" >
+                                I agree to Tipvote Rules
+                                <a href="{{ url_for('legal.postrules') }}">
+                                    View Rules
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
-        </form>
+        </div>
     </div>
+</div>

@@ -5,7 +5,6 @@
 
 <div class="wrapper">
     <body>
-
     {% from "_formhelper.html" import render_field %}
     {% include 'layout/headers/depositheader.html' %}
     {% include 'subforums/banner/all.html' %}
@@ -16,9 +15,7 @@
             <!-- Left Side -->
             <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
                 {% include 'layout/profile/main_profile.html' %}
-
             </div>
-
             <!-- Middle -->
             <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 mb-5 ">
                 <div style="max-width: 600px; margin: 0 auto;">
@@ -36,7 +33,6 @@
                     {% endblock %}
                 </div>
             </div>
-
             <!-- Right -->
             <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
                 {% include 'layout/widgets/_formactions.html' %}
@@ -47,6 +43,8 @@
             </div>
         </div>
     </div>
+
+
     </body>
     {% include 'layout/basic/_footer.html' %}
 </div>
