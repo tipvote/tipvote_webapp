@@ -1,5 +1,5 @@
-<div class="row mb-2 pl-2">
-    <div class="col-10 second_color border border-dark mb-2">
+<div class="row mb-1 pl-2">
+    <div class="col-10 second_color border border-dark mb-1">
         {% if current_user.is_authenticated %}
             <div class="col-12 text-center mb-4 mt-2">
                 {% if current_user.anon_mode == 0 %}
@@ -15,20 +15,6 @@
                 {% endif %}
             </div>
             <div class="col-12 mb-1 text-center">
-                {% if current_user.anon_mode == 0 %}
-                    {% if current_user.profileimage == '' %}
-                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                             width="100%">
-                    {% else %}
-                        <img class="profileimage"
-                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
-                        >
-                    {% endif %}
-                {% else %}
-                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
-                {% endif %}
-            </div>
-            <div class="col-12 mb-1 text-center">
                 Lvl {{ current_user.user_stats_common.user_level }}
                 <div class="progress">
                     <div class="progress-bar bg-warning"
@@ -41,54 +27,12 @@
             <div class="col-12 mb-1 text-center">
                 <a href="{{ url_for('coins.overview') }}">Rewards</a>
             </div>
-            <hr>
-            <div class="col-12 mb-1 text-center" style="display: inline-block">
-                BTC Balance  <br>
-                <b>
-                    {% if current_user.btc %}
-                        {% if current_user.btc.currentbalance == 0 %}
-                            <span class="btcorange">0.00000000</span >
-                        {% else %}
-                            <span class="btcorange">{{ current_user.btc.currentbalance|btctostring  }}</span >
-                        {% endif %}
-                    {% endif %}
-                </b>
-            </div>
-            <div class="col-12 mb-1 text-center" style="display: inline-block">
-                BCH Balance <br>
-                <b>
-                    {% if current_user.bch %}
-                        {% if current_user.bch.currentbalance == 0 %}
-                            <span class="btccashgreen">0.00000000</span >
-                        {% else %}
-                            <span class="btccashgreen">{{ current_user.bch.currentbalance|btctostring }}</span >
-                        {% endif %}
-                    {% endif %}
-                </b>
-            </div>
-            <div class="col-12 mb-1 text-center" style="display: inline-block">
-                XMR Balance <br>
-                <b>
-                    {% if current_user.xmr %}
-                        {% if current_user.xmr.currentbalance == 0 %}
-                            <span class="moneroorange">0.000000000000</span >
-                        {% else %}
-                            <span class="moneroorange">{{ current_user.xmr.currentbalance|xmrtostring }}</span >
-                        {% endif %}
-                    {% endif %}
-                </b>
-            </div>
-            <hr>
-
 
         {% else %}
             <div class="col-12 text-center">
                 <b>Guest</b>
             </div>
             <div class="card-body">
-                <div class="col-12 mb-1 text-center">
-                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="100%">
-                </div>
                 <div class="col-12 mb-1 text-center">
                     Lvl 0
                     <div class="progress">

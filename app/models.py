@@ -82,6 +82,8 @@ class CommonsPost(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+
+
     # the person recieving the post or posters wall
     user_name = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))

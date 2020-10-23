@@ -4,38 +4,39 @@
 {% include 'layout/basic/metadata_post.html' %}
 {% include 'layout/headers/header.html' %}
 {% include 'layout/headers/depositheader.html' %}
-  {% from "_formhelper.html" import render_field %}
+{% from "_formhelper.html" import render_field %}
+
 <div class="wrapper">
     <body>
 
     {% include 'subforums/banner/wall_user_banner.html' %}
-
     <div class="container-fluid mt-3">
         <div class="row">
             <!-- Left Side -->
             <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
                 {% include 'layout/profile/main_profile.html' %}
             </div>
-
             <!-- Middle -->
             <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 mb-5 min-vh-100">
-                {% include "flashbar.html" %}
-                {% block content %}
-                {% endblock %}
+                <div style="max-width: 600px; margin: 0 auto;">
+                    {% include "flashbar.html" %}
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
-
             <!-- Right -->
             <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
                 {% include 'layout/widgets/_rules_for_posts.html' %}
                 {% include 'layout/widgets_post/post_stats.html' %}
-
                 {% include 'layout/widgets_post/tips_top.html' %}
             </div>
         </div>
     </div>
     <div class="mb-5"></div>
+
     </body>
-{% include 'layout/basic/_footer.html' %}
+
+    {% include 'layout/basic/_footer.html' %}
 </div>
 
 </html>

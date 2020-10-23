@@ -1,0 +1,44 @@
+<div class="row mb-1 pl-2">
+    <div class="col-10 second_color border border-dark mb-1">
+        {% if current_user.is_authenticated %}
+
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                BTC Balance  <br>
+                <b>
+                    {% if current_user.btc %}
+                        {% if current_user.btc.currentbalance == 0 %}
+                            <span class="btcorange">0.00000000</span >
+                        {% else %}
+                            <span class="btcorange">{{ current_user.btc.currentbalance|btctostring  }}</span >
+                        {% endif %}
+                    {% endif %}
+                </b>
+            </div>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                BCH Balance <br>
+                <b>
+                    {% if current_user.bch %}
+                        {% if current_user.bch.currentbalance == 0 %}
+                            <span class="btccashgreen">0.00000000</span >
+                        {% else %}
+                            <span class="btccashgreen">{{ current_user.bch.currentbalance|btctostring }}</span >
+                        {% endif %}
+                    {% endif %}
+                </b>
+            </div>
+            <div class="col-12 mb-1 text-center" style="display: inline-block">
+                XMR Balance <br>
+                <b>
+                    {% if current_user.xmr %}
+                        {% if current_user.xmr.currentbalance == 0 %}
+                            <span class="moneroorange">0.000000000000</span >
+                        {% else %}
+                            <span class="moneroorange">{{ current_user.xmr.currentbalance|xmrtostring }}</span >
+                        {% endif %}
+                    {% endif %}
+                </b>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-2"></div>
+</div>

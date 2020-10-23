@@ -1,7 +1,7 @@
 {% if recent_tippers_post_count %}
     {% if recent_tippers_post_count > 0%}
         <div class="row mb-2 pr-2 ">
-    <div class="col-2"></div>
+            <div class="col-2"></div>
             <div class="col-10 second_color pb-2 border border-dark">
                 <div class="text-center mb-3">
                     <h5>Recent Tippers</h5>
@@ -10,42 +10,34 @@
 
                 {% for tip in recent_tippers_post %}
                     {% if tip %}
-                        <div class="col-12 second_color border border-dark pt-2 pb-2 text-center mb-2">
 
-                            <a class="upgreen"
+                        <div class="col-12 second_color border-bottom border-dark pt-2 pb-2 text-center mb-2">
+                            <a class=""
                                href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
                                 <b>{{ tip.created_user_name }}</b>
                             </a>
-
                             <br>
-
-                             {{ moment(timestamp=tip.created).fromNow(refresh=True) }}
+                            {{ moment(timestamp=tip.created).fromNow(refresh=True) }}
                             <br>
-
-
-                            <a class=""
-                               href="{{ url_for('subforum.viewpost',subname=tip.subcommon_name, postid = tip.post_id) }}">
-                                View Post
-                            </a>
-                            <br><br>
                             {% if tip.amount_btc != 0 %}
                                 <p class="btcorange" style="display: inline">
-                                    {{ tip.amount_btc|btctostring }} BTC
+                                    <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                                    {{ tip.amount_btc|btctostring }}
                                 </p>
                             {% elif tip.amount_bch !=0 %}
                                 <p class="btccashgreen" style="display: inline">
-                                    {{ tip.amount_bch|btctostring }} BCH
+                                     <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                                    {{ tip.amount_bch|btctostring }}
                                 </p>
                             {% elif tip.amount_xmr !=0 %}
                                 <p class="moneroorange" style="display: inline">
-                                    {{ tip.amount_xmr|xmrtostring }} XMR
+                                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                                    {{ tip.amount_xmr|xmrtostring }}
                                 </p>
                             {% else %}
                             {% endif %}
-                        <br>
-
+                            <br>
                         </div>
-
                     {% else %}
                         <div class="text-center">
                             No Tips!
