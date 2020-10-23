@@ -56,17 +56,20 @@
 
                     <!-- Post Message -->
                     <div class="col-12 mb-3 mt-0 ">
+                          <b>Post Text: </b>
                         {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post something ...") }}
                     </div>
 
                     <!--Select Room -->
-                    <div class=" col-6 offset-3 mb-3 mt-0 ">
+                    <div class=" col-6 mb-3 mt-0 ">
+                        <b>Select a room: </b>
                         {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
                     </div>
 
                     <!--Image -->
                     <div class="col-12 mb-3 mt-0">
-                        <div class="row">
+                      <b>Image(Optional): </b>
+                        <div class="row pt-1">
                             <div class="col-6  d-inline">
                                 <label class="file w-100" >
 

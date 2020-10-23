@@ -14,12 +14,12 @@
 </style>
 <div class="container-fluid " style="margin-bottom: 75px">
     <div class="row pt-3 pl-0 pr-0 pb-0 headercolor sticky-top">
-        <div class="col-2 pt-1 pl-0 pr-0 mx-auto">
+        <div class="col-2 pt-1 pl-0 pr-0 mx-auto ">
             <a href="{{ url_for('index') }}">
                 <img class=" w-100 " src="{{ url_for('static', filename='images/logo.png')  }}">
             </a>
         </div>
-        <div class="col-10 text-right">
+        <div class="col-10 text-right  pl-0 pr-0">
             {% if current_user.is_authenticated %}
                 <div class="dropdown d-inline" >
                     <button class="btn btn-dark dropdown-toggle"
@@ -28,7 +28,7 @@
                             data-toggle="dropdown"
                             aria-haspopup="false"
                             aria-expanded="false">
-                        My Rooms
+                        Rooms
                     </button>
 
 
@@ -174,7 +174,7 @@
                         </div>
                     {% endif %}
                 </div>
-                                <div class="dropdown d-inline">
+                <div class="dropdown d-inline p-0">
                     <button class="btn btn-dark dropdown-toggle"
                             type="button"
                             id="dropdownMenuButton"
@@ -185,7 +185,7 @@
                         <i class="fa fa-bars fa-1x"></i>
                     </button>
 
-                    <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                    <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
                          aria-labelledby="dropdownMenuButton2">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
@@ -196,7 +196,7 @@
                                 </a>
                                 <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
                                     <div class="col-12 btn-ee pt-2 pb-2 text-white ">
-                                        <b>My Rooms</b>
+                                        <b>Rooms</b>
                                     </div>
                                 </a>
                                 <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
