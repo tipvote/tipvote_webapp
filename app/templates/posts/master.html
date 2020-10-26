@@ -28,41 +28,8 @@
             <p class="text-danger font-weight-bold text-center col-12">Post has been deleted</p>
         {% endif %}
 
-
-    {% elif post.type_of_post == 1 %}
-        <!--business post-->
-        {% if post.hidden == 0 %}
-            {% include 'posts/classic_business/_topinfo.html' %}
-            {% include 'posts/classic/_admin_buttons.html' %}
-            {% if post.shared_post == 0 %}
-                <div class="Postsize">
-                    {% include 'posts/classic_business/_text.html' %}
-                    {% include 'posts/classic_business/_url.html' %}
-                    {% include 'posts/classic_business/_image.html' %}
-                </div>
-            {% else %}
-                <div class="col-12">
-                    <div class="row  pr-3 pl-3">
-                        <div class="Postsize">
-                            {% include 'posts/classic_business/_text.html' %}
-                            <div class="col-12 border border-dark">
-                                {% include 'posts/classic_business/_shared_topinfo.html' %}
-                                {% include 'posts/classic_business/_shared_text.html' %}
-                                {% include 'posts/classic_business/_url.html' %}
-                                {% include 'posts/classic_business/_image.html' %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% else %}
-            <p class="text-danger font-weight-bold text-center col-12">
-                Post has been deleted
-            </p>
-        {% endif %}
     {% else %}
     {% endif %}
-
 
 
     {% include 'posts/classic/_buttons.html' %}

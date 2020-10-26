@@ -1,15 +1,4 @@
 
-
-
-html,
-body {
-    font-size: 13px !important;
-    background-color:#101010 !important;
-    font-family: "Segoe UI" !important;
-    color:#ffffff !important;
-}
-
-
 /* boostrap mods */
 .wrapper {
     min-height: calc(100vh - 345px);
@@ -17,49 +6,7 @@ body {
     #display: grid;
     grid-template-rows: auto 1fr auto;
 }
-.wrapper1 {
-    min-height: calc(100vh - 400px);
-    display: grid;
 
-    margin-bottom: 100px;
-
-    grid-template-rows: auto 1fr auto;
-}
-.wrapper2 {
-    min-height: calc(100vh);
-    #display: grid;
-
-    grid-template-rows: auto 1fr auto;
-}
-
-.main_color {
-    /*background-color:#1D1D1D;*/
-    background-color:#101010;
-    color:#ffffff;
-}
-.headercolor {
-    background-color:#242526;
-    color:#DBEEEE;
-}
-.second_color {
-    background-color:#18191A;
-    color:#DBEEEE;
-}
-.third_color {
-    background-color:#3A3B3C;
-}
-
-.msg_color {
-    background-color:#229954  ;
-}
-
-.mainfontcolor{
-    color:#ffffff;
-}
-
-.darkfontcolor{
-    color:#818384;
-}
 /* Designated Colors */
 .moneroorange{
     color:#FF6600;
@@ -81,26 +28,9 @@ body {
     display: inline;
 }
 
-.downred{
-    color:#D50000;
-    display: inline;
+.msg_color {
+    background-color:#229954  ;
 }
-.upgreen{
-    color:#00ff00;
-    display: inline;
-}
-
-.btn-tipvote-up, .btn-tipvote-up:hover, .btn-tipvote-up:active, .btn-tipvote-up:visited {
-    background-color: #00ff00 !important;
-}
-.btn-tipvote-down, .btn-tipvote-down:hover, .btn-tipvote-down:active, .btn-tipvote-down:visited {
-    background-color: #D50000 !important;
-}
-
-.bg-purple{
-    background-color:#6a0DAD;
-}
-
 
 .rndimg{
     border-radius: 50%;
@@ -140,27 +70,6 @@ code {
     color:#e67e22 ;
     display: inline;
 }
-/* Linkcolors */
-.linkcolor_topbar a:link { color: #FFFFFF;  text-decoration:none;}
-.linkcolor_topbar a:visited { color: #FFFFFF;  text-decoration:none; }
-.linkcolor_topbar a:hover { color: #909090;  text-decoration:none;}
-.linkcolor_topbar a:active { color: #909090;  text-decoration:none;}
-
-.linkcolor a:link { color: #ffd100;  text-decoration:none;}
-.linkcolor a:visited { color: #ffd100;  text-decoration:none; }
-.linkcolor a:hover { color: #ffd100;  text-decoration:none;}
-.linkcolor a:active { color: #ffd100;  text-decoration:none;}
-
-.linkcolor_dark a:link { color: #242526;  text-decoration:none;}
-.linkcolor_dark a:visited { color: #242526;  text-decoration:none; }
-.linkcolor_dark a:hover { color: #242526;  text-decoration:none;}
-.linkcolor_dark a:active { color: #242526;  text-decoration:none;}
-
-
-.linkcolor_normal a:link { color: #FFFFFF ;  text-decoration:none;}
-.linkcolor_normal a:visited { color: #FFFFFF ;  text-decoration:none; }
-.linkcolor_normal a:hover { color: #FFFFFF ;  text-decoration:none;}
-.linkcolor_normal a:active { color: #FFFFFF ;  text-decoration:none;}
 
 
 .border-dotted{
@@ -179,26 +88,22 @@ code {
 
 .border-1 {
     border-bottom:1px solid #909090;
-
 }
 
 .profileimage {
     max-width: 150px;
     width: 100%;
-
 }
+
 .anoncolor{
     color:#66FF99;
 }
+
 .date_color  {
     color: #818384;
     text-decoration:none;
 }
 
-.user_name_color a:link { color: #818384;  text-decoration:none;}
-.user_name_color a:visited { color: #818384;  text-decoration:none; }
-.user_name_color a:hover { color: #818384;  text-decoration:none;}
-.user_name_color a:active { color: #818384;  text-decoration:none;}
 
 
 .accordion {
@@ -212,119 +117,6 @@ code {
     transition: background-color 0.2s linear;
 }
 
-
-
-.room_color a:link { color: #2FC0F6;  text-decoration:none;}
-.room_color a:visited { color: #2FC0F6;  text-decoration:none; }
-.room_color a:hover { color: #2FC0F6;  text-decoration:none;}
-.room_color a:active { color: #2FC0F6;  text-decoration:none;}
-
-.user_name_color_same_as_poster a:link { color: #0084ff  ;  text-decoration:none;}
-.user_name_color_same_as_poster a:visited { color:#0084ff  ;  text-decoration:none; }
-.user_name_color_same_as_poster a:hover { color: #0084ff  ;  text-decoration:none;}
-.user_name_color_same_as_poster a:active { color: #0084ff  ;  text-decoration:none;}
-
-
-.post_title_color a:link { color: #fff;  text-decoration:none;}
-.post_title_color a:visited { color: #fff;  text-decoration:none; }
-.post_title_color a:hover { color: #ffd100;  text-decoration:none;}
-.post_title_color a:active { color: #ffd100;  text-decoration:none;}
-
-.post_text_color{
-    color: #818384;
-}
-/* buttons */
-
-.btn-ts,
-.btn-ts:hover,
-.btn-ts:active,
-.btn-ts:visited,
-
-.btn-ts:focus {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #818384;
-    text-decoration: none;
-}
-
-.btn-ee,
-.btn-ee:active,
-.btn-ee:visited,
-
-.btn-ee:focus {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #818384;
-    text-decoration: none;
-}
-.btn-ee:hover {
-    background-color: #242526;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #818384;
-    text-decoration: none;
-}
-
-.btn-downvote,
-.btn-downvote:active,
-.btn-downvote:visited,
-
-.btn-downvote:focus {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #D50000;
-    text-decoration: none;
-}
-.btn-downvote:hover {
-    background-color: #D50000;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #D50000;
-    text-decoration: none;
-}
-
-.btn-upvote,
-.btn-upvote:active,
-.btn-upvote:visited,
-
-.btn-upvote:focus {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #00FD2B;
-    text-decoration: none;
-}
-.btn-upvote:hover {
-    background-color: #00FD2B;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    color: #00FD2B;
-    text-decoration: none;
-}
 
 
 

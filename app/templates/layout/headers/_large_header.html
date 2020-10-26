@@ -11,11 +11,12 @@
         overflow-y: scroll;
     }
 </style>
+
 <div class="container-fluid " style="margin-bottom: 65px">
 
     <div class="row pt-2 headercolor  sticky-top">
 
-        <div class="col-md-2 col-lg-2 col-xl-2" >
+        <div class="col-1 col-md-2 col-lg-2 col-xl-1" >
             <a href="{{ url_for('index') }}">
                 <img class="pl-2 w-100" src="{{ url_for('static', filename='images/logo.png')  }}" style="max-width: 130px">
             </a>
@@ -24,8 +25,8 @@
         {% if current_user.is_authenticated %}
             <div class="col-md-2 col-xl-2 ">
 
-                <div class="dropdown d-inline" >
-                    <button class="btn btn-dark dropdown-toggle"
+                <div class="dropdown d-inline " >
+                    <button class="btn btn-dark dropdown-toggle w-100"
                             type="button"
                             id="dropdownMenuButton"
                             data-toggle="dropdown"
@@ -82,7 +83,7 @@
 
             <div class="col-md-5 col-lg-4 col-xl-4 pr-0 pl-0">
                 {% if currentbtcprice %}
-                    <div class="row pb-0 mb-0 pr-0 pl-0 mx-auto d-block text-center h-100">
+                    <div class="row pb-0 mb-0 pr-0 pl-0 mx-auto d-block text-center h-100 d-xl-none">
                         <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
                         {{ currentbtcprice.price }} &nbsp; | &nbsp;
 
@@ -97,8 +98,17 @@
             </div>
 
 
+
             <div class="col-md-3 col-lg-4 col-xl-4 justify-content-end pl-0 pr-0" style="display: inline">
                 <div class="row justify-content-end pl-0 pr-0">
+
+
+            <a class="btn btn-dark text-white d-block d-md-none d-lg-block" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                <i class="fa fa-user"></i>
+            </a>
+
+
+
 
                     <div class="pl-1 pr-1 ">
                         <div class="dropdown ">
@@ -138,7 +148,7 @@
                                         </a>
                                         <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
                                             <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                                <img src="{{ url_for('static', filename='favicon-16x16.png')  }}"
+                                                <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
                                                      width="20px" height="20px">
                                                 <b>Tipvote Coins</b>
                                             </div>
@@ -247,34 +257,7 @@
                                             Saved Posts
                                         </div>
                                     </a>
-                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_btc.home') }}">
-                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
-                                                 width="20px" height="20px">
-                                            Bitcoin Wallet
-                                        </div>
-                                    </a>
-                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
-                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                            <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
-                                                 width="20px" height="20px">
-                                            Bitcoin Cash Wallet
-                                        </div>
-                                    </a>
-                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_xmr.home') }}">
-                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                            <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
-                                                 width="20px" height="20px">
-                                            Monero Wallet
-                                        </div>
-                                    </a>
-                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
-                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                            <img src="{{ url_for('static', filename='favicon-16x16.png')  }}"
-                                                 width="20px" height="20px">
-                                            Tipvote Coins
-                                        </div>
-                                    </a>
+
                                     <div class="dropdown-divider"></div>
                                     <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
                                         <div class="col-12 pt-2 pb-2 btn-ee text-white ">

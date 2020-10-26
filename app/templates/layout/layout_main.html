@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang='en'>
 {% include 'layout/basic/metadata.html' %}
-{% include 'layout/headers/header.html' %}
-    {% include 'layout/headers/depositheader.html' %}
+{% include 'css/html_stylesheets.html' %}
+{% include 'css/html_buttons.html' %}
 {% from "_formhelper.html" import render_field %}
 <div class="wrapper">
     <body>
@@ -11,7 +11,7 @@
         <div class="row">
 
             <!-- Left Side -->
-            <div class="col-3 main_color">
+            <div class="col-3">
                 {% include 'layout/profile/main_profile.html' %}
 
                 {% if current_user.is_authenticated %}

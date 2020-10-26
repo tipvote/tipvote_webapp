@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang='en'>
-{% include 'layout/basic/metadata.html' %}
-{% include 'layout/headers/header.html' %}
 
+{% include 'layout/basic/metadata.html' %}
+{% include 'css/html_stylesheets.html' %}
+{% include 'css/html_buttons.html' %}
+
+{% include 'layout/headers/header.html' %}
+{% from "_formhelper.html" import render_field %}
 <div class="wrapper">
     <body>
     {% from "_formhelper.html" import render_field %}
     {% include 'layout/headers/depositheader.html' %}
     {% include 'subforums/banner/all.html' %}
 
-    <div class="container-fluid mt-3">
+    <div class="container mt-3">
 
-        <div class="row " >
+        <div class="row" >
             <!-- Left Side -->
-            <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
+            <div class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block ">
                 {% include 'layout/profile/main_profile.html' %}
-                    {% include 'layout/widgets_coins/_wallets_balance.html' %}
+                {% include 'layout/widgets_coins/_wallets_balance.html' %}
+                {% include 'layout/widgets/_current_prices.html' %}
             </div>
+
             <!-- Middle -->
-            <div class="col-sm-9 col-md-9  col-lg-6 offset-lg-0 col-xl-6 offset-xl-1 mb-5 ">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-5 ">
                 <div style="max-width: 600px; margin: 0 auto;">
                     {% include 'layout/widgets_subs/nav/index_topnav.html' %}
                     {% include "flashbar.html" %}
@@ -34,17 +40,16 @@
                     {% endblock %}
                 </div>
             </div>
+
             <!-- Right -->
-            <div class="col-sm-3 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2   " >
+            <div class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block">
                 {% include 'layout/widgets/_formactions.html' %}
-                {% include 'learn/_coins_learn_side.html' %}
                 {% include 'layout/widget_stats/all/newest_tippers.html' %}
                 {% include 'layout/widgets/mightbebugs.html' %}
                 {% include 'layout/widgets/_rules_for_posts.html' %}
             </div>
         </div>
     </div>
-
 
     </body>
     {% include 'layout/basic/_footer.html' %}

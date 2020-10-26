@@ -249,6 +249,7 @@ class MainPostForm(FlaskForm):
 
     roomname = SelectField(Optional())
 
+
     post_message = TextAreaField(validators=[
         Optional(),
         Length(1, 10000, message='Message must be between 1 and 10000 characters long'),

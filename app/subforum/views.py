@@ -1145,7 +1145,7 @@ def viewpost(subname, postid):
     comments = comments.order_by(Comments.thread_upvotes.desc(), Comments.path.asc())
     comments = comments.all()
 
-    return render_template('comments/viewpost.html',
+    return render_template('layout/viewpost.html',
                            now=datetime.utcnow(),
                            # forms
                            form=form,
@@ -1339,7 +1339,7 @@ def viewpost_newest(subname, postid):
     comments = comments.order_by(Comments.thread_timestamp.desc(), Comments.path.asc())
     comments = comments.all()
 
-    return render_template('comments/viewpost.html',
+    return render_template('layout/viewpost.html',
                            now=datetime.utcnow(),
                            # forms
                            form=form,
@@ -1529,7 +1529,7 @@ def viewpost_oldest(subname, postid):
     comments = comments.order_by(Comments.thread_timestamp.asc(), Comments.path.asc())
     comments = comments.all()
 
-    return render_template('comments/viewpost.html',
+    return render_template('layout/viewpost.html',
                            now=datetime.utcnow(),
                            # forms
                            form=form,
@@ -1719,7 +1719,7 @@ def viewpost_downvoted(subname, postid):
     comments = comments.order_by(Comments.thread_downvotes.desc(), Comments.path.asc())
     comments = comments.all()
 
-    return render_template('comments/viewpost.html',
+    return render_template('layout/viewpost.html',
                            now=datetime.utcnow(),
                            # forms
                            form=form,

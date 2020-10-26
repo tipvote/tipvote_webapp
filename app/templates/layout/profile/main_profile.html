@@ -1,10 +1,10 @@
-<div class="row mb-1 pl-2">
-    <div class="col-10 second_color border border-dark mb-1">
+<div class="row mb-1">
+    <div class="col-12 second_color border border-dark mb-1">
         {% if current_user.is_authenticated %}
             <div class="col-12 text-center mb-4 mt-2">
                 {% if current_user.anon_mode == 0 %}
                     <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                        <div class="text-center linkcolor_normal h5">
+                        <div class="text-center linkcolor h5">
                             {{ current_user.user_name }}
                         </div>
                     </a>
@@ -56,5 +56,5 @@
             </div>
         {% endif %}
     </div>
-    <div class="col-2"></div>
+
 </div>

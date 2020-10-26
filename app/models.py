@@ -81,8 +81,7 @@ class CommonsPost(db.Model):
     __table_args__ = {"schema": "avengers_post", 'useexisting': True}
 
     id = db.Column(db.Integer, primary_key=True)
-
-
+    title = db.Column(db.String(300))
 
     # the person recieving the post or posters wall
     user_name = db.Column(db.String(140))
