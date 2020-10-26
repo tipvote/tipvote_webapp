@@ -7,7 +7,7 @@
             <img  src="{{ url_for('static', filename='images/coins/btc/bitcoin_logo_long.png')  }}" width="30%">
         </div>
         <div class="col-12 text-center mt-5">
-            <h5> Balance: <span class="btcorange">{{ current_user.btc.currentbalance|btctostring  }}</span ></h5>
+            <h5> Balance: <span class="">{{ current_user.btc.currentbalance|btctostring  }}</span ></h5>
         </div>
         <form method="post" action="{{ url_for('promote.promotepost_btc',subname=thesub.subcommon_name, postid=post.id) }}">
             {{ form_btc.csrf_token }}

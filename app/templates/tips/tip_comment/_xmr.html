@@ -8,7 +8,7 @@
         </div>
 
         <div class="col-12 text-center mt-5">
-            <h5> Balance: <span class="moneroorange">{{ current_user.xmr.currentbalance|xmrtostring }}</span ></h5>
+            <h5> Balance: <span class="">{{ current_user.xmr.currentbalance|xmrtostring }}</span ></h5>
         </div>
         <form method="post"
               action="{{ url_for('tip.create_tip_comment_xmr',

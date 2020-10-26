@@ -2331,8 +2331,6 @@ class BannedUser(db.Model):
     banner_user_name = db.Column(db.String(140))
 
 
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     __bind_key__ = 'avengers'
@@ -2359,7 +2357,7 @@ class User(UserMixin, db.Model):
     fails = db.Column(db.INTEGER)
     locked = db.Column(db.INTEGER)
     banned = db.Column(db.INTEGER)
-
+    color_theme = db.Column(db.INTEGER)
     agree_to_tos = db.Column(db.BOOLEAN, default=False)
 
     contentownerposts = db.relationship('CommonsPost', backref='contentownerposts', lazy='dynamic',
@@ -2448,7 +2446,8 @@ class User(UserMixin, db.Model):
                  email,
                  agree_to_tos,
                  confirmed,
-                 banned
+                 banned,
+                 color_theme
                  ):
 
         self.user_name = user_name
@@ -2470,6 +2469,7 @@ class User(UserMixin, db.Model):
         self.agree_to_tos = agree_to_tos
         self.confirmed = confirmed
         self.banned = banned
+        self.color_theme = color_theme
 
     # user followers
     def follow(self, user):

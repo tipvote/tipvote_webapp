@@ -1,0 +1,13 @@
+{% if current_user.color_theme == 1 %}
+    {% include 'css/black/html_stylesheets.html' %}
+    {% include 'css/black/html_buttons.html' %}
+{% elif current_user.color_theme == 2 %}
+    {% include 'css/blue/html_stylesheets.html' %}
+    {% include 'css/blue/html_buttons.html' %}
+{% elif current_user.color_theme == 3 %}
+    {% include 'css/grey/html_stylesheets.html' %}
+    {% include 'css/grey/html_buttons.html' %}
+{% else %}
+    {% include 'css/black/html_stylesheets.html' %}
+    {% include 'css/black/html_buttons.html' %}
+{% endif %}

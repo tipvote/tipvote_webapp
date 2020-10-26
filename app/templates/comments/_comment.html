@@ -173,7 +173,7 @@
         <!-- Crypto top lines line -->
         {% if comment.total_recieved_btc > 0  %}
             <div class="row">
-                <div class="col-12 btcorange"  style="font-size: 14px;">
+                <div class="col-12 "  style="font-size: 14px;">
                     <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
                          width="20px" height="20px"> {{ comment.total_recieved_btc|btctostring }}
                 </div>
@@ -181,7 +181,7 @@
         {% endif %}
         {% if comment.total_recieved_bch > 0  %}
             <div class="row">
-                <div class="col-12 btcorange"  style="font-size: 14px;">
+                <div class="col-12 "  style="font-size: 14px;">
                     <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
                          width="20px" height="20px"> {{ comment.total_recieved_bch|btctostring }}
                 </div>
@@ -189,7 +189,7 @@
         {% endif %}
         {% if comment.total_recieved_xmr > 0  %}
             <div class="row">
-                <div class="col-12 moneroorange"  style="font-size: 14px;">
+                <div class="col-12 "  style="font-size: 14px;">
                     <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
                          width="20px" height="20px">{{ comment.total_recieved_xmr|xmrtostring }}
                 </div>
@@ -214,7 +214,7 @@
                 <div class="row mt-0">
                     <div class="col-8 offset-3 user_name_color">
                         {% if comment.deleted == 0 %}
-                            <a class="col-auto btccashgreen" style="font-size: 12px"
+                            <a class="col-auto" style="font-size: 12px"
                                href="{{ url_for('tip.create_tip_comment',
                                        subname=post.subcommon_name,
                                        postid=post.id,

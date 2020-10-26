@@ -7,7 +7,7 @@
             <img  src="{{ url_for('static', filename='images/coins/xmr/xmr_logo_long.png')  }}" width="40%">
         </div>
         <div class="col-12 text-center mt-5">
-           <h5>  Balance: <span class="moneroorange">{{ current_user.xmr.currentbalance|xmrtostring }}</span ></h5>
+           <h5>  Balance: <span class="">{{ current_user.xmr.currentbalance|xmrtostring }}</span ></h5>
         </div>
         <form method="post" action="{{ url_for('promote.promotepost_xmr',subname=thesub.subcommon_name, postid=post.id) }}">
             {{ form_xmr.csrf_token }}

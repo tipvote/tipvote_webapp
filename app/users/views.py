@@ -41,7 +41,8 @@ from app.users.forms import LoginForm, \
     ResendConfirmationForm,\
     ChangeEmailForm, \
     DeleteUserForm, \
-    DeleteAllForm
+    DeleteAllForm,\
+    ThemeForm
 
 from app.models import\
     User,\
@@ -197,7 +198,8 @@ def register():
                     anon_mode=0,
                     over_age=0,
                     agree_to_tos=True,
-                    banned=0
+                    banned=0,
+                    color_theme=1
                 )
                 db.session.add(newuser)
                 db.session.commit()
@@ -372,7 +374,7 @@ def account():
     accountform = MyAccountForm(
                          age=current_user.over_age
                          )
-
+    themeform = ThemeForm()
     now = datetime.utcnow()
     user = db.session.query(User).filter_by(user_name=current_user.user_name).first()
 
@@ -380,7 +382,8 @@ def account():
                            now=now,
                            user=user,
                            anonform=anonform,
-                           accountform=accountform
+                           accountform=accountform,
+                           themeform=themeform
                            )
 
 
@@ -917,7 +920,6 @@ def deleteaccount():
                                )
 
 
-
 @users.route('/delete/posts', methods=['GET'])
 @login_required
 def deleteallposts():
@@ -939,7 +941,7 @@ def deleteallpostsconfirm():
     if request.method == 'GET':
         return redirect(url_for('index'))
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
 
         # user posts
         user_posts_content = CommonsPost.query.filter(CommonsPost.content_user_id == current_user.id).all()
@@ -963,6 +965,8 @@ def deleteallpostsconfirm():
         db.session.commit()
         flash("All Posts have been marked as deleted", category="danger")
         return redirect(url_for('users.deleteallposts'))
+    else:
+        return redirect(url_for('index'))
 
 
 @users.route('/delete/comments', methods=['GET'])
@@ -971,12 +975,14 @@ def deleteallcomments():
     if request.method == 'POST':
         return redirect(url_for('index'))
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         deleteform = DeleteAllForm()
 
         return render_template('users/account/deletecomments.html',
                                deleteform=deleteform,
                                )
+    else:
+        return redirect(url_for('index'))
 
 
 @users.route('/delete/comments/confirm', methods=['POST'])
@@ -985,7 +991,7 @@ def deleteallcommentsconfirm():
     if request.method == 'GET':
         return redirect(url_for('index'))
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
 
         # user comments
         user_comments = Comments.query.filter(Comments.user_id == current_user.id).all()
@@ -998,3 +1004,35 @@ def deleteallcommentsconfirm():
         db.session.commit()
         flash("All comments have been marked as deleted", category="danger")
         return redirect(url_for('users.deleteallcomments'))
+    else:
+        return redirect(url_for('index'))
+
+
+@users.route('/theme/colors', methods=['POST'])
+@login_required
+def changetheme():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+
+    elif request.method == 'POST':
+        theuser = db.session.query(User).filter(current_user.id == User.id).first()
+        themeform = ThemeForm()
+        if themeform.validate_on_submit():
+            if themeform.theme_one.data == '1':
+                theuser.color_theme = 1
+            elif themeform.theme_one.data == '2':
+                theuser.color_theme = 2
+            elif themeform.theme_one.data == '3':
+                theuser.color_theme = 3
+            else:
+                theuser.color_theme = 1
+
+            db.session.add(theuser)
+            db.session.commit()
+
+        else:
+            theuser.color_theme = 1
+
+            db.session.add(theuser)
+            db.session.commit()
+        return redirect(url_for('users.account'))

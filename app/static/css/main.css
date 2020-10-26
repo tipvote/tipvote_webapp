@@ -1,7 +1,7 @@
 
 /* boostrap mods */
 .wrapper {
-    min-height: calc(100vh - 345px);
+    min-height: calc(100vh - 330px);
 
     #display: grid;
     grid-template-rows: auto 1fr auto;

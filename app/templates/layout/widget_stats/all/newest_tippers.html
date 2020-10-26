@@ -19,17 +19,17 @@
                             {{ moment(timestamp=tip.created).fromNow(refresh=True) }}
                             <br>
                             {% if tip.amount_btc != 0 %}
-                                <p class="btcorange" style="display: inline">
+                                <p class="" style="display: inline">
                                     <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
                                     {{ tip.amount_btc|btctostring }}
                                 </p>
                             {% elif tip.amount_bch !=0 %}
-                                <p class="btccashgreen" style="display: inline">
+                                <p class="" style="display: inline">
                                      <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
                                     {{ tip.amount_bch|btctostring }}
                                 </p>
                             {% elif tip.amount_xmr !=0 %}
-                                <p class="moneroorange" style="display: inline">
+                                <p class="" style="display: inline">
                                     <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
                                     {{ tip.amount_xmr|xmrtostring }}
                                 </p>

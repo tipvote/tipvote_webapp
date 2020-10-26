@@ -7,7 +7,7 @@
             <img  src="{{ url_for('static', filename='images/coins/bch/btccash_long.png')  }}" width="40%">
         </div>
         <div class="col-12 text-center mt-5">
-          <h5>   Balance: <span class="btccashgreen">{{ current_user.bch.currentbalance|btctostring  }}</span ></h5>
+          <h5>   Balance: <span class="">{{ current_user.bch.currentbalance|btctostring  }}</span ></h5>
         </div>
         <form method="post" action="{{ url_for('tip.create_tip_post_bch',subname=thesub.subcommon_name, postid=post.id) }}">
             {{ form_bch.csrf_token }}

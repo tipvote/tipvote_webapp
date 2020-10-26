@@ -2,11 +2,12 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, \
     PasswordField, \
     SubmitField, \
-    BooleanField
+    BooleanField, RadioField
 from wtforms.validators import DataRequired, \
     Length, \
     Regexp, \
-    EqualTo
+    EqualTo, \
+    Optional
 from app.models import User
 from flask import flash
 from sqlalchemy import func
@@ -409,3 +410,15 @@ class PasswordFormReset(FlaskForm):
         else:
             return False
 
+
+class ThemeForm(FlaskForm):
+    theme_one = RadioField(validators=[Optional()],
+                           choices=[('1', 'Black'),
+                                    ('2', 'Blue'),
+                                    ('3', 'Gray')
+                                    ]
+                           )
+
+
+
+    submit = SubmitField('Submit')
