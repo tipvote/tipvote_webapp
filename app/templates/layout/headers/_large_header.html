@@ -81,29 +81,17 @@
             </div>
 
 
-            <div class="col-md-5 col-lg-4 col-xl-4 pr-0 pl-0">
-                {% if currentbtcprice %}
-                    <div class="row pb-0 mb-0 pr-0 pl-0 mx-auto d-block text-center h-100 d-xl-none">
-                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
-                        {{ currentbtcprice.price }} &nbsp; | &nbsp;
+            <div class="col-md-4 col-lg-4 col-xl-5 pr-0 pl-0">
 
-                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
-                        {{ currentxmrprice.price  }} &nbsp; | &nbsp;
-
-                        <img class="pr-0 pl-0" src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
-                        {{ currentbchprice.price }}
-                    </div>
-                {% else %}
-                {% endif %}
             </div>
 
 
 
-            <div class="col-md-3 col-lg-4 col-xl-4 justify-content-end pl-0 pr-0" style="display: inline">
+            <div class="col-md-4 col-lg-4 col-xl-4 justify-content-end pl-0 pr-0" style="display: inline">
                 <div class="row justify-content-end pl-0 pr-0">
 
 
-            <a class="btn btn-dark text-white d-block d-md-none d-lg-block" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+            <a class="btn btn-dark text-white " href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
                 <i class="fa fa-user"></i>
             </a>
 

@@ -27,7 +27,7 @@
                 <div class="dropdown d-inline" >
                     <button class="btn btn-dark dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
+                            id="dropdownMenuButtonSubs"
                             data-toggle="dropdown"
                             aria-haspopup="false"
                             aria-expanded="false">
@@ -35,9 +35,8 @@
                     </button>
 
 
-                    <div class="dropdown-menu dropdown-menu-left
-                            bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height "
-                    >
+                    <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
+                        aria-labelledby="dropdownMenuButtonSubs">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
                                 {% for subs in usersubforums %}
@@ -88,7 +87,7 @@
                 <div class="dropdown d-inline">
                     <button class="btn btn-dark dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
+                            id="dropdownMenuButton2"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
@@ -120,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="d-none d-md-block">
                 {% if themsgs %}
                     {% if themsgs == 0 %}
                         <a class="btn btn-dark text-white" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
@@ -130,13 +129,13 @@
                 {% else %}
                     <a class="btn btn-dark text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                 {% endif %}
-
+                </div>
                 <div class="dropdown d-inline p-0">
                     {% if thenotescount %}
                         {% if thenotescount > 0 %}
                             <button class="btn dropdown-toggle btn-danger "
                                     type="button"
-                                    id="dropdownMenuButton"
+                                    id="dropdownMenuButton3"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false">
@@ -146,7 +145,7 @@
                         {% else %}
                             <button class="btn dropdown-toggle btn-dark "
                                     type="button"
-                                    id="dropdownMenuButton"
+                                    id="dropdownMenuButton3"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false">
@@ -156,7 +155,7 @@
                     {% else %}
                         <button class="btn dropdown-toggle btn-dark "
                                 type="button"
-                                id="dropdownMenuButton"
+                                id="dropdownMenuButton3"
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false">
@@ -164,7 +163,7 @@
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right bg-dark dropdown-content mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
-                             aria-labelledby="dropdownMenuButton"
+                             aria-labelledby="dropdownMenuButton3"
                         >
                             <div class="col-12 second_color">
                                 {% if thenotescount %}

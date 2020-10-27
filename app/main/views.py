@@ -1074,8 +1074,6 @@ def affiliate():
         pass
 
 
-
-
 @app.route('/updates', methods=['GET'])
 def updates():
     # get sidebar list of updates
@@ -1170,3 +1168,11 @@ def admin_post_update():
         pass
 
 
+@app.route('/roadmap', methods=['GET'])
+def roadmap():
+    if request.method == 'GET':
+
+        return render_template('main/roadmap.html')
+
+    if request.method == 'POST':
+        pass

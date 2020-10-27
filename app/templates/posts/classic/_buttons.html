@@ -1,14 +1,14 @@
-<div class="col-12 text-center mt-2 mb-2 border-top border-dark pt-2" style="font-size: 11px">
+<div class="col-12 text-center mt-2 mb-2 border-top border-dark pt-2" style="font-size: 12px">
     <!---large screen-->
     <div class="row ">
-        <div class="col-6 col-sm-6 col-md-3 text-white text-center pt-2 pb-2 btn-ee text-white"
+        <div class="col-3  pt-2 pb-2text-white text-center btn-ee text-white"
              onclick="window.location.href='{{ url_for('subforum.viewpost',
              subname=post.subcommon_name,
               postid = post.id) }}';">
 
             <a class="btn-ee text-white" style="display: block"
                href="{{ url_for('subforum.viewpost',subname=post.subcommon_name,postid = post.id) }}">
-                <div class="d-inline" id="comment_count_before_{{ post.id }}">
+                <div class="d-inline p-0" id="comment_count_before_{{ post.id }}">
                     {{ post.comment_count }} comments
                 </div>
 
@@ -20,8 +20,9 @@
             </a>
         </div>
 
-        <div class="col-6 col-sm-6 col-md-3  p-0 btn-ee text-white " >
-            <button class="btn-ee text-white w-100 h-100" type="button" data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
+        <div class="col-3 pt-2 pb-2 btn-ee text-white " >
+            <button class="btn-ee text-white w-100 h-100"
+                    type="button" data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
                 Write
             </button>
             <!-- Modal -->
@@ -106,22 +107,21 @@
             </div>
         </div>
 
-        <div class="col-6 col-sm-6 col-md-3 pt-2 pb-2 btn-ee text-white"
+        <div class="col-3 pt-2 pb-2 btn-ee text-white  w-100 h-100"
              onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
-            <a class="btn-ee text-white" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
+            <a class="btn-ee text-white  w-100 h-100" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
                 Promote
             </a>
 
-            <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
-                 width="20px" height="20px">
+
         </div>
 
-        <div class="col-6 col-sm-6 col-md-3 text-center text-white pt-2 pb-2 btn-ee"
+        <div class="col-3 pt-2 pb-2 text-center text-white btn-ee  w-100 h-100"
              onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
-            <a class="btn-ee text-white" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+            <a class="btn-ee text-white " href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
                 Tip
             </a>
-            <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+
         </div>
     </div>
 

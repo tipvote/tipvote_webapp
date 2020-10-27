@@ -3,14 +3,14 @@
 <div class="row mb-3">
     <div class="col-6">
         {% if navlink == 1 %}
-            <a class="btn btn-dark btn-block" style="color:#00ff00;" role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
+            <a class="btn btn-dark btn-block" style="color:#0089FF;" role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
         {% else %}
             <a class="btn btn-dark btn-block" role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
         {% endif %}
     </div>
     <div class="col-6">
         {% if navlink == 2 %}
-            <a class="btn btn-dark btn-block " style="color:#00ff00;" role="button" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
+            <a class="btn btn-dark btn-block " style="color:#0089FF;" role="button" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
         {% else %}
             <a class="btn btn-dark btn-block" href="{{ url_for('subforum.sub_newest', subname=subname) }}">New</a>
         {% endif %}

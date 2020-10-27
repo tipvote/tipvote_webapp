@@ -44,6 +44,7 @@
                         Account Home
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url_for('users.changepassword') }}">
                         Change Password
@@ -94,7 +95,11 @@
                         Announcements
                     </a>
                 </li>
-
+                <li>
+                    <a class="" href="{{ url_for('roadmap') }}">
+                        Roadmap
+                    </a>
+                </li>
                 <li>
                     <a class="" href="{{ url_for('subforum.sub', subname='help') }}">
                         Help

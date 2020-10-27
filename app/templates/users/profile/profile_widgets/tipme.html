@@ -22,16 +22,12 @@
             <h5>Tip in Monero
                 <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" >
             </h5>
-            <div class="d-sm-none">
-                <div class=" p-0" style="font-size: 7px">
+
+
+                <div class="col-12  p-0 d-none d-md-block" style="font-size: 13px; word-break: break-word;">
                     {{ theuser.xmr.address1 }}
                 </div>
-            </div>
-            <div class="">
-                <div class=" p-0 d-none d-md-block" style="font-size: 10px">
-                    {{ theuser.xmr.address1 }}
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
