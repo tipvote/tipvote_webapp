@@ -1,0 +1,278 @@
+<div class="row ml-1" style="color: #808183">
+
+    <div class="col-12 pt-1 pb-1  pl-1 m-0">
+        <div class="m-0 p-0" style="display: inline; color: #FFFFFF; font-size: 17px">
+        {% if post.title %}
+             {{ post.title }}
+        {% endif %}
+        </div>
+
+
+        {% if post.url_of_post %}
+            <a href="{{ post.url_of_post }} ">{{ post.url_of_post|truncate(40) }} </a>
+        {% endif %}
+
+    </div>
+
+    <div class="col-12 pt-1 pb-1 pl-1 linkcolor">
+        <a class="linkcolor" href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+            <b> a/{{ post.subcommon_name }} </b>
+        </a>
+        <div style="font-size: 11px; display: inline;">
+            Posted by
+        </div>
+        <div class="linkcolor"  style="display: inline;">
+            <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
+                <b>  {{ post.poster_user_name }} </b>
+            </a>
+            <div  style="font-size: 11px; display: inline;">
+                (Lvl {{ post.posterposts.user_stats_common.user_level }})
+            </div>
+        </div>
+        <div style="font-size: 11px; display: inline;">
+            Posted   {{ moment(timestamp=post.created, local=False).fromNow(refresh=True)  }}
+            {% if post.created != post.edited %}
+                |    Edited:   {{ moment(timestamp=post.edited, local=False).fromNow(refresh=True)  }}
+            {% else %}
+            {% endif %}
+        </div>
+
+    </div>
+
+
+    <div class="col-12 pt-2 pl-1">
+        {% if post.post_donations %}
+            <div class="row p-1">
+                {% if post.post_donations.total_recieved_btc == 0 %}
+                {% else %}
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
+                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                        {{ post.post_donations.total_recieved_btc|btctostring }}
+                    </div>
+                {% endif %}
+
+                {% if post.post_donations.total_recieved_bch == 0 %}
+                {% else %}
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
+                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                        {{ post.post_donations.total_recieved_bch|btctostring }}
+                    </div>
+                {% endif %}
+
+
+                {% if post.post_donations.total_recieved_xmr == 0 %}
+                {% else %}
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
+                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                        {{ post.post_donations.total_recieved_xmr|xmrtostring }}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    </div>
+
+
+    {% if post.post_coins %}
+        {% if post.post_coins.coin_1 == 0
+                     and post.post_coins.coin_2 == 0
+                     and post.post_coins.coin_3 == 0
+                      and post.post_coins.coin_4 == 0
+                      and post.post_coins.coin_5 == 0
+                       and post.post_coins.coin_6 == 0%}
+
+        {% else %}
+
+            <div class="col-12 pl-1">
+
+
+                <div class="row p-1">
+                    <div class="col-12 " style="font-size: 12px;">
+
+                        {% if post.post_coins.coin_1 != 0 %}
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/1.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_1 }}
+                        {% endif %}
+
+                        {% if post.post_coins.coin_2 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/2.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_2 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_3 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/3.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_3 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_4 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/4.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_4 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_5 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/5.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_5 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_6 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/6.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_6 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_7 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/7.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_7 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_8 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/8.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_8 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_9 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/9.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_9 }}
+                        {% endif %}
+                        {% if post.post_coins.coin_10 != 0 %}
+
+                            <img src="{{ url_for('static', filename='images/coins/tipvote/10.png')  }}"
+                                 width="20px" height="20px">
+                            {{ post.post_coins.coin_10 }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="col-12">
+        <div class="row pb-1">
+            <div class=" btn-ee text-center p-2">
+                <a class="btn-ee"
+                   href="{{ url_for('subforum.viewpost',subname=post.subcommon_name,postid = post.id) }}">
+                    <div class="d-inline p-0 font-weight-bold" id="comment_count_before_{{ post.id }}">
+                      <i class=" fas fa-comment fa-1x" style="color: #808183"></i> {{ post.comment_count }}
+                    </div>
+
+                    <div class="font-weight-bold"
+                         id="comment_count_after_{{ post.id }}"
+                         style="display: none; color: #00ff00; font-size: 14px">
+                        <i class=" fa fa-arrow-up fa-1x" style="color: #00ff00"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="btn-ee  text-white p-2">
+                <button class="btn-ee font-weight-bold"
+                        type="button" data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
+                    <i class=" fas fa-pen fa-1x" style="color: #808183"></i> Write
+                </button>
+                <!-- Modal -->
+                <style>
+                    .modal-header {
+                        background-color: #242425;
+                        color: white;
+                        border: none;
+                        text-align: center;
+                    }
+                    .modal-body {
+                        background-color: #242425;
+                        color: white;
+                        border: none;
+                    }
+                    .modal-footer {
+                        background-color: #242425;
+                        color: white;
+                        border: none;
+                    }
+                    .btn-modal-tipvote {
+                        box-shadow:inset 0px 1px 0px 0px #09468f;
+                        background:linear-gradient(to bottom, #083462 5%, #083462 100%);
+                        background-color:#083462;
+                        border-radius:6px;
+                        border:1px solid #083462;
+                        display:inline-block;
+                        cursor:pointer;
+                        color:#ffffff;
+                        font-family:Arial;
+                        font-size:15px;
+                        font-weight:bold;
+                        padding:6px 24px;
+                        text-decoration:none;
+                        text-shadow:0px 1px 0px #09478a;
+                    }
+                    .btn-modal-tipvote:hover {
+                        background:linear-gradient(to bottom, #083462 5%, #29629f 100%);
+                        background-color: #002a96;
+                    }
+                    .btn-modal-tipvote:active {
+                        position:relative;
+                        top:1px;
+                    }
+
+                </style>
+                <div class="modal fade" id="WriteModal_{{ post.id }}" tabindex="-1"
+                     role="dialog" aria-labelledby="WriteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog    modal-dialog-centered " role="document">
+                        <div class="modal-content  " style="">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center" id="WriteModalLabel">
+                                    Comment on {{ post.user_name }}'s post
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" >
+                                <div class="col-12 pb-3">
+                                    {% if post.post_text %}
+                                        {{ post.post_text|truncate(85) }}
+                                    {% else %}
+                                    {% endif %}
+                                </div>
+                                {% include 'create/comment/_comment_post_form.html' %}
+                            </div>
+
+                            <div class="modal-footer">
+                                <button
+                                        class="btn-modal-tipvote"
+                                        id="click-btn-post-comment-{{ post.id }}"
+                                        value="submit"
+                                        type="button"
+                                        data-dismiss="modal"
+                                >
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-ee  text-white p-2 " style="color: #808183"
+                 onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
+                <a class="btn-ee   font-weight-bold" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
+                   <i class="fas fa-bullhorn fa-1x" style="color: #808183"></i>  Promote
+                </a>
+            </div>
+
+            <div class=" btn-ee text-center  p-2 " style="color: #808183"
+                 onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
+                <a class="btn-ee  font-weight-bold" href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
+                  <i class="fab fa-bitcoin fa-1x" style="color: #808183"></i>   Tip
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

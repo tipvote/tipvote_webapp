@@ -12,45 +12,12 @@
     {% include 'layout/headers/depositheader.html' %}
     {% include 'subforums/banner/all.html' %}
 
-    <div class="container mt-3">
 
-        <div class="row" >
-            <!-- Left Side -->
-            <div class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block ">
-                {% include 'layout/profile/main_profile.html' %}
-                {% include 'layout/widgets_coins/_wallets_balance.html' %}
-                {% include 'layout/widgets/_current_prices.html' %}
-            </div>
+    {% block content %}
+    {% endblock %}
 
-            <!-- Middle -->
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-5 ">
-                <div style="max-width: 600px; margin: 0 auto;">
-                    {% include 'layout/widgets_subs/nav/index_topnav.html' %}
-                    {% include "flashbar.html" %}
-
-                    {% if current_user.is_authenticated %}
-                        {% include 'create/posts/master/_full_form.html' %}
-                    {% else %}
-                        {% include 'create/posts/master/_fake_create_post.html' %}
-                    {% endif %}
-
-                    {% include 'layout/widgets/_livestream.html' %}
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-
-            <!-- Right -->
-            <div class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block">
-                {% include 'layout/widgets/_formactions.html' %}
-                {% include 'layout/widget_stats/all/newest_tippers.html' %}
-                {% include 'layout/widgets/mightbebugs.html' %}
-                {% include 'layout/widgets/_rules_for_posts.html' %}
-            </div>
-        </div>
-    </div>
+    {% include 'layout/basic/_footer.html' %}
 
     </body>
-    {% include 'layout/basic/_footer.html' %}
 </div>
 </html>

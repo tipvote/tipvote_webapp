@@ -19,7 +19,6 @@ from app.main.forms import ApplyToPrivate, CreateUpdateForm
 from app.subforum.forms import SubscribeForm
 from app.vote.forms import VoteForm
 from app.create.forms import MainPostForm, CreateCommentQuickForm
-
 from app.models import \
     Subscribed, \
     SubForums, \
@@ -183,6 +182,9 @@ def index():
     else:
         mainpostform = None
 
+
+
+
     # get current giveaway
     thegiveaway = GiveawayAll.query.order_by(GiveawayAll.id.desc()).first()
 
@@ -236,6 +238,7 @@ def index():
                            lockpostform=lockpostform,
                            deletepostform=deletepostform,
                            muteuserform=muteuserform,
+
 
                            # general
                            seeifmod=seeifmod,

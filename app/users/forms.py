@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, \
     PasswordField, \
     SubmitField, \
-    BooleanField, RadioField
+    BooleanField, \
+    RadioField, \
+    SelectField
 from wtforms.validators import DataRequired, \
     Length, \
     Regexp, \
@@ -419,6 +421,6 @@ class ThemeForm(FlaskForm):
                                     ]
                            )
 
-
-
     submit = SubmitField('Submit')
+
+

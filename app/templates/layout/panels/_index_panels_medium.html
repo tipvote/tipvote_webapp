@@ -1,0 +1,47 @@
+<div class="container-fluid mt-3 ">
+    <div class="row mb-5" >
+        <!-- Middle -->
+        <div class="col-md-8 col-lg-9 col-xl-10 ">
+
+
+            {% include "flashbar.html" %}
+
+            {% if current_user.is_authenticated %}
+                {% include 'create/posts/master/_full_form.html' %}
+            {% else %}
+                {% include 'create/posts/master/_fake_create_post.html' %}
+            {% endif %}
+          {% include 'layout/widgets_subs/nav/index_topnav.html' %}
+            {% include 'layout/widgets/_livestream.html' %}
+
+            {% for post in posts %}
+                {% include 'posts/panels_medium/master.html' %}
+            {% endfor %}
+
+            <div class="row mt-5">
+                <div class="col-12 text-center justify-content-center">
+                    {% if prev_url %}
+                        <a class="btn btn-tipvote-up btn-sm" type="button" href="{{ prev_url }}">
+                            Newer posts
+                        </a>
+                    {% endif %}
+                    {% if next_url %}
+                        <a class="btn btn-tipvote-up btn-sm" type="button" href="{{ next_url }}">
+                            Older posts
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right -->
+        <div class="col-md-4 col-lg-3 col-xl-2 d-none d-md-block">
+            {% include 'layout/profile/main_profile.html' %}
+            {% include 'layout/widgets/_formactions.html' %}
+            {% include 'layout/widget_stats/all/newest_tippers.html' %}
+            {% include 'layout/widgets/mightbebugs.html' %}
+            {% include 'layout/widgets/_rules_for_posts.html' %}
+        </div>
+    </div>
+</div>

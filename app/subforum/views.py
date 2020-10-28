@@ -20,7 +20,7 @@ from sqlalchemy import or_
 from app.create.forms import \
     CreateCommentForm, \
     MainPostForm, \
-    CreateCommentQuickForm
+    CreateCommentQuickForm, RoomPostForm
 from app.profile_edit.forms import \
     SaveForm
 from app.vote.forms import VoteForm
@@ -62,7 +62,9 @@ from app.models import \
     PrivateApplications, \
     SubForumCustom, \
     SubForumCustomInfoOne, \
-    Subscribed, Business, BusinessFollowers
+    Subscribed, \
+    Business,\
+    BusinessFollowers
 
 
 @subforum.route('/<string:subname>', methods=['GET'])
@@ -78,9 +80,9 @@ def sub(subname):
     muteuserform = QuickMute()
     nsfwform = NSFWForm()
     subpostcommentform = CreateCommentQuickForm()
-    mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
 
     navlink = 1
+
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -271,6 +273,14 @@ def sub(subname):
     else:
         bizfollowing = None
 
+    if current_user.is_authenticated:
+        mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)), )
+        mainpostform.roomname.choices = \
+            [(str(row.subscriber.id), str(row.subscriber.subcommon_name)) for row in usersubforums]
+    else:
+        mainpostform = None
+
+
     # latest tips
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
@@ -374,10 +384,11 @@ def sub_newest(subname):
     muteuserform = QuickMute()
     voteform = VoteForm()
     subpostcommentform = CreateCommentQuickForm()
-    mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)))
 
     navlink = 2
+
     subname = subname.lower()
+
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
     currentbchprice = db.session.query(BchPrices).get(1)
@@ -559,6 +570,13 @@ def sub_newest(subname):
     else:
         bizfollowing = None
 
+    if current_user.is_authenticated:
+        mainpostform = MainPostForm(CombinedMultiDict((request.files, request.form)), )
+        mainpostform.roomname.choices = \
+            [(str(row.subscriber.id), str(row.subscriber.subcommon_name)) for row in usersubforums]
+    else:
+        mainpostform = None
+
     # latest tips
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
@@ -607,6 +625,7 @@ def sub_newest(subname):
                            subform=subform,
                            subpostcommentform=subpostcommentform,
                            voteform=voteform,
+
                            navlink=navlink,
                            thenotescount=thenotescount,
                            reportform=reportform,
@@ -989,6 +1008,7 @@ def viewpost(subname, postid):
     """
     View / Reply to a post
     """
+    viewpost = 1
 
     form = CreateCommentForm()
     saveform = SaveForm()
@@ -1196,7 +1216,7 @@ def viewpost_newest(subname, postid):
     """
     View / Reply to a post
     """
-
+    viewpost = 1
     form = CreateCommentForm()
     subform = SubscribeForm()
     reportform = ReportForm()
@@ -1356,6 +1376,7 @@ def viewpost_newest(subname, postid):
                            editcommenttextform=editcommenttextform,
                            deleteposttextform=deleteposttextform,
                            deletecommenttextform=deletecommenttextform,
+                           viewpost=viewpost,
                            guestsubforums=guestsubforums,
                            useramod=useramod,
                            userowner=userowner,
@@ -1385,7 +1406,7 @@ def viewpost_oldest(subname, postid):
     """
     View / Reply to a post
     """
-
+    viewpost = 1
     form = CreateCommentForm()
 
     subform = SubscribeForm()
@@ -1546,7 +1567,7 @@ def viewpost_oldest(subname, postid):
                            editcommenttextform=editcommenttextform,
                            deleteposttextform=deleteposttextform,
                            deletecommenttextform=deletecommenttextform,
-
+                           viewpost=viewpost,
                            useramod=useramod,
                            userowner=userowner,
                            subname=subname,
@@ -1576,7 +1597,7 @@ def viewpost_downvoted(subname, postid):
     """
     View / Reply to a post
     """
-
+    viewpost = 1
     form = CreateCommentForm()
 
     subform = SubscribeForm()
@@ -1741,6 +1762,7 @@ def viewpost_downvoted(subname, postid):
                            userowner=userowner,
                            subname=subname,
                            thesub=thesub,
+                           viewpost=viewpost,
                            subinfobox=subinfobox,
                            subcustom_stuff=subcustom_stuff,
                            guestsubforums=guestsubforums,

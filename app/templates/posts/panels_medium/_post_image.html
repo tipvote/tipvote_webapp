@@ -1,0 +1,37 @@
+<style>
+    .image_medium{
+
+        width: 75px;
+        height: 65px;
+
+        border-radius: 5px;
+    }
+
+</style>
+
+{% if post.url_image_server %}
+    <a href="{{ url_for('common.post_file', filename=post.url_image_server) }}">
+        <img
+                class="img-fluid image_medium"
+                src="{{ url_for('common.post_file',filename=post.url_image_server) }}"
+        >
+    </a>
+
+
+{% else %}
+    {% if post.image_server_1  %}
+        <a href="{{ url_for('common.post_file', filename=post.image_server_1) }}">
+            <img
+                    class="img-fluid image_medium"
+                    src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
+            >
+        </a>
+    {% else %}
+        <div class="col-12" style="padding-top: 7px; padding-bottom: 7px; padding-left: 0px">
+        <div class="third_color" style="height: 65px; width: 65px;border-radius: 15px;">
+
+            <i class="fas fa-comments fa-2x" style="color: #8d8a8a; margin: 20px 5px"></i>
+        </div>
+</div>
+    {% endif %}
+{% endif %}

@@ -5,7 +5,15 @@
 {% include 'layout/headers/header.html' %}
 {% include 'layout/headers/depositheader.html' %}
 {% from "_formhelper.html" import render_field %}
-<div class="wrapper">
+<style>
+    .wrapper2 {
+    min-height: calc(100vh - 370px);
+
+    #display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+</style>
+<div class="wrapper2">
     <body>
     <div class="container mt-2">
 

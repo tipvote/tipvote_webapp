@@ -60,7 +60,6 @@ from app.models import\
 from app.wallet_btc.wallet_btc_work import createwallet
 from app.wallet_bch.wallet_btccash_work import bch_create_wallet
 from app.wallet_xmr.monero_wallet_work import monerocreatewallet
-from app.wallet_xmr_stagenet.monero_wallet_work import monerocreatewallet_stagenet
 from app.sendmsg import send_email
 
 
@@ -1036,3 +1035,28 @@ def changetheme():
             db.session.add(theuser)
             db.session.commit()
         return redirect(url_for('users.account'))
+
+
+@users.route('/style/<int:choice>', methods=['GET'])
+@login_required
+def changestyle(choice):
+    if request.method == 'POST':
+        return redirect(url_for('index'))
+
+    elif request.method == 'GET':
+        theuser = db.session.query(User).filter(current_user.id == User.id).first()
+        intchoice = int(choice)
+
+        if intchoice == 1:
+            theuser.post_style = 2
+        elif intchoice == 2:
+            theuser.post_style = 1
+        elif intchoice == 3:
+            theuser.post_style = 1
+        else:
+            theuser.post_style = 1
+
+        db.session.add(theuser)
+        db.session.commit()
+
+        return redirect((request.args.get('next', request.referrer)))

@@ -1,18 +1,16 @@
-    {% extends "layout/layout_3bars_all.html" %}
-    {% block content %}
+{% extends "layout/layout_3bars_all.html" %}
+{% block content %}
 
-        {% for post in posts %}
-            {% include 'posts/master.html' %}
-        {% endfor %}
+    {% if current_user.post_style == 1 %}
+        {% include "layout/cards/_index_cards.html" %}
+    {% elif current_user.post_style == 2 %}
+        {% include "layout/panels/_index_panels_medium.html" %}
+    {% elif current_user.post_style == 3 %}
+        {% include "layout/panels/_index_panels_large.html" %}
+    {% elif current_user.post_style == 4 %}
+        {% include "layout/panels/_index_panels_small.html" %}
+    {% else %}
+        {% include "layout/panels/_index_panels_medium.html" %}
+    {% endif %}
 
-        <div class="row mt-5">
-            <div class="col-12 text-center justify-content-center">
-                {% if prev_url %}
-                    <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
-                {% endif %}
-                {% if next_url %}
-                    <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
-                {% endif %}
-            </div>
-        </div>
-    {% endblock %}
+{% endblock %}

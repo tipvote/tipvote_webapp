@@ -191,9 +191,14 @@ class RoomPostForm(FlaskForm):
     Used for creating an image post
     """
 
+    post_title = StringField(validators=[
+        DataRequired(),
+        Length(1, 150, message='Title must be between 1 and 150 characters long'),
+    ])
+
     post_message = TextAreaField(validators=[
         Optional(),
-        Length(1, 10000, message='Message must be between 1 and 10000 characters long'),
+        Length(1, 10000, message='Text must be between 1 and 10000 characters long'),
     ])
 
     image_one = FileField(validators=
@@ -221,7 +226,7 @@ class BusinessPostForm(FlaskForm):
 
     post_message = TextAreaField(validators=[
         Optional(),
-        Length(1, 10000, message='Message must be between 1 and 10000 characters long'),
+        Length(1, 10000, message='Text must be between 1 and 10000 characters long'),
     ])
 
     image_one = FileField(validators=
@@ -249,10 +254,14 @@ class MainPostForm(FlaskForm):
 
     roomname = SelectField(Optional())
 
+    post_title = StringField(validators=[
+        DataRequired(),
+        Length(1, 150, message='Title must be between 1 and 150 characters long'),
+    ])
 
     post_message = TextAreaField(validators=[
         Optional(),
-        Length(1, 10000, message='Message must be between 1 and 10000 characters long'),
+        Length(1, 10000, message='Text must be between 1 and 10000 characters long'),
     ])
 
     image_one = FileField(validators=

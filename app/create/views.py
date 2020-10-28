@@ -665,7 +665,7 @@ def createcomment(subname, postid, parentid):
             db.session.add(getuser_timers)
             db.session.commit()
 
-            flash("Comment Added.", category="success")
+
             return redirect(url_for('subforum.viewpost',
                                     subname=thepost.subcommon_name,
                                     postid=thepost.id))
@@ -1210,7 +1210,6 @@ def create_post_wall(userid):
             flash("Your Post can not be added.", category="danger")
             return redirect(url_for('index'))
 
-
         if wall_post_form.validate_on_submit():
 
             getuser_timers = db.session.query(UserTimers).filter_by(user_id=current_user.id).first()
@@ -1252,7 +1251,7 @@ def create_post_wall(userid):
 
             # add post to db
             newpost = CommonsPost(
-
+                title=wall_post_form.post_title.data,
                 user_id=theuser.id,
                 user_name=theuser.user_name,
                 visible_user_id=theuser.id,
@@ -1487,6 +1486,7 @@ def create_post_room(subname):
             # add post to db
             newpost = CommonsPost(
                 # creator
+                title=wall_post_form.post_title.data,
                 created=now,
                 edited=now,
                 shared_post=0,
@@ -1697,7 +1697,7 @@ def create_post_room_all(userid):
             transformed_text, notifyuser = transform_image_links_markdown(str(wall_post_form.post_message.data))
             # add post to db
             newpost = CommonsPost(
-
+                title=wall_post_form.post_title.data,
                 user_id=theuser.id,
                 user_name=theuser.user_name,
                 visible_user_id=visible_user_id,
@@ -1879,6 +1879,7 @@ def create_post_business_wall(businessid):
             transformed_text, notifyuser = transform_image_links_markdown(str(business_post_form.post_message.data))
 
             newpost = CommonsPost(
+                title=business_post_form.post_title.data,
                 user_id=current_user.id,
                 user_name=current_user.user_name,
                 visible_user_id=current_user.id,
@@ -2026,7 +2027,7 @@ def create_post_business_wall_other(businessid):
             transformed_text, notifyuser = transform_image_links_markdown(str(business_post_form.post_message.data))
             # add post to db
             newpost = CommonsPost(
-
+                title=business_post_form.post_title.data,
                 user_id=current_user.id,
                 user_name=current_user.user_name,
                 visible_user_id=current_user.id,

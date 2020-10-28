@@ -2357,6 +2357,7 @@ class User(UserMixin, db.Model):
     fails = db.Column(db.INTEGER)
     locked = db.Column(db.INTEGER)
     banned = db.Column(db.INTEGER)
+    post_style = db.Column(db.INTEGER)
     color_theme = db.Column(db.INTEGER)
     agree_to_tos = db.Column(db.BOOLEAN, default=False)
 

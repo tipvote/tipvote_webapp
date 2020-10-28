@@ -7,8 +7,8 @@
                 {% if post.posterposts.profileimage  %}
                     {% if post.posterposts.profileimage == '' %}
                         <img
-                             src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                             style="width:50px;height: 50px"
+                                src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                                style="width:50px;height: 50px"
                         >
                     {% else %}
                         <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
@@ -108,9 +108,9 @@
                             <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
                                 {{ post.poster_user_name }}
                             </a>
-                               <div style="font-size: 11px; display: inline;">
-                            (Lvl {{ post.posterposts.user_stats_common.user_level }})
-                               </div>
+                            <div style="font-size: 11px; display: inline;">
+                                (Lvl {{ post.posterposts.user_stats_common.user_level }})
+                            </div>
                         </div>
                     {% endif %}
                 {% else %}
@@ -121,9 +121,9 @@
                         <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
                             {{ post.user_name }}
                         </a>
-                           <div style="font-size: 11px; display: inline;">
-                        (Lvl {{ post.userposts.user_stats_common.user_level }})
-                           </div>
+                        <div style="font-size: 11px; display: inline;">
+                            (Lvl {{ post.userposts.user_stats_common.user_level }})
+                        </div>
                     </div>
                 {% endif %}
             {% else %}
@@ -187,5 +187,5 @@
                 {% include 'posts/classic/_post_votes.html' %}
             </div>
         </div>
-    </div>
-</div>
+        </div>
+        </div>

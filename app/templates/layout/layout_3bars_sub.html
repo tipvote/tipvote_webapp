@@ -4,10 +4,19 @@
 {% include 'css/main.html' %}
 {% include 'layout/headers/header.html' %}
 {% from "_formhelper.html" import render_field %}
-<div class="wrapper">
+<style>
+    .wrapper2 {
+    min-height: calc(100vh - 370px);
+
+    #display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+</style>
+<div class="wrapper2">
     <body>
 
     {% include 'layout/headers/depositheader.html' %}
+
     {% if subcustom_stuff %}
         {% if subcustom_stuff.banner_image == '' %}
             {% include 'subforums/banner/plain_banner.html' %}
@@ -18,45 +27,12 @@
         {% include 'subforums/banner/plain_banner.html' %}
     {% endif %}
 
-    <div class="container mt-3">
-        <div class="row">
-            <!-- Left Side -->
-            <div class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block">
-                {% include 'layout/profile/main_profile.html' %}
-                {% include 'layout/widgets_coins/_wallets_balance.html' %}
-                {% include 'layout/widgets/_current_prices.html' %}
-            </div>
 
-            <!-- Middle -->
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-5 ">
-                <div style="max-width: 600px; margin: 0 auto">
-                    {% include 'layout/widgets_subs/nav/sub_topnav.html' %}
-                    {% include "flashbar.html" %}
-                    {% if current_user.is_authenticated %}
-                        {% include 'create/posts/master/_specific_sub_create.html' %}
-                    {% else %}
-                        {% include 'create/posts/master/_fake_create_post.html' %}
-                    {% endif %}
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+    {% block content %}
+    {% endblock %}
 
-            <!-- Right -->
-            <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 d-none d-lg-block">
-                {% include 'layout/widgets_subs/sub_description.html' %}
-                {% include 'layout/widgets/_formactions.html' %}
-                {% include 'layout/widgets_subs/sub_infobox.html' %}
-                {% include 'layout/widget_stats/all/newest_tippers.html' %}
-                {% include 'layout/widgets_subs/manage.html' %}
-                {% include 'layout/widgets_subs/reports.html' %}
-                {% include 'layout/widgets_subs/mods.html' %}
-                {% include 'layout/widgets_subs/deletion.html' %}
-                {% include 'layout/widgets/_rules_for_posts.html' %}
-            </div>
-        </div>
-    </div>
-    <div class="mb-5"></div>
+
+
     </body>
 
 </div>

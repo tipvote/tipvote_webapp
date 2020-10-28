@@ -52,10 +52,14 @@
                       action="{{ url_for('create.create_post_room_all',userid=current_user.id) }}"
                       enctype="multipart/form-data">
                     {{ mainpostform.csrf_token }}
-
+                    <!-- Post Title -->
+                    <div class="col-12 mb-3 mt-0 ">
+                          <b>Post Title: </b>
+                        {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post title ...") }}
+                    </div>
                     <!-- Post Message -->
                     <div class="col-12 mb-3 mt-0 ">
-                          <b>Post Text: </b>
+                          <b>Post Text or URL: </b>
                         {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post text ...") }}
                     </div>
                     <!--Select Room -->
