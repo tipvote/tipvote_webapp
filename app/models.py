@@ -2448,7 +2448,8 @@ class User(UserMixin, db.Model):
                  agree_to_tos,
                  confirmed,
                  banned,
-                 color_theme
+                 color_theme,
+                 post_style
                  ):
 
         self.user_name = user_name
@@ -2472,6 +2473,7 @@ class User(UserMixin, db.Model):
         self.banned = banned
         self.color_theme = color_theme
 
+        self.post_style = post_style
     # user followers
     def follow(self, user):
         if not self.is_following(user):

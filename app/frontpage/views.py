@@ -68,7 +68,7 @@ def frontpage_home():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -306,7 +306,7 @@ def frontpage_newest():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -486,7 +486,7 @@ def frontpage_mostactive():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -669,7 +669,7 @@ def frontpage_top():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0

@@ -8,16 +8,15 @@
 {% from "_formhelper.html" import render_field %}
 <div class="wrapper">
     <body>
-    {% from "_formhelper.html" import render_field %}
-    {% include 'layout/headers/depositheader.html' %}
-    {% include 'subforums/banner/all.html' %}
+        {% from "_formhelper.html" import render_field %}
+        {% include 'layout/headers/depositheader.html' %}
+        {% include 'subforums/banner/all.html' %}
 
 
-    {% block content %}
-    {% endblock %}
-
-    {% include 'layout/basic/_footer.html' %}
+        {% block content %}
+        {% endblock %}
 
     </body>
 </div>
+ {% include 'layout/basic/_footer.html' %}
 </html>

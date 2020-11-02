@@ -91,9 +91,9 @@
                 <div class="row justify-content-end pl-0 pr-0">
 
 
-            <a class="btn btn-dark text-white " href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                <i class="fa fa-user"></i>
-            </a>
+                    <a class="btn btn-dark text-white " href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        <i class="fa fa-user"></i>
+                    </a>
 
 
 
@@ -158,7 +158,7 @@
                         <a class="btn btn-dark text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                     {% endif %}
 
-                    <div class="dropdown d-inline pl-1 pr-1">
+                    <div class="dropdown d-inline pl-1 pr-1 ">
 
                         {% if thenotescount %}
                             {% if thenotescount > 0 %}
@@ -192,7 +192,7 @@
                             </button>
                         {% endif %}
 
-                        <div class="dropdown-menu dropdown-menu-right second_color dropdown-content bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                        <div class="dropdown-menu dropdown-menu-right second_color dropdown-content bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
                              aria-labelledby="dropdownMenuButton"
                              style="width: 400px">
                             <div class="col-12 second_color">
@@ -238,6 +238,16 @@
                                     <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
                                         <div class="col-12 pt-2 pb-2 btn-ee text-white ">
                                             Account
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=1) }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            Reddit Theme
+                                        </div>
+                                    </a>
+                                    <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=2) }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                            Facebook Theme
                                         </div>
                                     </a>
                                     <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">

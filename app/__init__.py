@@ -26,8 +26,8 @@ from flask_mistune import Mistune
 
 
 app = Flask(__name__, static_url_path='',
-            static_folder="/home/droid/tipvote/app/static",
-            template_folder="/home/droid/tipvote/app/templates")
+            static_folder="../../tipvote/app/static",
+            template_folder="../../tipvote/app/templates")
 
 
 class RegexConverter(BaseConverter):

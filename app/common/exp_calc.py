@@ -335,6 +335,97 @@ def randomcoin(user_id, newlevel):
         seeifuserhascoin2.quantity = newamount
         db.session.add(seeifuserhascoin2)
 
+
+    # BONUS
+    if 5 <= newlevel <= 10:
+        getlevelcoins = db.session.query(Coins) \
+            .filter(Coins.id == 5) \
+            .first()
+        seeifuserhascoinz_level = db.session.query(UserCoins) \
+            .filter(UserCoins.user_id == user_id,
+                    UserCoins.coin_id == 5) \
+            .first()
+        if seeifuserhascoinz_level is None:
+            createnewcoin_level = UserCoins(
+                image_thumbnail=getlevelcoins.image_thumbnail,
+                user_name=theuser.user_name,
+                user_id=theuser.id,
+                obtained=now,
+                quantity=5,
+                coin_name=getlevelcoins.coin_name,
+                coin_rarity=getlevelcoins.coin_rarity,
+                coin_description=getlevelcoins.coin_description,
+                points_value=getlevelcoins.points_value,
+                coin_id=getlevelcoins.id
+            )
+            db.session.add(createnewcoin_level)
+        else:
+            currentamount = seeifuserhascoinz_level.quantity
+            newamount = currentamount + 5
+            seeifuserhascoinz_level.quantity = newamount
+            db.session.add(seeifuserhascoinz_level)
+
+    elif 11 <= newlevel <= 20:
+
+        getlevelcoins = db.session.query(Coins) \
+            .filter(Coins.id == 5) \
+            .first()
+        seeifuserhascoinz_level = db.session.query(UserCoins) \
+            .filter(UserCoins.user_id == user_id,
+                    UserCoins.coin_id == 5) \
+            .first()
+        if seeifuserhascoinz_level is None:
+            createnewcoin_level = UserCoins(
+                image_thumbnail=getlevelcoins.image_thumbnail,
+                user_name=theuser.user_name,
+                user_id=theuser.id,
+                obtained=now,
+                quantity=10,
+                coin_name=getlevelcoins.coin_name,
+                coin_rarity=getlevelcoins.coin_rarity,
+                coin_description=getlevelcoins.coin_description,
+                points_value=getlevelcoins.points_value,
+                coin_id=getlevelcoins.id
+            )
+            db.session.add(createnewcoin_level)
+        else:
+            currentamount = seeifuserhascoinz_level.quantity
+            newamount = currentamount + 10
+            seeifuserhascoinz_level.quantity = newamount
+            db.session.add(seeifuserhascoinz_level)
+
+    elif 21 <= newlevel <= 100:
+        # give 10 5 coins
+        getlevelcoins = db.session.query(Coins) \
+            .filter(Coins.id == 5) \
+            .first()
+        seeifuserhascoinz_level = db.session.query(UserCoins) \
+            .filter(UserCoins.user_id == user_id,
+                    UserCoins.coin_id == 5) \
+            .first()
+        if seeifuserhascoinz_level is None:
+            createnewcoin_level = UserCoins(
+                image_thumbnail=getlevelcoins.image_thumbnail,
+                user_name=theuser.user_name,
+                user_id=theuser.id,
+                obtained=now,
+                quantity=50,
+                coin_name=getlevelcoins.coin_name,
+                coin_rarity=getlevelcoins.coin_rarity,
+                coin_description=getlevelcoins.coin_description,
+                points_value=getlevelcoins.points_value,
+                coin_id=getlevelcoins.id
+            )
+            db.session.add(createnewcoin_level)
+        else:
+            currentamount = seeifuserhascoinz_level.quantity
+            newamount = currentamount + 50
+            seeifuserhascoinz_level.quantity = newamount
+            db.session.add(seeifuserhascoinz_level)
+
+    else:
+        pass
+
     createdisplayflash = DisplayCoins(
         created=now,
         user_name=theuser.user_name,
@@ -354,4 +445,12 @@ def randomcoin(user_id, newlevel):
     )
 
     db.session.add(createdisplayflash)
+
+
+
+
+
+
+
+
     db.session.commit()

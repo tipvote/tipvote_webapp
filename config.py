@@ -79,7 +79,7 @@ TRAP_HTTP_EXCEPTIONS = True
 PROPAGATE_EXCEPTIONS = True
 
 # gunicorn config
-pythonpath = '/home/droid/tipvote/venv/bin/python3'
+pythonpath = '/../../tipvote/venv/bin/python3'
 bind = '0.0.0.0:5000'
 proc_name = 'runProduction:app'
 workers = 4

@@ -6,7 +6,7 @@
     {% if posts %}
 
         {% if current_user.post_style == 1 %}
-            {% include "layout/cards/_index_cards.html" %}
+            {% include "layout/cards/_sub_cards.html" %}
         {% elif current_user.post_style == 2 %}
             {% include "layout/panels/_sub_panels_medium.html" %}
         {% elif current_user.post_style == 3 %}
@@ -14,7 +14,7 @@
         {% elif current_user.post_style == 4 %}
             {% include "layout/panels/_sub_panels_small.html" %}
         {% else %}
-            {% include "layout/panels/_sub_panels.html" %}
+            {% include "layout/cards/_sub_cards.html" %}
         {% endif %}
 
     {% else %}

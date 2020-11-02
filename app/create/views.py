@@ -1386,10 +1386,10 @@ def create_post_wall(userid):
                                      )
 
             if current_user.id == theuser.id:
-                flash("Post Created!", category="success")
+
                 return redirect((url_for('profile.main', user_name=theuser.user_name)))
             else:
-                flash("Post Created!", category="success")
+
                 return redirect((url_for('profile.profile_other_posts_all', user_name=theuser.user_name)))
         else:
 
@@ -1601,7 +1601,7 @@ def create_post_room(subname):
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
-            flash("Post Created!", category="success")
+
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
         else:
             flash("Post Creation Failure.", category="danger")
@@ -1813,7 +1813,6 @@ def create_post_room_all(userid):
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
-            flash("Post Created!", category="success")
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
         else:
 
@@ -1972,7 +1971,6 @@ def create_post_business_wall(businessid):
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
-            flash("Post Created!", category="success")
             return redirect((url_for('business.main', business_name=thebiz.business_name)))
         else:
 
@@ -2135,7 +2133,6 @@ def create_post_business_wall_other(businessid):
             # add exp points
             exppoint(user_id=current_user.id, category=1)
 
-            flash("Post Created!", category="success")
             return redirect((url_for('business.main_post_to_another_wall', business_name=thebiz.business_name)))
         else:
             flash("Post Creation Failure.", category="danger")

@@ -48,5 +48,34 @@
             </div>
 
         </form>
+
+        <div class="col-12 second_color p-3 mt-5">
+            <div class="col-12 text-center h5">Select a Panel display theme</div>
+            <div class="row pr-2">
+
+                <div class="col-12 second_color">
+                    <div class="row">
+                        <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=1) }}">
+                            <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <i class=" fab fa-reddit fa-2x" style="color: #808183"></i>
+                                <div class="font-weight-bold" style="display: inline">
+                                    Reddit Style
+                                </div>
+                            </div>
+                        </a>
+                        <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=2) }}">
+                            <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>
+                                <div class="font-weight-bold text-white" style="display: inline;">
+                                    Facebook Style
+                                </div>
+                            </div>
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

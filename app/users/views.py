@@ -198,7 +198,8 @@ def register():
                     over_age=0,
                     agree_to_tos=True,
                     banned=0,
-                    color_theme=1
+                    color_theme=1,
+                    post_style=1
                 )
                 db.session.add(newuser)
                 db.session.commit()
@@ -348,6 +349,7 @@ def register():
                       " you can change this in account settings.", category="success")
                 return redirect(url_for('welcome'))
             except Exception as e:
+
                 return redirect((request.args.get('next', request.referrer)))
 
         else:

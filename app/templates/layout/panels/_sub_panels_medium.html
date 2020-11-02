@@ -1,14 +1,14 @@
 <div class="container-fluid mt-3 ">
     <div class="row mb-5" >
         <!-- Middle -->
-        <div class="col-md-9 col-lg-10  ">
-                    {% include 'layout/widgets_subs/nav/sub_topnav.html' %}
-                    {% include "flashbar.html" %}
-                    {% if current_user.is_authenticated %}
-                        {% include 'create/posts/master/_specific_sub_create.html' %}
-                    {% else %}
-                        {% include 'create/posts/master/_fake_create_post.html' %}
-                    {% endif %}
+        <div class="col-md-8 col-lg-9 col-xl-10 ">
+            {% include 'layout/widgets_subs/nav/sub_topnav.html' %}
+            {% include "flashbar.html" %}
+            {% if current_user.is_authenticated %}
+                {% include 'create/posts/master/_specific_sub_create.html' %}
+            {% else %}
+                {% include 'create/posts/master/_fake_create_post.html' %}
+            {% endif %}
             {% for post in posts %}
                 {% include 'posts/panels_medium/master.html' %}
             {% endfor %}
@@ -31,11 +31,14 @@
         </div>
 
         <!-- Right -->
-        <div class="col-md-3 col-lg-2 d-none d-md-block">
+        <div class="col-md-4 col-lg-3 col-xl-2 d-none d-md-block">
             {% include 'layout/profile/main_profile.html' %}
-            {% include 'layout/widgets/_formactions.html' %}
             {% include 'layout/widget_stats/all/newest_tippers.html' %}
-            {% include 'layout/widgets/mightbebugs.html' %}
+
+            {% include 'layout/widgets_subs/manage.html' %}
+            {% include 'layout/widgets_subs/reports.html' %}
+            {% include 'layout/widgets_subs/mods.html' %}
+            {% include 'layout/widgets_subs/deletion.html' %}
             {% include 'layout/widgets/_rules_for_posts.html' %}
         </div>
     </div>

@@ -80,7 +80,8 @@
         <div class="col-7 text-right  pl-0 pr-0 ">
             {% if current_user.is_authenticated %}
 
-                <a class="btn btn-dark text-white " href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                <a class="btn btn-dark text-white " href="{{ url_for('profile.main',
+                 user_name=current_user.user_name) }}">
                     <i class="fa fa-user"></i>
                 </a>
 
@@ -92,7 +93,8 @@
                             aria-haspopup="true"
                             aria-expanded="false">
 
-                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}"
+                             width="20px" height="20px">
                     </button>
 
                     <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"

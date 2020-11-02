@@ -71,7 +71,7 @@
             </style>
             <div class="modal fade" id="WriteModal_{{ post.id }}" tabindex="-1"
                  role="dialog" aria-labelledby="WriteModalLabel" aria-hidden="true">
-                <div class="modal-dialog    modal-dialog-centered " role="document">
+                <div class="modal-dialog  modal-dialog-centered" role="document">
                     <div class="modal-content  " style="">
                         <div class="modal-header">
                             <h5 class="modal-title text-center" id="WriteModalLabel">
@@ -83,8 +83,8 @@
                         </div>
                         <div class="modal-body" >
                             <div class="col-12 pb-3">
-                                {% if post.post_text %}
-                                    {{ post.post_text|truncate(125) }}
+                                {% if post.title %}
+                                    {{ post.title }}
                                 {% else %}
                                 {% endif %}
                             </div>

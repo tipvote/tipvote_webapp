@@ -1,7 +1,7 @@
 
 <div class="col-12 mb-3 second_color border border-dark">
     <div class="row pt-2 pb-2">
-        <div class="col-10">
+        <div class="col-8 col-md-9 ">
             {% if navlink == 1 %}
                 <a class="btn btn-dark  " style="color:#0089FF;"  role="button"  href="{{ url_for('index') }}">Popular</a>
             {% else %}
@@ -21,44 +21,17 @@
                 <a class="btn btn-dark"  role="button" href="{{ url_for('followers.followers_home') }}">Following</a>
             {% endif %}
         </div>
-        <div class="col-2 justify-content-end">
+        <div class="col-4 col-md-3  justify-content-end">
             <div class="row justify-content-end pr-2">
-
-
-                <div class="dropdown ">
-                    <button class="btn btn-dark  dropdown-toggle justify-content-center pl-2"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                        <i class="fas fa-bars fa-1x" style="color: #808183"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
-                         aria-labelledby="dropdownMenuLink"
-                         style="width: 200px">
-                        <div class="col-12 second_color">
-                            <div class="row">
-                                <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=1) }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                        <i class=" fab fa-reddit fa-2x" style="color: #808183"></i>
-                                         <div class="font-weight-bold" style="display: inline">
-                                            Reddit Style
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=2) }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
-                                        <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>
-                                        <div class="font-weight-bold text-white" style="display: inline;">
-                                            Facebook Style
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-6 text-center">
+                    <a class="" href="{{ url_for('users.changestyle', choice=1) }}">
+                        <i class=" fab fa-reddit fa-2x" style="color: #808183"></i> <br>
+                    </a>
+                </div>
+                <div class="col-6 text-center">
+                    <a class="" href="{{ url_for('users.changestyle', choice=2) }}">
+                        <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>  <br>
+                    </a>
                 </div>
             </div>
         </div>

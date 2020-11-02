@@ -2,15 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <!---Google--->
-    {% if post.url_title|length > 5 %}
-        <title> {{ post.url_title }} </title>
-    {% else %}
-        {% if post.post_text|length > 5 %}
-            <title> {{ post.post_text }} </title>
-        {% else %}
-            <title> Tipvote - Coin for your thoughts </title>
-        {% endif %}
-    {% endif %}
+    <title> {{ post.title }} </title>
     {% if post.url_description|length > 5 %}
         <meta name="description" CONTENT="{{ post.url_description }}" >
     {% else %}
@@ -23,30 +15,20 @@
 
 
     <!---Facebook--->
-<meta property="fb:app_id" content="229847451437025" />
+    <meta property="fb:app_id" content="229847451437025" />
     <meta property="og:site_name" content="Tipvote" />
     <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ post.title }} " />
     {% if now %}
-    <meta property="og:updated_time" content="{{ now }}" />
+        <meta property="og:updated_time" content="{{ now }}" />
     {% else %}
     {% endif %}
-    {% if post.url_title|length > 5 %}
-        <meta property="og:title" content="{{ post.url_title }} " />
-    {% else %}
-        {% if post.post_text|length > 5 %}
-            <meta property="og:title" content="{{ post.post_text }} " />
-        {% else %}
-            <title> Tipvote - Coin for your thoughts </title>
-        {% endif %}
-    {% endif %}
-
 
     {% if post.url_description|length > 5 %}
         <meta property="og:description" CONTENT="{{ post.url_description }}" >
     {% else %}
         <meta property="og:description" CONTENT="{{ post.post_text }}" >
     {% endif %}
-
 
     {% if post.image_server_1|length > 5 %}
         <meta property="og:image" content="http://www.tipvote.com{{ url_for('common.post_file',filename=post.image_server_1)}}" />
@@ -60,40 +42,28 @@
             <meta property="og:image:secure_url" content="https://www.tipvote.com/images/social_logo_dark.png" />
         {% endif %}
     {% endif %}
-
-
     <meta property="og:url" content="https://www.tipvote.com{{ url_for('subforum.viewpost',subname=post.subcommon_name, postid = post.id) }} " />
 
 
+    <!---Twitter--->
+    <meta property="twitter:title" content="{{ post.title }} " />
 
-
-
-
-{% if post.url_title|length > 5 %}
-        <meta property="twitter:title" content="{{ post.url_title }} " />
-    {% else %}
-        {% if post.post_text|length > 5 %}
-            <meta property="twitter:title" content="{{ post.post_text }} " />
-        {% else %}
-            <title> Tipvote - Coin for your thoughts </title>
-        {% endif %}
-    {% endif %}
     {% if post.url_description|length > 5 %}
         <meta property="twitter:description" CONTENT="{{ post.url_description }}" >
     {% else %}
         <meta property="twitter:description" CONTENT="{{ post.post_text }}" >
     {% endif %}
-        {% if post.image_server_1|length > 5 %}
-            <meta property="twitter:image" content="https://www.tipvote.com{{ url_for('common.post_file',filename=post.image_server_1)}}">
+    {% if post.image_server_1|length > 5 %}
+        <meta property="twitter:image" content="https://www.tipvote.com{{ url_for('common.post_file',filename=post.image_server_1)}}">
+    {% else %}
+        {% if post.url_image_server|length > 5 %}
+            <meta property="twitter:image" content="https://www.tipvote.com{{ url_for('common.post_file',filename=post.url_image_server)}}">
         {% else %}
-            {% if post.url_image_server|length > 5 %}
-                <meta property="twitter:image" content="https://www.tipvote.com{{ url_for('common.post_file',filename=post.url_image_server)}}">
-            {% else %}
-                 <meta property="twitter:image" content="https://www.tipvote.com/images/social_logo_dark.png">
-            {% endif %}
+            <meta property="twitter:image" content="https://www.tipvote.com/images/social_logo_dark.png">
         {% endif %}
-        <meta property="twitter:image:type" content="image/png" />
-        <meta name="twitter:card" content="summary_large_image">
+    {% endif %}
+    <meta property="twitter:image:type" content="image/png" />
+    <meta name="twitter:card" content="summary_large_image">
 
 
     {% include 'stylesheets.html' %}

@@ -9,7 +9,7 @@
 
 
         {% if post.url_of_post %}
-            <a href="{{ post.url_of_post }} ">{{ post.url_of_post|truncate(40) }} </a>
+            <a href="{{ post.url_of_post }} ">{{ post.url_of_post|truncate(20) }} </a>
         {% endif %}
 
     </div>
@@ -40,34 +40,33 @@
     </div>
 
 
-    <div class="col-12 pt-2 pl-1">
+    <div class="col-12 pt-2 pl-0">
         {% if post.post_donations %}
             <div class="row p-1">
+             <div class="col-12 text-left" style="font-size: 12px; margin-top: -10px">
                 {% if post.post_donations.total_recieved_btc == 0 %}
                 {% else %}
-                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
+
                         <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
                         {{ post.post_donations.total_recieved_btc|btctostring }}
-                    </div>
+
                 {% endif %}
 
                 {% if post.post_donations.total_recieved_bch == 0 %}
                 {% else %}
-                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
+
                         <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
                         {{ post.post_donations.total_recieved_bch|btctostring }}
-                    </div>
-                {% endif %}
 
+                {% endif %}
 
                 {% if post.post_donations.total_recieved_xmr == 0 %}
                 {% else %}
-                    <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 text-center" style="font-size: 12px; margin-top: -10px">
                         <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
                         {{ post.post_donations.total_recieved_xmr|xmrtostring }}
-                    </div>
-                {% endif %}
 
+                {% endif %}
+             </div>
             </div>
         {% endif %}
     </div>

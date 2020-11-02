@@ -11,7 +11,7 @@ from app.sendmsg import send_email
 from werkzeug.datastructures import CombinedMultiDict
 from flask_login import current_user
 from datetime import datetime
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 from app.common.decorators import login_required
 
 from app import db, app
@@ -104,7 +104,7 @@ def index():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -183,15 +183,10 @@ def index():
         mainpostform = None
 
 
-
-
-    # get current giveaway
-    thegiveaway = GiveawayAll.query.order_by(GiveawayAll.id.desc()).first()
-
     # Trending
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
-    recent_tippers_post = recent_tippers_post.limit(5)
+    recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
 
     # get total tips
@@ -231,6 +226,7 @@ def index():
                            now=now,
                            # forms
                            subform=subform,
+                           recent_tippers_post_count=recent_tippers_post_count,
                            subpostcommentform=subpostcommentform,
                            voteform=voteform,
                            mainpostform=mainpostform,
@@ -247,7 +243,7 @@ def index():
                            seeifowner=seeifowner,
                            ownercount=ownercount,
                            themsgs=themsgs,
-                           recent_tippers_post_count=recent_tippers_post_count,
+
                            usersubforums=usersubforums,
                            guestsubforums=guestsubforums,
                            userbusinesses=userbusinesses,
@@ -256,7 +252,7 @@ def index():
                            navlink=navlink,
                            thenotes=thenotes,
                            thenotescount=thenotescount,
-                           thegiveaway=thegiveaway,
+
                            totaltips=totaltips,
 
                            # queries/pagination
@@ -319,7 +315,7 @@ def newest():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0

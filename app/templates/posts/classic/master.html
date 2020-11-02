@@ -12,12 +12,12 @@
 
             {% if viewpost == 1 %}
                 {% include 'posts/classic/_text.html' %}
+                {% include 'posts/classic/_image.html' %}
                 {% include 'posts/classic/_url.html' %}
             {% else %}
                 {% include 'posts/classic/_text.html' %}
                 {% include 'posts/classic/_image.html' %}
                 {% include 'posts/classic/_url.html' %}
-
             {% endif %}
 
 
@@ -44,6 +44,8 @@
 
 
     {% include 'posts/classic/_buttons.html' %}
-    {% include 'posts/classic/_admin_buttons.html' %}
+    {% if viewpost == 1 %}
+        {% include 'posts/classic/_admin_buttons.html' %}
+    {% endif %}
 
 </div>

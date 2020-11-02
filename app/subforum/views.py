@@ -134,7 +134,7 @@ def sub(subname):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -401,7 +401,7 @@ def sub_newest(subname):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -1008,6 +1008,7 @@ def viewpost(subname, postid):
     """
     View / Reply to a post
     """
+
     viewpost = 1
 
     form = CreateCommentForm()
@@ -1053,7 +1054,7 @@ def viewpost(subname, postid):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -1258,7 +1259,7 @@ def viewpost_newest(subname, postid):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -1448,7 +1449,7 @@ def viewpost_oldest(subname, postid):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -1639,7 +1640,7 @@ def viewpost_downvoted(subname, postid):
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0

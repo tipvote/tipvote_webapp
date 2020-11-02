@@ -69,7 +69,7 @@ def followers_home():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
 
         recmsgs = db.session.query(Messages)
         recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
@@ -264,7 +264,7 @@ def followers_newest():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -412,7 +412,7 @@ def followers_mostactive():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -570,7 +570,7 @@ def followers_coinposts():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
@@ -705,7 +705,7 @@ def followers_top():
         thenotes = thenotes.order_by(Notifications.timestamp.desc())
         thenotescount = thenotes.filter(Notifications.read == 0)
         thenotescount = thenotescount.count()
-        thenotes = thenotes.limit(10)
+        thenotes = thenotes.limit(25)
     else:
         thenotes = 0
         thenotescount = 0
