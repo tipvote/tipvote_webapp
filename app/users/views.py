@@ -1025,6 +1025,8 @@ def changetheme():
                 theuser.color_theme = 2
             elif themeform.theme_one.data == '3':
                 theuser.color_theme = 3
+            elif themeform.theme_one.data == '4':
+                theuser.color_theme = 4
             else:
                 theuser.color_theme = 1
 

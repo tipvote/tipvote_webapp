@@ -7,6 +7,9 @@
 {% elif current_user.color_theme == 3 %}
     {% include 'css/grey/html_stylesheets.html' %}
     {% include 'css/grey/html_buttons.html' %}
+{% elif current_user.color_theme == 4 %}
+    {% include 'css/light/html_stylesheets.html' %}
+    {% include 'css/light/html_buttons.html' %}
 {% else %}
     {% include 'css/black/html_stylesheets.html' %}
     {% include 'css/black/html_buttons.html' %}

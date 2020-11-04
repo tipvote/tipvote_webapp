@@ -417,7 +417,8 @@ class ThemeForm(FlaskForm):
     theme_one = RadioField(validators=[Optional()],
                            choices=[('1', 'Black'),
                                     ('2', 'Blue'),
-                                    ('3', 'Gray')
+                                    ('3', 'Gray'),
+
                                     ]
                            )
 
