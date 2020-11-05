@@ -45,7 +45,18 @@
                 {{ render_field(form_btc.ten_dollar,  value="10.00$", autocomplete="off", class="btn btn-warning mr-1") }}
 
             </div>
+            <div class="form-group row text-center justify-content-center">
 
+                <div class="col-6 mt-2">
+                    {{ render_field(form_btc.five_zero,  value="0.00000100 BTC", autocomplete="off", class="btn btn-warning mr-1") }}
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_btc.six_zero,  value="0.00000010 BTC", autocomplete="off", class="btn btn-warning mr-1") }}
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_btc.seven_zero,  value="0.00000001 BTC", autocomplete="off", class="btn btn-warning mr-1") }}
+                </div>
+            </div>
             <div class="col-12">
                 Please Note: Once you hit an amount above, it will be automatically taken
                 from your wallet and given to post/commenter/poster.  There is no confirm screen after this.

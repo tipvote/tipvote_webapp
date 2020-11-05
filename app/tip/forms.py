@@ -10,6 +10,9 @@ class CreateTipBTC(FlaskForm):
     """
     Creates a btc tip for a comment
     """
+    seven_zero = SubmitField()
+    six_zero = SubmitField()
+    five_zero = SubmitField()
 
     cent = SubmitField()
     quarter = SubmitField()
@@ -39,6 +42,10 @@ class CreateTipBCH(FlaskForm):
     Creates a bch tip for a comment
     """
 
+    seven_zero = SubmitField()
+    six_zero = SubmitField()
+    five_zero = SubmitField()
+
     cent = SubmitField()
     quarter = SubmitField()
     dollar = SubmitField()
@@ -66,6 +73,10 @@ class CreateTipXMR(FlaskForm):
     """
     Creates a xmr tip for a comment
     """
+
+    eleven_zero = SubmitField()
+    ten_zero = SubmitField()
+    nine_zero = SubmitField()
 
     cent = SubmitField()
     quarter = SubmitField()

@@ -46,7 +46,20 @@
                 {{ render_field(form_xmr.ten_dollar,  value="10.00$", autocomplete="off", class="btn btn-danger mr-1") }}
 
             </div>
+            <div class="form-group row text-center justify-content-center">
 
+                <div class="col-6 mt-2">
+                    {{ render_field(form_xmr.nine_zero,  value="0.000000000100 XMR", autocomplete="off", class="btn btn-danger mr-1") }}
+
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_xmr.ten_zero,  value="0.000000000010 XMR", autocomplete="off", class="btn btn-danger mr-1") }}
+
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_xmr.eleven_zero,  value="0.000000000001 XMR", autocomplete="off", class="btn btn-danger mr-1") }}
+
+                </div>
             <div class="col-12">
                 Please Note: Once you hit an amount above, it will be automatically taken
                 from your wallet and given to post/commenter/poster.  There is no confirm screen after this.

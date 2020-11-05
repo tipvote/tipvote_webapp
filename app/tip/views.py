@@ -74,6 +74,7 @@ def create_tip_comment(subname, postid, commentid):
     form_bch = CreateTipBCH()
     form_xmr = CreateTipXMR()
     subpostcommentform = CreateCommentQuickForm()
+
     # get the sub, post, comment
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
     thepost = db.session.query(CommonsPost).get(postid)
@@ -113,6 +114,7 @@ def create_tip_post(subname, postid):
     form_xmr = CreateTipXMR()
     subpostcommentform = CreateCommentQuickForm()
     voteform = VoteForm()
+
     # get the sub, post
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
     post = db.session.query(CommonsPost).get(postid)
@@ -186,10 +188,14 @@ def create_tip_comment_btc(subname, postid, commentid):
                 if form_btc.submit.data:
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_btc.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
+
                     if doesitmatch:
 
                         btc_amount_for_submission = Decimal(form_btc.custom_amount.data)
                         decimalform_of_amount = floating_decimals(btc_amount_for_submission, 8)
+
                         # see if user has enough
                         getcurrentprice = db.session.query(BtcPrices).get(1)
                         btc_amount = decimalform_of_amount
@@ -200,35 +206,80 @@ def create_tip_comment_btc(subname, postid, commentid):
                         usd_amount = formatteddollar
                     else:
                         flash("Form Failure.  Did you enter the amount correctly?", category="success")
-                        return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid, commentid=commentid))
+                        return redirect(url_for('tip.create_tip_comment',
+                                                subname=subname,
+                                                postid=postid,
+                                                commentid=commentid))
                 elif form_btc.cent.data:
                     btc_amount = Decimal(0.01) / Decimal(btc_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.quarter.data:
                     btc_amount = Decimal(0.25) / Decimal(btc_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.dollar.data:
                     btc_amount = Decimal(1.00) / Decimal(btc_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.five_dollar.data:
                     btc_amount = Decimal(5.00) / Decimal(btc_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.ten_dollar.data:
                     btc_amount = Decimal(10.00) / Decimal(btc_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.twentyfive_dollar.data:
                     btc_amount = Decimal(25.00) / Decimal(btc_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.hundred_dollar.data:
                     btc_amount = Decimal(100.00) / Decimal(btc_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_btc.seven_zero.data:
+                    btc_amount = Decimal(0.00000001)
+                    usd_amount = 0.00
+                    variable_amount = False
+                    varidoftip = 1
+
+                elif form_btc.six_zero.data:
+                    btc_amount = Decimal(0.00000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = False
+
+                elif form_btc.five_zero.data:
+                    btc_amount = Decimal(0.00000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = False
+
                 else:
                     flash("Tip Failure.", category="success")
-                    return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid, commentid=commentid))
+                    return redirect(url_for('tip.create_tip_comment',
+                                            subname=subname,
+                                            postid=postid,
+                                            commentid=commentid))
 
                 final_amount = (floating_decimals(btc_amount, 8))
 
-                lowestdonation = 0.000001
+                lowestdonation = 0.00000100
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -237,20 +288,52 @@ def create_tip_comment_btc(subname, postid, commentid):
                     payout = 0
 
                 if Decimal(userwallet_btc.currentbalance) >= Decimal(btc_amount):
+                    if variable_amount is True:
 
-                    # btc amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                        # btc amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
 
-                    # Btc amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * btc_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
+
+                        # Btc amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * btc_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
+
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000009)
+                            amount_to_subowner = Decimal(0.00000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000093)
+                            amount_to_subowner = Decimal(0.00000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
                     if payout == 1:
                         # subowner gets payout
                         newpayout = PayoutSubOwner(
@@ -317,14 +400,16 @@ def create_tip_comment_btc(subname, postid, commentid):
                     newamount_commenter = (floating_decimals(current_amount_recieved_to_comments + amount_to_poster, 8))
                     changeposterbtcstats.total_recievedfromcomments_btc = newamount_commenter
                     current_amount_recieved_to_comments_usd = changeposterbtcstats.total_recievedfromcomments_usd
-                    newamount_commenter_usd = (floating_decimals(current_amount_recieved_to_comments_usd + Decimal(poster_usd_amount), 2))
+                    newamount_commenter_usd = (floating_decimals(current_amount_recieved_to_comments_usd
+                                                                 + Decimal(poster_usd_amount), 2))
                     changeposterbtcstats.total_recievedfromcomments_usd = newamount_commenter_usd
 
                     # modify comments to show it got btc
                     current_comment_btc_amount = thecomment.total_recieved_btc
                     current_comment_btc_usd_amount = thecomment.total_recieved_btc_usd
                     newamount_for_comment = (floating_decimals(current_comment_btc_amount + amount_to_poster, 8))
-                    newamount_for_comment_usd = (floating_decimals(current_comment_btc_usd_amount + Decimal(poster_usd_amount), 2))
+                    newamount_for_comment_usd = (floating_decimals(current_comment_btc_usd_amount
+                                                                   + Decimal(poster_usd_amount), 2))
                     thecomment.total_recieved_btc = newamount_for_comment
                     thecomment.total_recieved_btc_usd = newamount_for_comment_usd
 
@@ -381,18 +466,24 @@ def create_tip_comment_btc(subname, postid, commentid):
                     db.session.commit()
 
                     flash("Tip was successful.", category="success")
-                    return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
+                    return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name,
+                                            postid=post.id))
                 else:
                     flash("You do not have enough coin in your wallet", category="danger")
-                    return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid, commentid=commentid))
+                    return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid,
+                                            commentid=commentid))
             else:
-                flash("Cannot tip yourself.  You can only promote your own posts for better visibility.", category="danger")
-                return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid, commentid=commentid))
+                flash("Cannot tip yourself.  You can only promote your own posts for better visibility.",
+                      category="danger")
+                return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid,
+                                        commentid=commentid))
         else:
             flash("Invalid Form.  Did you enter the amount correctly?", category="danger")
-            return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
+            return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name,
+                                    postid=post.id))
 
-    return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
+    return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name,
+                            postid=post.id))
 
 
 @tip.route('/createbtctip/post/<string:subname>/<int:postid>', methods=['POST'])
@@ -447,6 +538,8 @@ def create_tip_post_btc(subname, postid):
                 if form_btc.submit.data:
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_btc.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
                     if doesitmatch:
                         btc_amount_for_submission = Decimal(form_btc.custom_amount.data)
                         decimalform_of_amount = floating_decimals(btc_amount_for_submission, 8)
@@ -455,6 +548,7 @@ def create_tip_post_btc(subname, postid):
                         bt = (Decimal(getcurrentprice.price) * btc_amount)
                         formatteddollar = '{0:.2f}'.format(bt)
                         usd_amount = formatteddollar
+
                     else:
                         flash("Invalid coin amount.  Did you enter the amount wrong?", category="danger")
                         return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
@@ -462,32 +556,70 @@ def create_tip_post_btc(subname, postid):
                 elif form_btc.cent.data:
                     btc_amount = Decimal(0.01) / Decimal(btc_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.quarter.data:
                     btc_amount = Decimal(0.25) / Decimal(btc_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.dollar.data:
                     btc_amount = Decimal(1.00) / Decimal(btc_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.five_dollar.data:
                     btc_amount = Decimal(5.00) / Decimal(btc_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.ten_dollar.data:
                     btc_amount = Decimal(10.00) / Decimal(btc_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.twentyfive_dollar.data:
                     btc_amount = Decimal(25.00) / Decimal(btc_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_btc.hundred_dollar.data:
                     btc_amount = Decimal(100.00) / Decimal(btc_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_btc.seven_zero.data:
+                    btc_amount = Decimal(0.00000001)
+                    usd_amount = 0.00
+                    varidoftip = 1
+                    variable_amount = False
+
+                elif form_btc.six_zero.data:
+                    btc_amount = Decimal(0.00000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = False
+
+                elif form_btc.five_zero.data:
+                    btc_amount = Decimal(0.00000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = False
+
                 else:
                     flash("Tip Failure.", category="success")
                     return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
 
                 final_amount = (floating_decimals(btc_amount, 8))
 
-                lowestdonation = 0.0000001
-
+                lowestdonation = 0.00000100
 
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
@@ -497,19 +629,47 @@ def create_tip_post_btc(subname, postid):
                     payout = 0
 
                 if Decimal(userwallet_btc.currentbalance) >= Decimal(btc_amount):
-                    # btc amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                    if variable_amount is True:
+                        # btc amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
 
-                    # Btc amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * btc_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                        # Btc amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * btc_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000009)
+                            amount_to_subowner = Decimal(0.00000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000093)
+                            amount_to_subowner = Decimal(0.00000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
                     if payout == 1:
                         # subowner gets payout
@@ -566,7 +726,8 @@ def create_tip_post_btc(subname, postid):
                     newamount = (floating_decimals(current_amount_donated_to_comments + final_amount, 8))
                     changeuserbtcstats.total_donated_to_postcomments_btc = newamount
                     current_amount_donated_to_comments_usd = changeuserbtcstats.total_donated_to_postcomments_usd
-                    newamount_usd = (floating_decimals(current_amount_donated_to_comments_usd + Decimal(usd_amount), 2))
+                    newamount_usd = (floating_decimals(current_amount_donated_to_comments_usd
+                                                       + Decimal(usd_amount), 2))
                     changeuserbtcstats.total_donated_to_postcomments_usd = newamount_usd
 
                     # add stats to user who recieved coin
@@ -574,10 +735,11 @@ def create_tip_post_btc(subname, postid):
                     newamount_poster = (floating_decimals(current_amount_recieved_to_posts + amount_to_poster, 8))
                     changeposterbtcstats.total_recievedfromposts_btc = newamount_poster
                     current_amount_recieved_to_posts_usd = changeposterbtcstats.total_recievedfromposts_usd
-                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd + Decimal(poster_usd_amount), 2))
+                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd
+                                                              + Decimal(poster_usd_amount), 2))
                     changeposterbtcstats.total_recievedfromposts_usd = newamount_poster_usd
 
-                    seeifpostdonates = PostDonations.query.filter(PostDonations.post_id == idofpost).first()
+                    seeifpostdonates = db.session.query(PostDonations).filter(PostDonations.post_id == idofpost).first()
 
                     if seeifpostdonates is None:
                         addstatstopost = PostDonations(
@@ -714,6 +876,8 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     # regex test
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_xmr.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
                     if doesitmatch:
                         # if it passes
                         xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
@@ -731,31 +895,71 @@ def create_tip_comment_xmr(subname, postid, commentid):
                 elif form_xmr.cent.data:
                     xmr_amount = Decimal(0.01) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.quarter.data:
                     xmr_amount = Decimal(0.25) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.dollar.data:
                     xmr_amount = Decimal(1.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.five_dollar.data:
                     xmr_amount = Decimal(5.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.ten_dollar.data:
                     xmr_amount = Decimal(10.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.twentyfive_dollar.data:
                     xmr_amount = Decimal(25.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.hundred_dollar.data:
                     xmr_amount = Decimal(100.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_xmr.nine_zero.data:
+                    xmr_amount = Decimal(0.000000000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = True
+
+                elif form_xmr.ten_zero.data:
+                    xmr_amount = Decimal(0.000000000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = True
+
+                elif form_xmr.eleven_zero.data:
+                    xmr_amount = Decimal(0.000000000001)
+                    usd_amount = 0.00
+                    varidoftip = 1
+                    variable_amount = True
+
                 else:
                     flash("Tip Failure.", category="success")
                     return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
 
                 final_amount = (floating_decimals(xmr_amount, 12))
 
-                lowestdonation = 0.00000001
+                lowestdonation = 0.000000000100
+
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -764,19 +968,48 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     payout = 0
 
                 if Decimal(usercoinsamount.currentbalance) >= Decimal(final_amount):
-                    # btc amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                    if variable_amount is True:
+                        # btc amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
 
-                    # Btc amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                        # Btc amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000009)
+                            amount_to_subowner = Decimal(0.000000000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000093)
+                            amount_to_subowner = Decimal(0.000000000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
                     if payout == 1:
                         # subowner gets payout
@@ -786,12 +1019,10 @@ def create_tip_comment_xmr(subname, postid, commentid):
                             subcommon_name=thesub.subcommon_name,
                             post_id=post.id,
                             comment_id=thecomment.id,
-
                             sub_owner_user_id=thesub.creator_user_id,
                             sub_owner_user_name=thesub.creator_user_name,
                             tipper_user_id=current_user.id,
                             tipper_user_name=current_user.user_name,
-
                             currency_type=3,
                             amount_btc=0,
                             amount_bch=0,
@@ -843,14 +1074,16 @@ def create_tip_comment_xmr(subname, postid, commentid):
                     newamount_poster = (floating_decimals(current_amount_recieved_to_comments + amount_to_poster, 12))
                     changecommenterxmrstats.total_recievedfromcomments_xmr = newamount_poster
                     current_amount_recieved_to_comments_usd = changecommenterxmrstats.total_recievedfromcomments_usd
-                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_comments_usd + Decimal(poster_usd_amount), 2))
+                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_comments_usd
+                                                              + Decimal(poster_usd_amount), 2))
                     changecommenterxmrstats.total_recievedfromcomments_usd = newamount_poster_usd
 
                     # modify comments to show it got xmr
                     current_comment_xmr_amount = thecomment.total_recieved_xmr
                     current_comment_xmr_usd_amount = thecomment.total_recieved_xmr_usd
                     newamount_for_comment = (floating_decimals(current_comment_xmr_amount + amount_to_poster, 12))
-                    newamount_for_comment_usd = (floating_decimals(current_comment_xmr_usd_amount + Decimal(poster_usd_amount), 2))
+                    newamount_for_comment_usd = (floating_decimals(current_comment_xmr_usd_amount
+                                                                   + Decimal(poster_usd_amount), 2))
                     thecomment.total_recieved_xmr = newamount_for_comment
                     thecomment.total_recieved_xmr_usd = newamount_for_comment_usd
 
@@ -920,7 +1153,7 @@ def create_tip_comment_xmr(subname, postid, commentid):
     return redirect(url_for('subforum.viewpost', subname=thesub.subcommon_name, postid=post.id))
 
 
-@tip.route('/createxmrtip/post/<string:subname>/<int:postid>',methods=['POST'])
+@tip.route('/createxmrtip/post/<string:subname>/<int:postid>', methods=['POST'])
 @login_required
 def create_tip_post_xmr(subname, postid):
     """
@@ -971,6 +1204,8 @@ def create_tip_post_xmr(subname, postid):
                     # run regex to see if not being tricked
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_xmr.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
                     if doesitmatch:
                         # if it passes regex test
                         xmr_amount_for_submission = Decimal(form_xmr.custom_amount.data)
@@ -987,31 +1222,70 @@ def create_tip_post_xmr(subname, postid):
                 elif form_xmr.cent.data:
                     xmr_amount = Decimal(0.01) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.quarter.data:
                     xmr_amount = Decimal(0.25) / Decimal(xmr_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.dollar.data:
                     xmr_amount = Decimal(1.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.five_dollar.data:
                     xmr_amount = Decimal(5.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.ten_dollar.data:
                     xmr_amount = Decimal(10.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.twentyfive_dollar.data:
                     xmr_amount = Decimal(25.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_xmr.hundred_dollar.data:
                     xmr_amount = Decimal(100.00) / Decimal(xmr_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_xmr.nine_zero.data:
+                    xmr_amount = Decimal(0.000000000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = False
+
+                elif form_xmr.ten_zero.data:
+                    xmr_amount = Decimal(0.000000000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = False
+
+                elif form_xmr.eleven_zero.data:
+                    xmr_amount = Decimal(0.000000000001)
+                    usd_amount = 0.00
+                    varidoftip = 1
+                    variable_amount = False
+
                 else:
                     flash("Invalid coin amount.  Did you enter the amount wrong?", category="danger")
                     return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
 
                 final_amount = (floating_decimals(xmr_amount, 12))
 
-                lowestdonation = 0.00000001
+                lowestdonation = 0.000000000100
 
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
@@ -1021,20 +1295,48 @@ def create_tip_post_xmr(subname, postid):
                     payout = 0
 
                 if Decimal(usercoinsamount.currentbalance) >= Decimal(xmr_amount):
+                    if variable_amount is True:
+                        # xmr amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
 
-                    # xmr amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                        # xmr amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
 
-                    # xmr amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * xmr_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000009)
+                            amount_to_subowner = Decimal(0.000000000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000093)
+                            amount_to_subowner = Decimal(0.000000000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.000000000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
                     if payout == 1:
                         # subowner gets payout
@@ -1100,11 +1402,12 @@ def create_tip_post_xmr(subname, postid):
                     newamount_poster = (floating_decimals(current_amount_recieved_to_posts + amount_to_poster, 12))
                     changeposterxmrstats.total_recievedfromposts_xmr = newamount_poster
                     current_amount_recieved_to_posts_usd = changeposterxmrstats.total_recievedfromposts_usd
-                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd + Decimal(poster_usd_amount), 2))
+                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd
+                                                              + Decimal(poster_usd_amount), 2))
                     changeposterxmrstats.total_recievedfromposts_usd = newamount_poster_usd
 
                     # add to posts
-                    seeifpostdonates = PostDonations.query\
+                    seeifpostdonates = db.session.query(PostDonations)\
                         .filter(PostDonations.post_id == idofpost)\
                         .first()
 
@@ -1124,7 +1427,8 @@ def create_tip_post_xmr(subname, postid):
                         current_post_xmr_amount = seeifpostdonates.total_recieved_xmr
                         current_amount_xmr_usd_amount = seeifpostdonates.total_recieved_xmr_usd
                         newamount_for_post = (floating_decimals(current_post_xmr_amount + amount_to_poster, 12))
-                        newamount_for_post_usd = (floating_decimals(current_amount_xmr_usd_amount + Decimal(poster_usd_amount), 2))
+                        newamount_for_post_usd = (floating_decimals(current_amount_xmr_usd_amount
+                                                                    + Decimal(poster_usd_amount), 2))
                         seeifpostdonates.total_recieved_xmr = newamount_for_post
                         seeifpostdonates.total_recieved_xmr_usd = newamount_for_post_usd
 
@@ -1245,6 +1549,8 @@ def create_tip_comment_bch(subname, postid, commentid):
                 if form_bch.submit.data:
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_bch.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
                     if doesitmatch:
                         bch_amount_for_submission = Decimal(form_bch.custom_amount.data)
                         decimalform_of_amount = floating_decimals(bch_amount_for_submission, 8)
@@ -1262,31 +1568,73 @@ def create_tip_comment_bch(subname, postid, commentid):
                 elif form_bch.cent.data:
                     bch_amount = Decimal(0.01) / Decimal(bch_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.quarter.data:
                     bch_amount = Decimal(0.25) / Decimal(bch_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.dollar.data:
                     bch_amount = Decimal(1.00) / Decimal(bch_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.five_dollar.data:
                     bch_amount = Decimal(5.00) / Decimal(bch_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.ten_dollar.data:
                     bch_amount = Decimal(10.00) / Decimal(bch_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.twentyfive_dollar.data:
                     bch_amount = Decimal(25.00) / Decimal(bch_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.hundred_dollar.data:
                     bch_amount = Decimal(100.00) / Decimal(bch_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_bch.seven_zero.data:
+                    bch_amount = Decimal(0.00000001)
+                    usd_amount = 0.00
+                    variable_amount = False
+                    varidoftip = 1
+
+                elif form_bch.six_zero.data:
+                    bch_amount = Decimal(0.00000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = False
+
+                elif form_bch.five_zero.data:
+                    bch_amount = Decimal(0.00000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = False
+
                 else:
                     flash("Tip Failure.", category="success")
-                    return redirect(url_for('tip.create_tip_comment', subname=subname, postid=postid, commentid=commentid))
+                    return redirect(url_for('tip.create_tip_comment',
+                                            subname=subname,
+                                            postid=postid,
+                                            commentid=commentid))
 
                 final_amount = (floating_decimals(bch_amount, 8))
 
-                lowestdonation = 0.000001
+                lowestdonation = 0.00000100
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -1295,20 +1643,47 @@ def create_tip_comment_bch(subname, postid, commentid):
                     payout = 0
 
                 if Decimal(userwallet_bch.currentbalance) > Decimal(final_amount):
+                    if variable_amount is True:
+                        # btc amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
 
-                    # btc amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                        # btc amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * bch_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
-                    # Btc amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * bch_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000009)
+                            amount_to_subowner = Decimal(0.00000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000093)
+                            amount_to_subowner = Decimal(0.00000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
                     if payout == 1:
                         # subowner gets payout
@@ -1318,12 +1693,10 @@ def create_tip_comment_bch(subname, postid, commentid):
                             subcommon_name=thesub.subcommon_name,
                             post_id=post.id,
                             comment_id=thecomment.id,
-
                             sub_owner_user_id=thesub.creator_user_id,
                             sub_owner_user_name=thesub.creator_user_name,
                             tipper_user_id=current_user.id,
                             tipper_user_name=current_user.user_name,
-
                             currency_type=2,
                             amount_btc=0,
                             amount_bch=amount_to_subowner,
@@ -1376,14 +1749,16 @@ def create_tip_comment_bch(subname, postid, commentid):
                     newamount_commenter = (floating_decimals(current_amount_recieved_to_comments + amount_to_poster, 8))
                     changeposterbchstats.total_recievedfromcomments_bch = newamount_commenter
                     current_amount_recieved_to_comments_usd = changeposterbchstats.total_recievedfromcomments_usd
-                    newamount_commenter_usd = (floating_decimals(current_amount_recieved_to_comments_usd + Decimal(poster_usd_amount), 2))
+                    newamount_commenter_usd = (floating_decimals(current_amount_recieved_to_comments_usd
+                                                                 + Decimal(poster_usd_amount), 2))
                     changeposterbchstats.total_recievedfromcomments_usd = newamount_commenter_usd
 
                     # modify comments to show it got btc
                     current_comment_bch_amount = thecomment.total_recieved_bch
                     current_comment_bch_usd_amount = thecomment.total_recieved_bch_usd
                     newamount_for_comment = (floating_decimals(current_comment_bch_amount + amount_to_poster, 8))
-                    newamount_for_comment_usd = (floating_decimals(current_comment_bch_usd_amount + Decimal(poster_usd_amount), 2))
+                    newamount_for_comment_usd = (floating_decimals(current_comment_bch_usd_amount
+                                                                   + Decimal(poster_usd_amount), 2))
                     thecomment.total_recieved_bch = newamount_for_comment
                     thecomment.total_recieved_bch_usd = newamount_for_comment_usd
 
@@ -1503,10 +1878,13 @@ def create_tip_post_bch(subname, postid):
                 if form_bch.submit.data:
                     seeifcoin = re.compile(btcamount)
                     doesitmatch = seeifcoin.match(form_bch.custom_amount.data)
+                    varidoftip = 0
+                    variable_amount = True
                     if doesitmatch:
                         bch_amount_for_submission = Decimal(form_bch.custom_amount.data)
                         decimalform_of_amount = floating_decimals(bch_amount_for_submission, 8)
                         bch_amount = decimalform_of_amount
+
                         # get usd amount
                         bt = (Decimal(getcurrentprice.price) * bch_amount)
                         formatteddollar = '{0:.2f}'.format(bt)
@@ -1518,30 +1896,69 @@ def create_tip_post_bch(subname, postid):
                 elif form_bch.cent.data:
                     bch_amount = Decimal(0.01) / Decimal(bch_current_price_usd)
                     usd_amount = 0.01
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.quarter.data:
                     bch_amount = Decimal(0.25) / Decimal(bch_current_price_usd)
                     usd_amount = 0.25
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.dollar.data:
                     bch_amount = Decimal(1.00) / Decimal(bch_current_price_usd)
                     usd_amount = 1.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.five_dollar.data:
                     bch_amount = Decimal(5.00) / Decimal(bch_current_price_usd)
                     usd_amount = 5.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.ten_dollar.data:
                     bch_amount = Decimal(10.00) / Decimal(bch_current_price_usd)
                     usd_amount = 10.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.twentyfive_dollar.data:
                     bch_amount = Decimal(25.00) / Decimal(bch_current_price_usd)
                     usd_amount = 25.00
+                    varidoftip = 0
+                    variable_amount = True
+
                 elif form_bch.hundred_dollar.data:
                     bch_amount = Decimal(100.00) / Decimal(bch_current_price_usd)
                     usd_amount = 100.00
+                    varidoftip = 0
+                    variable_amount = True
+
+                elif form_bch.seven_zero.data:
+                    bch_amount = Decimal(0.00000001)
+                    usd_amount = 0.00
+                    variable_amount = False
+                    varidoftip = 1
+
+                elif form_bch.six_zero.data:
+                    bch_amount = Decimal(0.00000010)
+                    usd_amount = 0.00
+                    varidoftip = 2
+                    variable_amount = False
+
+                elif form_bch.five_zero.data:
+                    bch_amount = Decimal(0.00000100)
+                    usd_amount = 0.00
+                    varidoftip = 3
+                    variable_amount = False
+
                 else:
                     flash("Tip Failure.", category="success")
                     return redirect(url_for('tip.create_tip_post', subname=subname, postid=postid))
 
                 final_amount = (floating_decimals(bch_amount, 8))
-                lowestdonation = 0.000001
+                lowestdonation = 0.00000100
                 if final_amount >= lowestdonation:
                     percent_to_subowner = 0.07
                     payout = 1
@@ -1550,19 +1967,47 @@ def create_tip_post_bch(subname, postid):
                     payout = 0
 
                 if Decimal(usercoinsamount.currentbalance) >= Decimal(final_amount):
-                    # btc amount
-                    amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
-                    # get usd amount
-                    subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
-                    subownerformatteddollar = '{0:.2f}'.format(subownerbt)
-                    subowner_usd_amount = float(subownerformatteddollar)
+                    if variable_amount is True:
+                        # btc amount
+                        amount_to_subowner = Decimal(final_amount) * Decimal(percent_to_subowner)
+                        # get usd amount
+                        subownerbt = (Decimal(getcurrentprice.price) * amount_to_subowner)
+                        subownerformatteddollar = '{0:.2f}'.format(subownerbt)
+                        subowner_usd_amount = float(subownerformatteddollar)
 
-                    # Btc amount
-                    amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
-                    # get usd amount
-                    posterbt = (Decimal(getcurrentprice.price) * bch_amount)
-                    posterformatteddollar = '{0:.2f}'.format(posterbt)
-                    poster_usd_amount = float(posterformatteddollar)
+                        # Btc amount
+                        amount_to_poster = Decimal(final_amount) - Decimal(amount_to_subowner)
+                        # get usd amount
+                        posterbt = (Decimal(getcurrentprice.price) * bch_amount)
+                        posterformatteddollar = '{0:.2f}'.format(posterbt)
+                        poster_usd_amount = float(posterformatteddollar)
+                    else:
+                        if varidoftip == 1:
+                            # btc_amount = 0.00000001
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000001)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 2:
+                            # btc_amount = 0.00000010
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000009)
+                            amount_to_subowner = Decimal(0.00000001)
+                            subowner_usd_amount = 0.00
+
+                        elif varidoftip == 3:
+                            # btc_amount = 0.00000100
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000093)
+                            amount_to_subowner = Decimal(0.00000007)
+                            subowner_usd_amount = 0.00
+
+                        else:
+                            poster_usd_amount = 0.00
+                            amount_to_poster = Decimal(0.00000000)
+                            amount_to_subowner = Decimal(0)
+                            subowner_usd_amount = 0.00
 
                     if payout == 1:
                         # subowner gets payout
@@ -1572,12 +2017,10 @@ def create_tip_post_bch(subname, postid):
                             subcommon_name=thesub.subcommon_name,
                             post_id=post.id,
                             comment_id=0,
-
                             sub_owner_user_id=thesub.creator_user_id,
                             sub_owner_user_name=thesub.creator_user_name,
                             tipper_user_id=current_user.id,
                             tipper_user_name=current_user.user_name,
-
                             currency_type=2,
                             amount_btc=0,
                             amount_bch=amount_to_subowner,
@@ -1629,10 +2072,11 @@ def create_tip_post_bch(subname, postid):
                     newamount_poster = (floating_decimals(current_amount_recieved_to_posts + amount_to_poster, 8))
                     changeposterbchstats.total_recievedfromposts_bch = newamount_poster
                     current_amount_recieved_to_posts_usd = changeposterbchstats.total_recievedfromposts_usd
-                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd + Decimal(poster_usd_amount), 2))
+                    newamount_poster_usd = (floating_decimals(current_amount_recieved_to_posts_usd
+                                                              + Decimal(poster_usd_amount), 2))
                     changeposterbchstats.total_recievedfromposts_usd = newamount_poster_usd
 
-                    seeifpostdonates = PostDonations.query.filter(PostDonations.post_id == idofpost).first()
+                    seeifpostdonates = db.session.query(PostDonations).filter(PostDonations.post_id == idofpost).first()
                     if seeifpostdonates is None:
 
                         addstatstopost = PostDonations(
@@ -1651,7 +2095,8 @@ def create_tip_post_bch(subname, postid):
                         current_post_bch_amount = seeifpostdonates.total_recieved_bch
                         current_amount_bch_usd_amount = seeifpostdonates.total_recieved_bch_usd
                         newamount_for_post = (floating_decimals(current_post_bch_amount + amount_to_poster, 8))
-                        newamount_for_post_usd = (floating_decimals(current_amount_bch_usd_amount + Decimal(poster_usd_amount), 2))
+                        newamount_for_post_usd = (floating_decimals(current_amount_bch_usd_amount
+                                                                    + Decimal(poster_usd_amount), 2))
                         seeifpostdonates.total_recieved_bch = newamount_for_post
                         seeifpostdonates.total_recieved_bch_usd = newamount_for_post_usd
 

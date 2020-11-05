@@ -7,7 +7,7 @@
             <img  src="{{ url_for('static', filename='images/coins/bch/btccash_long.png')  }}" width="40%">
         </div>
         <div class="col-12 text-center mt-5">
-          <h5>   Balance: <span class="">{{ current_user.bch.currentbalance|btctostring  }}</span ></h5>
+            <h5>   Balance: <span class="">{{ current_user.bch.currentbalance|btctostring  }}</span ></h5>
         </div>
         <form method="post" action="{{ url_for('tip.create_tip_post_bch',subname=thesub.subcommon_name, postid=post.id) }}">
             {{ form_bch.csrf_token }}
@@ -41,7 +41,23 @@
                 {{ render_field(form_bch.ten_dollar,  value="10.00$", autocomplete="off", class="btn btn-success mr-1") }}
 
             </div>
+            <div class="col-12 mt-2  mb-2 text-center">
+                <h5>Micro Tip. Send an amount less than a fraction of a penny!</h5>
+            </div>
+            <div class="form-group row text-center justify-content-center">
 
+                <div class="col-6 mt-2">
+                    {{ render_field(form_bch.five_zero,  value="0.00000100 BCH", autocomplete="off", class="btn btn-success mr-1") }}
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_bch.six_zero,  value="0.00000010 BCH", autocomplete="off", class="btn btn-success mr-1") }}
+                </div>
+                <div class="col-6 mt-2">
+                    {{ render_field(form_bch.seven_zero,  value="0.00000001 BCH", autocomplete="off", class="btn btn-success mr-1") }}
+
+                </div>
+
+            </div>
             <div class="col-12">
                 Please Note: Once you hit an amount above, it will be automatically taken
                 from your wallet and given to post/commenter/poster.  There is no confirm screen after this.
