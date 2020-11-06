@@ -4,6 +4,7 @@
         <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.account') }}">Account Home</a><br>
         <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changepassword') }}">Change Password</a><br>
         <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changepin') }}">Change Pin</a><br>
+     <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('profileedit.view_pgp') }}">PGP</a><br>
         <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changeemail') }}">Change Email</a><br>
         {% if current_user.confirmed == 0 %}
             <a class="btn btn-warning text-dark w-100 mb-2" href="{{ url_for('users.resendconfirmation') }}">Confirm Account</a><br>

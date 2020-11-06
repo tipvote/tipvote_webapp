@@ -1292,7 +1292,6 @@ class SubForums(db.Model):
 db.event.listen(SubForums.description, 'set', SubForums.on_changed_body)
 
 
-
 class PostPromotions(db.Model):
     __tablename__ = 'avengers_post_promotions'
     __bind_key__ = 'avengers'
@@ -1778,10 +1777,12 @@ class PgpKey(db.Model):
     __tablename__ = 'user_pgpkey'
     __bind_key__ = 'avengers'
     __table_args__ = {"schema": "avengers_user", 'useexisting': True}
-
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
+    # from to
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
-    userkey = db.Column(db.TEXT)
+    user_name = db.Column(db.String(140))
+    key = db.Column(db.TEXT)
 
 
 class UserTimers(db.Model):
@@ -2379,7 +2380,7 @@ class User(UserMixin, db.Model):
     user_stats_common = db.relationship('UserStats', backref='userstats', uselist=False, cascade="all,delete")
     user_stats_btc = db.relationship('UserStatsBTC', backref='userstatsbtc', uselist=False, cascade="all,delete")
     user_stats_bch = db.relationship('UserStatsBCH', backref='userstatsbch', uselist=False, cascade="all,delete")
-    user_pgp_key = db.relationship('PgpKey', backref='pgp', uselist=False, cascade="all,delete")
+    user_pgp_key = db.relationship('PgpKey', backref='user_pgp_key', uselist=False, cascade="all,delete")
 
     sender_msg = db.relationship('Messages', backref='sendermsg', lazy='dynamic', cascade="all,delete",
                                  primaryjoin="User.id == Messages.sender_user_id")

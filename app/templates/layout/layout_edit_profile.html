@@ -1,9 +1,11 @@
 
 
-    {% include 'layout/basic/metadata.html' %}
-    {% include 'layout/headers/header.html' %}
+{% include 'layout/basic/metadata.html' %}
+{% include 'layout/headers/header.html' %}
+{% include 'layout/basic/metadata.html' %}
+{% include 'css/main.html' %}
 <div class="wrapper">
-{% from "_formhelper.html" import render_field %}
+    {% from "_formhelper.html" import render_field %}
     <body>
     <div class="container mt-3">
 
@@ -37,4 +39,4 @@
 
 </div>
 
- {% include 'layout/basic/_footer.html' %}
+{% include 'layout/basic/_footer.html' %}

@@ -9,7 +9,7 @@ from sqlalchemy import or_
 from flask_login import current_user
 from app.common.decorators import login_required
 from datetime import datetime
-# common imports
+
 from app import db, app
 
 # relative directory
