@@ -9,8 +9,6 @@ import bleach
 from markdown import markdown
 
 
-
-
 class Streaming(db.Model):
     __tablename__ = 'streaming'
     __bind_key__ = 'avengers'
@@ -1294,7 +1292,6 @@ class SubForums(db.Model):
 db.event.listen(SubForums.description, 'set', SubForums.on_changed_body)
 
 
-
 class PostPromotions(db.Model):
     __tablename__ = 'avengers_post_promotions'
     __bind_key__ = 'avengers'
@@ -1786,7 +1783,6 @@ class PgpKey(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
     user_name = db.Column(db.String(140))
     key = db.Column(db.TEXT)
-
 
 
 class UserTimers(db.Model):
