@@ -10,6 +10,27 @@ from wtforms.validators import DataRequired, \
 from app.common.validation import general
 
 
+class UserPGPForm(FlaskForm):
+
+    key = TextAreaField(validators=[
+        Optional(),
+        Length(200, 25000, message='Key is between 200 and 10000 characters long'),
+
+    ])
+
+    submit = SubmitField()
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+
+    def validate(self):
+        rv = FlaskForm.validate(self)
+        if rv:
+            return True
+        else:
+            return False
+
+
 class UserBioForm(FlaskForm):
 
     bio = TextAreaField(validators=[
@@ -55,7 +76,6 @@ class MyAccountForm(FlaskForm):
             return True
         else:
             return False
-
 
 
 class SaveForm(FlaskForm):

@@ -17,6 +17,7 @@
             <div class="row">
 
                 <div class="col-12">
+
                     {% if f.sender_user_id == current_user.id %}
                         <a class="" href="{{ url_for('message.view_message', msgid=f.id) }}">
                             {% if f.recmsg.profileimage %}
@@ -44,29 +45,28 @@
                         </a>
                     {% else %}
 
-                        <a class="" href="{{ url_for('message.view_message', msgid=f.id) }}">
 
-                            {% if f.sendermsg.profileimage %}
-                                {% if f.sendermsg.profileimage|length < 5 %}
-                                    <img class="img-responsive rounded"
-                                         src="{{ url_for('static',
-                                     filename='images/noprofile.png') }}"
-                                         width="70px" height="70px"
-                                    >
-                                {% else %}
-                                    <img class="img-responsive rounded"
-                                         src="{{ url_for('common.profile_image',
-                                     filename= f.sendermsg.profileimage) }}"
-                                         width="70px" height="70px"
-                                    >
-                                {% endif %}
-                            {% else %}
+                        {% if f.sendermsg.profileimage %}
+                            {% if f.sendermsg.profileimage|length < 5 %}
                                 <img class="img-responsive rounded"
                                      src="{{ url_for('static',
                                      filename='images/noprofile.png') }}"
                                      width="70px" height="70px"
                                 >
+                            {% else %}
+                                <img class="img-responsive rounded"
+                                     src="{{ url_for('common.profile_image',
+                                     filename= f.sendermsg.profileimage) }}"
+                                     width="70px" height="70px"
+                                >
                             {% endif %}
+                        {% else %}
+                            <img class="img-responsive rounded"
+                                 src="{{ url_for('static',
+                                     filename='images/noprofile.png') }}"
+                                 width="70px" height="70px"
+                            >
+                        {% endif %}
                         </a>
                     {% endif %}
                 </div>

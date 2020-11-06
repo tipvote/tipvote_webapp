@@ -1,27 +1,104 @@
 from flask import \
     render_template, \
     redirect, \
-    url_for,\
+    url_for, \
     request, \
     flash
 from flask_login import current_user
 from app import db, app
-
+from datetime import datetime
 from app.common.decorators import login_required
 
 from app.profile_edit import profileedit
-from app.profile_edit.forms import\
-    DeleteSaveForm,\
-    DeleteSaveAllForm,\
-    MyAccountForm,\
-    UserBioForm, UnblockForm
-from app.vote.forms import VoteForm
+from app.profile_edit.forms import \
+    DeleteSaveForm, \
+    DeleteSaveAllForm, \
+    MyAccountForm, \
+    UserBioForm, UserPGPForm
+
 from app.models import \
-    User,\
+    User, \
     CommonsPost, \
     SavedPost, \
-    UserPublicInfo,\
-    UserLargePublicInfo, BlockedUser
+    UserPublicInfo, \
+    UserLargePublicInfo, \
+    BlockedUser, \
+    PgpKey
+
+
+@profileedit.route('/pgp', methods=['GET'])
+@login_required
+def view_pgp():
+    now = datetime.utcnow()
+    userpgp = db.session.query(PgpKey).filter(PgpKey.user_id == current_user.id).first()
+    if userpgp is None:
+
+        userpgp = PgpKey(
+            created=now,
+            # from to
+            user_id=current_user.id,
+            user_name=current_user.user_name,
+            key=''
+
+        )
+        db.session.add(userpgp)
+        db.session.commit()
+        return redirect(url_for('profileedit.view_pgp'))
+    form = UserPGPForm(key=userpgp.key)
+
+    return render_template('users/profile/profile_forms/profile_pgp.html',
+                           form=form,
+                           )
+
+
+@profileedit.route('/pgp/simple/<string:username>', methods=['GET'])
+@login_required
+def view_simple_pgp(username):
+
+    userpgp = db.session.query(PgpKey).filter(PgpKey.user_name == username).first()
+    if userpgp is None:
+        flash("User does not have a PGP Key", category="success")
+        return redirect(url_for('index'))
+
+    return render_template('users/profile/profile_widgets/pgp_simple.html',
+                           userpgp=userpgp)
+
+
+@profileedit.route('/edit/pgp', methods=['POST'])
+@login_required
+def edit_pgp():
+
+    if request.method == 'POST':
+
+        userpgp = db.session.query(PgpKey).filter(PgpKey.user_id == current_user.id).first()
+        form = UserPGPForm(bio=userpgp.key)
+        if form.validate_on_submit():
+
+            userpgp.key = form.key.data
+            db.session.add(userpgp)
+            db.session.commit()
+
+            flash("PGP Key has has been added/changed", category="success")
+            return redirect(url_for('profileedit.view_pgp'))
+        else:
+            flash("Form error", category="danger")
+            return redirect(url_for('profileedit.view_pgp'))
+
+
+@profileedit.route('/remove/pgp', methods=['GET'])
+@login_required
+def delete_pgp():
+
+    if request.method == 'GET':
+
+        userpgp = db.session.query(PgpKey).filter(PgpKey.user_id == current_user.id).first()
+
+        userpgp.key = ''
+        db.session.add(userpgp)
+        db.session.commit()
+
+        flash("PGP Key has has been added/changed", category="success")
+        return redirect(url_for('profileedit.view_pgp'))
 
 
 @profileedit.route('/save/<int:postid>', methods=['POST'])

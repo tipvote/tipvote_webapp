@@ -1,0 +1,49 @@
+
+        {% if theuser.user_pgp_key.key %}
+<style>
+    .pgpbox {
+        height:350px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        word-break: unset;
+    }
+</style>
+<div class="col-12 mb-3 second_color rounded   border border-dark pgpbox">
+
+    <div class="col-12 mb-2">
+        <div class="row ">
+            <div class="col-6"><h5>PGP Key</h5></div>
+            <div class="col-4">
+
+                {% if current_user.is_authenticated %}
+                    {% if current_user == theuser %}
+                        <a href="{{ url_for('profileedit.view_pgp') }}">
+                            Edit PGP
+                        </a>
+                    {% else %}
+
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        <a href="{{ url_for('profileedit.view_simple_pgp', username=theuser.user_name) }}"  target="_blank">
+            View PGP
+        </a>
+    </div>
+    <div class="col-12">
+
+        {% if theuser.user_pgp_key.key %}
+            {{ theuser.user_pgp_key.key }}
+        {% else %}
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+{% else %}
+{% endif %}

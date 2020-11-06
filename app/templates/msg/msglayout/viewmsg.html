@@ -2,12 +2,17 @@
 {% block content %}
 
 
+
     <div class="col-12 second_color mb-3">
-                    <div class="col-12" style="">
-                        {%  include '/msg/_createcomment.html' %}
-                    </div>
+        <div class="col-12" style="">
+            {%  include '/msg/_createcomment.html' %}
+        </div>
         <div class="col-12  mb-3">
             {% for r in replys %}
+
+
+
+
                 {% if r.sender_user_id == current_user.id %}
 
                     <div class="col-3 offset-7 mb-1" style="font-size: 11px">
@@ -40,6 +45,7 @@
                     </div>
 
                 {% else %}
+
 
                     <div class="col-6 text-center offset-1 mb-1" style="font-size: 11px">
                         {{ moment(timestamp=r.created).fromNow(refresh=True) }}
