@@ -10,12 +10,11 @@ from wtforms.validators import DataRequired, \
     Regexp, \
     EqualTo, \
     Optional
-from app.models import User
+from app.classes.user import User
 from flask import flash
 from sqlalchemy import func
 from app.common.validation import user_names, general, onlynumbers
 from wtforms.fields.html5 import EmailField
-
 
 class DeleteAllForm(FlaskForm):
     """

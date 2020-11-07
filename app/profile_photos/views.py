@@ -21,10 +21,9 @@ from app.profile_photos import photos
 from app.profile_photos.forms import\
     ProfilePicForm,\
     BannerPicForm
-from app.models import User
+from app.classes.user import User
 from app.profile_photos.resize_banner import convert_banner_image
 from app.profile_photos.resize_profile import convert_profile_image
-
 
 def deleteuserprofileimage(user_id):
     if current_user.id == user_id:
@@ -39,7 +38,6 @@ def deleteuserprofileimage(user_id):
         db.session.commit()
     else:
         return redirect(url_for('index'))
-
 
 def deleteuserbannerimage(user_id):
     if current_user.id == user_id:

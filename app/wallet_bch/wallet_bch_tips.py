@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from app.wallet_bch.wallet_btccash_transaction import bch_cash_addtransaction
 
-from app.models import BchWallet
+from app.classes.bch import BchWallet
 # end models
 
 

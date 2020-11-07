@@ -1,9 +1,8 @@
-
-
 def transform_image_links_markdown(stringsubmitted):
     from app import db
-    from app.models import User
+    from app.classes.user import User
     from sqlalchemy import func
+    
     splits = stringsubmitted.split()
     worktobedone = []
 

@@ -20,13 +20,10 @@ from app.message.forms import\
     CreateAMsg,\
     CreateAMsgUser
 
-from app.models import \
-    Notifications,\
-    Messages,\
-    Reply,\
-    User, \
-    BlockedUser, \
-    Business
+from app.models import Notifications
+from app.classes.business import Business
+from app.classes.user import User, BlockedUser
+from app.classes.messages import Reply, Messages
 
 from app.message.add_notification import add_new_notification
 

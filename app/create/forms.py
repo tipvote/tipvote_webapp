@@ -13,7 +13,8 @@ from wtforms.validators import DataRequired, \
     Optional
 from app.common.validation import subcommon_name, general
 
-from app.models import Business, SubForums
+from app.classes.business import Business
+from app.classes.subforum import SubForums
 from flask import flash
 from sqlalchemy import func
 

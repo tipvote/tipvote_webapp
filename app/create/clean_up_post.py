@@ -1,4 +1,3 @@
-
 def cleanupdata(postmessage):
     listwords = []
     querywords = postmessage.split()

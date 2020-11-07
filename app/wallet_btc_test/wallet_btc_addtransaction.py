@@ -1,6 +1,6 @@
 from app import db
 from datetime import datetime
-from app.models import TransactionsBtcTest
+from app.classes.btc import TransactionsBtcTest
 
 # type 1: wallet withdrawl
 # type 2: send bitcoin offsite

@@ -6,7 +6,7 @@ from PIL import Image
 import os
 from app import db
 from flask_login import current_user
-from app.models import Business
+from app.classes.business import Business
 
 basewidth_1000 = 1000
 

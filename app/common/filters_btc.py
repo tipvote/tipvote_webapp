@@ -5,7 +5,7 @@ from decimal import Decimal
 @app.template_filter('btctousd')
 def btctousd(coinamount):
 
-    from app.models import BtcPrices
+    from app.classes.btc import BtcPrices
     from app import db
 
     getcurrentprice = db.session.query(BtcPrices).get(1)
@@ -18,7 +18,7 @@ def btctousd(coinamount):
 @app.template_filter('btcprice')
 def btcprice(price, currency):
 
-    from app.models import BtcPrices
+    from app.classes.btc import BtcPrices
     from app import db
     getcurrentprice = db.session.query(BtcPrices) \
         .filter_by(id=currency).first()
@@ -32,7 +32,7 @@ def btcprice(price, currency):
 def currencyformat(id):
 
     from app import db
-    from app.models import BtcPrices
+    from app.classes.btc import BtcPrices
 
     getfilter = db.session.query(BtcPrices).filter_by(code=id).first()
     return getfilter.symbol

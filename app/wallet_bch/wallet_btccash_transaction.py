@@ -1,6 +1,6 @@
 from app import db
 from datetime import datetime
-from app.models import TransactionsBch
+from app.classes.bch import TransactionsBch
 
 
 def bch_cash_addtransaction(category, amount, senderid, user_id, comment, orderid, balance):

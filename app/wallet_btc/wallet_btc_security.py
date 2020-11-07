@@ -1,7 +1,6 @@
 from decimal import Decimal
 from app import db
-from app.models import BtcWallet
-
+from app.classes.btc import BtcWallet
 
 def checkbalance(user_id, amount):
     # The money requested during the trade

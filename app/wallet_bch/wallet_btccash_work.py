@@ -8,13 +8,13 @@ from app.common.functions import \
 from app.wallet_bch.wallet_btccash_security import checkbalance
 # models
 from app.message.add_notification import add_new_notification
-from app.models import \
+from app.classes.bch import \
     BchWallet, \
     BchWalletWork, \
     BchWalletAddresses, \
     BchUnconfirmed, \
-    BchWalletFee, User
-
+    BchWalletFee
+from app.classes.user import User
 
 def bch_wallet_status(user_id):
     """

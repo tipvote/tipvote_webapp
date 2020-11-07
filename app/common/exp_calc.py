@@ -1,7 +1,8 @@
 
 def exppoint(user_id, category):
     from app import db
-    from app.models import ExpTable, UserStats
+    from app.classes.models import ExpTable
+    from app.classes.user import UserStats
     from datetime import datetime
     from app.common.functions import floating_decimals
 
@@ -261,7 +262,8 @@ def exppoint(user_id, category):
 
 
 def randomcoin(user_id, newlevel):
-    from app.models import Coins, UserCoins, DisplayCoins, User
+    from app.classes.user import UserCoins, User
+    from app.models import Coins, DisplayCoins
     import random
     from app import db
     from datetime import datetime
@@ -445,12 +447,4 @@ def randomcoin(user_id, newlevel):
     )
 
     db.session.add(createdisplayflash)
-
-
-
-
-
-
-
-
     db.session.commit()

@@ -5,16 +5,14 @@ from flask import \
 from flask_login import current_user
 from app import db
 from app.coins import coins
-from app.models import\
-    BtcPrices,\
-    MoneroPrices,\
-    BchPrices,\
-    LtcPrices,\
-    Notifications,\
-    Subscribed,\
-    SubForums, \
-    Coins, \
-    UserCoins
+
+from app.classes.btc import BtcPrices
+from app.classes.monero import MoneroPrices
+from app.classes.bch import BchPrices
+from app.models import LtcPrices, Notifications, Coins
+from app.classes.subforum import SubForums, Subscribed
+from app.classes.user import UserCoins
+
 from datetime import datetime
 
 

@@ -1,6 +1,6 @@
 from app import db
 from decimal import Decimal
-from app.models import MoneroWalletStagenet
+from app.classes.monero import MoneroWalletStagenet
 
 
 def monero_checkbalance_stagenet(user_id, amount):

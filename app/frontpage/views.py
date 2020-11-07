@@ -20,23 +20,29 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute
 
+from app.classes.btc import BtcPrices
+from app.classes.bch import BchPrices
 from app.models import \
-    BtcPostTips, \
-    RecentTips, \
-    DisplayCoins, \
     Notifications, \
-    BtcPrices, \
-    MoneroPrices, \
-    BchPrices, \
-    LtcPrices, \
+    DisplayCoins, \
+    RecentTips
+from app.classes.post import \
+    BtcPostTips, \
+    BchPostTips, \
+    XmrPostTips, \
+    CommonsPost
+from app.classes.btc import BtcPrices
+from app.classes.bch import BchPrices
+from app.classes.monero import MoneroPrices
+from app.models import LtcPrices
+from app.classes.subforum import \
     Subscribed, \
     SubForums, \
-    CommonsPost, \
-    Business, \
-    BusinessFollowers, \
-    Messages, \
     Mods
-
+from app.classes.business import \
+    Business, \
+    BusinessFollowers
+from app.classes.messages import Messages
 
 @frontpage.route('', methods=['GET'])
 @login_required

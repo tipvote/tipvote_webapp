@@ -1,6 +1,6 @@
 from decimal import Decimal
 from app import db
-from app.models import BtcWalletTest
+from app.classes.btc import BtcWalletTest
 
 
 def checkbalance(user_id, amount):

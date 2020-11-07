@@ -6,7 +6,7 @@ def seeifvoted(postid):
     """
     see if user voted on a post
     """
-    from app.models import PostUpvotes
+    from app.classes.post import PostUpvotes
     from app import db
     from flask_login import current_user
 

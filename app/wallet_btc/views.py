@@ -21,14 +21,11 @@ from app.wallet_btc.wallet_btc_work import sendcoin_offsite
 from app.wallet_btc import wallet_btc
 # forms
 from app.wallet_btc.forms import WalletSendcoin
+
 # models
-from app.models import \
-    TransactionsBtc, \
-    BtcWallet, \
-    BtcWalletFee,\
-    Subscribed,\
-    SubForums,\
-    User, Notifications
+from app.classes.user import User
+from app.classes.subforum import SubForums, Subscribed
+from app.models import Notifications
 
 from app.wallet_btc.wallet_btc_work import walletstatus
 

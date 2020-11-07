@@ -19,12 +19,11 @@ from app.legal.forms import\
     CreateAMsg,\
     CreateAMsgUser
 
-from app.models import \
+from app.classes.messages import \
     LegalMessages,\
-    LegalReply,\
-    User, \
-    BlockedUser, \
-    Business
+    LegalReply
+from app.classes.user import User, BlockedUser
+from app.classes.business import Business
 
 from app.message.add_notification import add_new_notification
 

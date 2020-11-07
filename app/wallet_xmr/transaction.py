@@ -1,11 +1,9 @@
 from app import db
 from datetime import datetime
-from app.models import MoneroTransactions
-
+from app.classes.monero import MoneroTransactions
 
 # this function will move the coin from holdings back to vendor.  This is for vendor verification
 def monero_addtransaction(category, amount, user_id, orderid, balance, senderid, comment):
-
     now = datetime.utcnow()
     orderid = int(orderid)
 

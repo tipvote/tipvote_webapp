@@ -31,16 +31,15 @@ from app.nodelocations import userimagelocation, current_disk
 from app.business_edit.resize_banner import convert_banner_image
 from app.business_edit.resize_profile import convert_profile_image
 
-from app.models import Business, \
+from app.classes.business import Business, \
     BusinessInfo, \
     BusinessFollowers, \
     BusinessStats, \
     BusinessLocation, \
     BusinessServices,\
     BusinessAccepts,\
-    BusinessSpecificInfo,\
-    CommonsPost
-
+    BusinessSpecificInfo
+from app.classes.post import CommonsPost
 
 def deleteprofileimage(business_id):
     thebiz = db.session.query(Business).filter(Business.id == business_id).first()

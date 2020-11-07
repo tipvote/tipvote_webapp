@@ -5,12 +5,13 @@ from app.common.functions import floating_decimals
 from app.message.add_notification import add_new_notification
 from app.wallet_btc.wallet_btc_security import checkbalance
 
-from app.models import \
+from app.classes.btc import \
     BtcWallet, \
     BtcWalletWork, \
     BtcWalletFee, \
     BtcWalletAddresses, \
-    BtcUnconfirmed, User
+    BtcUnconfirmed
+from app.classes.user import User
 # end models
 
 

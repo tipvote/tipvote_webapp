@@ -42,26 +42,23 @@ from app.mod.forms import\
     DeleteRoomForm,\
     NSFWForm
 
-from app.models import \
+from app.classes.subforum import \
     SubForums, \
-    PrivateMembers, \
     SubForumStats, \
+    SubForumCustom, \
+    SubForumCustomInfoOne, \
+    PrivateMembers, \
     PrivateApplications, \
-    SubForumCustomInfoOne,\
-    CommonsPost, \
-    Comments,\
-    SubForumCustom,\
-    UserTimers, \
-    User, \
     Mods, \
     Banned, \
     Muted, \
-    ReportedComments, \
-    ReportedPosts,\
     Subscribed
+from app.classes.comments import Comments
+from app.classes.post import CommonsPost
+from app.classes.user import UserTimers, User
+from app.models import ReportedComments, ReportedPosts
 
 from app.mod.security import modcheck
-
 
 @mod.route('/customize/<string:subname>', methods=['GET'])
 @login_required

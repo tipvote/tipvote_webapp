@@ -43,29 +43,27 @@ from app.subforum.forms import \
     ReportForm
 
 # models
-from app.models import \
+from app.classes.subforum import \
     Mods, \
     Banned, \
+    SubForums, \
+    PrivateMembers, \
+    PrivateApplications, \
+    SubForumCustom, \
+    SubForumCustomInfoOne, \
+    SubForumStats
+from app.classes.bch import BchPrices
+from app.classes.btc import BtcPrices
+from app.classes.monero import MoneroPrices
+from app.classes.post import CommonsPost
+from app.classes.comments import Comments
+from app.classes.business import Business, BusinessFollowers
+from app.models import \
     ReportedPosts, \
     ReportedComments, \
     Notifications, \
     RecentTips, \
-    LtcPrices, \
-    BchPrices, \
-    MoneroPrices, \
-    BtcPrices, \
-    PrivateMembers, \
-    SubForums, \
-    CommonsPost, \
-    Comments, \
-    SubForumStats, \
-    PrivateApplications, \
-    SubForumCustom, \
-    SubForumCustomInfoOne, \
-    Subscribed, \
-    Business,\
-    BusinessFollowers
-
+    LtcPrices
 
 @subforum.route('/<string:subname>', methods=['GET'])
 def sub(subname):

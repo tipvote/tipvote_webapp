@@ -10,7 +10,7 @@ def xmrtousd(coinamount):
     :param currency:
     :return:
     """
-    from app.models import MoneroPrices
+    from app.classes.monero import MoneroPrices
     from app import db
 
     getcurrentprice = db.session.query(MoneroPrices).get(1)
@@ -28,7 +28,7 @@ def xmrtocurrency(price, currency):
     :param currency:
     :return:
     """
-    from app.models import MoneroPrices
+    from app.classes.monero import MoneroPrices
     from app import db
 
     getcurrentprice = db.session.query(MoneroPrices) \
@@ -51,7 +51,7 @@ def xmrprice(price, currency):
     :param currency:
     :return:
     """
-    from app.models import MoneroPrices
+    from app.classes.monero import MoneroPrices
     from app import db
     getcurrentprice = db.session.query(MoneroPrices) \
         .filter_by(id=currency).first()

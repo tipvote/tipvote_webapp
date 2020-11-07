@@ -28,11 +28,11 @@ from app.wallet_btc_test.wallet_btc_work import walletstatus_test
 from app.wallet_btc_test.forms import WalletSendcoinTest
 
 # models
-from app.models import \
+from app.classes.btc import \
     TransactionsBtcTest, \
     BtcWalletTest, \
-    BtcWalletFeeTest,\
-    User
+    BtcWalletFeeTest
+from app.classes.user import User
 
 
 @wallet_btc_test.route('/', methods=['GET'])

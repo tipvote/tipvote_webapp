@@ -26,9 +26,8 @@ from flask_mistune import Mistune
 
 
 app = Flask(__name__, static_url_path='',
-            static_folder="../../tipvote/app/static",
-            template_folder="../../tipvote/app/templates")
-
+            static_folder="tipvote/app/static",
+            template_folder="tipvote/app/templates")
 
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
@@ -122,7 +121,7 @@ def app_handle_404(e):
 
 @login_manager.user_loader
 def load_user(user_id):
-    from app.models import User
+    from app.classes.user import User
     x = db.session.query(User).filter(User.id == int(user_id)).first()
     return x
 

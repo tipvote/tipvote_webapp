@@ -5,7 +5,7 @@ from app.common.functions import floating_decimals
 from app.message.add_notification import add_new_notification
 
 from app.wallet_xmr_stagenet.security import monero_checkbalance_stagenet
-from app.models import \
+from app.classes.monero import \
     MoneroWalletStagenet, \
     MoneroWalletWorkStagenet, \
     MoneroWalletFeeStagenet, \

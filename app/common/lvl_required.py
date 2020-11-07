@@ -1,5 +1,4 @@
-from app.models import User, UserStats
-
+from app.classes.user import User, UserStats
 
 def lvl_req(userid, lvlnumber):
 
@@ -11,5 +10,3 @@ def lvl_req(userid, lvlnumber):
     else:
         # user is not high enough level
         return False
-
-
