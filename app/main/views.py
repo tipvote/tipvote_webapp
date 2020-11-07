@@ -33,11 +33,11 @@ from app.classes.business import \
     Business, \
     BusinessStats, \
     BusinessFollowers
-from app.classes.messages import Messages
-from app.models import \
-    Notifications, \
+from app.classes.message import Messages
+from app.classes.notification import Notifications
+from app.classes.ltc import LtcPrices
+from app.classes.models import \
     DisplayCoins, \
-    LtcPrices, \
     GiveawayAll, \
     Updates, \
     Streaming, \

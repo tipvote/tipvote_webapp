@@ -22,10 +22,8 @@ from app.mod.forms import \
 
 from app.classes.btc import BtcPrices
 from app.classes.bch import BchPrices
-from app.models import \
-    Notifications, \
-    DisplayCoins, \
-    RecentTips
+from app.classes.notification import Notifications
+from app.classes.models import DisplayCoins, RecentTips
 from app.classes.post import \
     BtcPostTips, \
     BchPostTips, \
@@ -34,7 +32,7 @@ from app.classes.post import \
 from app.classes.btc import BtcPrices
 from app.classes.bch import BchPrices
 from app.classes.monero import MoneroPrices
-from app.models import LtcPrices
+from app.classes.ltc import LtcPrices
 from app.classes.subforum import \
     Subscribed, \
     SubForums, \
@@ -42,7 +40,7 @@ from app.classes.subforum import \
 from app.classes.business import \
     Business, \
     BusinessFollowers
-from app.classes.messages import Messages
+from app.classes.message import Messages
 
 @frontpage.route('', methods=['GET'])
 @login_required

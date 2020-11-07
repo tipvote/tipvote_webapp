@@ -31,11 +31,11 @@ from app.vote.forms import VoteForm
 from app.classes.btc import BtcPrices, BtcWallet
 from app.classes.bch import BchPrices, BchWallet
 from app.classes.monero import MoneroPrices, MoneroWallet
-from app.classes.comments import XmrCommentTips, BtcCommentTips, BchCommentTips, Comments
+from app.classes.comment import XmrCommentTips, BtcCommentTips, BchCommentTips, Comments
 from app.classes.post import BtcPostTips, XmrPostTips, BchPostTips, CommonsPost, PostDonations
 from app.classes.user import UserStatsBCH, UserStatsBTC, UserStatsXMR
 from app.classes.subforum import SubForums, PayoutSubOwner
-from app.models import RecentTips
+from app.classes.models import RecentTips
 
 # wallet imports
 from app.wallet_btc.wallet_btc_tips import \

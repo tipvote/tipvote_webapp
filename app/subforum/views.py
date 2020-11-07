@@ -56,14 +56,12 @@ from app.classes.bch import BchPrices
 from app.classes.btc import BtcPrices
 from app.classes.monero import MoneroPrices
 from app.classes.post import CommonsPost
-from app.classes.comments import Comments
+from app.classes.comment import Comments
 from app.classes.business import Business, BusinessFollowers
-from app.models import \
-    ReportedPosts, \
-    ReportedComments, \
-    Notifications, \
-    RecentTips, \
-    LtcPrices
+from app.classes.report import ReportedPosts, ReportedComments
+from app.classes.notification import Notifications
+from app.classes.ltc import LtcPrices
+from app.classes.models import RecentTips
 
 @subforum.route('/<string:subname>', methods=['GET'])
 def sub(subname):

@@ -19,7 +19,7 @@ from app.legal.forms import\
     CreateAMsg,\
     CreateAMsgUser
 
-from app.classes.messages import \
+from app.classes.message import \
     LegalMessages,\
     LegalReply
 from app.classes.user import User, BlockedUser

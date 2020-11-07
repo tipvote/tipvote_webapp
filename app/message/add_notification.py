@@ -1,5 +1,5 @@
 from app import db
-from app.models import Notifications
+from app.classes.notification import Notifications
 from datetime import datetime
 
 # 1 New comment on message

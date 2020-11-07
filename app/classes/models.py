@@ -8,8 +8,6 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
-print('Notice: Models file included by ',__name__,'.')
-
 class Streaming(db.Model):
     __tablename__ = 'streaming'
     __bind_key__ = 'avengers'
@@ -48,16 +46,6 @@ class GiveawayAll(db.Model):
     # name of person leading contest
     leader_user_id = db.Column(db.Integer)
     leader_user_name = db.Column(db.String(140))
-
-class SavedPost(db.Model):
-    __tablename__ = 'user_saved_posts'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
-    post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
 
 class Coins(db.Model):
     __tablename__ = 'coins'
@@ -100,7 +88,6 @@ class DisplayCoins(db.Model):
     seen_by_user = db.Column(db.Integer)
     new_user_level = db.Column(db.Integer)
 
-
 class TempUrl(db.Model):
     __tablename__ = 'temp_url'
     __bind_key__ = 'avengers'
@@ -115,70 +102,6 @@ class TempUrl(db.Model):
     image = db.Column(db.TEXT)
     subcommon_name = db.Column(db.String(140))
     subcommon_id = db.Column(db.Integer)
-
-
-class Notifications(db.Model):
-    __tablename__ = 'avengers_msg_notifications'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
-
-    id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
-    read = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
-    subcommon_id = db.Column(db.Integer)
-    subcommon_name = db.Column(db.String(140))
-    post_id = db.Column(db.Integer)
-    comment_id = db.Column(db.Integer)
-    msg_type = db.Column(db.Integer)
-
-class LtcPrices(db.Model):
-    __tablename__ = 'prices_ltc'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    price = db.Column(db.DECIMAL(50, 2))
-
-# Posts that have been reported
-class ReportedPosts(db.Model):
-    __tablename__ = 'avengers_subforum_reported_posts'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
-
-    id = db.Column(db.Integer, primary_key=True)
-    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
-    reporter_id = db.Column(db.Integer)
-    reporter_user_name = db.Column(db.String(140))
-
-    subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
-    subcommon_name = db.Column(db.String(140))
-
-    post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
-
-    poster_user_id = db.Column(db.Integer)
-    poster_user_name = db.Column(db.String(140))
-    poster_visible_user_id = db.Column(db.Integer)
-    poster_visible_user_name = db.Column(db.String(140))
-
-# Posts that have been reported
-class ReportedComments(db.Model):
-    __tablename__ = 'avengers_subforum_reported_comments'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
-
-    id = db.Column(db.Integer, primary_key=True)
-    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
-    reporter_id = db.Column(db.Integer)
-    reporter_user_name = db.Column(db.String(140))
-    subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
-    subcommon_name = db.Column(db.String(140))
-
-    comment_id = db.Column(db.Integer)
-    comment_body = db.Column(db.TEXT)
-    commenter_user_id = db.Column(db.Integer)
-    commenter_user_name = db.Column(db.String(140))
-    commenter_visible_user_id = db.Column(db.Integer)
-    commenter_visible_user_name = db.Column(db.String(140))
 
 class RecentTips(db.Model):
     __tablename__ = 'avengers_tips_stats_recent'
@@ -204,7 +127,6 @@ class RecentTips(db.Model):
     amount_bch = db.Column(db.DECIMAL(20, 8))
     amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
-
 
 class ExpTable(db.Model):
     __tablename__ = 'user_exp'

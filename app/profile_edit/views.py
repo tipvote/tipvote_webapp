@@ -23,7 +23,7 @@ from app.classes.user import \
     BlockedUser, \
     PgpKey
 from app.classes.post import CommonsPost
-from app.models import SavedPost
+from app.classes.user import SavedPost
 
 @profileedit.route('/pgp', methods=['GET'])
 @login_required

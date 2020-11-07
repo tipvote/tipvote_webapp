@@ -50,7 +50,7 @@ from app.classes.subforum import \
     SubForumCustom, \
     Banned, \
     Muted
-from app.classes.comments import Comments
+from app.classes.comment import Comments
 from app.classes.post import CommonsPost
 from app.classes.user import \
     UserStats, \
@@ -65,7 +65,7 @@ from app.classes.business import \
     BusinessStats, \
     BusinessLocation, \
     BusinessServices
-from app.models import LtcPrices
+from app.classes.ltc import LtcPrices
 
 from app.create.geturlinfo import geturl
 from app.create.convert_markdown import transform_image_links_markdown

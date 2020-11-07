@@ -25,8 +25,7 @@ from app.classes.monero import \
     MoneroTransactions,\
     MoneroWalletWork
 from app.classes.user import User
-from app.models import Notifications
-
+from app.classes.notification import Notifications
 
 @wallet_xmr.route('', methods=['GET'])
 @login_required

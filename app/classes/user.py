@@ -7,6 +7,16 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+class SavedPost(db.Model):
+    __tablename__ = 'user_saved_posts'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
+    post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
+
 class PgpKey(db.Model):
     __tablename__ = 'user_pgpkey'
     __bind_key__ = 'avengers'

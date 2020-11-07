@@ -30,7 +30,7 @@ from app.subforum.forms import \
     SubscribeForm, \
     ReportForm
 
-from app.classes.comments import Comments
+from app.classes.comment import Comments
 from app.classes.post import CommonsPost
 from app.classes.subforum import \
     PrivateMembers, \
@@ -42,7 +42,7 @@ from app.classes.btc import BtcPrices
 from app.classes.monero import MoneroPrices
 from app.classes.bch import BchPrices
 from app.classes.business import Business
-from app.models import LtcPrices
+from app.classes.ltc import LtcPrices
 
 from app.create.get_image_resize import convertimage
 from app import UPLOADED_FILES_DEST

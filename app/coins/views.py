@@ -9,7 +9,9 @@ from app.coins import coins
 from app.classes.btc import BtcPrices
 from app.classes.monero import MoneroPrices
 from app.classes.bch import BchPrices
-from app.models import LtcPrices, Notifications, Coins
+from app.classes.ltc import LtcPrices
+from app.classes.notification import Notifications
+from app.classes.models import Coins
 from app.classes.subforum import SubForums, Subscribed
 from app.classes.user import UserCoins
 

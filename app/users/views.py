@@ -54,7 +54,7 @@ from app.classes.user import\
     UserCoins, \
     UserPublicInfo
 from app.classes.post import CommonsPost
-from app.classes.comments import Comments
+from app.classes.comment import Comments
 
 from app.wallet_btc.wallet_btc_work import createwallet
 from app.wallet_bch.wallet_btccash_work import bch_create_wallet

@@ -20,7 +20,7 @@ from app.wallet_bch import wallet_bch
 # forms
 from app.wallet_bch.forms import WalletSendcoin
 
-from app.models import Notifications
+from app.classes.notification import Notifications
 from app.classes.user import User
 from app.classes.subforum import SubForums, Subscribed
 from app.classes.bch import\

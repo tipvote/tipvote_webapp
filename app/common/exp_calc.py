@@ -263,7 +263,7 @@ def exppoint(user_id, category):
 
 def randomcoin(user_id, newlevel):
     from app.classes.user import UserCoins, User
-    from app.models import Coins, DisplayCoins
+    from app.classes.models import Coins, DisplayCoins
     import random
     from app import db
     from datetime import datetime

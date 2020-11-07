@@ -53,10 +53,10 @@ from app.classes.subforum import \
     Banned, \
     Muted, \
     Subscribed
-from app.classes.comments import Comments
+from app.classes.comment import Comments
 from app.classes.post import CommonsPost
 from app.classes.user import UserTimers, User
-from app.models import ReportedComments, ReportedPosts
+from app.classes.report import ReportedComments, ReportedPosts
 
 from app.mod.security import modcheck
 

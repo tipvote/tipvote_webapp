@@ -3,7 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
-from app.classes.messages import LegalMessages
+from app.classes.message import LegalMessages
 
 class Subscribed(db.Model):
     __tablename__ = 'subscribed_rooms'
