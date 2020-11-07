@@ -8,6 +8,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+print('Notice: Models file included by ',__name__,'.')
 
 class Streaming(db.Model):
     __tablename__ = 'streaming'
