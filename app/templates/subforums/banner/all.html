@@ -1,10 +1,10 @@
 {% if current_user.is_authenticated %}
 
 {% else %}
-    <div class="col-12 second_color border-bottom border-dark">
+    <div class="col-12 second_color border-bottom verydarkbg text-white">
 
-        <div class="col-12 col-sm-12 col-md-8 offset-md-2  text-white text-left "  style="font-size: 16px">
-            <div class="text-center h4">
+        <div class="col-12 col-sm-12 col-md-8 offset-md-2   text-left "  style="font-size: 16px">
+            <div class="text-center h4 text-white">
                 Tipvote is a platform where you can earn money for posts and comments.
             </div>
             <div class="row text-center m-0">
@@ -25,10 +25,10 @@
                 No documents required and easy signup.
             </div>
             <div class="text-center mb-2 ">
-                <a class="btn btn-success text-white" href="{{ url_for('users.login') }}" role="button">
+                <a class="btn btn-success " href="{{ url_for('users.login') }}" role="button">
                     Login
                 </a>
-                <a class="btn btn-success text-white" href="{{ url_for('users.register') }}" role="button">
+                <a class="btn btn-success " href="{{ url_for('users.register') }}" role="button">
                     Register
                 </a>
             </div>

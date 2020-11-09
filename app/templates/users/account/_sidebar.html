@@ -1,20 +1,20 @@
 <div class="row mb-2">
     <div class="col-12 text-center mb-3"><h5>Account Navigation</h5></div>
     <div class="col-12">
-        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.account') }}">Account Home</a><br>
-        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changepassword') }}">Change Password</a><br>
-        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changepin') }}">Change Pin</a><br>
-     <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('profileedit.view_pgp') }}">PGP</a><br>
-        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.changeemail') }}">Change Email</a><br>
+        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('users.account') }}">Account Home</a><br>
+        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('users.changepassword') }}">Change Password</a><br>
+        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('users.changepin') }}">Change Pin</a><br>
+     <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('profileedit.view_pgp') }}">PGP</a><br>
+        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('users.changeemail') }}">Change Email</a><br>
         {% if current_user.confirmed == 0 %}
-            <a class="btn btn-warning text-dark w-100 mb-2" href="{{ url_for('users.resendconfirmation') }}">Confirm Account</a><br>
+            <a class="btn btn-warning  w-100 mb-2" href="{{ url_for('users.resendconfirmation') }}">Confirm Account</a><br>
         {% endif %}
-        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('users.logout') }}">Logout</a><br>
+        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('users.logout') }}">Logout</a><br>
 
         <br>
         <br>
-        <div class="col-12 text-center text-white mb-3 "><h5>Danger Zone</h5></div>
-        <a class="btn btn-danger text-white w-100 mb-2" href="{{ url_for('users.deleteallposts') }}">Delete Posts</a><br>
-        <a class="btn btn-danger text-white w-100 mb-2" href="{{ url_for('users.deleteallcomments') }}">Delete Comments</a><br>
+        <div class="col-12 text-center  mb-3 "><h5>Danger Zone</h5></div>
+        <a class="btn btn-danger  w-100 mb-2" href="{{ url_for('users.deleteallposts') }}">Delete Posts</a><br>
+        <a class="btn btn-danger  w-100 mb-2" href="{{ url_for('users.deleteallcomments') }}">Delete Comments</a><br>
     </div>
 </div>

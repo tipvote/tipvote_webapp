@@ -1,6 +1,6 @@
 {% if current_user.is_authenticated %}
 
-<div class="col-12 second_color rounded mb-3 p-1 border border-dark d-none d-md-block">
+<div class="col-12 second_color mb-3 p-1  d-none d-md-block">
         <div class="text-center"> <b>Subscriptions</b></div>
         <br>
 
@@ -11,7 +11,7 @@
                 {% if subs %}
                     <div class="col-1"></div>
                     <div class="col-11"></div>
-                    <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub',
+                 <a class="btn btn-ee  w-100 mb-2" style="color: #808183" href="{{ url_for('subforum.sub',
                         subname= subs.subscriber.subcommon_name )}} ">
                           {% if subs.subscriber.mini_image == '' %}
                         <div class="row " >

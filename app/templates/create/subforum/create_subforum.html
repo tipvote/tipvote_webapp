@@ -7,7 +7,7 @@
         Create your own Room.  Please be civil.
     </div>
 
-    <div class="col-12 second_color border border-dark mb-3 p-2 text-center">
+    <div class="col-12 second_color border  mb-3 p-2 text-center">
         <h4>Benefits of being the boss...</h4>
         <p>
         <b>You help shape your community</b><br><br>
@@ -20,7 +20,7 @@
 
         </p>
     </div>
-    <div class="col-12 second_color border border-dark mb-3 p-2 text-center">
+    <div class="col-12 second_color border  mb-3 p-2 text-center">
         <h4>Stats</h4>
         <b>You currently own:</b><br>
         {%  for own in roomsowned %}
@@ -29,7 +29,7 @@
         <p>You can create {{ maxsubcount }} rooms</p>
     </div>
 
-    <div class="col-12 p-2 second_color border border-dark">
+    <div class="col-12 p-2 second_color border ">
         <form method="post">
             {{ form.csrf_token }}
             <!-- Sub common name -->
@@ -50,7 +50,7 @@
                 <div class="col-12 ">
                     {{ render_field(form.subcommonname,
                     autocomplete="off",
-                    class="form-control bg-dark text-white") }}
+                    class="form-control darkbg ") }}
                     <span class="error">
                         {% if form.subcommonname.errors %}
                             {% for error in form.subcommonname.errors %}
@@ -76,7 +76,7 @@
                 <div class="col-12">
                     {{ render_field(form.subcommondescription,
                         autocomplete="off",style="width: 100%",
-                        class="form-control bg-dark text-white") }}
+                        class="form-control darkbg ") }}
 
                     <span class="error">
                             {% if form.subcommondescription.errors %}
@@ -119,7 +119,7 @@
                     NSFW Subs must have this or will be banned.
                 </div>
                 <div class="col-1">
-                    {{ render_field(form.age,autocomplete="off",class=" bg-dark text-white") }}
+                    {{ render_field(form.age,autocomplete="off",class=" darkbg ") }}
                     <span class="error">
                             {% if form.age.errors %}
                                 {% for error in form.age.errors %}
@@ -133,7 +133,7 @@
             <div class="form-group mt-3">
                 <div class="col-12 text-center">
 
-                    {{ render_field(form.submit,  value="Create Room", autocomplete="off", class="btn btn-dark text-white w-100") }}
+                    {{ render_field(form.submit,  value="Create Room", autocomplete="off", class="btn btn-dark  w-100") }}
 
                 </div>
             </div>

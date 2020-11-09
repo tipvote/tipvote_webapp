@@ -1,11 +1,11 @@
 
-<div class="col-12 mt-2 text-white headercolor pb-1 pt-1 pr-0 pl-0 ml-0 mr-0 overflow-hidden">
+<div class="col-12 mt-2  headercolor pb-1 pt-1 pr-0 pl-0 ml-0 mr-0 overflow-hidden">
     <div class="col-12 text-center mt-3">
         <h4> <b>Withdraw and Depost History</b> </h4>
     </div>
     <div class="col-12">
         {% if transactcount >= 1 %}
-            <table class="table table-sm table-striped text-white">
+            <table class="table table-sm table-striped ">
                 <!-- set columns-->
                 <tr class="d-flex linkcolor">
 
@@ -15,7 +15,7 @@
                     <th class="col-2">Balance</th>
                 </tr>
                 {% for t in transact %}
-                    <tr class="d-flex linkcolor text-white">
+                    <tr class="d-flex linkcolor ">
                         <!--First column: Time/DATE-->
                         <td class="col-3">
                             {{ moment(timestamp=t.created).fromNow(refresh=True) }}

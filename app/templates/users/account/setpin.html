@@ -12,18 +12,18 @@
                 <div class="form-group row">
                     <label  class="col-12 col-form-label">New 6 digit Pin</label>
                     <div class="col-12">
-                        {{ render_field(form.newpin1, placeholder="New Pin", autocomplete="off", class="form-control bg-dark text-white")  }}
+                        {{ render_field(form.newpin1, placeholder="New Pin", autocomplete="off", class="form-control darkbg ")  }}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label  class="col-12 col-form-label">Re-Enter pin</label>
                     <div class="col-12">
-                        {{ render_field(form.newpin2, placeholder="Confirm Pin", autocomplete="off", class="form-control bg-dark text-white")  }}
+                        {{ render_field(form.newpin2, placeholder="Confirm Pin", autocomplete="off", class="form-control darkbg ")  }}
                     </div>
                 </div>
                 <hr>
                 <div class="col-12 text-center">
-                    {{ render_field(form.submit,  value="Set Pin", autocomplete="off", class="btn bg-dark text-white")  }}
+                    {{ render_field(form.submit,  value="Set Pin", autocomplete="off", class="btn btn-dark ")  }}
 
                 </div>
             </form>

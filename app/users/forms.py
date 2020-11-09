@@ -418,6 +418,7 @@ class ThemeForm(FlaskForm):
                            choices=[('1', 'Black'),
                                     ('2', 'Blue'),
                                     ('3', 'Gray'),
+                                    ('4', 'Light'),
 
                                     ]
                            )

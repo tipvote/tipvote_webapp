@@ -1028,16 +1028,17 @@ def changetheme():
             elif themeform.theme_one.data == '4':
                 theuser.color_theme = 4
             else:
-                theuser.color_theme = 1
+                theuser.color_theme = 4
 
             db.session.add(theuser)
             db.session.commit()
 
         else:
-            theuser.color_theme = 1
+            theuser.color_theme = 4
 
             db.session.add(theuser)
             db.session.commit()
+
         return redirect(url_for('users.account'))
 
 

@@ -12,14 +12,14 @@
                 <div class="col-12 text-center mb-3">
                     {{ render_field(accountform.age,
                       autocomplete="off",
-                     class="form-check-input bg-dark text-white") }}
+                     class="form-check-input darkbg ") }}
                 </div>
             </div>
             <div class="col-12 text-center">
                 {{ render_field(accountform.submit,
                   value="Submit",
                   autocomplete="off",
-                  class="btn bg-dark text-white") }}
+                  class="btn btn-dark ") }}
 
             </div>
 
@@ -43,20 +43,20 @@
             <div class="col-12 text-center">
                 {{ render_field(themeform.submit,
                   value="Submit",
-                  class="btn bg-dark text-white") }}
+                  class="btn btn-dark ") }}
 
             </div>
 
         </form>
 
-        <div class="col-12 second_color p-3 mt-5">
+        <div class="col-12  p-3 mt-5">
             <div class="col-12 text-center h5">Select a Panel display theme</div>
             <div class="row pr-2">
 
-                <div class="col-12 second_color">
+                <div class="col-12 ">
                     <div class="row">
                         <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=1) }}">
-                            <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                            <div class="col-12 pt-2 pb-2 btn-ee  ">
                                 <i class=" fab fa-reddit fa-2x" style="color: #808183"></i>
                                 <div class="font-weight-bold" style="display: inline">
                                     Reddit Style
@@ -64,9 +64,9 @@
                             </div>
                         </a>
                         <a class="col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=2) }}">
-                            <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                            <div class="col-12 pt-2 pb-2 btn-ee  ">
                                 <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>
-                                <div class="font-weight-bold text-white" style="display: inline;">
+                                <div class="font-weight-bold " style="display: inline;">
                                     Facebook Style
                                 </div>
                             </div>

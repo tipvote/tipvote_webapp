@@ -1,13 +1,13 @@
 {% if current_user.is_authenticated %}
     <div class="row mb-2 pl-2">
-        <div class="col-10   second_color border border-dark mb-2">
+        <div class="col-10   second_color border  mb-2">
             {% if moddingcount > 0 %}
                 <br>
                 <div class="text-center"><b> Modding</b></div>
                 <br>
                 <div class="pl-0 linkcolor">
                     {% for subs in usersubforums %}
-                        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub',
+                        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub',
                             subname= subs.subscriber.subcommon_name )}} ">
                             {% if subs.subscriber.mini_image == '' %}
                                 <div class="row " style="margin-bottom: -5px">
@@ -44,7 +44,7 @@
                 <br>
                 <div class="pl-0 linkcolor">
                     {% for sub in seeifowner %}
-                        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+                        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
                             {% if sub.mini_image == '' %}
                                 <div class="row " >
                                     <div class="col-3">

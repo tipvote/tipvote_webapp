@@ -25,13 +25,13 @@
                                      width="85px" height="85px">
 
                             {% endif %}
-                            <div class="col-12 text-center text-white mb-2">
+                            <div class="col-12 text-center  mb-2">
                                 {{ follower.user_name }}
                             </div>
 
 
                         </a>
-                        <p><a class="btn btn-dark text-white"
+                        <p><a class="btn btn-dark "
                               href="{{ url_for('profile.unfollow', user_name=follower.user_name) }}">
                             Unfollow</a>
                         </p>

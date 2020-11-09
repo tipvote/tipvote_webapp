@@ -1,5 +1,5 @@
-<div class="row second_color  border-bottom border-dark " >
-    <div class="col-12 text-white text-center">
+<div class="row second_color  border-bottom  " >
+    <div class="col-12  text-center">
         {% if thebiz.user_name == current_user.user_name %}
             <a href="{{ url_for('business_edit.bannerpicture', business_id=thebiz.id) }}">
                 Upload a Banner
@@ -24,7 +24,7 @@
             {% if current_user.is_authenticated %}
               {% if current_user.user_name != thebiz.user_name %}
                 {% if seeifsubbed == 1 %}
-                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down text-white") }}
+                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down ") }}
                 {% else %}
                     {{ render_field(subform.subscribe,  value="Subscribe", autocomplete="off", class="btn btn-sm btn-tipvote-up") }}
                 {% endif %}

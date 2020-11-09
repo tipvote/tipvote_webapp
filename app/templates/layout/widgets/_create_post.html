@@ -1,20 +1,14 @@
 
 {% if current_user.is_authenticated %}
 <div class="row pb-1 pr-2 pl-2">
-        <div class="col-12 second_color border border-dark pb-2">
+        <div class="col-12 second_color   pb-2">
             <div class="text-center mb-3">
                 <h5> Have something to share? </h5>
-
             </div>
 
 
-
-
             <style>
-                .panelborder {
-                    border: solid #393a3a;
-                    border-width: 1px;
-                }
+
                 .file{
                     display:block;
                     position: relative;
@@ -65,17 +59,17 @@
                                 <!-- Post Title -->
                                 <div class="col-12 mb-3 mt-0 ">
                                     <b>Post Title: </b>
-                                    {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post title ...") }}
+                                    {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control darkbg ",placeholder="Post title ...") }}
                                 </div>
                                 <!-- Post Message -->
                                 <div class="col-12 mb-3 mt-0 ">
                                     <b>Post Text or URL: </b>
-                                    {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post text ...") }}
+                                    {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control darkbg ",placeholder="Post text ...") }}
                                 </div>
                                 <!--Select Room -->
                                 <div class=" col-6 mb-3 mt-0 ">
                                     <b>Select a room: </b>
-                                    {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
+                                    {{ render_field(mainpostform.roomname,class="form-control darkbg ") }}
                                 </div>
 
                                 <!--Image -->
@@ -85,7 +79,7 @@
                                         <div class="col-6  d-inline">
                                             <label class="file w-100" >
 
-                                                <button class="btn btn-dark"><i class="far fa-image fa-2x text-white"></i></button>
+                                                <button class="btn btn-dark"><i class="far fa-image fa-2x "></i></button>
 
                                                 {{ render_field(mainpostform.image_one,  accept="image/*", onchange="loadFile(event)") }}
                                             </label >

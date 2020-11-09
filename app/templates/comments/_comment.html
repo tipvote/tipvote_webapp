@@ -1,20 +1,20 @@
 
 <div class="col-12 ">
-    <div class="row justify-content-end   rounded " >
+    <div class="row justify-content-end    " >
         {% if comment.path|length <= 6 %}
-            <div class="col-12 text-white mt-4 second_color rounded" >
+            <div class="col-12 third_color mt-4  " >
             <div class="row">
         {% elif 7 <= comment.path|length <= 13  %}
-            <div class="col-1 second_color rounded"></div>
-            <div class="col-11 second_color rounded">
+            <div class="col-1 third_color"></div>
+            <div class="col-11 third_color ">
             <div class="row ">
         {% elif 14 <= comment.path|length <= 20  %}
-            <div class="col-2 second_color rounded"></div>
-            <div class="col-10 second_color rounded">
+            <div class="col-2 third_color "></div>
+            <div class="col-10 third_color ">
             <div class="row">
         {% else %}
-            <div class="col-3 second_color rounded"></div>
-            <div class="col-9 second_color rounded">
+            <div class="col-3  third_color"></div>
+            <div class="col-9 third_color ">
             <div class="row">
         {% endif %}
 
@@ -31,7 +31,7 @@
                                 class="img-responsive"
                                 src="{{ url_for('common.profile_image',
                                 filename=comment.usercomments.profileimage) }}"
-                                style="width:50px;height: 50px">
+                                style="width:50px;height: 50px; border-radius: 7px">
                     </a>
                 {% endif %}
             {% else %}

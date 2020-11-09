@@ -8,8 +8,8 @@
 
             {% for tip in top_tippers_post %}
 
-                <div class="second_color  pt-2 pb-2 text-center" style="max-width: 200px">
-                    <a class="text-white" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
+                <div class="pt-2 pb-2 text-center" style="max-width: 200px">
+                    <a class="" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
                         {{ tip.created_user_name }} <br>
                     </a>
                     {% if tip.amount_btc != 0 %}
@@ -43,7 +43,7 @@
         {% if top_tippers_comments  %}
             {% for tip in top_tippers_comments %}
                 <div class="second_color  pt-2 pb-2 text-center" style="max-width: 200px">
-                    <a class="text-white" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
+                    <a class="" href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
                         {{ tip.created_user_name }} <br>
                     </a>
                     {% if tip.amount_btc != 0 %}

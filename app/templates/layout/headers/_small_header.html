@@ -35,16 +35,16 @@
                     </button>
 
 
-                    <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
+                    <div class="dropdown-menu dropdown-menu-left darkbg mt-0 mb-0 pt-0 pb-0 border  dropdown-height"
                         aria-labelledby="dropdownMenuButtonSubs">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
                                 {% for subs in usersubforums %}
                                     {% if subs %}
-                                        <a class="col-12 text-white font-weight-bold btn-ee mb-3"
+                                        <a class="col-12  font-weight-bold btn-ee mb-3"
                                            href="{{ url_for('subforum.sub',subname=subs.subscriber.subcommon_name) }}">
                                             {% if subs.subscriber.mini_image == '' %}
-                                                <div class="row btn-ee text-white pt-2 pb-2">
+                                                <div class="row btn-ee  pt-2 pb-2">
                                                     <div class="col-3">
                                                         <span class="dot" style="background-color: #1e90ff;"></span>
                                                     </div>
@@ -53,7 +53,7 @@
                                                     </div>
                                                 </div>
                                             {% else %}
-                                                <div class="row btn-ee text-white pt-2 pb-2 ">
+                                                <div class="row btn-ee  pt-2 pb-2 ">
                                                     <div class="col-3">
                                                         <img class="rndimg"
                                                              src="{{ url_for('common.banner_image',
@@ -80,7 +80,7 @@
         <div class="col-7 text-right  pl-0 pr-0 ">
             {% if current_user.is_authenticated %}
 
-                <a class="btn btn-dark text-white " href="{{ url_for('profile.main',
+                <a class="btn btn-dark  " href="{{ url_for('profile.main',
                  user_name=current_user.user_name) }}">
                     <i class="fa fa-user"></i>
                 </a>
@@ -97,22 +97,22 @@
                              width="20px" height="20px">
                     </button>
 
-                    <div class="dropdown-menu dropdown-menu-left bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                    <div class="dropdown-menu dropdown-menu-left darkbg mt-0 mb-0 pt-0 pb-0 border "
                          aria-labelledby="dropdownMenuButton2">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
-                                <a class="text-white col-12 mb-2 p-0" href="{{ url_for('wallet_btc.home') }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mb-2 p-0" href="{{ url_for('wallet_btc.home') }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>  <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Btc Wallet</b></b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
-                                    <div class="col-12 btn-ee pt-2 pb-2 text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
+                                    <div class="col-12 btn-ee pt-2 pb-2  ">
                                         <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bch Wallet</b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_xmr.home') }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_xmr.home') }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>XMR Wallet</b>
                                     </div>
                                 </a>
@@ -124,12 +124,12 @@
                 <div class="d-none d-md-block">
                 {% if themsgs %}
                     {% if themsgs == 0 %}
-                        <a class="btn btn-dark text-white" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
+                        <a class="btn btn-dark " href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
                     {% else %}
-                        <a class="btn btn-warning text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                        <a class="btn btn-warning  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                     {% endif %}
                 {% else %}
-                    <a class="btn btn-dark text-white " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                    <a class="btn btn-dark  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                 {% endif %}
                 </div>
                 <div class="dropdown d-inline p-0">
@@ -164,14 +164,14 @@
                             <i class="fa fa-bell fa-1x pr-2"></i>
                         </button>
 
-                        <div class="dropdown-menu dropdown-menu-right bg-dark dropdown-content mt-0 mb-0 pt-0 pb-0 border border-dark dropdown-height"
+                        <div class="dropdown-menu dropdown-menu-right darkbg dropdown-content mt-0 mb-0 pt-0 pb-0 border  dropdown-height"
                              aria-labelledby="dropdownMenuButton3"
                         >
                             <div class="col-12 second_color">
                                 {% if thenotescount %}
                                     {% if thenotescount > 0 %}
-                                        <a class="text-white" href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
-                                            <btn class="col-6 offset-3 btn btn-danger text-white mb-2 p-2">
+                                        <a class="" href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                            <btn class="col-6 offset-3 btn btn-danger  mb-2 p-2">
 
                                                 Mark All As Read
 
@@ -198,40 +198,40 @@
                         <i class="fa fa-bars fa-1x"></i>
                     </button>
 
-                    <div class="dropdown-menu dropdown-menu-right bg-dark mt-0 mb-0 pt-0 pb-0 border border-dark"
+                    <div class="dropdown-menu dropdown-menu-right darkbg mt-0 mb-0 pt-0 pb-0 border "
                          aria-labelledby="dropdownMenuButton2">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
-                                <a class="text-white col-12 mb-2 p-0" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mb-2 p-0" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>View Profile</b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
-                                    <div class="col-12 btn-ee pt-2 pb-2 text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('mysubscriptions') }}">
+                                    <div class="col-12 btn-ee pt-2 pb-2  ">
                                         <b>Rooms</b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>Account</b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>Saved Posts</b>
                                     </div>
                                 </a>
-                                <a class="text-white col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white ">
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>Tipvote Coins</b>
                                     </div>
                                 </a>
-                                <div class="border-dark border-bottom mb-3"></div>
+                                <div class=" border-bottom mb-3"></div>
 
-                                <a class="text-white col-12 mt-2 mb-2 p-0"
+                                <a class=" col-12 mt-2 mb-2 p-0"
                                    href="{{ url_for('users.logout', user_name=current_user.user_name) }}">
-                                    <div class="col-12 pt-2 pb-2 btn-ee text-white">
+                                    <div class="col-12 pt-2 pb-2 btn-ee ">
                                         <b>Logout</b>
                                     </div>
                                 </a>

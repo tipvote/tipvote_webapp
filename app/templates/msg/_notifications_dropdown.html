@@ -1,8 +1,8 @@
-<div class="col-12 mb-3  text-white btn-ee">
-    <div class="col-12 text-white"
+<div class="col-12 mb-3   btn-ee">
+    <div class="col-12 "
          style="font-size: 10px"> {{ moment(timestamp=note.timestamp).fromNow(refresh=True) }}
     </div>
-    <div class="col-12 text-white">
+    <div class="col-12 ">
         {% if note.msg_type  ==  0%}
             <div class="col-10">
             </div>
@@ -13,7 +13,7 @@
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a comment on your
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post.</a>
                 </div>
@@ -26,7 +26,7 @@
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post!</a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were tipped with Bitcoin for for your post!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post!</a>
                 </div>
@@ -41,7 +41,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were tipped with Monero for your post!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         View post!
@@ -56,7 +56,7 @@
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                 </div>
             {% else %}
-                <div class="col-10 border border-dark">
+                <div class="col-10 border ">
                     You were tipped with Bitcoin (BTC) on your comment!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                 </div>
@@ -70,7 +70,7 @@
                     }}
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were tipped with Monero (XMR) on your comment!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                 </div>
@@ -83,7 +83,7 @@
                     {{ note.subcommon_name }} </a>.  Congratulations
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were made a mod of <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a>.  Congratulations
                 </div>
@@ -96,7 +96,7 @@
                     {{ note.subcommon_name }} </a>.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were removed as a mod from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a>.
                 </div>
@@ -109,7 +109,7 @@
                     {{ note.subcommon_name }} </a>.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have been unbanned from {<a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a>.
                 </div>
@@ -122,7 +122,7 @@
                     {{ note.subcommon_name }} </a> as a member.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were invited to <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a> as a member.
                 </div>
@@ -135,7 +135,7 @@
                     {{ note.subcommon_name }} </a> as a member.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were removed from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a> as a member.
                 </div>
@@ -150,7 +150,7 @@
                     for 24 hours.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were muted from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }} </a>
                     for 24 hours.
@@ -164,7 +164,7 @@
                     {{ note.subcommon_name }}. </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were banned from <a href="{{ url_for('subforum.sub',subname=note.subcommon_name) }}">
                     {{ note.subcommon_name }}. </a>
                 </div>
@@ -176,7 +176,7 @@
                     Post # {{ note.post_id }} was locked by an administrator.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Post # {{ note.post_id }} was locked by an administrator.
                 </div>
             {% endif %}
@@ -186,7 +186,7 @@
                     Somebody posted on your <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">wall</a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Somebody posted on your <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">wall</a>
                 </div>
             {% endif %}
@@ -200,7 +200,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have received profit from your room:
                     <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                         Post # {{ note.post_id }}
@@ -216,7 +216,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Somebody wrote on your wall.
                     <a href="{{ url_for('subforum.sub',subname=note.subcommon_name, postid=note.post_id) }}">
                         Post # {{ note.post_id }}
@@ -233,7 +233,7 @@
                     }}
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were tipped with Bitcoin Cash (BCH) on your post!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View post</a>
                 </div>
@@ -247,7 +247,7 @@
                     }}
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You were tipped with Bitcoin Cash (BCH) for your comment!
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">View comment</a>
                 </div>
@@ -264,7 +264,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your room made a profit in Bitcoin:
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         Post # {{ note.post_id }}
@@ -281,7 +281,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your room made a profit in Bitcoin Cash:
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         Post # {{ note.post_id }}
@@ -298,7 +298,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your room made a profit in Monero:
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         Post # {{ note.post_id }}
@@ -315,7 +315,7 @@
                     </a>
                 </td>
             {% else %}
-                <td class="col-12 border border-dark">
+                <td class="col-12 border ">
                     There was a reply to your
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         comment.
@@ -332,7 +332,7 @@
                     </a>
                 </td>
             {% else %}
-                <td class="col-12 border border-dark">
+                <td class="col-12 border ">
                     A mod removed your post from his room.  It was moved to
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         /a/general
@@ -348,7 +348,7 @@
                     </a>
                 </td>
             {% else %}
-                <td class="col-12 border border-dark">
+                <td class="col-12 border ">
                   You were tagged in a
                     <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">
                         comment.
@@ -362,7 +362,7 @@
                     You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message.</a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a new <a href="{{ url_for('message.view_message', msgid=note.post_id) }}"> Message.</a>
                 </div>
             {% endif %}
@@ -378,7 +378,7 @@
                     to your message.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a
                     <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">reply </a>
                     to your message.
@@ -395,7 +395,7 @@
                     </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You business has a new
                     <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
                         message.
@@ -412,7 +412,7 @@
                     to a message.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You business has a new
                     <a href="{{ url_for('message.view_message', msgid=note.post_id) }}">
                         reply </a>
@@ -428,7 +428,7 @@
                     LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}"> message.</a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">message. </a>
                 </div>
             {% endif %}
@@ -440,7 +440,7 @@
                     LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply. </a>
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     LEGAL has a new <a href="{{ url_for('legal.view_message', msgid=note.post_id) }}">reply. </a>
                 </div>
             {% endif %}
@@ -453,7 +453,7 @@
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with a tipvote coin!
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with a tipvote coin!
                 </div>
             {% endif %}
@@ -465,7 +465,7 @@
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with bitcoin!
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with bitcoin!
                 </div>
             {% endif %}
@@ -477,7 +477,7 @@
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with bitcoin cash!
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your <a href="{{ url_for('subforum.viewpost',subname=note.subcommon_name, postid=note.post_id) }}">post</a> was promoted with bitcoin cash!
                 </div>
             {% endif %}
@@ -490,7 +490,7 @@
                     There was too little or too much Bitcoin sent for withdrawl and the wallet rejected it.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was too little or too much Bitcoin sent for withdrawl and the wallet rejected it.
                 </div>
             {% endif %}
@@ -501,7 +501,7 @@
 
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
 
                 </div>
             {% endif %}
@@ -512,7 +512,7 @@
                     There was a Bitcoin wallet error.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was a Bitcoin wallet error.
                 </div>
             {% endif %}
@@ -523,7 +523,7 @@
                     You have a Bitcoin address error in your withdrawl.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a Bitcoin address error in your withdrawl.
                 </div>
             {% endif %}
@@ -535,7 +535,7 @@
                     Your Bitcoin withdraw was successful.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your Bitcoin withdraw was successful.
                 </div>
             {% endif %}
@@ -547,7 +547,7 @@
                     You have a new incomming Bitcoin deposit.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a new incomming Bitcoin deposit.
                 </div>
             {% endif %}
@@ -562,7 +562,7 @@
                     There was too little or too much Bitcoin Cash sent for withdrawl and the wallet rejected it.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was too little or too much Bitcoin Cash sent for withdrawl and the wallet rejected it.
                 </div>
             {% endif %}
@@ -573,7 +573,7 @@
 
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
 
                 </div>
             {% endif %}
@@ -584,7 +584,7 @@
                     There was a Bitcoin Cash wallet error.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was a Bitcoin Cash wallet error.
                 </div>
             {% endif %}
@@ -595,7 +595,7 @@
                     You have a Bitcoin Cash address error in your withdrawl.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a Bitcoin Cash address error in your withdrawl.
                 </div>
             {% endif %}
@@ -607,7 +607,7 @@
                     Your Bitcoin Cash withdraw was successful.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your Bitcoin Cash withdraw was successful.
                 </div>
             {% endif %}
@@ -619,7 +619,7 @@
                     You have a new incomming Bitcoin Cash deposit.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a new incomming Bitcoin Cash deposit.
                 </div>
             {% endif %}
@@ -631,7 +631,7 @@
                     There was too little or too much Monero sent for withdrawl and the wallet rejected it.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was too little or too much Monero sent for withdrawl and the wallet rejected it.
                 </div>
             {% endif %}
@@ -642,7 +642,7 @@
 
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
 
                 </div>
             {% endif %}
@@ -653,7 +653,7 @@
                     There was a Monero wallet error.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     There was a Monero wallet error.
                 </div>
             {% endif %}
@@ -664,7 +664,7 @@
                     You have a Monero address error in your withdrawl.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a Monero address error in your withdrawl.
                 </div>
             {% endif %}
@@ -676,7 +676,7 @@
                     Your Monero withdraw was successful.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Your Monero withdraw was successful.
                 </div>
             {% endif %}
@@ -688,7 +688,7 @@
                     You have a new incomming Monero deposit.
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     You have a new incomming Monero deposit.
                 </div>
             {% endif %}
@@ -698,7 +698,7 @@
                     Bad Monero address given
                 </div>
             {% else %}
-                <div class="col-12 border border-dark">
+                <div class="col-12 border ">
                     Bad Monero address given
                 </div>
             {% endif %}
