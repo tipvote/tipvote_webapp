@@ -217,7 +217,7 @@ def index():
         if posts.has_prev else None
 
     is_stream_live = db.session.query(Streaming).filter(Streaming.id == 1).first()
-    if is_stream_live.online == 1:
+    if is_stream_live is not None and is_stream_live.online == 1:
         stream_live = 1
     else:
         stream_live = 0
