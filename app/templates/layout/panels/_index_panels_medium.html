@@ -13,10 +13,11 @@
             {% endif %}
           {% include 'layout/widgets_subs/nav/index_topnav.html' %}
             {% include 'layout/widgets/_livestream.html' %}
-
+            <div class="col-12 m-0 p-0 second_color">
             {% for post in posts %}
                 {% include 'posts/panels_medium/master.html' %}
             {% endfor %}
+            </div>
 
             <div class="row mt-5">
                 <div class="col-12 text-center justify-content-center">

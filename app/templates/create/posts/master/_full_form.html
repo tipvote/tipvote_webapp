@@ -1,9 +1,6 @@
 
 <style>
-    .panelborder {
-        border: solid #393a3a;
-        border-width: 1px;
-    }
+
     .file{
         display:block;
         position: relative;
@@ -38,9 +35,9 @@
 
     <button type="button " class="col-12 btn btn-ee btn-block" data-toggle="modal" data-target="#exampleModal">
         <div id="header">
-            <div id="column1"><input class="form-control w-100 bg-dark text-white" type="text" placeholder="Post text ..."> </div>
-            <div id="column2"><i class="far fa-image fa-2x text-white"></i></div>
-            <div id="column3"><i class="fa fa-globe fa-2x w-25 text-white"></i></div>
+            <div id="column1"><input class="form-control w-100 darkbg " type="text" placeholder="Post text ..."> </div>
+            <div id="column2"><i class="far fa-image fa-2x "></i></div>
+            <div id="column3"><i class="fa fa-globe fa-2x w-25 "></i></div>
         </div>
     </button>
 </div>
@@ -58,17 +55,17 @@
                     <!-- Post Title -->
                     <div class="col-12 mb-3 mt-0 ">
                           <b>Post Title: </b>
-                        {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post title ...") }}
+                        {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control darkbg ",placeholder="Post title ...") }}
                     </div>
                     <!-- Post Message -->
                     <div class="col-12 mb-3 mt-0 ">
                           <b>Post Text or URL: </b>
-                        {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control bg-dark text-white",placeholder="Post text ...") }}
+                        {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control darkbg ",placeholder="Post text ...") }}
                     </div>
                     <!--Select Room -->
                     <div class=" col-6 mb-3 mt-0 ">
                         <b>Select a room: </b>
-                        {{ render_field(mainpostform.roomname,class="form-control bg-dark text-white") }}
+                        {{ render_field(mainpostform.roomname,class="form-control darkbg ") }}
                     </div>
 
                     <!--Image -->
@@ -78,7 +75,7 @@
                             <div class="col-6  d-inline">
                                 <label class="file w-100" >
 
-                                    <button class="btn btn-dark"><i class="far fa-image fa-2x text-white"></i></button>
+                                    <button class="btn btn-dark"><i class="far fa-image fa-2x "></i></button>
 
                                     {{ render_field(mainpostform.image_one,  accept="image/*", onchange="loadFile(event)") }}
                                 </label >

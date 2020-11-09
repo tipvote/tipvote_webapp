@@ -1,7 +1,7 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
     <div class="col-4 mb-5">
-        <a class="text-white text-center btn btn-dark btn-block"
+        <a class=" text-center btn btn-dark btn-block"
            href="{{ url_for('index') }}">
             Back to tipvote
         </a>
@@ -29,7 +29,7 @@
         <div class="col-9 second_color">
 
 
-    <div class="col-12 second_color border border-dark p-2 mb-2" >
+    <div class="col-12 second_color border  p-2 mb-2" >
         <h5 class="text-center mb-5 mt-2">Add an Update</h5>
         <form method="post"
               action="{{ url_for('admin_post_update') }}"
@@ -40,14 +40,14 @@
             <div class="form-group col-12 mb-3 mt-0 ">
                 {{ render_field(form.title,
             autocomplete="off",
-            class="form-control bg-dark text-white",
+            class="form-control darkbg ",
              placeholder="Title of update") }}
             </div>
 
             <!--Select Room -->
             <div class="form-group col-12 mb-3 mt-0 ">
                 {{ render_field(form.version,
-                class="form-control bg-dark text-white",
+                class="form-control darkbg ",
                 placeholder="Version of update") }}
             </div>
 
@@ -56,7 +56,7 @@
                 <div class="row second_color">
                     <div class="col second_color">
                         {{ render_field(form.giturl,
-                        class="form-control bg-dark text-white",
+                        class="form-control darkbg ",
                 placeholder="GIT URL of update" ) }}
                     </div>
                 </div>
@@ -64,10 +64,10 @@
 
             <!--Over 18 -->
             <div class="form-group col-12 mb-0 mt-0">
-                <div class="row bg-dark">
+                <div class="row darkbg">
                     <div class="col-12 second_color">
                         {{ render_field(form.description,
-                        class="form-control bg-dark text-white",
+                        class="form-control darkbg ",
                 placeholder="Description of update") }}
 
                     </div>

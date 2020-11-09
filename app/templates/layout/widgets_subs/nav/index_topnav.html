@@ -1,22 +1,22 @@
 
-<div class="col-12 mb-3 second_color border border-dark">
+<div class="col-12 mb-3 second_color  ">
     <div class="row pt-2 pb-2">
         <div class="col-8 col-md-9 ">
             {% if navlink == 1 %}
-                <a class="btn btn-dark  " style="color:#0089FF;"  role="button"  href="{{ url_for('index') }}">Popular</a>
+                <a class="btn btn-success"  role="button"  href="{{ url_for('index') }}">Popular</a>
             {% else %}
                 <a class="btn btn-dark"  role="button" href="{{ url_for('index') }}">Popular</a>
             {% endif %}
 
 
             {% if navlink == 2 %}
-                <a class="btn btn-dark " style="color:#0089ff;" role="button" href="{{ url_for('newest') }}">New</a>
+                <a class="btn btn-success" style="" role="button" href="{{ url_for('newest') }}">New</a>
             {% else %}
                 <a class="btn btn-dark "  role="button" href="{{ url_for('newest') }}">New</a>
             {% endif %}
 
             {% if navlink == 3 %}
-                <a class="btn btn-dark   "  style="color:#0089FF;" role="button" href="{{ url_for('followers.followers_home') }}">Following</a>
+                <a class="btn btn-success"  style="" role="button" href="{{ url_for('followers.followers_home') }}">Following</a>
             {% else %}
                 <a class="btn btn-dark"  role="button" href="{{ url_for('followers.followers_home') }}">Following</a>
             {% endif %}

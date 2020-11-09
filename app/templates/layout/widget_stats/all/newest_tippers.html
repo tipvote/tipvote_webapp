@@ -1,7 +1,7 @@
 {% if recent_tippers_post_count %}
     {% if recent_tippers_post_count > 0%}
         <div class="row pb-1 pr-2 pl-2">
-            <div class="col-12 second_color pb-2 border border-dark">
+            <div class="col-12 second_color pb-2 border ">
                 <div class="text-center mb-3">
                     <h5>Recent Tippers</h5>
 
@@ -10,7 +10,7 @@
                 {% for tip in recent_tippers_post %}
                     {% if tip %}
 
-                        <div class="col-12 second_color border-bottom border-dark pt-2 pb-2 text-center mb-2">
+                        <div class="col-12 second_color border-bottom  pt-2 pb-2 text-center mb-2">
                             <a class=""
                                href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
                                 <b>{{ tip.created_user_name }}</b>

@@ -5,12 +5,12 @@
         <h5>Managing Rooms</h5>
     </div>
     <div class="row ml-3">
-    <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
+    <div class="col-12 col-sm-6 col-md-4 second_color border ">
         <div class="col-12 text-center">
             <h5>Modding Rooms</h5>
         </div>
         {% for sub in seeifmod %}
-              <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+              <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
             {% if sub.mini_image == '' %}
                 <div class="row " >
                     <div class="col-3">
@@ -34,12 +34,12 @@
         {% endfor %}
     </div>
 
-    <div class="col-12 col-sm-6 col-md-4 second_color border border-dark ">
+    <div class="col-12 col-sm-6 col-md-4 second_color border  ">
         <div class="col-12 text-center">
             <h5>Owning Rooms</h5>
         </div>
         {% for sub in seeifowner %}
-              <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+              <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
             {% if sub.mini_image == '' %}
                 <div class="row " >
                     <div class="col-3">

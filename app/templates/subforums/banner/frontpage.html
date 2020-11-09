@@ -1,16 +1,16 @@
-<div class="second_color border-bottom border-dark pt-3" >
+<div class="second_color border-bottom  pt-3" >
     <div class="col-12">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4
                      offset-sm-2
                      offset-md-3 offset-lg-4
-                     border-bottom border-dark
-                     text-center text-white
+                     border-bottom
+                     text-center
                      pb-3">
             <h4> /rooms - view your rooms</h4>
         </div>
     </div>
 
-    <div class="col-12 text-white text-center pt-3 d-lg-none">
+    <div class="col-12  text-center pt-3 d-lg-none">
         <div class="row">
             <div class="col-12 pb-3">Try some new rooms</div>
             {% for room in random_rooms %}
@@ -19,7 +19,7 @@
             <div class="col-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 second_color pb-2">
                 {% if room.mini_image == '' %}
 
-                    <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                    <a class=" " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                         <img src="{{ url_for('static', filename='favicon-32x32.png')  }}" width="40px" height="40px">
                         <br>
                         a/{{ room.subcommon_name }}
@@ -27,7 +27,7 @@
 
                 {% else %}
 
-                    <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                    <a class=" " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                     <img class="rndimg" alt={{ room.subcommon_name }}
                             src="{{ url_for('common.banner_image',
                                         filename=room.mini_image) }}"

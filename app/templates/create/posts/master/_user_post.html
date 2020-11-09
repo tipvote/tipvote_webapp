@@ -1,5 +1,5 @@
 
-    <div class="col-12 second_color border border-dark p-2 mb-2" >
+    <div class="col-12 second_color border  p-2 mb-2" >
 
     <form method="post"
           action="{{ url_for('create.create_post_wall',userid=theuser.id) }}"
@@ -10,7 +10,7 @@
         <div class="form-group col-12 mb-3">
             {{ render_field(wall_post_form.post_title,
             autocomplete="off",
-            class="form-control bg-dark text-white",
+            class="form-control darkbg ",
              placeholder="Post Title") }}
         </div>
 
@@ -18,7 +18,7 @@
         <div class="form-group col-12 mb-3">
             {{ render_field(wall_post_form.post_message,
             autocomplete="off",
-            class="form-control bg-dark text-white",
+            class="form-control darkbg ",
              placeholder="Post some thoughts  ...") }}
         </div>
 

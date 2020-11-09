@@ -1,5 +1,5 @@
-<div class=" second_color  border-bottom border-dark " >
-    <div class="col-12 text-white text-center " >
+<div class=" second_color  border-bottom  " >
+    <div class="col-12  text-center " >
         {% if theuser == current_user %}
             <a href="{{ url_for('photos.bannerpicture') }}">
                 Upload a Banner
@@ -14,7 +14,7 @@
                 {% elif not current_user.is_following(theuser) %}
                     <p><a class="btn btn-tipvote-up" href="{{ url_for('profile.follow', user_name=theuser.user_name) }}">Follow</a></p>
                 {% else %}
-                    <p><a class="btn btn-tipvote-down text-white"
+                    <p><a class="btn btn-tipvote-down "
                           href="{{ url_for('profile.unfollow', user_name=theuser.user_name) }}">
                         Unfollow</a>
                     </p>
@@ -37,14 +37,14 @@
             </p>
         </div>
         <div class="col-12 pt-0 pb-0 text-left">
-            <a class=" btn btn-dark text-white" href="{{ url_for('profile.main', user_name=theuser.user_name) }}">
+            <a class=" btn btn-dark " href="{{ url_for('profile.main', user_name=theuser.user_name) }}">
                 Wall
             </a>
-            <a class=" btn btn-dark text-white" href="{{ url_for('profile.user_about', user_name=theuser.user_name) }}">
+            <a class=" btn btn-dark " href="{{ url_for('profile.user_about', user_name=theuser.user_name) }}">
                 About
             </a>
 
-        <a class="btn btn-dark text-white float-right"
+        <a class="btn btn-dark  float-right"
            href="{{ url_for('message.create_message_specific_user', user_name=theuser.user_name) }}">
             Message
         </a>

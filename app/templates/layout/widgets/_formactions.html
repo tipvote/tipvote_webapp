@@ -1,11 +1,11 @@
 
 <div class="row pb-1 pr-2 pl-2">
-    <div class="col-12 second_color border border-dark pb-2">
+    <div class="col-12   pb-2">
         <div class="text-center mb-3">
             <h5> Be the Boss </h5>
         </div>
 
-        <div class="text-white mb-3" style="font-size: 11px">
+        <div class=" mb-3" style="font-size: 11px">
             <p>
                 Run your own Room <br>
                 Create a Page <br>
@@ -19,19 +19,19 @@
         {% if current_user.is_authenticated %}
             {% if current_user.user_stats_common.user_level >= 5 %}
                 <div class="text-center mb-3">
-                    <a class="text-white text-center btn btn-dark" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                    <a class=" text-center btn btn-dark" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
                 </div>
             {% else %}
                     <div class="text-center mb-3">
                 <p> You must be level 5 in order to create a room</p>
-                <a class="text-white text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                <a class=" text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
             </div>
             {% endif %}
         {% else %}
 
             <div class="text-center mb-3">
                 <p> You must be logged in to create a room</p>
-                <a class="text-white text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                <a class=" text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
             </div>
         {% endif %}
     </div>

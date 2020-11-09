@@ -1,7 +1,7 @@
 {% extends "layout/layout_2bars.html" %}
 {% block content %}
 
-    <div class="col-12 mb-5 text-left border-bottom border-dark">
+    <div class="col-12 mb-5 text-left border-bottom ">
         <h3>Discover New Rooms</h3>
 
     </div>
@@ -12,7 +12,7 @@
         </p>
     </div>
     <div class="col-12 ">
-        <a class="col-12 col-sm-4  btn btn-warning text-dark font-weight-bold  mb-4"
+        <a class="col-12 col-sm-4  btn btn-warning  font-weight-bold  mb-4"
            href="{{ url_for('index') }}">
             <h5>Go to the front page</h5>
         </a>
@@ -22,11 +22,11 @@
             {% for room in popularsubs %}
                 {% include 'common/js/joinroom/join_room.html' %}
 
-                <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-2 second_color border border-dark  d-none d-md-block">
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-2 second_color border   d-none d-md-block">
                     {% if room.mini_image == '' %}
                         <div class="row pt-2 " style="height:80px">
                             <div class="col-12 text-center ">
-                                <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                <a class=" " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <h5> a/{{ room.subcommon_name }}</h5>
                                 </a>
                             </div>
@@ -36,7 +36,7 @@
                     {% else %}
                         <div class="row pt-2" style="height:80px">
                             <div class="col-12 text-center  ">
-                                <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                <a class=" " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <h5> a/{{ room.subcommon_name }}</h5>
                                 </a>
                             </div>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="col-12 border-bottom border-dark  p-0 text-center"
+                    <div class="col-12 border-bottom   p-0 text-center"
                          style="height:80px">
                         {{ room.description|truncate(80) }}
                     </div>
@@ -68,7 +68,7 @@
                                subname=room.subcommon_name) }}">
                             {{ subform.csrf_token }}
 
-                            <button class="col-12 col-sm-12  btn btn-success text-white  mb-2"
+                            <button class="col-12 col-sm-12  btn btn-success   mb-2"
                                     id="click-btn-join-room-{{ room.id }}"
                                     value="{{ room.id }}"
                                     type="button">
@@ -79,11 +79,11 @@
                 </div>
 
 
-                <div class="col-12  second_color border border-dark  mb-2  d-md-none">
+                <div class="col-12  second_color border   mb-2  d-md-none">
                     {% if room.mini_image == '' %}
                         <div class="row pt-2" style="">
                             <div class="col-12 text-center ">
-                                <a class="text-white " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
+                                <a class=" " href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <h5> a/{{ room.subcommon_name }}</h5>
                                 </a>
                             </div>
@@ -93,7 +93,7 @@
                     {% else %}
                         <div class="row pt-2" style="">
                             <div class="col-12 text-center  ">
-                                <a class="text-white "
+                                <a class=" "
                                    href="{{ url_for('subforum.sub', subname=room.subcommon_name) }}">
                                     <h5> a/{{ room.subcommon_name }}</h5>
                                 </a>
@@ -125,7 +125,7 @@
                                subname=room.subcommon_name) }}">
                             {{ subform.csrf_token }}
 
-                            <button class="col-12 col-sm-12  btn btn-success text-white  mb-2"
+                            <button class="col-12 col-sm-12  btn btn-success   mb-2"
                                     id="click-btn-join-room-{{ room.id }}"
                                     value="{{ room.id }}"
                                     type="button">

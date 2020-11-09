@@ -2,7 +2,7 @@
 {% if post.shared_post == 0 %}
 
 {% else %}
-    <div class="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 bg-warning text-dark p-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 bg-warning  p-5">
         <h3>This is a shared post.  You are promoting the original post from
             <a href="{{ url_for('profile.main', user_name=post.content_user_name) }}">
                 {{ post.content_user_name }}

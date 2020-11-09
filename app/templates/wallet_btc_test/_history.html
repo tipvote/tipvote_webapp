@@ -1,5 +1,5 @@
 
-<div class="row headercolor mt-2 text-white">
+<div class="row headercolor mt-2 ">
     <div class="col-12 text-left mt-3">
         <b>Withdraw and Depost History</b>
     </div>
@@ -17,7 +17,7 @@
                 </tr>
 
                 {% for t in transact %}
-                    <tr class="d-flex linkcolor text-white">
+                    <tr class="d-flex linkcolor ">
                         <!--First column: Time/DATE-->
                         <td class="col-3">
                             {{ moment(timestamp=t.created).fromNow(refresh=True) }}
