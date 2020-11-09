@@ -20,7 +20,7 @@
 
 {% else %}
     {% if post.image_server_1  %}
-        <div style="margin-top: 15px">
+        <div style="margin-top: 15px; margin-bottom: 15px">
         <a href="{{ url_for('common.post_file', filename=post.image_server_1) }}">
             <img
                     class="img-fluid image_medium"
@@ -29,11 +29,8 @@
         </a>
         </div>
     {% else %}
-        <div class="col-12" style="padding-top: 7px; padding-bottom: 7px; padding-left: 0px">
-        <div class="third_color" style="height: 65px; width: 65px;border-radius: 15px;margin-top: 7px">
+        <div class="col-12 third_color image_medium" style="margin-top: 7px; margin-bottom: 7px;">
 
-            <i class="fas fa-comments fa-2x" style="color: #8d8a8a; margin: 20px 17px"></i>
-        </div>
 </div>
     {% endif %}
 {% endif %}
