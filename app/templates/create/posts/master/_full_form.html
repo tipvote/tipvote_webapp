@@ -30,18 +30,18 @@
         }
     };
 </script>
+<div class="d-md-none">
+    <div class="col-12 justify-content-center mt-1 p-3 mb-3  w-100 second_color panelborder">
 
-<div class="col-12 justify-content-center mt-1 p-3 mb-3  w-100 second_color panelborder">
-
-    <button type="button " class="col-12 btn btn-ee btn-block" data-toggle="modal" data-target="#exampleModal">
-        <div id="header">
-            <div id="column1"><input class="form-control w-100 darkbg " type="text" placeholder="Post text ..."> </div>
-            <div id="column2"><i class="far fa-image fa-2x "></i></div>
-            <div id="column3"><i class="fa fa-globe fa-2x w-25 "></i></div>
-        </div>
-    </button>
+        <button type="button " class="col-12 btn btn-ee btn-block" data-toggle="modal" data-target="#exampleModal">
+            <div id="header">
+                <div id="column1"><input class="form-control w-100 darkbg " type="text" placeholder="Post text ..."> </div>
+                <div id="column2"><i class="far fa-image fa-2x "></i></div>
+                <div id="column3"><i class="fa fa-globe fa-2x w-25 "></i></div>
+            </div>
+        </button>
+    </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
     <div class="modal-dialog " role="document">
@@ -54,12 +54,12 @@
                     {{ mainpostform.csrf_token }}
                     <!-- Post Title -->
                     <div class="col-12 mb-3 mt-0 ">
-                          <b>Post Title: </b>
+                        <b>Post Title: </b>
                         {{ render_field(mainpostform.post_title,autocomplete="off",class="form-control darkbg ",placeholder="Post title ...") }}
                     </div>
                     <!-- Post Message -->
                     <div class="col-12 mb-3 mt-0 ">
-                          <b>Post Text or URL: </b>
+                        <b>Post Text or URL: </b>
                         {{ render_field(mainpostform.post_message,autocomplete="off",class="form-control darkbg ",placeholder="Post text ...") }}
                     </div>
                     <!--Select Room -->
@@ -70,7 +70,7 @@
 
                     <!--Image -->
                     <div class="col-12 mb-3 mt-0">
-                      <b>Image(Optional): </b>
+                        <b>Image(Optional): </b>
                         <div class="row pt-1">
                             <div class="col-6  d-inline">
                                 <label class="file w-100" >
@@ -105,7 +105,7 @@
                         </div>
                     </div>
 
-                     <!-- Rules -->
+                    <!-- Rules -->
                     <div class=" col-12 mb-0 mt-4">
                         <div class="row">
                             <div class="col-12 text-center" >

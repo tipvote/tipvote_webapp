@@ -4,11 +4,13 @@
         <div class="col-md-8 col-lg-9 col-xl-10 ">
             {% include 'layout/widgets_subs/nav/sub_topnav.html' %}
             {% include "flashbar.html" %}
+
             {% if current_user.is_authenticated %}
                 {% include 'create/posts/master/_specific_sub_create.html' %}
             {% else %}
                 {% include 'create/posts/master/_fake_create_post.html' %}
             {% endif %}
+
             <div class="col-12 m-0 p-0 second_color">
                 {% for post in posts %}
                     {% include 'posts/panels_medium/master.html' %}
@@ -22,7 +24,7 @@
                         </a>
                     {% endif %}
                     {% if next_url %}
-                        <a class="btn btn-tipvote-up btn-sm" type="button" href="{{ next_url }}">
+                        <a class="btn btn-success btn-sm" type="button" href="{{ next_url }}">
                             next
                         </a>
                     {% endif %}
@@ -34,6 +36,7 @@
         <!-- Right -->
         <div class="col-md-4 col-lg-3 col-xl-2 d-none d-md-block">
             {% include 'layout/profile/main_profile.html' %}
+                       {% include 'layout/widgets/_create_post.html' %}
             {% include 'layout/widget_stats/all/newest_tippers.html' %}
 
             {% include 'layout/widgets_subs/manage.html' %}
