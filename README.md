@@ -38,7 +38,17 @@ We don't require any info except an email address.  Takes a few seconds to sign 
 
 ## Installation
 
-Docker will need to be done in a future update. For now manual installation. 
+### Via docker
+Create the Docker image
+`docker build --tag tipvote:1.0 .`
+
+Deploy the server
+`docker run --publish 5000:5000 -d --name tip tipvote:1.0`
+
+Stop the server
+`docker rm --force tip`
+
+### Manual Installation
 Tested and running on ubuntu 18.04, 20.04, and windows ubuntu
 ```
 sudo apt-get update 
