@@ -9,7 +9,7 @@
 
                 <div class="col-12 second_color border border-dark">
                     <div class="col-12 text-center">
-                        <img class="text-center" src="{{ url_for('static', filename='images/logo.png')  }}">
+
                         <h3>New Pin</h3>
                     </div>
 
@@ -18,7 +18,9 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right ">New Pin</label>
                             <div class="col-md-6">
-                                {{ render_field(form.pin, placeholder="Enter New 6 digit Pin", class="form-control text-white bg-dark") }}
+                                {{ render_field(form.pin,
+                                 placeholder="Enter New 6 digit Pin",
+                                  class="form-control darkbgk") }}
                             </div>
                         </div>
 
@@ -26,13 +28,17 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right ">Confirm Pin</label>
                             <div class="col-md-6">
-                                {{ render_field(form.pintwo, placeholder="Confirm New 6 digit Pin", class="form-control text-white bg-dark") }}
+                                {{ render_field(form.pintwo,
+                                placeholder="Confirm New 6 digit Pin",
+                                class="form-control darkbg") }}
 
                             </div>
                         </div>
 
                         <div class="col-md-6 offset-md-4 text-center mt-5">
-                            {{ render_field(form.submit,  value="Reset Pin", autocomplete="off", class="btn btn-primary") }}
+                            {{ render_field(form.submit,  value="Reset Pin",
+                             autocomplete="off",
+                              class="btn btn-primary") }}
 
                         </div>
                     </form>

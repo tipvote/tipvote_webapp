@@ -7,7 +7,8 @@
 
                 <div class="col-12 second_color border border-dark">
                     <div class="col-12 text-center">
-                        <img class="text-center" src="{{ url_for('static', filename='images/logo.png')  }}">
+                        <img class="text-center" src="{{ url_for('static',
+                         filename='images/logo.png')  }}">
                         <h4>Reset Pin</h4>
                     </div>
 
@@ -15,21 +16,33 @@
                         {{ form.csrf_token }}
 
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right mainfontcolor">Username</label>
+                            <label class="col-md-4 col-form-label text-md-right ">
+                                Username
+                            </label>
                             <div class="col-md-6">
-                                {{ render_field(form.username, placeholder="Username", autocomplete="off", class="form-control") }}
+                                {{ render_field(form.username,
+                                placeholder="Username",
+                                autocomplete="off",
+                                class="form-control") }}
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right mainfontcolor">Email</label>
+                            <label class="col-md-4 col-form-label text-md-right ">
+                                Email
+                            </label>
                             <div class="col-md-6">
-                                {{ render_field(form.email, placeholder="Email", autocomplete="off", class="form-control") }}
+                                {{ render_field(form.email,
+                                 placeholder="Email",
+                                autocomplete="off", class="form-control") }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12 text-center">
-                                {{ render_field(form.submit,  value="Reset Pin", autocomplete="off", class="btn btn-dark") }}
+                                {{ render_field(form.submit,
+                                value="Reset Pin",
+                                 autocomplete="off",
+                                 class="btn btn-dark") }}
                             </div>
                         </div>
                     </form>
