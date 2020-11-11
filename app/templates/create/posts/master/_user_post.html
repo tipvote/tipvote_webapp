@@ -1,5 +1,5 @@
 
-    <div class="col-12 second_color border  p-2 mb-2" >
+    <div class="col-12 second_color   p-2 mb-2" >
 
     <form method="post"
           action="{{ url_for('create.create_post_wall',userid=theuser.id) }}"
@@ -23,8 +23,8 @@
         </div>
 
         <div class="form-group col-12 mb-3">
-            <div class="row second_color">
-                <div class="col-2 second_color">
+            <div class="row ">
+                <div class="col-2 ">
                     {{ render_field(wall_post_form.image_one) }}
                 </div>
             </div>
@@ -34,7 +34,7 @@
         <div class="form-group text-center col-12 mb-2 ">
             <div class="row">
                 <div class="col-12" >
-                    {{ render_field(wall_post_form.submit,value="Post", class="btn btn-block btn-tipvote-up") }}
+                    {{ render_field(wall_post_form.submit,value="Post", class="btn btn-block btn-success") }}
                 </div>
             </div>
         </div>

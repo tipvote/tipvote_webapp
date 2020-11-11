@@ -1,4 +1,4 @@
-<div class="second_color border-bottom border-dark">
+<div class="second_color">
 
     <div class="col-12 profilebanner"
          style="background-image: url('{{ url_for('common.user_banner_image', filename=theuser.bannerimage) }}');
@@ -19,19 +19,24 @@
     {% else %}
     {% endif %}
     <div class="col-12 mb-0 text-center " style="font-size: 24px; display: inline-block">
-        u/{{ theuser.user_name }} <div style="display: inline; font-size: 14px">(Level: {{ theuser.user_stats_common.user_level }})</div>
+        u/{{ theuser.user_name }}
+        <div style="display: inline;font-size: 14px">
+            (Level: {{ theuser.user_stats_common.user_level }})
+        </div>
     </div>
     <div class="col-12 text-center">
         {% if current_user.is_authenticated %}
             {% if theuser == current_user %}
             {% elif not current_user.is_following(theuser) %}
                 <p><a class="btn btn-tipvote-up"
-                      href="{{ url_for('profile.follow', user_name=theuser.user_name) }}">
+                      href="{{ url_for('profile.follow',
+                       user_name=theuser.user_name) }}">
                     Follow</a>
                 </p>
             {% else %}
                 <p><a class="btn btn-tipvote-down text-white"
-                      href="{{ url_for('profile.unfollow', user_name=theuser.user_name) }}">
+                      href="{{ url_for('profile.unfollow',
+                       user_name=theuser.user_name) }}">
                     Unfollow</a>
                 </p>
             {% endif %}
@@ -50,15 +55,18 @@
         </p>
     </div>
     <div class="col-12  pt-0 pb-2">
-        <a class="btn btn-dark text-white" href="{{ url_for('profile.main', user_name=theuser.user_name) }}">
+        <a class="btn btn-dark text-white"
+           href="{{ url_for('profile.main', user_name=theuser.user_name) }}">
             Wall
         </a>
-        <a class="btn btn-dark text-white" href="{{ url_for('profile.user_about', user_name=theuser.user_name) }}">
+        <a class="btn btn-dark text-white"
+           href="{{ url_for('profile.user_about', user_name=theuser.user_name) }}">
             About
         </a>
 
         <a class="btn btn-dark text-white float-right"
-           href="{{ url_for('message.create_message_specific_user', user_name=theuser.user_name) }}">
+           href="{{ url_for('message.create_message_specific_user',
+            user_name=theuser.user_name) }}">
             Message
         </a>
     </div>

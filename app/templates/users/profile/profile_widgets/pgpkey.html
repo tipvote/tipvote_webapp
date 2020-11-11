@@ -28,7 +28,8 @@
         </div>
     </div>
     <div class="col-12 text-center">
-        <a href="{{ url_for('profileedit.view_simple_pgp', username=theuser.user_name) }}"  target="_blank">
+        <a href="{{ url_for('profileedit.view_simple_pgp',
+        username=theuser.user_name) }}"  target="_blank">
             View PGP
         </a>
     </div>
@@ -41,8 +42,6 @@
         {% endif %}
 
     </div>
-
-
 </div>
 
 {% else %}

@@ -13,8 +13,8 @@
     }
 </style>
 
-<div class="container-fluid " style="margin-bottom: 75px">
-    <div class="row pt-3 pl-0 pr-0 pb-0 headercolor sticky-top">
+<div class="container-fluid headercolor" style="margin-bottom: 75px">
+    <div class="row pt-3 pl-0 pr-0 pb-2 sticky-top headercolor">
 
         <div class="col-2 pt-1 pl-0 pr-0 mx-auto ">
             <a href="{{ url_for('index') }}">
@@ -80,7 +80,7 @@
         <div class="col-7 text-right  pl-0 pr-0 ">
             {% if current_user.is_authenticated %}
 
-                <a class="btn btn-dark  " href="{{ url_for('profile.main',
+                <a class="btn btn-dark pt-2 pb-2" href="{{ url_for('profile.main',
                  user_name=current_user.user_name) }}">
                     <i class="fa fa-user"></i>
                 </a>
@@ -103,17 +103,21 @@
                             <div class="row ">
                                 <a class=" col-12 mb-2 p-0" href="{{ url_for('wallet_btc.home') }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
-                                        <b>  <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px"><b>Btc Wallet</b></b>
+                                        <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                                            <b>Btc Wallet</b>
+
                                     </div>
                                 </a>
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
                                     <div class="col-12 btn-ee pt-2 pb-2  ">
-                                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px"><b>Bch Wallet</b>
+                                        <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                                        <b>Bch Wallet</b>
                                     </div>
                                 </a>
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_xmr.home') }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
-                                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px"><b>XMR Wallet</b>
+                                        <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                                        <b>XMR Wallet</b>
                                     </div>
                                 </a>
 

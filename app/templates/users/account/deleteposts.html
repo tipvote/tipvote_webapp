@@ -2,12 +2,14 @@
 {% block content %}
     <div class="col-12 second_color">
 
-        <form method="post" action="{{ url_for('users.deleteallpostsconfirm') }}">
+        <form method="post"
+              action="{{ url_for('users.deleteallpostsconfirm') }}">
             {{ deleteform.csrf_token }}
             <div class="form-group w-100">
 
                 <div class="col-12">
-                    <div class="text-center"><h3>{{ current_user.user_name }}</h3>
+                    <div class="text-center">
+                        <h3>{{ current_user.user_name }}</h3>
                     <br>
                     By Clicking confirm, your posts will be deleted entirely from our system.
                         </div>
@@ -17,7 +19,10 @@
 
             <hr>
             <div class="col-12 text-center">
-                {{ render_field(deleteform.submit,  value="CONFIRM DELETE MY POSTS", autocomplete="off", class="btn btn-danger ") }}
+                {{ render_field(deleteform.submit,
+                 value="CONFIRM DELETE MY POSTS",
+                  autocomplete="off",
+                  class="btn btn-danger ") }}
             </div>
         </form>
 

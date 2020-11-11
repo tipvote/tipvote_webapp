@@ -10,7 +10,7 @@
                 {% for tip in recent_tippers_post %}
                     {% if tip %}
 
-                        <div class="col-12 second_color border-bottom  pt-2 pb-2 text-center mb-2">
+                        <div class="col-12  border-bottom  pt-2 pb-2 text-center mb-2">
                             <a class=""
                                href="{{ url_for('profile.main', user_name=tip.created_user_name) }}">
                                 <b>{{ tip.created_user_name }}</b>

@@ -12,9 +12,9 @@
     }
 </style>
 
-<div class="container-fluid " style="margin-bottom: 45px">
+<div class="container-fluid headercolor" style="margin-bottom: 65px">
 
-    <div class="row pt-2 headercolor  sticky-top">
+    <div class="row pt-2 pb-2 sticky-top headercolor">
 
         <div class="col-1 col-md-2 col-lg-2 col-xl-1" >
             <a href="{{ url_for('index') }}">
@@ -91,7 +91,8 @@
                 <div class="row justify-content-end pl-0 pr-0">
 
 
-                    <a class="btn btn-dark  " href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                    <a class="btn btn-dark pt-2"
+                       href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
                         <i class="fa fa-user"></i>
                     </a>
 
@@ -150,19 +151,19 @@
 
                     {% if themsgs %}
                         {% if themsgs == 0 %}
-                            <a class="btn btn-dark " href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
+                            <a class="btn btn-dark pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
                         {% else %}
-                            <a class="btn btn-warning  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                            <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                         {% endif %}
                     {% else %}
-                        <a class="btn btn-dark  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                        <a class="btn btn-dark pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                     {% endif %}
 
                     <div class="dropdown d-inline pl-1 pr-1 ">
 
                         {% if thenotescount %}
                             {% if thenotescount > 0 %}
-                                <button class="btn dropdown-toggle btn-danger pl-2"
+                                <button class="btn dropdown-toggle btn-danger pt-2"
                                         type="button"
                                         id="dropdownMenuButton"
                                         data-toggle="dropdown"
@@ -172,7 +173,7 @@
                                     {{ thenotescount }}
                                 </button>
                             {% else %}
-                                <button class="btn dropdown-toggle btn-dark pl-2"
+                                <button class="btn dropdown-toggle btn-dark pt-2"
                                         type="button"
                                         id="dropdownMenuButton"
                                         data-toggle="dropdown"
@@ -182,7 +183,7 @@
                                 </button>
                             {% endif %}
                         {% else %}
-                            <button class="btn dropdown-toggle btn-dark pl-2"
+                            <button class="btn dropdown-toggle btn-dark pt-2"
                                     type="button"
                                     id="dropdownMenuButton"
                                     data-toggle="dropdown"
