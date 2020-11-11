@@ -62,6 +62,8 @@ from app.classes.report import ReportedPosts, ReportedComments
 from app.classes.notification import Notifications
 from app.classes.ltc import LtcPrices
 from app.classes.models import RecentTips
+from app.classes.subforum import Subscribed
+
 
 @subforum.route('/<string:subname>', methods=['GET'])
 def sub(subname):
