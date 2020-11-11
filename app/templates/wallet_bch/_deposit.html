@@ -1,4 +1,4 @@
-    <div class="col-12 headercolor mt-2 pb-1 pt-1">
+    <div class="col-12  mt-2 pb-1 pt-1">
         <div class="col-12 text-center">
             <h4><b>Deposit Funds</b></h4>
         </div>
@@ -9,14 +9,15 @@
             <br>
             <div style="color: red; font-size: 14px">
                 The minimum amount for the deposit is 0.00005 BCH if the
-                amount is below the limit it will not be added.  Only 5 deposits can be added at a time per user.
+                amount is below the limit it will not be added.
+                Only 5 deposits can be added at a time per user.
             </div>
         </div>
         <div class="col-12 text-center mt-4 mb-2">
             <img src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
         </div>
         <div class="col-12 text-center mt-3 mb-3">
-            <p class="font-weight-bold" style="font-size: 10px;">
+            <p class="font-weight-bold" style="font-size: 13px; word-break: break-all">
                 {{ wallet.address1 }}
             </p>
         </div>
