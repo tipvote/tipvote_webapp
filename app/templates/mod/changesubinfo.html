@@ -1,7 +1,7 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
     <div class="col-12 ">
-        <a class="btn btn-dark  mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
             Back to {{ thesub.subcommon_name }}
         </a>
     </div>
@@ -33,7 +33,7 @@
                     <div class="col-12">
                         {{ render_field(subdescriptionform.subcommondescription,
                         autocomplete="off",rows='8',cols='10',
-                        class="form-control darkbg ") }}
+                        class="form-control bg-dark text-white") }}
 
                         <span class="error">
                             {% if subdescriptionform.subcommondescription.errors %}
@@ -80,7 +80,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.exprequiredtopost,
                     autocomplete="off",
-                    class="form-control darkbg ") }}
+                    class="form-control bg-dark text-white") }}
                         <span class="error">
                     {% if subdescriptionform.exprequiredtopost.errors %}
                         {% for error in subdescriptionform.exprequiredtopost.errors %}

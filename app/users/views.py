@@ -44,7 +44,7 @@ from app.users.forms import LoginForm, \
     DeleteAllForm,\
     ThemeForm
 
-from app.models import\
+from app.classes.user import\
     User,\
     UserTimers,\
     UserStats,\
@@ -52,10 +52,10 @@ from app.models import\
     UserStatsBCH,\
     UserStatsXMR,\
     UserCoins, \
-    UserPublicInfo, \
-    CommonsPost, \
-    Comments
+    UserPublicInfo
 
+from app.classes.post import CommonsPost
+from app.classes.comment import Comments
 
 from app.wallet_btc.wallet_btc_work import createwallet
 from app.wallet_bch.wallet_btccash_work import bch_create_wallet

@@ -5,16 +5,16 @@ from flask import \
 from flask_login import current_user
 from app import db
 from app.coins import coins
-from app.models import\
-    BtcPrices,\
-    MoneroPrices,\
-    BchPrices,\
-    LtcPrices,\
-    Notifications,\
-    Subscribed,\
-    SubForums, \
-    Coins, \
-    UserCoins
+
+from app.classes.btc import BtcPrices
+from app.classes.monero import MoneroPrices
+from app.classes.bch import BchPrices
+from app.classes.ltc import LtcPrices
+from app.classes.notification import Notifications
+from app.classes.models import Coins
+from app.classes.subforum import SubForums, Subscribed
+from app.classes.user import UserCoins
+
 from datetime import datetime
 
 
@@ -120,6 +120,7 @@ def bank():
     usercoins = db.session.query(UserCoins).filter(UserCoins.user_id == current_user.id).all()
 
     allcoins = db.session.query(Coins).all()
+
     return render_template('coins/bank.html',
                            now=datetime.utcnow(),
                            # forms

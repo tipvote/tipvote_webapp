@@ -1,5 +1,5 @@
 
-<div class="col-12 mt-2  second_color pb-1 pt-1">
+<div class="col-12 mt-2 text-white second_color pb-1 pt-1">
     <div class="col-12 text-center mt-3">
         <h4><b>Withdraw Funds</b></h4>
     </div>
@@ -15,20 +15,20 @@
             <div class="form-group row">
                 <label  class="col-12 col-form-label text-left">BCH Address</label>
                 <div class="col-12">
-                    {{ render_field(form.sendto,autocomplete="new-password", class="form-control darkbg ") }}
+                    {{ render_field(form.sendto,autocomplete="new-password", class="form-control bg-dark text-white") }}
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-12 col-form-label text-left">Amount</label>
                 <div class="col-12 col-sm-6">
-                    {{ render_field(form.amount, autocomplete="new-password", class="form-control darkbg ")  }}
+                    {{ render_field(form.amount, autocomplete="new-password", class="form-control bg-dark text-white")  }}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-12 col-form-label text-left">Pin</label>
                 <div class="col-12 col-sm-6">
-                    {{ render_field(form.pin,  autocomplete="new-password", class="form-control darkbg ")  }}
+                    {{ render_field(form.pin,  autocomplete="new-password", class="form-control bg-dark text-white")  }}
                 </div>
             </div>
 

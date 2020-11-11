@@ -15,15 +15,10 @@ from app.common.decorators import login_required
 
 from app.vote import vote
 
-from app.models import \
-    CommentsUpvotes, \
-    PostUpvotes, \
-    Banned, \
-    CommonsPost, \
-    Comments, \
-    PrivateMembers, \
-    SubForums, \
-    UserStats
+from app.classes.user import UserStats
+from app.classes.post import CommonsPost, PostUpvotes
+from app.classes.comment import Comments, CommentsUpvotes
+from app.classes.subforum import PrivateMembers, SubForums, Banned
 
 
 @vote.route('/downvotecomment/<int:commentid>', methods=['POST'])

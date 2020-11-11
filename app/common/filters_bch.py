@@ -1,5 +1,5 @@
 from app import db
-from app.models import BchPrices
+from app.classes.bch import BchPrices
 from app.common.functions import floating_decimals
 from decimal import Decimal
 

@@ -9,67 +9,67 @@
             <p class="text-danger font-weight-bold text-center col-12">Post has been muted by a mod</p>
         {% else %}
 
-            <div class="col-12 border-bottom  mb-2 mt-2">
+            <div class="col-12 border-bottom border-dark mb-2 mt-2">
                 <div class="row">
-                    <div class="col-6 col-sm-6 col-md-3  text-center btn-ee ">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center btn-ee text-white">
                         {% if deletepostform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
 
-                                    {{ render_field(deletepostform.submit,  value="Delete ", autocomplete="off", class="  btn btn-ee") }}
+                                    {{ render_field(deletepostform.submit,  value="Delete ", autocomplete="off", class="text-white  btn btn-ee") }}
                                     {{ deletepostform.csrf_token }}
                                 </form>
                             {% else %}
                                 <form method="post" action="{{ url_for('mod.quickdeletepost', subname='wall', postid=post.id) }}">
-                                    {{ render_field(deletepostform.submit,  value="Delete ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(deletepostform.submit,  value="Delete ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ deletepostform.csrf_token }}
                                 </form>
                             {% endif %}
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3  text-center  btn-ee ">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  btn-ee text-white">
                         {% if lockpostform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quicklockpost', subname=thesub.subcommon_name, postid=post.id) }}">
-                                    {{ render_field(lockpostform.submit,  value="Lock ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(lockpostform.submit,  value="Lock ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ lockpostform.csrf_token }}
                                 </form>
                             {% else %}
                                 <form method="post" action="{{ url_for('mod.quicklockpost', subname='wall', postid=post.id) }}">
-                                    {{ render_field(lockpostform.submit,  value="Lock ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(lockpostform.submit,  value="Lock ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ lockpostform.csrf_token }}
                                 </form>
                             {% endif %}
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3  text-center btn-ee ">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center btn-ee text-white">
                         {% if muteuserform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickmuteuser', subname=thesub.subcommon_name, postid=post.id) }}">
-                                    {{ render_field(muteuserform.submit,  value="Mute ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(muteuserform.submit,  value="Mute ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ muteuserform.csrf_token }}
                                 </form>
                             {% else %}
                                 <form method="post" action="{{ url_for('mod.quickmuteuser', subname='wall', postid=post.id) }}">
-                                    {{ render_field(muteuserform.submit,  value="Mute ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(muteuserform.submit,  value="Mute ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ muteuserform.csrf_token }}
                                 </form>
                             {% endif %}
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3  text-center  btn-ee ">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  btn-ee text-white">
                         {% if banuserdeleteform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
-                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ banuserdeleteform.csrf_token }}
                                 </form>
                             {% else %}
                                 <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname='wall', postid=post.id) }}">
-                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class=" btn btn-ee") }}
+                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ banuserdeleteform.csrf_token }}
                                 </form>
                             {% endif %}

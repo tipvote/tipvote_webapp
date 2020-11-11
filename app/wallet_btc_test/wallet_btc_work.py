@@ -5,7 +5,7 @@ from app.common.functions import floating_decimals
 from app.message.add_notification import add_new_notification
 from app.wallet_btc_test.wallet_btc_security import checkbalance
 
-from app.models import \
+from app.classes.btc import \
     BtcWalletTest, \
     BtcWalletWorkTest, \
     BtcWalletFeeTest, \

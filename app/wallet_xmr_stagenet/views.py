@@ -16,18 +16,18 @@ from app.wallet_xmr_stagenet.monero_wallet_work import \
     monerocreatewallet_stagenet, \
     monerosendcoin_stagenet
 
-
 from app.wallet_xmr_stagenet import wallet_xmr_stagenet
 
 from app.wallet_xmr_stagenet.forms import \
     WalletSendCoin
 
-from app.models import \
+from app.classes.monero import \
     MoneroWalletStagenet, \
     MoneroWalletFeeStagenet, \
     MoneroTransactionsStagenet,\
-    User,\
     MoneroWalletWorkStagenet
+
+from app.classes.user import User
 
 
 @wallet_xmr_stagenet.route('', methods=['GET'])

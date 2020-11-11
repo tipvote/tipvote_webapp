@@ -3,7 +3,6 @@ from flask_wtf.file import FileAllowed
 from wtforms import SubmitField, \
     FileField
 
-
 class SubscribeForm(FlaskForm):
     """
     The subscribe button on the side

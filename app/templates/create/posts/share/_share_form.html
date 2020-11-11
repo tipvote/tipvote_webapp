@@ -1,5 +1,5 @@
 
-<div class="col-12 second_color  p-1 mb-2" >
+<div class="col-12 second_color border-dark p-1 mb-2" >
 
     <form method="post"
           action="{{ url_for('create.share_post_text',postid=post.id) }}"
@@ -9,7 +9,7 @@
         <div class="form-group col-12 mb-0 mt-0 ">
             {{ render_field(form.postmessage,
             autocomplete="off",
-            class="form-control darkbg ",
+            class="form-control bg-dark text-white",
              placeholder="Post some thoughts  ...")
                     }}
         </div>

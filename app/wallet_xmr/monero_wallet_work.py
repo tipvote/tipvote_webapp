@@ -5,12 +5,11 @@ from app.common.functions import floating_decimals
 from app.message.add_notification import add_new_notification
 
 from app.wallet_xmr.security import monero_checkbalance
-from app.models import \
+from app.classes.monero import \
     MoneroWallet, \
     MoneroWalletWork, \
     MoneroWalletFee, \
     MoneroUnconfirmed
-
 
 def monerocreatewallet(user_id):
     """

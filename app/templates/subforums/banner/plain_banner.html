@@ -1,11 +1,11 @@
-<div class="second_color  border-bottom " style="overflow: hidden">
+<div class="second_color  border-bottom border-dark" style="overflow: hidden">
     <div class="col-12">
         <div class="col-12 w-100  text-center">
             <form method="post" action="{{ url_for('subforum.subunsubtoforum', subname=thesub.subcommon_name) }}">
                 <div class="form-group row ">
                     <div  class="col-12 col-form-label pb-0" style="font-size: 24px">
                         {{ subform.csrf_token }}
-                        <a class=" text-center " style="font-size: 24px" href="{{ url_for('subforum.sub',
+                        <a class="text-white text-center " style="font-size: 24px" href="{{ url_for('subforum.sub',
                          subname=thesub.subcommon_name) }}">
                             {{ thesub.subcommon_name }}
                         </a>
@@ -23,7 +23,7 @@
                     </div>
                     <br>
                 </div>
-                <a class=" text-center " style="" href="{{ url_for('subforum.sub',
+                <a class="text-white text-center " style="" href="{{ url_for('subforum.sub',
                  subname=thesub.subcommon_name) }}">
                     <div class="col-12 " style="margin-top: -10px">
                         a/{{ thesub.subcommon_name }}  {% if thesub.age_required == 1 %}

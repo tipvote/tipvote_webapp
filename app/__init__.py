@@ -121,7 +121,7 @@ def app_handle_404(e):
 
 @login_manager.user_loader
 def load_user(user_id):
-    from app.models import User
+    from app.classes.user import User
     x = db.session.query(User).filter(User.id == int(user_id)).first()
     return x
 

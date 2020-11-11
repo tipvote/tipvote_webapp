@@ -1,6 +1,6 @@
 from app import db
 from datetime import datetime
-from app.models import MoneroTransactionsStagenet
+from app.classes.monero import MoneroTransactionsStagenet
 
 
 # this function will move the coin from holdings back to vendor.  This is for vendor verification

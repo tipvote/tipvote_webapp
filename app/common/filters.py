@@ -5,7 +5,7 @@ from flask import url_for
 # Gets xmr stats
 @app.template_filter()
 def currentxmrprice(theid):
-    from app.models import MoneroPrices
+    from app.classes.monero import MoneroPrices
     from app import db
 
     moneroprice = db.session.query(MoneroPrices).filter_by(id=theid).first()
@@ -17,7 +17,7 @@ def currentxmrprice(theid):
 # Gets btc stats
 @app.template_filter()
 def currentbtcprice(theid):
-    from app.models import BtcPrices
+    from app.classes.btc import BtcPrices
     from app import db
 
     btcprice = db.session.query(BtcPrices).filter_by(id=theid).first()
@@ -29,7 +29,7 @@ def currentbtcprice(theid):
 # Gets btc stats donated
 @app.template_filter()
 def currentbchprice(theid):
-    from app.models import BchPrices
+    from app.classes.bch import BchPrices
     from app import db
 
     bchprice = db.session.query(BchPrices).filter_by(id=theid).first()
@@ -41,7 +41,7 @@ def currentbchprice(theid):
 # Gets btc stats donated
 @app.template_filter()
 def currentltcprice(theid):
-    from app.models import LtcPrices
+    from app.classes.user import LtcPrices
     from app import db
 
     ltcprice = db.session.query(LtcPrices).filter_by(id=theid).first()
@@ -53,7 +53,7 @@ def currentltcprice(theid):
 # Gets user profile picture
 @app.template_filter('profilepicture')
 def profilepicture(user_id):
-    from app.models import User
+    from app.classes.user import User
     from app import db
 
     getuser = db.session.query(User)
@@ -70,7 +70,7 @@ def profilepicture(user_id):
 # Gets user level
 @app.template_filter('userwidthtonextlevel')
 def userwidthtonextlevel(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
     from app.common.functions import floating_decimals
 
@@ -119,7 +119,7 @@ def userwidthtonextlevel(user_id):
 # Gets user level
 @app.template_filter('userlevel')
 def userlevel(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
 
     userlevelnumber = db.session.query(UserStats)
@@ -132,7 +132,7 @@ def userlevel(user_id):
 # Gets user level
 @app.template_filter('userupvotes')
 def userupvotes(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
 
     userlevelnumber = db.session.query(UserStats)
@@ -147,7 +147,7 @@ def userupvotes(user_id):
 # Gets user level
 @app.template_filter('userdownvotes')
 def userdownvotes(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
 
     userlevelnumber = db.session.query(UserStats)
@@ -161,7 +161,7 @@ def userdownvotes(user_id):
 # Gets user level
 @app.template_filter('usertotalpost')
 def usertotalpost(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
 
     userlevelnumber = db.session.query(UserStats)
@@ -174,7 +174,7 @@ def usertotalpost(user_id):
 # Gets user level
 @app.template_filter('usertotalcomment')
 def usertotalcomment(user_id):
-    from app.models import UserStats
+    from app.classes.user import UserStats
     from app import db
 
     userlevelnumber = db.session.query(UserStats)
@@ -187,7 +187,7 @@ def usertotalcomment(user_id):
 # Gets user name
 @app.template_filter('getuser_name')
 def getuser_name(user_id):
-    from app.models import User
+    from app.classes.user import User
     from app import db
     try:
         userperson = db.session.query(User).filter(user_id == User.id).first()
@@ -200,7 +200,7 @@ def getuser_name(user_id):
 # Gets user btc stats recieved
 @app.template_filter('getuserbtcstats_total_recieved')
 def getuserbtcstats_total_recieved(user_id):
-    from app.models import UserStatsBTC
+    from app.classes.monero import UserStatsBTC
     from app import db
 
     total_btc_query = db.session.query(UserStatsBTC).filter(UserStatsBTC.user_id == user_id).first()
@@ -211,7 +211,7 @@ def getuserbtcstats_total_recieved(user_id):
 # Gets user btc stats donated
 @app.template_filter('getuserbtcstats_total_donated')
 def getuserbtcstats_total_donated(user_id):
-    from app.models import UserStatsBTC
+    from app.classes.monero import UserStatsBTC
     from app import db
 
     total_btc_query = db.session.query(UserStatsBTC).filter(UserStatsBTC.user_id == user_id).first()
@@ -223,7 +223,7 @@ def getuserbtcstats_total_donated(user_id):
 # Gets user xmr stats recieved
 @app.template_filter('getuserxmrstats_total_recieved')
 def getuserxmrstats_total_recieved(user_id):
-    from app.models import UserStatsXMR
+    from app.classes.monero import UserStatsXMR
     from app import db
 
     total_xmr_query = db.session.query(UserStatsXMR).filter(UserStatsXMR.user_id == user_id).first()
@@ -234,7 +234,7 @@ def getuserxmrstats_total_recieved(user_id):
 # Gets user xmr stats donated
 @app.template_filter('getuserxmrstats_total_donated')
 def getuserxmrstats_total_donated(user_id):
-    from app.models import UserStatsXMR
+    from app.classes.monero import UserStatsXMR
     from app import db
 
     total_xmr_query = db.session.query(UserStatsXMR).filter(UserStatsXMR.user_id == user_id).first()

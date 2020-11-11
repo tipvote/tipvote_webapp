@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from app.wallet_btc.wallet_btc_addtransaction import addtransaction
 
-from app.models import BtcWallet
+from app.classes.btc import BtcWallet
 # end models
 
 

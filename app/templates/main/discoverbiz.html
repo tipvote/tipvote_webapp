@@ -6,12 +6,12 @@
     </div>
 
     <div class="row ml-3 mb-5">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border ">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border border-dark">
             <div class="col-12 text-center">
                 <h5>Newest Businesses</h5>
             </div>
             {% for biz in newsubs %}
-                <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
 
                     <div class="row " >
                         {% if biz.profileimage == '' %}
@@ -38,12 +38,12 @@
     </div>
 
         <div class="row ml-3">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border ">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 second_color border border-dark">
             <div class="col-12 text-center">
                 <h5>Popular Businesses</h5>
             </div>
             {% for biz in popbiz %}
-                <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
+                <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('business.main', business_name=biz.business_name) }}">
 
                     <div class="row " >
                         {% if biz.profileimage == '' %}

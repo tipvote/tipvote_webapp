@@ -1,8 +1,7 @@
-from app.models import SubForums, Mods
+from app.classes.subforum import SubForums, Mods
 from flask_login import current_user
 from app import db
 from flask import flash
-
 
 def modcheck(thesub, theuser):
 

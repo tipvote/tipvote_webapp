@@ -13,20 +13,24 @@ from sqlalchemy import or_
 from app.vote.forms import VoteForm
 from app.subforum.forms import SubscribeForm
 from app.create.forms import MainPostForm, CreateCommentQuickForm
-from app.models import \
+
+from app.classes.btc import BtcPrices
+from app.classes.bch import BchPrices
+
+from app.classes.notification import Notifications
+from app.classes.models import DisplayCoins, RecentTips
+from app.classes.post import \
     BtcPostTips, \
-    RecentTips, \
-    DisplayCoins, \
-    Notifications, \
-    BtcPrices, \
-    MoneroPrices, \
-    BchPrices, \
-    LtcPrices, \
+    CommonsPost
+from app.classes.btc import BtcPrices
+from app.classes.bch import BchPrices
+from app.classes.monero import MoneroPrices
+from app.classes.ltc import LtcPrices
+from app.classes.user import Followers
+from app.classes.message import Messages
+from app.classes.subforum import \
     Subscribed, \
     SubForums, \
-    CommonsPost,\
-    Followers,\
-    Messages,\
     Mods
 
 from app.mod.forms import \

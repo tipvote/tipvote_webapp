@@ -1,7 +1,7 @@
 from app import db
 from datetime import\
     datetime
-from app.models import TransactionsBtc
+from app.classes.btc import TransactionsBtc
 
 # type 1: wallet withdrawl
 # type 2: send bitcoin offsite
@@ -10,7 +10,6 @@ from app.models import TransactionsBtc
 # type 6: send coin to agoras profit
 # type 7: send coin to holdings
 # type 8: send coin from holdings
-
 
 def addtransaction(category, amount, user_id, senderid, comment, orderid, balance):
     """

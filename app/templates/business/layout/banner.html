@@ -1,4 +1,4 @@
-<div class="second_color border-bottom ">
+<div class="second_color border-bottom border-dark">
 
     <div class="col-12 profilebanner"
          style="background-image: url('{{ url_for('common.business_image', filename=thebiz.bannerimage) }}');
@@ -39,7 +39,7 @@
             {% if current_user.is_authenticated %}
                 {% if current_user.user_name != thebiz.user_name %}
                 {% if seeifsubbed == 1 %}
-                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down ") }}
+                    {{ render_field(subform.unsubscribe,  value="unsubscribe", autocomplete="off", class="btn btn-sm btn-tipvote-down text-white") }}
                 {% else %}
                     {{ render_field(subform.subscribe,  value="Subscribe", autocomplete="off", class="btn btn-sm btn-tipvote-up") }}
                 {% endif %}
@@ -50,7 +50,7 @@
     </div>
 
     <div class="col-12 text-center mb-3">
-        <a class=" btn btn-dark  "
+        <a class=" btn btn-dark text-white "
            href="{{ url_for('message.create_message_business', bizid=thebiz.id) }}">
             Message {{ thebiz.official_business_name }}
         </a>

@@ -19,12 +19,13 @@ from app.wallet_xmr import wallet_xmr
 from app.wallet_xmr.forms import \
     WalletSendCoin
 
-from app.models import \
+from app.classes.monero import \
     MoneroWallet, \
     MoneroWalletFee, \
     MoneroTransactions,\
-    User,\
-    MoneroWalletWork, Notifications
+    MoneroWalletWork
+from app.classes.user import User
+from app.classes.notification import Notifications
 
 
 @wallet_xmr.route('', methods=['GET'])

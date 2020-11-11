@@ -46,7 +46,7 @@
                     {% if current_user.is_authenticated %}
                         {% if postcount > 0 %}
                             {% for post in posts %}
-                                {% include 'posts/classic/master.html' %}
+                                {% include 'posts/master.html' %}
                             {% endfor %}
                         {% else %}
                             <div class="col-12">

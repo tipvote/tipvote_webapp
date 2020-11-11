@@ -1,11 +1,11 @@
 
-<div class="col-12 mt-2  headercolor">
+<div class="col-12 mt-2 text-white headercolor">
     <div class="col-12 text-center mt-3">
         <h4> <b>Withdraw and Depost History</b> </h4>
     </div>
     <div class="col-12">
         {% if transactcount >= 1 %}
-            <table class="table table-sm table-hover table-striped ">
+            <table class="table table-sm table-hover table-striped text-white">
                 <!-- set columns-->
                 <tr class="d-flex linkcolor">
 
@@ -15,7 +15,7 @@
                     <th class="col-2">Balance</th>
                 </tr>
                 {% for t in transact %}
-                    <tr class="d-flex linkcolor ">
+                    <tr class="d-flex linkcolor text-white">
                         <!--First column: Time/DATE-->
                         <td class="col-3">
                             {{ moment(timestamp=t.created).fromNow(refresh=True) }}
@@ -261,10 +261,10 @@
             <div class="row mt-5">
                 <div class="col-12 text-center justify-content-center">
                     {% if prev_url %}
-                        <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">previous</a>
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ prev_url }}">Newer posts</a>
                     {% endif %}
                     {% if next_url %}
-                        <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">next</a>
+                        <a class="btn btn-warning btn-sm" type="button" href="{{ next_url }}">Older posts</a>
                     {% endif %}
                 </div>
             </div>

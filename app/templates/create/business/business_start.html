@@ -6,7 +6,7 @@
         Create a page that can help your cause, business, or promotion.
     </div>
 
-    <div class="col-12 pt-1 second_color border ">
+    <div class="col-12 pt-1 second_color border border-dark">
         <form method="post">
             {{ form.csrf_token }}
             <!-- Business Name -->
@@ -27,7 +27,7 @@
                     </ul>
                 </div>
                 <div class="col-12 ">
-                    {{ render_field(form.business_name,autocomplete="off",class="form-control darkbg ") }}
+                    {{ render_field(form.business_name,autocomplete="off",class="form-control bg-dark text-white") }}
                 </div>
             </div>
 
@@ -59,13 +59,13 @@
                     NSFW businesses must have this or will be banned.
                 </div>
                 <div class="col-1">
-                    {{ render_field(form.age,autocomplete="off",class=" darkbg ") }}
+                    {{ render_field(form.age,autocomplete="off",class=" bg-dark text-white") }}
                 </div>
             </div>
 
             <div class="form-group mt-3">
                 <div class="col-12 text-center">
-                    {{ render_field(form.submit,  value="Create Room", autocomplete="off", class="btn btn-dark  w-100") }}
+                    {{ render_field(form.submit,  value="Create Room", autocomplete="off", class="btn btn-dark text-white w-100") }}
                 </div>
             </div>
         </form>

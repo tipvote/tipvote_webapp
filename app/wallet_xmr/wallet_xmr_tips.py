@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from app.wallet_xmr.transaction import monero_addtransaction
 
-from app.models import MoneroWallet
+from app.classes.monero import MoneroWallet
 # end models
 
 

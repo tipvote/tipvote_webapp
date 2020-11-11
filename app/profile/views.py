@@ -13,14 +13,14 @@ from app.create.forms import MainPostForm, CreateCommentQuickForm
 from app.edit.forms import DeletePostTextForm
 from app.profile import profile
 from app.vote.forms import VoteForm
-from app.models import \
+
+from app.classes.user import \
     User, \
     Followers, \
-    CommonsPost, \
     UserLargePublicInfo, \
-    BlockedUser,\
-    Mods,\
-    SubForums, Subscribed
+    BlockedUser
+from app.classes.post import CommonsPost
+from app.classes.subforum import Mods, SubForums, Subscribed
 
 from app.mod.forms import \
     QuickBanDelete, \

@@ -1,17 +1,17 @@
-<div class="second_color  border-bottom " style="overflow: hidden">
+<div class="second_color  border-bottom border-dark" style="overflow: hidden">
     <div class="col-12">
 
         <div class="col-12 w-100  text-center mb-5">
             <div  class="col-12 pb-0" style="font-size: 24px">
                 {{ subform.csrf_token }}
-                <a class=" text-center " style="font-size: 24px" href="{{ url_for('subforum.sub',
+                <a class="text-white text-center " style="font-size: 24px" href="{{ url_for('subforum.sub',
                          subname=thesub.subcommon_name) }}">
                     {{ thesub.subcommon_name }}
                 </a>
             </div>
 
             <div class="col-12 mb-3 mt-3">
-                <a class=" text-center " style="" href="{{ url_for('profile.main',
+                <a class="text-white text-center " style="" href="{{ url_for('profile.main',
                  user_name=post.contentownerposts.user_name) }}">
                     <div class="col-12 " style="margin-top: -10px; font-size: 20px">
                         u/{{ post.contentownerposts.user_name }}

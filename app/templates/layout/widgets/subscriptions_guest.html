@@ -1,5 +1,5 @@
 <div class="row mb-2 pl-2">
-    <div class="col-10   second_color border  mb-2">
+    <div class="col-10   second_color border border-dark mb-2">
             <div class="text-center"> <b>Trending Rooms</b></div>
             <br>
             <div class="text-center">
@@ -12,7 +12,7 @@
                 {% for subs in guestsubforums %}
                     {% if subs %}
 
-                        <a class="btn btn-dark  w-100 mb-2"
+                        <a class="btn btn-dark text-white w-100 mb-2"
                            href="{{ url_for('subforum.sub', subname=subs.subcommon_name) }}"
                         >
                             {% if subs.mini_image == '' %}

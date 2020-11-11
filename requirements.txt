@@ -15,5 +15,3 @@ webpreview
 flask-mistune
 flask-mail
 validator-collection
-bleach
-markdown

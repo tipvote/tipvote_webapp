@@ -16,15 +16,14 @@ from app.profile_edit.forms import \
     MyAccountForm, \
     UserBioForm, UserPGPForm
 
-from app.models import \
+from app.classes.user import \
     User, \
-    CommonsPost, \
-    SavedPost, \
     UserPublicInfo, \
     UserLargePublicInfo, \
     BlockedUser, \
     PgpKey
-
+from app.classes.post import CommonsPost
+from app.classes.user import SavedPost
 
 @profileedit.route('/pgp', methods=['GET'])
 @login_required

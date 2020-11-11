@@ -20,11 +20,8 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute
 
-from app.models import \
-    CommonsPost, \
-    Business, \
-    BusinessFollowers, \
-    BusinessStats
+from app.classes.post import CommonsPost
+from app.classes.business import Business, BusinessFollowers, BusinessStats
 
 from sqlalchemy import func
 from datetime import datetime

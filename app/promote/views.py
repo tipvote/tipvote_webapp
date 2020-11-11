@@ -28,22 +28,20 @@ from app.create.forms import CreateCommentQuickForm
 from app.vote.forms import VoteForm
 
 # other directories
-from app.models import\
-    UserStatsBTC,\
-    UserStatsBCH,\
-    UserStatsXMR,\
-    BtcWallet,\
-    BchWallet,\
-    MoneroWallet,\
-    CommonsPost, \
-    SubForums,\
-    BchPrices,\
-    MoneroPrices,\
-    BtcPrices,\
-    UserCoins,\
+from app.classes.user import \
+    UserStatsBCH, \
+    UserStatsBTC, \
+    UserStatsXMR, \
+    UserCoins
+from app.classes.btc import BtcWallet, BtcPrices
+from app.classes.monero import MoneroWallet, MoneroPrices
+from app.classes.bch import BchWallet, BchPrices
+from app.classes.post import \
     PostPromote, \
     PostPromotions, \
-    PostCoins
+    PostCoins, \
+    CommonsPost
+from app.classes.subforum import SubForums
 
 from app.wallet_btc.wallet_btc_promotion import sendcointosite_post_promotion_btc
 from app.wallet_bch.wallet_btccash_promotion import sendcointosite_post_promotion_bch

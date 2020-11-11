@@ -1,11 +1,7 @@
-
 from app.common import common
 from app import UPLOADED_FILES_DEST
 from flask import send_from_directory, url_for
 from datetime import datetime
-
-
-now = datetime.utcnow()
 
 
 @common.route('/<path:filename>')

@@ -7,14 +7,14 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 second_color border ">
+        <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
             <div class="row">
                 <div class="col-12 text-center">
                     <h5>My Subscriptions</h5>
                 </div>
                 <div class="col-12">
                     {% for sub in getlistofmysubs %}
-                        <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subscriber.subcommon_name) }}">
+                        <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subscriber.subcommon_name) }}">
                             {% if sub.subscriber.mini_image == '' %}
                                 <div class="row " >
                                     <div class="col-3">
@@ -52,7 +52,7 @@
         </div>
 
         {% if current_user.is_authenticated %}
-            <div class="col-12 col-sm-6 col-md-4 second_color border ">
+            <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
 
                 <div class="text-center"><h5>Modding</h5></div>
                 {% if moddingcount > 0 %}
@@ -64,7 +64,7 @@
                             {% if subs %}
 
 
-                                <a class="btn btn-dark  w-100 mb-2"
+                                <a class="btn btn-dark text-white w-100 mb-2"
                                    href="{{ url_for('subforum.sub',subname= subs.subscriber.subcommon_name )}} "
                                 >
                                     {% if subs.subscriber.mini_image == '' %}
@@ -102,14 +102,14 @@
             </div>
 
 
-            <div class="col-12 col-sm-6 col-md-4 second_color border ">
+            <div class="col-12 col-sm-6 col-md-4 second_color border border-dark">
                 {% if ownercount > 0 %}
 
                     <div class="text-center"><b> Boss of</b></div>
 
                     <div class="pl-0 linkcolor">
                         {% for sub in seeifowner %}
-                            <a class="btn btn-dark  w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
+                            <a class="btn btn-dark text-white w-100 mb-2" href="{{ url_for('subforum.sub', subname=sub.subcommon_name) }}">
                                 {% if sub.mini_image == '' %}
                                     <div class="row " >
                                         <div class="col-3">

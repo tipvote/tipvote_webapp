@@ -30,19 +30,19 @@ from app.subforum.forms import \
     SubscribeForm, \
     ReportForm
 
-from app.models import\
-    CommonsPost,\
-    Comments,\
-    PrivateMembers,\
-    Subscribed,\
-    SubForums,\
-    SubForumCustom,\
-    BtcPrices,\
-    MoneroPrices,\
-    BchPrices,\
-    LtcPrices,\
-    Mods,\
-    Business
+from app.classes.comment import Comments
+from app.classes.post import CommonsPost
+from app.classes.subforum import \
+    PrivateMembers, \
+    SubForums, \
+    SubForumCustom, \
+    Subscribed, \
+    Mods
+from app.classes.btc import BtcPrices
+from app.classes.monero import MoneroPrices
+from app.classes.bch import BchPrices
+from app.classes.business import Business
+from app.classes.ltc import LtcPrices
 
 from app.create.get_image_resize import convertimage
 from app import UPLOADED_FILES_DEST
@@ -100,7 +100,6 @@ def viewpost_edit(postid):
     subname = thepost.subcommon_name
 
     if current_user.is_authenticated:
-        # see if current user is a mod
         seeifmod = db.session.query(Mods)
         seeifmod = seeifmod.filter(Mods.subcommon_id == subid)
         seeifmod = seeifmod.filter(Mods.user_id == current_user.id)

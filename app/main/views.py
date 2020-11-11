@@ -19,27 +19,30 @@ from app.main.forms import ApplyToPrivate, CreateUpdateForm
 from app.subforum.forms import SubscribeForm
 from app.vote.forms import VoteForm
 from app.create.forms import MainPostForm, CreateCommentQuickForm
-from app.models import \
+
+from app.classes.subforum import \
     Subscribed, \
     SubForums, \
-    CommonsPost, \
     PrivateApplications, \
-    RecentTips, \
-    BtcPrices, \
-    MoneroPrices, \
-    BchPrices, \
-    LtcPrices, \
-    DisplayCoins, \
-    Notifications, \
-    User, \
+    Mods
+from app.classes.user import User
+from app.classes.post import CommonsPost
+from app.classes.bch import BchPrices
+from app.classes.btc import BtcPrices
+from app.classes.monero import MoneroPrices
+from app.classes.business import \
     Business, \
     BusinessStats, \
-    BusinessFollowers, \
-    Messages,\
-    Mods, \
+    BusinessFollowers
+from app.classes.message import Messages
+from app.classes.notification import Notifications
+from app.classes.ltc import LtcPrices
+from app.classes.models import \
+    DisplayCoins, \
     GiveawayAll, \
     Updates, \
-    Streaming
+    Streaming, \
+    RecentTips
 
 from app.mod.forms import \
     QuickBanDelete, \
