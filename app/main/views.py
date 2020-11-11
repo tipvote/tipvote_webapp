@@ -25,6 +25,7 @@ from app.classes.subforum import \
     SubForums, \
     PrivateApplications, \
     Mods
+from app.classes.user import User
 from app.classes.post import CommonsPost
 from app.classes.bch import BchPrices
 from app.classes.btc import BtcPrices

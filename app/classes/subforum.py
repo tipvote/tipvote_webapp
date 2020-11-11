@@ -5,6 +5,7 @@ from markdown import markdown
 
 from app.classes.message import LegalMessages
 
+
 class Subscribed(db.Model):
     __tablename__ = 'subscribed_rooms'
     __bind_key__ = 'avengers'
@@ -13,6 +14,7 @@ class Subscribed(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
+
 
 class SubForumStats(db.Model):
     __tablename__ = 'avengers_subforum_subforum_Stats'
@@ -27,6 +29,7 @@ class SubForumStats(db.Model):
 
     def __repr__(self):
         return '<Subcommon {}>'.format(self.subcommon_name)
+
 
 class PayoutSubOwner(db.Model):
     __tablename__ = 'avengers_tips_payout_subowner'
@@ -53,6 +56,7 @@ class PayoutSubOwner(db.Model):
     amount_bch = db.Column(db.DECIMAL(20, 8))
     amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
+
 
 class SubForumCustom(db.Model):
     __tablename__ = 'avengers_subforum_subforum_custom'

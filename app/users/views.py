@@ -53,6 +53,7 @@ from app.classes.user import\
     UserStatsXMR,\
     UserCoins, \
     UserPublicInfo
+
 from app.classes.post import CommonsPost
 from app.classes.comment import Comments
 

@@ -27,6 +27,7 @@ from app.classes.monero import \
 from app.classes.user import User
 from app.classes.notification import Notifications
 
+
 @wallet_xmr.route('', methods=['GET'])
 @login_required
 def home():

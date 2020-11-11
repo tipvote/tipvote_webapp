@@ -59,13 +59,15 @@ from app.classes.user import \
     BlockedUser
 from app.classes.btc import BtcPrices
 from app.classes.bch import BchPrices
+from app.classes.ltc import LtcPrices
+from app.classes.monero import MoneroPrices
 from app.classes.business import \
     Business, \
     BusinessInfo, \
     BusinessStats, \
     BusinessLocation, \
     BusinessServices
-from app.classes.ltc import LtcPrices
+
 
 from app.create.geturlinfo import geturl
 from app.create.convert_markdown import transform_image_links_markdown

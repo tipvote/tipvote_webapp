@@ -16,14 +16,13 @@ from app import db
 from app.legal import legal
 from app.legal.forms import\
     ReplyToMsg,\
-    CreateAMsg,\
-    CreateAMsgUser
+    CreateAMsg
 
 from app.classes.message import \
     LegalMessages,\
     LegalReply
+
 from app.classes.user import User, BlockedUser
-from app.classes.business import Business
 
 from app.message.add_notification import add_new_notification
 

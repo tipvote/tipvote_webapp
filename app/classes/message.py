@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class LegalMessages(db.Model):
     __tablename__ = 'msg_messages_legal'
     __bind_key__ = 'avengers'
@@ -41,6 +42,7 @@ class LegalMessages(db.Model):
 
 db.event.listen(LegalMessages.body, 'set', LegalMessages.on_changed_body)
 
+
 class LegalReply(db.Model):
     __tablename__ = 'msg_messages_replies_legal'
     __bind_key__ = 'avengers'
@@ -76,6 +78,7 @@ class LegalReply(db.Model):
             tags=allowed_tags, strip=True, attributes=allowed_attrs))
 
 db.event.listen(LegalReply.body, 'set', LegalReply.on_changed_body)
+
 
 class Messages(db.Model):
     __tablename__ = 'msg_messages'
@@ -113,7 +116,9 @@ class Messages(db.Model):
             markdown(value, output_format='html'),
             tags=allowed_tags, strip=True, attributes=allowed_attrs))
 
+
 db.event.listen(Messages.body, 'set', Messages.on_changed_body)
+
 
 class Reply(db.Model):
     __tablename__ = 'msg_messages_replies'

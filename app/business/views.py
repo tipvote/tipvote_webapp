@@ -26,6 +26,7 @@ from app.classes.business import Business, BusinessFollowers, BusinessStats
 from sqlalchemy import func
 from datetime import datetime
 
+
 @business.route('/<string:business_name>', methods=['GET'])
 def main(business_name):
     # forms

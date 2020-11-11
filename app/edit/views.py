@@ -100,7 +100,6 @@ def viewpost_edit(postid):
     subname = thepost.subcommon_name
 
     if current_user.is_authenticated:
-        # see if current user is a mod
         seeifmod = db.session.query(Mods)
         seeifmod = seeifmod.filter(Mods.subcommon_id == subid)
         seeifmod = seeifmod.filter(Mods.user_id == current_user.id)

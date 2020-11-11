@@ -28,6 +28,7 @@ from app.classes.bch import\
     BchWallet,\
     TransactionsBch
 
+
 @wallet_bch.route('/', methods=['GET'])
 @login_required
 def home():

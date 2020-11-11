@@ -3,12 +3,14 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class BtcPrices(db.Model):
     __tablename__ = 'prices_btc'
     __bind_key__ = 'avengers'
     __table_args__ = {"schema": "avengers_main", 'useexisting': True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
+
 
 class BtcWallet(db.Model):
     __tablename__ = 'btc_wallet'
@@ -27,6 +29,7 @@ class BtcWallet(db.Model):
     locked = db.Column(db.INTEGER)
     transactioncount = db.Column(db.INTEGER)
     unconfirmed = db.Column(db.DECIMAL(20, 8))
+
 
 class BtcUnconfirmed(db.Model):
     __tablename__ = 'btc_unconfirmed'

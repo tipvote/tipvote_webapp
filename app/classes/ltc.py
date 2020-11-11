@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class LtcPrices(db.Model):
     __tablename__ = 'prices_ltc'
     __bind_key__ = 'avengers'

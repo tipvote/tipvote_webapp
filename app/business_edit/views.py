@@ -14,7 +14,6 @@ from app.business_edit import business_edit
 from app.common.decorators import login_required
 from app.common.functions import mkdir_p
 
-
 from app.business_edit.forms import \
     ProfilePicForm, \
     BannerPicForm, \
@@ -40,6 +39,7 @@ from app.classes.business import Business, \
     BusinessAccepts,\
     BusinessSpecificInfo
 from app.classes.post import CommonsPost
+
 
 def deleteprofileimage(business_id):
     thebiz = db.session.query(Business).filter(Business.id == business_id).first()

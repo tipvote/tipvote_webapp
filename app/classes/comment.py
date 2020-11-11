@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 # List of user ids and commentupvotes
 class CommentsUpvotes(db.Model):
     __tablename__ = 'avengers_comments_upvotes'
@@ -12,6 +13,7 @@ class CommentsUpvotes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     comment_id = db.Column(db.Integer)
+
 
 class BtcCommentTips(db.Model):
     __tablename__ = 'avengers_tips_btc_comments'
@@ -87,7 +89,8 @@ class BchCommentTips(db.Model):
     amount_bch = db.Column(db.DECIMAL(20, 8))
     amount_usd = db.Column(db.DECIMAL(20, 2))
 
-# the comments on posts
+
+
 class Comments(db.Model):
     __tablename__ = 'avengers_comments_comments'
     __bind_key__ = 'avengers'
@@ -152,7 +155,6 @@ class Comments(db.Model):
                               backref=db.backref('parent',
                                                  remote_side=[id]),
                               lazy='dynamic')
-
 
     def save(self):
         db.session.add(self)

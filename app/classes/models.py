@@ -8,6 +8,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class Streaming(db.Model):
     __tablename__ = 'streaming'
     __bind_key__ = 'avengers'
@@ -15,6 +16,7 @@ class Streaming(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     online = db.Column(db.Integer)
+
 
 class Updates(db.Model):
     __tablename__ = 'updates'
@@ -26,6 +28,7 @@ class Updates(db.Model):
     update_title = db.Column(db.String(140))
     information = db.Column(db.TEXT)
     github_url = db.Column(db.TEXT)
+
 
 class GiveawayAll(db.Model):
     __tablename__ = 'avengers_promotion_giveaway_all'
@@ -47,6 +50,7 @@ class GiveawayAll(db.Model):
     leader_user_id = db.Column(db.Integer)
     leader_user_name = db.Column(db.String(140))
 
+
 class Coins(db.Model):
     __tablename__ = 'coins'
     __bind_key__ = 'avengers'
@@ -60,6 +64,7 @@ class Coins(db.Model):
     coin_rarity = db.Column(db.Integer)
     coin_description = db.Column(db.TEXT)
     points_value = db.Column(db.Integer)
+
 
 class DisplayCoins(db.Model):
     __tablename__ = 'displayrewardcoins'
@@ -88,6 +93,7 @@ class DisplayCoins(db.Model):
     seen_by_user = db.Column(db.Integer)
     new_user_level = db.Column(db.Integer)
 
+
 class TempUrl(db.Model):
     __tablename__ = 'temp_url'
     __bind_key__ = 'avengers'
@@ -102,6 +108,7 @@ class TempUrl(db.Model):
     image = db.Column(db.TEXT)
     subcommon_name = db.Column(db.String(140))
     subcommon_id = db.Column(db.Integer)
+
 
 class RecentTips(db.Model):
     __tablename__ = 'avengers_tips_stats_recent'
@@ -127,6 +134,7 @@ class RecentTips(db.Model):
     amount_bch = db.Column(db.DECIMAL(20, 8))
     amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
+
 
 class ExpTable(db.Model):
     __tablename__ = 'user_exp'

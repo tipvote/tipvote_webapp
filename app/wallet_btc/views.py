@@ -26,7 +26,7 @@ from app.wallet_btc.forms import WalletSendcoin
 from app.classes.user import User
 from app.classes.subforum import SubForums, Subscribed
 from app.classes.notification import Notifications
-
+from app.classes.btc import BtcWallet,BtcWalletFee, TransactionsBtc
 from app.wallet_btc.wallet_btc_work import walletstatus
 
 

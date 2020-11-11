@@ -120,6 +120,7 @@ def bank():
     usercoins = db.session.query(UserCoins).filter(UserCoins.user_id == current_user.id).all()
 
     allcoins = db.session.query(Coins).all()
+
     return render_template('coins/bank.html',
                            now=datetime.utcnow(),
                            # forms

@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 # used so no double upvoting
 class PostUpvotes(db.Model):
     __tablename__ = 'avengers_posts_upvotes'
@@ -14,6 +15,7 @@ class PostUpvotes(db.Model):
     post_id = db.Column(db.Integer)
     vote_up = db.Column(db.Integer)
     vote_down = db.Column(db.Integer)
+
 
 class CommonsPost(db.Model):
     __tablename__ = 'avengers_posts_posts'
@@ -159,6 +161,7 @@ class PostPromotions(db.Model):
     total_recieved_xmr = db.Column(db.DECIMAL(20, 12))
     total_recieved_xmr_usd = db.Column(db.DECIMAL(20, 2))
 
+
 class PostPromote(db.Model):
     __tablename__ = 'avengers_promotion_post'
     __bind_key__ = 'avengers'
@@ -181,6 +184,7 @@ class PostPromote(db.Model):
     amount_bch = db.Column(db.DECIMAL(20, 8))
     amount_xmr = db.Column(db.DECIMAL(20, 12))
     amount_usd = db.Column(db.DECIMAL(20, 2))
+
 
 class PostCoins(db.Model):
     __tablename__ = 'avengers_post_coins'

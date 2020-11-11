@@ -3,12 +3,14 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class MoneroPrices(db.Model):
     __tablename__ = 'prices_monero'
     __bind_key__ = 'avengers'
     __table_args__ = {"schema": "avengers_main", 'useexisting': True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
+
 
 class MoneroWallet(db.Model):
     __tablename__ = 'monero_wallet'

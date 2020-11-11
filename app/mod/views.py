@@ -18,9 +18,7 @@ from app.common.timers import lastreport
 from app.common.functions import id_generator_picture1, mkdir_p
 from app.message.add_notification import add_new_notification
 
-
 from app.subforum.image_resizer import convertimage
-
 
 from app.mod import mod
 from app.vote.forms import VoteForm
@@ -59,6 +57,7 @@ from app.classes.user import UserTimers, User
 from app.classes.report import ReportedComments, ReportedPosts
 
 from app.mod.security import modcheck
+
 
 @mod.route('/customize/<string:subname>', methods=['GET'])
 @login_required
@@ -475,7 +474,6 @@ def modremoveuser(subname):
                            )
 
 
-# -------------------------------------------------------------------------------------------
 @mod.route('/users/<string:subname>', methods=['GET'])
 @login_required
 def modbanoradduser_main(subname):

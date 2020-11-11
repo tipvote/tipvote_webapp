@@ -8,6 +8,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 # Posts that have been reported
 class ReportedPosts(db.Model):
     __tablename__ = 'avengers_subforum_reported_posts'
@@ -28,6 +29,7 @@ class ReportedPosts(db.Model):
     poster_user_name = db.Column(db.String(140))
     poster_visible_user_id = db.Column(db.Integer)
     poster_visible_user_name = db.Column(db.String(140))
+
 
 # Posts that have been reported
 class ReportedComments(db.Model):

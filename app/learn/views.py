@@ -75,10 +75,6 @@ def learn_btc_selling():
         pass
 
 
-
-
-# BITCOIN CASH
-
 @learn.route('/learn/bch', methods=['GET'])
 def learn_bch():
     if request.method == 'GET':
@@ -133,8 +129,6 @@ def learn_bch_selling():
     if request.method == 'POST':
         pass
 
-
-# MONERO
 
 @learn.route('/learn/xmr', methods=['GET'])
 def learn_xmr():

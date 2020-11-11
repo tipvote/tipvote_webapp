@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class Business(db.Model):
     __tablename__ = 'business'
     __bind_key__ = 'avengers'

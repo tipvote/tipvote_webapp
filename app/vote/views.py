@@ -20,6 +20,7 @@ from app.classes.post import CommonsPost, PostUpvotes
 from app.classes.comment import Comments, CommentsUpvotes
 from app.classes.subforum import PrivateMembers, SubForums, Banned
 
+
 @vote.route('/downvotecomment/<int:commentid>', methods=['POST'])
 @login_required
 def downvote_comment(commentid):

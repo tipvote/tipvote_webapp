@@ -3,6 +3,7 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
 class Notifications(db.Model):
     __tablename__ = 'avengers_msg_notifications'
     __bind_key__ = 'avengers'
