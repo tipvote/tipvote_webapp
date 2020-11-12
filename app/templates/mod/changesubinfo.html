@@ -1,7 +1,9 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
     <div class="col-12 ">
-        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+        <a class="btn btn-dark text-white mb-3"
+           href="{{ url_for('subforum.sub',
+           subname=thesub.subcommon_name) }}">
             Back to {{ thesub.subcommon_name }}
         </a>
     </div>
@@ -10,14 +12,17 @@
         <div class="col-12 mx-auto text-center">
             <h3>Update subcommon Info</h3>
             <!-- Rules of subcommon -->
-            Update forum.  Please note the rules of discussions.  Any rule broken
+            Update forum.  Please note the rules of discussions.
+            Any rule broken
             will get the subcommon deleted.
         </div>
     </div>
 
     <div class="row second_color p-3">
         <div class="col-12 pt-1">
-            <form method="post" action="{{ url_for('mod.changesubinfo', subname=thesub.subcommon_name) }}">
+            <form method="post"
+                  action="{{ url_for('mod.changesubinfo',
+                   subname=thesub.subcommon_name) }}">
                 {{ subdescriptionform.csrf_token }}
 
                 <!-- Sub common description -->
@@ -26,14 +31,17 @@
                         <h4>Description</h4>
                     </label>
                     <div class="col-12 mb-1">
-                        Appears in search results and sidebars. Public is open to anyone.
-                        Private requires an invite by a mod.  Censored allows only the owner of the account or mods to post.
+                        Appears in search results and sidebars.
+                        Public is open to anyone.
+                        Private requires an invite by a mod.
+                        Censored allows only the owner of the
+                        account or mods to post.
                         This can be changed at any time.
                     </div>
                     <div class="col-12">
                         {{ render_field(subdescriptionform.subcommondescription,
                         autocomplete="off",rows='8',cols='10',
-                        class="form-control bg-dark text-white") }}
+                        class="form-control textboxcolors") }}
 
                         <span class="error">
                             {% if subdescriptionform.subcommondescription.errors %}
@@ -51,16 +59,16 @@
                         <h4>Type of Sub</h4>
                     </label>
                     <div class="col-12 ">
-                        Appears in search results and sidebars. Public is open to anyone.
-                        Private requires an invite by a mod.  Censored allows only the owner of the account or mods to post.
+                        Appears in search results and sidebars.
+                        Public is open to anyone.
+                        Private requires an invite by a mod.
+                        Censored allows only the owner of the account or mods
+                        to post.
                         This can be changed at any time.
                     </div>
                     <div class="col-12 ">
                         {{ render_field(subdescriptionform.typeofsub) }}
-                        <div id="form_error">
-                                <span class="error">
-                                </span>
-                        </div>
+
                     </div>
                 </div>
 
@@ -69,18 +77,22 @@
                     <label class="d-block  col-6 ">
                         <h4>Level Required to Post</h4>
                     </label>
-                    <div class="col-4 col-sm-6">Prevent spam on your forums by requiring the account to be a certain level.
-                        This can also negatively effect your sub as it prevents new people from posting.
+                    <div class="col-4 col-sm-6">
+                        Prevent spam on your
+                        forums by requiring the account to be a certain level.
+                        This can also negatively effect your sub as it
+                        prevents new people from posting.
                         <br><br>
                         0 = Level 0 ...anyone can post<br>
-                        1 = Level 1 ... Filters out people till they reach level 1
+                        1 = Level 1 ... Filters out people till they reach
+                        level 1
                          <br><br>
 
                     </div>
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.exprequiredtopost,
                     autocomplete="off",
-                    class="form-control bg-dark text-white") }}
+                    class="form-control textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.exprequiredtopost.errors %}
                         {% for error in subdescriptionform.exprequiredtopost.errors %}
@@ -96,7 +108,8 @@
                     <label class="d-block  col-6 ">
                         <h4>Allow Text Posts on your Sub</h4>
                     </label>
-                    <div class="col-4 col-sm-6">Text Posts are just text..no images or urls
+                    <div class="col-4 col-sm-6">Text Posts are just text..
+                        no images or urls
                     </div>
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.allowtextposts,
@@ -117,7 +130,8 @@
                     <label class="d-block  col-6 ">
                         <h4>Allow URL Posts on your Sub</h4>
                     </label>
-                    <div class="col-4 col-sm-6">URL Posts show an image and link.  They do not allow texts
+                    <div class="col-4 col-sm-6">URL Posts show an image and link.
+                        They do not allow texts
                     </div>
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.allowurlposts,
@@ -159,7 +173,8 @@
                     <label class="d-block  col-6 ">
                         <h4>Must be over 18 to view/post/join/comment</h4>
                     </label>
-                    <div class="col-4 col-sm-6">This is designated to allow for mature audiences.
+                    <div class="col-4 col-sm-6">This is designated to allow
+                        for mature audiences.
                         NSFW Subs must have this
                     </div>
                     <div class="col-12 col-sm-4">
@@ -178,7 +193,10 @@
 
                 <div class="col-12 text-center">
                     <div class="col-12" >
-                        {{ render_field(subdescriptionform.submit,  value="Submit", autocomplete="off", class="btn btn-dark w-100") }}
+                        {{ render_field(subdescriptionform.submit,
+                         value="Submit",
+                         autocomplete="off",
+                          class="btn btn-dark w-100") }}
                     </div>
                 </div>
             </form>

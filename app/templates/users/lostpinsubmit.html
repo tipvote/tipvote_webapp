@@ -16,21 +16,25 @@
                     <form method="post">
                         {{ form.csrf_token }}
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right ">New Pin</label>
+                            <label class="col-md-4 col-form-label text-md-right ">
+                                New Pin
+                            </label>
                             <div class="col-md-6">
                                 {{ render_field(form.pin,
                                  placeholder="Enter New 6 digit Pin",
-                                  class="form-control darkbgk") }}
+                                  class="form-control textboxcolors") }}
                             </div>
                         </div>
 
 
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right ">Confirm Pin</label>
+                            <label class="col-md-4 col-form-label text-md-right ">
+                                Confirm Pin
+                            </label>
                             <div class="col-md-6">
                                 {{ render_field(form.pintwo,
                                 placeholder="Confirm New 6 digit Pin",
-                                class="form-control darkbg") }}
+                                class="form-control textboxcolors") }}
 
                             </div>
                         </div>

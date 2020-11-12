@@ -3,7 +3,8 @@
 
 
     <form method="post"
-          action="{{ url_for('create.create_post_wall',userid=current_user.id) }}"
+          action="{{ url_for('create.create_post_wall',
+          userid=current_user.id) }}"
           enctype="multipart/form-data">
         {{ wall_post_form.csrf_token }}
 
@@ -11,7 +12,7 @@
         <div class="form-group col-12 mb-3 mt-0 ">
             {{ render_field(wall_post_form.post_title,
             autocomplete="off",
-            class="form-control darkbg ",
+            class="form-control textboxcolors ",
              placeholder="Title of post  ...") }}
         </div>
 
@@ -19,7 +20,7 @@
         <div class="form-group col-12 mb-3 mt-0 ">
             {{ render_field(wall_post_form.post_message,
             autocomplete="off",
-            class="form-control darkbg ",
+            class="form-control textboxcolors ",
              placeholder="Post some thoughts  ...") }}
         </div>
 
@@ -35,7 +36,8 @@
         <div class="form-group text-center col-12 mb-1 mt-0">
             <div class="row">
                 <div class="col-12" >
-                    {{ render_field(wall_post_form.submit,value="Post", class="btn btn-tipvote-up btn-block") }}
+                    {{ render_field(wall_post_form.submit,value="Post",
+                     class="btn btn-tipvote-up btn-block") }}
                 </div>
             </div>
         </div>

@@ -6,7 +6,9 @@
     <div class="container mt-3">
 
         <div class="col-12 ">
-            <a class="btn btn-dark text-white mb-3" href="{{ url_for('business.main', business_name=thebiz.business_name) }}">
+            <a class="btn btn-dark text-white mb-3"
+               href="{{ url_for('business.main',
+                business_name=thebiz.business_name) }}">
                 Back to my business page
             </a>
         </div>
@@ -18,7 +20,9 @@
             <div class="col-9">
                 {% include "flashbar.html" %}
                 <div class="row mb-2">
-                    <div class="col-12 text-center"><h5></h5></div>
+                    <div class="col-12 text-center">
+                        <h5></h5>
+                    </div>
                     <div class="col-12">
                         {% block content %}
                         {% endblock %}

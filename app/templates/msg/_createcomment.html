@@ -1,19 +1,22 @@
 
     <div class="col-12 text-center second_color">
         <form method="post"
-              action="{{ url_for('message.reply_message',msgid=themessage.id) }}">
+              action="{{ url_for('message.reply_message',
+              msgid=themessage.id) }}">
             {{ form.csrf_token }}
             <div class="form-group ">
                 Post a reply.
                 <div class="col-12 col-sm-6 offset-sm-3 ">
                     <!-- Post text -->
-                    {{ render_field(form.postmessage, class="bg-dark text-white w-100 form-control") }}
+                    {{ render_field(form.postmessage,
+                     class="textboxcolors w-100 form-control") }}
                 </div>
             </div>
             <!-- Submit Post -->
             <div class="col-12 text-center">
                 <div class="col-12" >
-                    {{ render_field(form.submit,value="Reply",autocomplete="off",class="btn btn-dark") }}
+                    {{ render_field(form.submit,value="Reply",
+                    autocomplete="off",class="btn btn-dark") }}
                 </div>
             </div>
         </form>

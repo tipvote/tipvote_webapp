@@ -1,6 +1,8 @@
 
     <div class="col-12 second_color border border-dark p-2 mb-2" >
-    <form method="post" action="{{ url_for('create.create_post_business_wall',businessid=thebiz.id) }}"
+    <form method="post"
+          action="{{ url_for('create.create_post_business_wall',
+                businessid=thebiz.id) }}"
           enctype="multipart/form-data">
         {{ business_post_form.csrf_token }}
 
@@ -25,7 +27,9 @@
         <div class="form-group text-center col-12 mb-1 mt-0">
             <div class="row">
                 <div class="col-12">
-                    {{ render_field(business_post_form.submit,value="Post", class="btn btn-tipvote-up btn-block") }}
+                    {{ render_field(business_post_form.submit,
+                    value="Post",
+                     class="btn btn-tipvote-up btn-block") }}
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <div class="col-12">
     <form method="post"
-          action="{{ url_for('edit.comment_edit_text', commentid=comment.id) }}">
+          action="{{ url_for('edit.comment_edit_text',
+           commentid=comment.id) }}">
         {{ editcommenttextform.csrf_token }}
         <div class="form-group ">
             <div class="col-12">
@@ -8,14 +9,17 @@
 
                 <div class="col-12 ">
                     <!-- Post text -->
-                    {{ render_field(editcommenttextform.postmessage, style="width: 100%") }}
+                    {{ render_field(editcommenttextform.postmessage,
+                    class="textboxcolors w-100") }}
                 </div>
             </div>
         </div>
         <div class="form-group ">
             <!-- Submit Post -->
             <div class="col-10 offset-1 text-left">
-                {{ render_field(editcommenttextform.submit,value="Edit",autocomplete="off",class="btn btn-dark text-white ") }}
+                {{ render_field(editcommenttextform.submit,
+                value="Edit",autocomplete="off",
+                class="btn btn-dark text-white ") }}
             </div>
         </div>
     </form>

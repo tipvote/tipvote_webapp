@@ -6,7 +6,7 @@
                 <div class="col-12 second_color border border-dark">
                     <div class="col-12 text-center">
                         <img class="text-center"
-                             src="{{ url_for('static', filename='images/logo.png')  }}">
+                             src="{{ url_for('static', filename='images/logo.png') }}">
                         <h4>Unlock Account</h4>
                     </div>
 
@@ -22,7 +22,7 @@
                                 {{ render_field(form.username,
                                 placeholder="Username",
                                 autocomplete="off",
-                                 class="form-control darkbg") }}
+                                 class="form-control textboxcolors") }}
                             </div>
                         </div>
 
@@ -34,7 +34,7 @@
                                 {{ render_field(form.email,
                                  placeholder="Email",
                                 autocomplete="off",
-                                 class="form-control darkbg") }}
+                                 class="form-control textboxcolors") }}
                             </div>
                         </div>
 
@@ -67,6 +67,5 @@
             </div>
         </div>
     </div>
-
 
 {% endblock %}

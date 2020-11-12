@@ -1,6 +1,4 @@
 {% if subpostcommentform %}
-
-
     <div class="col-12  p-0 m-0  pt-1" id="comment_post_form_{{ post.id }}">
         {% include 'common/js/post/quick_post.html' %}
         <form class="p-0 m-0" method="POST"
@@ -17,9 +15,12 @@
                                 style="width:50px;height: 50px"
                             >
                         {% else %}
-                            <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                            <a href="{{ url_for('profile.main',
+                             user_name=current_user.user_name) }}"
+                            >
                                 <img
-                                    alt="{{ url_for('static', filename='images/noprofile.png')  }}"
+                                    alt="{{ url_for('static',
+                                    filename='images/noprofile.png')  }}"
                                     class="img-responsive"
                                     src="{{ url_for('common.profile_image',
                                     filename=current_user.profileimage) }}"
@@ -30,9 +31,8 @@
                 </div>
                 <div class="col-1"></div>
                 <div class="col-9 p-0 m-0">
-
                     {{ render_field(subpostcommentform.postmessage,
-                    class="darkbg  form-control",
+                    class="darkbg form-control",
                     id="postmessage-{{ post.id }}") }}
                 </div>
             </div>

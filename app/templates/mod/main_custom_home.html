@@ -1,29 +1,36 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
     <div class="col-12 ">
-        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+        <a class="btn btn-dark text-white mb-3"
+           href="{{ url_for('subforum.sub',
+           subname=thesub.subcommon_name) }}">
             Back to {{ thesub.subcommon_name }}
         </a>
     </div>
 
-
-
     <div class="row second_color">
         <div class="col-12 mt-5">
-            <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ url_for('mod.customsub_bannerimage', subname=thesub.subcommon_name) }}">
+            <form method="post" class="form-horizontal"
+                  enctype="multipart/form-data"
+                  action="{{ url_for('mod.customsub_bannerimage',
+                  subname=thesub.subcommon_name) }}">
                 {{ subcustomform.csrf_token }}
                 <div class="form-group">
-                    <label class="col-12 "><b>Banner Image</b></label>
+                    <label class="col-12 ">
+                        <b>Banner Image</b>
+                    </label>
                     <div class="col-12 w-100">
                         {% if subcustom.banner_image == '' %}
                             No Banner
                         {% else %}
-                            <img src="{{ url_for('common.banner_image', filename=subcustom.banner_image) }}" >
+                            <img src="{{ url_for('common.banner_image',
+                             filename=subcustom.banner_image) }}" >
                         {% endif %}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-12 ">Upload a banner image.  The height of a banner is 200px.</label>
+                    <label class="col-12 ">Upload a banner image.
+                        The height of a banner is 200px.</label>
                     <div class="col-12 w-100">
                         {{ render_field(subcustomform.subbannerimage) }}
                     </div>
@@ -33,10 +40,15 @@
                     {% if subcustom.banner_image == '' %}
 
                     {% else %}
-                        {{ render_field(subcustomform.delete,value="Delete Banner Image",class='btn btn-danger') }}
+                        {{ render_field(subcustomform.delete,
+                        value="Delete Banner Image",
+                        class='btn btn-danger') }}
                     {% endif %}
 
-                    {{ render_field(subcustomform.submit,value="Update banner image",autocomplete="off",class="btn btn-dark btn-small ") }}
+                    {{ render_field(subcustomform.submit,
+                    value="Update banner image",
+                    autocomplete="off",
+                    class="btn btn-dark btn-small ") }}
                 </div>
             </form>
         </div>
@@ -45,16 +57,23 @@
 
     <div class="row second_color">
         <div class="col-12 mt-5">
-            <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ url_for('mod.customsub_thumbnail_image', subname=thesub.subcommon_name) }}">
+            <form method="post"
+                  class="form-horizontal"
+                  enctype="multipart/form-data"
+                  action="{{ url_for('mod.customsub_thumbnail_image',
+                   subname=thesub.subcommon_name) }}">
                 {{ subcustomform_thumbnail.csrf_token }}
                 <div class="form-group">
-                    <label class="col-12 "><b>Thumbnail Image of Room</b></label>
+                    <label class="col-12 ">
+                        <b>Thumbnail Image of Room</b>
+                    </label>
                     <div class="col-12 w-100">
                         {% if subcustom.mini_image == '' %}
                             No thumbnail
                         {% else %}
 
-                            <img src="{{ url_for('common.banner_image', filename=subcustom.mini_image) }}" >
+                            <img src="{{ url_for('common.banner_image',
+                             filename=subcustom.mini_image) }}" >
                         {% endif %}
                     </div>
                 </div>
@@ -69,10 +88,15 @@
                     {% if subcustom.mini_image == '' %}
 
                     {% else %}
-                        {{ render_field(subcustomform_thumbnail.delete,value="Delete Thumbnail Image",class='btn btn-danger') }}
+                        {{ render_field(subcustomform_thumbnail.delete,
+                        value="Delete Thumbnail Image",
+                        class='btn btn-danger') }}
                     {% endif %}
 
-                    {{ render_field(subcustomform_thumbnail.submit,value="Update Thumbnail image",autocomplete="off",class="btn btn-dark btn-small ") }}
+                    {{ render_field(subcustomform_thumbnail.submit,
+                    value="Update Thumbnail image",
+                    autocomplete="off",
+                    class="btn btn-dark btn-small ") }}
                 </div>
             </form>
         </div>

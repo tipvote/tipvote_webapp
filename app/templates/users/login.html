@@ -17,7 +17,7 @@
                             <div class="col-md-6">
                                 {{ render_field(form.user_name, placeholder="user name",
                                  autocomplete="off",
-                                  class="form-control darkbg") }}
+                                  class="form-control textboxcolors") }}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -27,7 +27,7 @@
                             <div class="col-md-6">
                                 {{ render_field(form.password_hash,
                                  placeholder="Password",
-                                 autocomplete="off", class="form-control darkbg ")  }}
+                                 autocomplete="off", class="form-control textboxcolors ")  }}
                             </div>
                         </div>
 
@@ -37,11 +37,13 @@
                             autocomplete="off",
                              class="btn btn-success ") }}
                         </div>
+
                         <div class="col-md-6 offset-md-4 text-center mt-5 mb-5">
                             <a href="{{ url_for('users.retrievepassword') }}">
                                 Lost your password?
                             </a>
                         </div>
+
                         <div class="col-md-6 offset-md-4 text-center mt-5 mb-5">
                             <a href="{{ url_for('users.register') }}">New User? Register here</a>
                         </div>

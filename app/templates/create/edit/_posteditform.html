@@ -1,44 +1,58 @@
 
 <div class="col-12 ">
-    <form method="post" enctype="multipart/form-data" action="{{ url_for('edit.post_edit_text',postid=post.id) }}">
+    <form method="post" enctype="multipart/form-data"
+          action="{{ url_for('edit.post_edit_text',postid=post.id) }}">
         {{ editposttextform.csrf_token }}
         <!-- Image -->
-    {% if post.shared_post == 0 %}
-        <div class="form-group ">
-            <div class="col-12">
-                <label><b>Upload New Image</b></label>
-                {{ render_field(editposttextform.image_one, class="form-inline",value=post.image_server_1) }}
-            </div>
-        </div>
-        {% if post.image_server_1 %}
-            <div class="form-group">
-                <label class="col-12 text-center"><b>Post Image</b></label>
-                <div class="col-12 text-center">
-
-                    <img
-                        class="img-responsive wallimage"
-                        src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
-                        style="max-width:500px;"
-                    >
+        {% if post.shared_post == 0 %}
+            <div class="form-group ">
+                <div class="col-12">
+                    <label><b>Upload New Image</b></label>
+                    {{ render_field(editposttextform.image_one,
+                 class="form-inline",value=post.image_server_1) }}
                 </div>
             </div>
-            <div class="form-group ">
-                {{ render_field(editposttextform.delete, value="Delete Image", class='btn btn-danger') }}
-            </div>
+            {% if post.image_server_1 %}
+                <div class="form-group">
+                    <label class="col-12 text-center"><b>Post Image</b></label>
+                    <div class="col-12 text-center">
 
-        {% else %}
-        {% endif %}
+                        <img
+                                class="img-responsive wallimage"
+                                src="{{ url_for('common.post_file',
+                        filename=post.image_server_1) }}"
+                                style="max-width:500px;"
+                        >
+                    </div>
+                </div>
+                <div class="form-group ">
+                    {{ render_field(editposttextform.delete,
+                 value="Delete Image",
+                  class='btn btn-danger') }}
+                </div>
+
+            {% else %}
+            {% endif %}
         {% endif %}
         <!-- Post text -->
         <div class="form-group">
 
-            {{ render_field(editposttextform.postmessage, rows=10, class="bg-dark text-white", style="min-width: 100%") }}
+            {{ render_field(editposttextform.postmessage,
+             rows=10,
+             class="bg-dark text-white",
+              style="min-width: 100%") }}
         </div>
         <!-- Submit Post -->
         <div class="form-group ">
-            {{ render_field(editposttextform.submit,value="Edit Post",autocomplete="off",class="btn btn-dark btn-block") }}
+            {{ render_field(editposttextform.submit,
+            value="Edit Post",
+            autocomplete="off",
+            class="btn btn-dark btn-block") }}
             <br>
-              {{ render_field(deleteposttextform.submit,  value="Delete Post", autocomplete="off", class="btn  btn-block btn-danger") }}
+            {{ render_field(deleteposttextform.submit,
+               value="Delete Post",
+                autocomplete="off",
+                 class="btn btn-block btn-danger") }}
         </div>
 
     </form>

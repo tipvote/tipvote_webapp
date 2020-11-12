@@ -2,45 +2,60 @@
 {% block content %}
     <div class="col-12 second_color">
 
-        <form method="post" action="{{ url_for('business_edit.acceptswhatcurrencyconfirm',
-         business_name=thebiz.business_name) }}">
-            {{ whatcurrencyform.csrf_token }}
+        <form method="post"
+              action="{{ url_for('business_edit.acceptswhatcurrencyconfirm',
+              business_name=thebiz.business_name) }}">
+              {{ whatcurrencyform.csrf_token }}
             <div class="form-group w-100">
 
                 <div class="col-12">
-                    <div class="text-center"><h3>{{ thebiz.business_name }}</h3></div>
-                    Help get your business seen in the crypto community by accepting crypto currencies.
-                    Select all the currencies below that your business would accept.  If your business
+                    <div class="text-center">
+                        <h3>{{ thebiz.business_name }}</h3>
+                    </div>
+                    Help get your business seen in the crypto community
+                    by accepting crypto currencies.
+                    Select all the currencies below that
+                    your business would accept.
+                    If your business
                     isnt accepting any, then leave them unchecked.
 
                 </div>
             </div>
             <div class="form-group w-100">
-                <label class="col-12 col-form-label"><b>Accepts Bitcoin?</b></label>
+                <label class="col-12 col-form-label">
+                    <b>Accepts Bitcoin?</b>
+                </label>
                 <div class="col-6">
-                    {{ render_field(whatcurrencyform.accepts_btc,autocomplete="off",
-                    class="form-control bg-dark text-white w-100") }}
+                    {{ render_field(whatcurrencyform.accepts_btc,
+                    autocomplete="off",
+                    class="form-control textboxcolors w-100") }}
                 </div>
             </div>
             <div class="form-group w-100">
-                <label class="col-12 col-form-label"><b>Accept Bitcoin Cash?</b></label>
+                <label class="col-12 col-form-label">
+                    <b>Accept Bitcoin Cash?</b>
+                </label>
                 <div class="col-6">
-                    {{ render_field(whatcurrencyform.accepts_bch,autocomplete="off",
-                    class="form-control bg-dark text-white w-100") }}
+                    {{ render_field(whatcurrencyform.accepts_bch,
+                    autocomplete="off",
+                    class="form-control textboxcolors w-100") }}
                 </div>
             </div>
             <div class="form-group w-100">
-                <label class="col-12 col-form-label"><b>Accept Monero?</b></label>
+                <label class="col-12 col-form-label">
+                    <b>Accept Monero?</b></label>
                 <div class="col-6">
-                    {{ render_field(whatcurrencyform.accepts_xmr,autocomplete="off",
-                    class="form-control bg-dark text-white w-100") }}
+                    {{ render_field(whatcurrencyform.accepts_xmr,
+                    autocomplete="off",
+                    class="form-control textboxcolors w-100") }}
                 </div>
             </div>
             <hr>
             <div class="col-12 text-center">
-                {{ render_field(whatcurrencyform.submit,  value="Submit",
-                autocomplete="off",
-                 class="btn btn-dark ") }}
+                {{ render_field(whatcurrencyform.submit,
+                  value="Submit",
+                  autocomplete="off",
+                  class="btn btn-dark ") }}
             </div>
         </form>
 

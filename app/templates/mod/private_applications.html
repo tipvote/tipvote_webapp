@@ -1,7 +1,9 @@
 {% extends "layout/layout_plain.html" %}
 {% block content %}
     <div class="col-12 ">
-        <a class="btn btn-dark text-white mb-3" href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
+        <a class="btn btn-dark text-white mb-3"
+           href="{{ url_for('subforum.sub',
+            subname=thesub.subcommon_name) }}">
             Back to {{ thesub.subcommon_name }}
         </a>
     </div>
@@ -9,19 +11,31 @@
     <div class="row">
         <div class="col-12 col-md-12 col-lg-6">
             <div class="row mb-3 second_color">
-                <div class="col-12">Add Specific User as Submember</div>
                 <div class="col-12">
-                    <form method="post" action="{{ url_for('mod.acceptpersontoprivatespecific', subname=thesub.subcommon_name) }}">
+                    Add Specific User as Submember
+                </div>
+                <div class="col-12">
+                    <form method="post"
+                          action="{{ url_for('mod.acceptpersontoprivatespecific',
+                           subname=thesub.subcommon_name) }}">
                         {{ acceptspecificuserform.csrf_token }}
                         <div class="form-group row">
-                            <label  class="col-md-4 col-form-label text-md-right">user_name</label>
+                            <label  class="col-md-4 col-form-label text-md-right">
+                                user_name
+                            </label>
                             <div class="col-md-6">
-                                {{ render_field(acceptspecificuserform.user_name, placeholder="user_name", autocomplete="off", class="form-control bg-dark text-white") }}
+                                {{ render_field(acceptspecificuserform.user_name,
+                                 placeholder="user_name",
+                                  autocomplete="off",
+                                 class="form-control bg-dark text-white") }}
                             </div>
                         </div>
                         <hr>
                         <div class="col-md-6 offset-md-4">
-                            {{ render_field(acceptspecificuserform.submit,  value="Submit", autocomplete="off", class="btn btn-success ") }}
+                            {{ render_field(acceptspecificuserform.submit,
+                             value="Submit",
+                             autocomplete="off",
+                              class="btn btn-success ") }}
 
                         </div>
                     </form>
@@ -31,21 +45,28 @@
         <div class="col-lg-1"></div>
         <div class="col-12 col-md-12 col-lg-5">
             <div class="row second_color">
-                <div class="col-12">Current List of Applications</div>
+                <div class="col-12">
+                    Current List of Applications
+                </div>
                 <div class="col-12">
 
                     {% for app in applications %}
-                        <form method="post" action="{{ url_for('mod.acceptpersontoprivate',
-                                                                 subname=thesub.subcommon_name,
-                                                                 user_id=app.user_id) }}">
+                        <form method="post"
+                              action="{{ url_for('mod.acceptpersontoprivate',
+                                                        subname=thesub.subcommon_name,
+                                                    user_id=app.user_id) }}">
                             {{ acceptuserform.csrf_token }}
-                            <a href="{{ url_for('profile.main',user_name=app.user_name) }}">
+                            <a href="{{ url_for('profile.main',
+                            user_name=app.user_name) }}">
                                 {{ app.user_name }}
                             </a>
                             <br>
                             <br>
                             {{ app.message_clean }}<br>
-                            {{ render_field(acceptuserform.submit,  value="Allow", autocomplete="off", class="btn btn-success ") }}
+                            {{ render_field(acceptuserform.submit,
+                              value="Allow",
+                              autocomplete="off",
+                               class="btn btn-success ") }}
                             <hr>
 
                         </form>

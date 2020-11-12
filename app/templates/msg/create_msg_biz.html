@@ -5,24 +5,33 @@
 
         <div class="col-12 text-center"><h5>Create Message</h5></div>
 
-        <form method="post" action="{{ url_for('message.create_message_business', bizid=the_biz.id) }}">
+        <form method="post" action="{{ url_for('message.create_message_business',
+         bizid=the_biz.id) }}">
             {{ form.csrf_token }}
             <div class="form-group row">
-                <label  class="col-md-4 col-form-label text-md-right">Business</label>
+                <label  class="col-md-4 col-form-label text-md-right">
+                    Business
+                </label>
                 <div class="col-6 pt-2">
                     <h5>{{  the_biz.business_name }}</h5>
                     {% if the_biz.profileimage  == '' %}
-                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="150px">
+                        <img src="{{ url_for('static',
+                         filename='images/noprofile.png')  }}" width="150px">
                     {% else %}
-                        <img class="img-responsive " src="{{ url_for('common.business_image',filename=the_biz.profileimage) }}"
+                        <img class="img-responsive "
+                             src="{{ url_for('common.business_image',
+                             filename=the_biz.profileimage) }}"
                              width="150px">
                     {% endif %}
                 </div>
             </div>
             <div class="form-group row">
-                <label  class="col-md-4 col-form-label text-md-right">Message</label>
+                <label  class="col-md-4 col-form-label text-md-right">
+                    Message
+                </label>
                 <div class="col-md-8 w-100">
-                    {{ render_field( form.postmessage,  class="form-control bg-dark text-white") }}
+                    {{ render_field( form.postmessage,
+                     class="form-control textboxcolors") }}
                 </div>
             </div>
             <hr>
@@ -31,7 +40,7 @@
                 {{ render_field(form.submit,
                  value="Send",
                  autocomplete="off",
-                 class="btn btn-dark ") }}
+                 class="btn btn-dark") }}
                 <br>
                 <br>
             </div>

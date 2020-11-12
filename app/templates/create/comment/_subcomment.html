@@ -1,6 +1,10 @@
 <div class="col-12">
     <form method="post"
-          action="{{ url_for('create.createcomment',subname=subname,postid=post.id, parentid=comment.id) }}">
+          action="{{ url_for('create.createcomment',
+                  subname=subname,
+                  postid=post.id,
+                  parentid=comment.id) }}">
+
         {{ form.csrf_token }}
         <div class="form-group ">
             <div class="col-12">
@@ -15,15 +19,19 @@
                         </span>
                 </div>
                 <div class="col-12 " >
-
-                    {{ render_field(form.postmessage, class="darkbg ", style="width: 250px; height: 75px") }}
+                    {{ render_field(form.postmessage,
+                     class="textboxcolors",
+                     style="width: 250px; height: 75px") }}
                 </div>
             </div>
         </div>
         <div class="form-group ">
             <!-- Submit Post -->
             <div class="col-10 offset-1 text-left">
-                {{ render_field(form.submit,value="Submit",autocomplete="off",class="btn btn-dark  ") }}
+                {{ render_field(form.submit,
+                value="Submit",
+                autocomplete="off",
+                class="btn btn-dark") }}
             </div>
         </div>
     </form>

@@ -2,7 +2,8 @@
 {% block content %}
     <div class="col-12 second_color">
 
-        <form method="post" action="{{ url_for('users.deleteallcommentsconfirm') }}">
+        <form method="post"
+              action="{{ url_for('users.deleteallcommentsconfirm') }}">
             {{ deleteform.csrf_token }}
             <div class="form-group w-100">
 
@@ -11,7 +12,8 @@
                         <h3>
                         {{ current_user.user_name }}
                     </h3>
-                    By clicking confirm, all your comment texts will be replaced with "deleted"
+                    By clicking confirm, all your comment texts will be
+                        replaced with "deleted"
                         </div>
                 </div>
             </div>
