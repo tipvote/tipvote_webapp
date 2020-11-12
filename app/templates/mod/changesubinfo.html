@@ -41,7 +41,7 @@
                     <div class="col-12">
                         {{ render_field(subdescriptionform.subcommondescription,
                         autocomplete="off",rows='8',cols='10',
-                        class="form-control textboxcolors") }}
+                        class="textboxcolors") }}
 
                         <span class="error">
                             {% if subdescriptionform.subcommondescription.errors %}
@@ -92,7 +92,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.exprequiredtopost,
                     autocomplete="off",
-                    class="form-control textboxcolors") }}
+                    class="textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.exprequiredtopost.errors %}
                         {% for error in subdescriptionform.exprequiredtopost.errors %}
@@ -114,7 +114,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.allowtextposts,
                     autocomplete="off",
-                    class="form-control") }}
+                    class="textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.allowtextposts.errors %}
                         {% for error in subdescriptionform.allowtextposts.errors %}
@@ -136,7 +136,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.allowurlposts,
                     autocomplete="off",
-                    class="form-control") }}
+                    class="textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.allowurlposts.errors %}
                         {% for error in subdescriptionform.allowurlposts.errors %}
@@ -157,7 +157,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.allowimageposts,
                     autocomplete="off",
-                    class="form-control") }}
+                    class="textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.allowimageposts.errors %}
                         {% for error in subdescriptionform.allowimageposts.errors %}
@@ -180,7 +180,7 @@
                     <div class="col-12 col-sm-4">
                         {{ render_field(subdescriptionform.age,
                     autocomplete="off",
-                    class="form-control") }}
+                    class="textboxcolors") }}
                         <span class="error">
                     {% if subdescriptionform.age.errors %}
                         {% for error in subdescriptionform.age.errors %}

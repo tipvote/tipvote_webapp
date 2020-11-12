@@ -43,30 +43,7 @@
                     color: white;
                     border: none;
                 }
-                .btn-modal-tipvote {
-                    box-shadow:inset 0px 1px 0px 0px #09468f;
-                    background:linear-gradient(to bottom, #083462 5%, #083462 100%);
-                    background-color:#083462;
-                    border-radius:6px;
-                    border:1px solid #083462;
-                    display:inline-block;
-                    cursor:pointer;
-                    color:#ffffff;
-                    font-family:Arial;
-                    font-size:15px;
-                    font-weight:bold;
-                    padding:6px 24px;
-                    text-decoration:none;
-                    text-shadow:0px 1px 0px #09478a;
-                }
-                .btn-modal-tipvote:hover {
-                    background:linear-gradient(to bottom, #083462 5%, #29629f 100%);
-                    background-color: #002a96;
-                }
-                .btn-modal-tipvote:active {
-                    position:relative;
-                    top:1px;
-                }
+
 
             </style>
             <div class="modal fade" id="WriteModal_{{ post.id }}" tabindex="-1"
@@ -93,7 +70,7 @@
 
                         <div class="modal-footer">
                             <button
-                                    class="btn-modal-tipvote"
+                                    class="btn btn-success"
                                     id="click-btn-post-comment-{{ post.id }}"
                                     value="submit"
                                     type="button"

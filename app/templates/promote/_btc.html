@@ -13,13 +13,13 @@
             {{ form_btc.csrf_token }}
             <div class="form-group row mt-5">
                 <label  class="col-4 col-form-label text-md-right">Amount in BTC:</label>
-                <div class="col-8">
-                    {{ render_field(form_btc.custom_amount, class="darkbg  ") }} BTC
+                <div class="col-4">
+                    {{ render_field(form_btc.custom_amount, class="textboxcolors") }} BTC
                 </div>
             </div>
             <div class="form-group row">
                 <label  class="col-4 col-form-label text-md-right"></label>
-                <div class="col-8">
+                <div class="col-4">
                     {{ render_field(form_btc.submit,  value="Send Coin", autocomplete="off", class="btn btn-warning ") }}
                 </div>
             </div>

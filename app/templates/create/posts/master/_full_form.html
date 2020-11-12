@@ -40,7 +40,7 @@
                 data-target="#exampleModal">
             <div id="header">
                 <div id="column1">
-                    <input class="form-control w-100 darkbg "
+                    <input class="textboxcolors"
                                          type="text"
                            placeholder="Post text ...">
                 </div>
@@ -74,21 +74,21 @@
                         <b>Post Title: </b>
                         {{ render_field(mainpostform.post_title,
                         autocomplete="off",
-                        class="form-control textboxcolors ",
+                        class=" textboxcolors ",
                         placeholder="Post title ...") }}
                     </div>
                     <!-- Post Message -->
                     <div class="col-12 mb-3 mt-0 ">
                         <b>Post Text or URL: </b>
                         {{ render_field(mainpostform.post_message,
-                        autocomplete="off",class="form-control textboxcolors ",
+                        autocomplete="off",class=" textboxcolors",
                         placeholder="Post text ...") }}
                     </div>
                     <!--Select Room -->
                     <div class=" col-6 mb-3 mt-0 ">
                         <b>Select a room: </b>
                         {{ render_field(mainpostform.roomname,
-                        class="form-control textboxcolors ") }}
+                        class=" textboxcolors") }}
                     </div>
 
                     <!--Image -->

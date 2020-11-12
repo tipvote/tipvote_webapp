@@ -17,13 +17,13 @@
             {{ form_bch.csrf_token }}
             <div class="form-group row mt-5">
                 <label  class="col-4 col-form-label text-md-right">Amount in BCH:</label>
-                <div class="col-8">
-                    {{ render_field(form_bch.custom_amount, class="darkbg  ") }} BCH
+                <div class="col-4">
+                    {{ render_field(form_bch.custom_amount, class="textboxcolors") }} BCH
                 </div>
             </div>
             <div class="form-group row">
                 <label  class="col-4 col-form-label text-md-right"></label>
-                <div class="col-8">
+                <div class="col-4">
                     {{ render_field(form_bch.submit,  value="Send Coin", autocomplete="off", class="btn btn-success ") }}
                 </div>
             </div>

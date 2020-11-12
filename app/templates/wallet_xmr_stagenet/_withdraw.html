@@ -1,5 +1,5 @@
 
-<div class="col-12 headercolor mt-2 pb-1 pt-1">
+<div class="col-12 mt-2 pb-1 pt-1">
     <div class="col-12 text-left mt-3">
         <b>Withdraw Funds</b>
     </div>
@@ -14,20 +14,20 @@
             <div class="form-group row">
                 <label for="email_address" class="col-md-4 col-form-label text-md-right">XMR Address</label>
                 <div class="col-md-6">
-                    {{ render_field(form.sendto,autocomplete="off", class="form-control bg-dark text-white") }}
+                    {{ render_field(form.sendto,autocomplete="off", class="textboxcolors") }}
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="password" class="col-md-4 col-form-label text-md-right">Amount</label>
                 <div class="col-8 col-md-4">
-                    {{ render_field(form.amount, autocomplete="off", class="form-control bg-dark text-white")  }}
+                    {{ render_field(form.amount, autocomplete="off", class="textboxcolors")  }}
                 </div>
             </div>
             <div class="form-group row">
                 <label  class="col-md-4 col-form-label text-md-right">Pin</label>
                 <div class="col-8 col-md-3">
-                    {{ render_field(form.pin,  autocomplete="off", class="form-control bg-dark text-white")  }}
+                    {{ render_field(form.pin,  autocomplete="off", class="textboxcolors")  }}
                 </div>
             </div>
 

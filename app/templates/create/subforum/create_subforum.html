@@ -56,7 +56,7 @@
                 <div class="col-12 ">
                     {{ render_field(form.subcommonname,
                     autocomplete="off",
-                    class="form-control textboxcolors") }}
+                    class="textboxcolors") }}
                     <span class="error">
                         {% if form.subcommonname.errors %}
                             {% for error in form.subcommonname.errors %}
@@ -84,7 +84,7 @@
                 <div class="col-12">
                     {{ render_field(form.subcommondescription,
                         autocomplete="off",style="width: 100%",
-                        class="form-control textboxcolors ") }}
+                        class="textboxcolors") }}
 
                     <span class="error">
                             {% if form.subcommondescription.errors %}

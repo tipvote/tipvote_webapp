@@ -37,7 +37,7 @@
                 data-toggle="modal" data-target="#exampleModal">
             <div id="header">
                 <div id="column1">
-                    <input class="form-control w-100 darkbg "
+                    <input class="textboxcolors"
                                          type="text"
                            placeholder="Post text ...">
                 </div>
@@ -72,7 +72,7 @@
                         <b>Post Title: </b>
                         {{ render_field(mainpostform.post_title,
                         autocomplete="off",
-                        class="form-control textboxcolors ",
+                        class="textboxcolors",
                         placeholder="Post title ") }}
                     </div>
 
@@ -81,7 +81,7 @@
                         <b>Post Text or URL: </b>
                         {{ render_field(mainpostform.post_message,
                         autocomplete="off",
-                        class="form-control textboxcolors ",
+                        class="textboxcolors",
                         placeholder="Post something ...") }}
                     </div>
 
