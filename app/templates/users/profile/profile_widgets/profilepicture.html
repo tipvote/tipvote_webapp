@@ -3,7 +3,7 @@
     <div class="col-12 p-4 text-center">
 
         {% if theuser.profileimage  == '' %}
-            <img src="{{ url_for('static', filename='images/noprofile.png')  }}" width="150px">
+
         {% else %}
             <img class="img-responsive " src="{{ url_for('common.profile_image',filename=theuser.profileimage) }}"
                  width="150px">

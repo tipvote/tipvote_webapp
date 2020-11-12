@@ -1,6 +1,6 @@
 <div class="col-12 mb-3 second_color  ">
     <div class="row pt-2 pb-2">
-        <div class="col-9 col-md-10 col-xl-10">
+        <div class="col-8 col-md-9 ">
             {% if navlink == 1 %}
                 <a class="btn btn-success " style="" role="button" href="{{ url_for('subforum.sub', subname=subname) }}">Popular</a>
             {% else %}
@@ -14,14 +14,20 @@
             {% endif %}
         </div>
 
-       <div class="col-3 col-md-2 col-xl-2 justify-content-end">
+        <div class="col-4 col-md-3 justify-content-end">
             <div class="row justify-content-end pr-2">
-                <div class="col-6 text-center">
+                <div class="col-4 text-center">
+                    <a class="" href="{{ url_for('users.quickchangetheme', choice=1) }}">
+                        <i class=" fas fa-adjust fa-2x" style="color: #808183"></i> <br>
+                    </a>
+                </div>
+
+                <div class="col-4 text-center">
                     <a class="" href="{{ url_for('users.changestyle', choice=1) }}">
                         <i class=" fab fa-reddit fa-2x" style="color: #808183"></i> <br>
                     </a>
                 </div>
-                <div class="col-6 text-center">
+                <div class="col-4 text-center">
                     <a class="" href="{{ url_for('users.changestyle', choice=2) }}">
                         <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>  <br>
                     </a>

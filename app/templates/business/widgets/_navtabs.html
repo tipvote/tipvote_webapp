@@ -5,7 +5,7 @@
                 {{ thebiz.business_name }}'s wall
             </a>
         {% else %}
-            <a class="nav-link"  href="{{ url_for('business.main', business_name = thebiz.business_name) }}">
+            <a class="nav-link bg-dark text-white"  href="{{ url_for('business.main', business_name = thebiz.business_name) }}">
            {{ thebiz.business_name }}'s wall
             </a>
         {% endif %}
@@ -16,7 +16,7 @@
                Other TipVoters
             </a>
         {% else %}
-            <a class="nav-link" href="{{ url_for('business.main_post_to_another_wall', business_name = thebiz.business_name) }}">
+            <a class="nav-link bg-dark text-white" href="{{ url_for('business.main_post_to_another_wall', business_name = thebiz.business_name) }}">
                  Other TipVoters
             </a>
         {% endif %}

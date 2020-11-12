@@ -1,5 +1,5 @@
-<div class=" second_color  border-bottom border-dark " >
-    <div class="col-12 text-white text-center " >
+<div class=" second_color " >
+    <div class="col-12  text-center " >
         {% if theuser == current_user %}
             <a href="{{ url_for('photos.bannerpicture') }}">
                 Upload a Banner
@@ -12,9 +12,9 @@
             {% if current_user.is_authenticated %}
                 {% if theuser == current_user %}
                 {% elif not current_user.is_following(theuser) %}
-                    <p><a class="btn btn-tipvote-up" href="{{ url_for('profile.follow', user_name=theuser.user_name) }}">Follow</a></p>
+                    <p><a class="btn btn-success" href="{{ url_for('profile.follow', user_name=theuser.user_name) }}">Follow</a></p>
                 {% else %}
-                    <p><a class="btn btn-tipvote-down text-white"
+                    <p><a class="btn btn-danger"
                           href="{{ url_for('profile.unfollow', user_name=theuser.user_name) }}">
                         Unfollow</a>
                     </p>

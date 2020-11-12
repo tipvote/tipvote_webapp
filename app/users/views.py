@@ -1039,7 +1039,34 @@ def changetheme():
             db.session.add(theuser)
             db.session.commit()
 
-        return redirect(url_for('users.account'))
+        return redirect((request.args.get('next', request.referrer)))
+
+avengers_wallet_monero
+@users.route('/theme/colors', methods=['GET'])
+@login_required
+def quickchangetheme():
+
+    if request.method == 'GET':
+
+        theuser = db.session.query(User).filter(current_user.id == User.id).first()
+
+        if theuser.color_theme == 4:
+            theuser.color_theme = 1
+        elif theuser.color_theme == 1:
+            theuser.color_theme = 4
+        else:
+            theuser.color_theme = 4
+
+        db.session.add(theuser)
+        db.session.commit()
+
+        return redirect((request.args.get('next', request.referrer)))
+
+    elif request.method == 'POST':
+        pass
+
+    else:
+        pass
 
 
 @users.route('/style/<int:choice>', methods=['GET'])

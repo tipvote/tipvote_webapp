@@ -241,6 +241,23 @@
                                             Account
                                         </div>
                                     </a>
+
+
+                                    {% if current_user.color_theme == 1 %}
+                                    <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('users.quickchangetheme') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee  ">
+                                            Light Mode
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('users.quickchangetheme') }}">
+                                        <div class="col-12 pt-2 pb-2 btn-ee  ">
+                                            Dark Mode
+                                        </div>
+                                    </a>
+                                    {% endif %}
+
+
                                     <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('users.changestyle', choice=1) }}">
                                         <div class="col-12 pt-2 pb-2 btn-ee  ">
                                             Reddit Theme
