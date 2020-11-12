@@ -3,7 +3,8 @@ from passwords import \
     mailuser, \
     mailpass, \
     secretkey, \
-    wtfkey
+    wtfkey, \
+    modulekey
 
 
 # LIVE CONNECTION

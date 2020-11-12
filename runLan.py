@@ -4,8 +4,8 @@ from app import app
 
 PORT = 5000
 HOST = '0.0.0.0'
-use_reloader = True
-DEBUG = True
+use_reloader = False
+DEBUG = False
 
 app.run(debug=DEBUG,
         host=HOST,

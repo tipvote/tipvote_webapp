@@ -51,7 +51,8 @@ from app.classes.subforum import \
     PrivateApplications, \
     SubForumCustom, \
     SubForumCustomInfoOne, \
-    SubForumStats
+    SubForumStats, \
+    Subscribed
 from app.classes.bch import BchPrices
 from app.classes.btc import BtcPrices
 from app.classes.monero import MoneroPrices

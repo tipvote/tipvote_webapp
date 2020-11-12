@@ -49,7 +49,8 @@ from app.classes.subforum import \
     PrivateMembers, \
     SubForumCustom, \
     Banned, \
-    Muted
+    Muted, \
+    Subscribed
 from app.classes.comment import Comments
 from app.classes.post import CommonsPost
 from app.classes.user import \
