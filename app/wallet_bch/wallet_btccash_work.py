@@ -16,6 +16,7 @@ from app.classes.bch import \
     BchWalletFee
 from app.classes.user import User
 
+
 def bch_wallet_status(user_id):
     """
     This function checks status opf the wallet

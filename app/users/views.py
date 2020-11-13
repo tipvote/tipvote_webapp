@@ -338,7 +338,6 @@ def register():
                 except:
                     pass
 
-
                 login_user(newuser)
                 current_user.is_authenticated()
                 current_user.is_active()
@@ -1041,7 +1040,7 @@ def changetheme():
 
         return redirect((request.args.get('next', request.referrer)))
 
-avengers_wallet_monero
+
 @users.route('/theme/colors', methods=['GET'])
 @login_required
 def quickchangetheme():
