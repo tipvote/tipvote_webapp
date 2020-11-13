@@ -38,55 +38,32 @@ We don't require any info except an email address.  Takes a few seconds to sign 
 
 ## Installation
 
-####Via docker
+###Via docker
 
-Create the Docker image docker build --tag tipvote:1.0 .
-
-Deploy the server docker run --publish 5000:5000 -d --name tip tipvote:1.0
-
-Stop the server docker rm --force tip
-####Manual Installation
-
+pull from git
 ```
-sudo apt-get update 
-
 git pull https://github.com/tipvote/tipvote_webapp.git
-
-sudo pip3 install virtualenv
-source virtualenv venv -p python3
-pip3 install -r requirements.txt
-
-```
-Set up a postgres database locally
-```
-sudo apt-get install postgresql postgresql-contrib
-```
-Next create a database named avengers with several schemas
-```
-database name =  avengers
-schemas = avengers_admin, avengers_coins, avengers_comments, 
-avengers_main, avengers_msg, avengers_post, avengers_promotion, avengers_subforum,
-avengers_tips, avengers_user, avengers_user_business, avengers_wallet_bch,
-avengers_wallet_bch_test, avengers_wallet_btc, avengers_wallet_btc_test,
-avengers_wallet_monero,avengers_wallet_monero_stagenet, avengers_wallet_monero_testnet
-```
-Comment out the live connection to config file to point to a local connection
-
-run the app (may need to run twice to create mappers)
-```
-python3 runLan.py
 ```
 
-Please note:
-Other micro apps such as wallets are not needed for running locally.
-Images are attached through a nfs mount.  You can create your own mount point
-and change this in the config.py file.
-
+Create the Docker image
 ```
-UPLOADED_FILES_DEST = '/nfs'
+ docker build --tag tipvote:1.0 .
 ```
 
+Deploy the server 
+```
+docker run --publish 5000:5000 -d --name tip tipvote:1.0
+```
 
+Stop the server 
+```
+docker rm --force tip
+```
+
+then visit your browser and the address is 
+```
+localhost:5000
+```
 
 
 ## Contributing
