@@ -38,7 +38,7 @@ We don't require any info except an email address.  Takes a few seconds to sign 
 
 ## Installation
 
-###Via docker
+Via docker
 
 pull from git
 ```
