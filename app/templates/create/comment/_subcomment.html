@@ -20,18 +20,17 @@
                 </div>
                 <div class="col-12 " >
                     {{ render_field(form.postmessage,
-                     class="textboxcolors",
-                     style="width: 250px; height: 75px") }}
+                     class="textboxcolors") }}
                 </div>
             </div>
         </div>
         <div class="form-group ">
             <!-- Submit Post -->
-            <div class="col-10 offset-1 text-left">
+            <div class="col-12 text-right">
                 {{ render_field(form.submit,
                 value="Submit",
                 autocomplete="off",
-                class="btn btn-dark") }}
+                class="btn btn-success") }}
             </div>
         </div>
     </form>
