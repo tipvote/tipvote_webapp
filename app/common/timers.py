@@ -4,8 +4,10 @@ from datetime import timedelta
 from string import Template
 from app.classes.user import UserTimers
 
+
 class DeltaTemplate(Template):
     delimiter = "%"
+
 
 def strfdelta(tdelta, fmt):
     d = {"D": tdelta.days}

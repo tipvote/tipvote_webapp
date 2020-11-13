@@ -23,11 +23,13 @@ from config import \
     WTF_CSRF_TIME_LIMIT, WTF_CSRF_SECRET_KEY
 
 from flask_mistune import Mistune
-
+import threading
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_url_path='',
             static_folder="static",
             template_folder="templates")
+
 
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
@@ -161,34 +163,34 @@ from .wallet_bch import wallet_bch as wallet_bch_blueprint
 from app.classes.module import Module, ModuleException
 
 modules = [
-    Module(profile_blueprint,'/u','profile'),
-    Module(business_blueprint,'/b','business'),
-    Module(subforum_blueprint,'/a','subforum'),
-    Module(main_blueprint,'/main','main'),
-    Module(frontpage_blueprint,'/rooms','frontpage'),
-    Module(followers_blueprint,'/following','followers'),
-    Module(users_blueprint,'/user','user'),
-    Module(admin_blueprint,'/admin','admin'),
-    Module(common_blueprint,'/common','common'),
-    Module(tip_blueprint,'/tip','tip'),
-    Module(coins_blueprint,'/coins','coins'),
-    Module(vote_blueprint,'/vote','vote'),
-    Module(promote_blueprint,'/promote','promote'),
-    Module(mod_blueprint,'/mod','mod'),
-    Module(message_blueprint,'/message','message'),
-    Module(legal_blueprint,'/legal','legal'),
-    Module(ads_blueprint,'/ads','ads'),
-    Module(create_blueprint,'/create','create'),
-    Module(learn_blueprint,'/learn','learn'),
-    Module(edit_blueprint,'/edit','edit'),
-    Module(business_edit_blueprint,'/businessedit','business_edit'),
-    Module(photos_blueprint,'/photos','photos'),
-    Module(profileedit_blueprint,'/profileedit','profileedit'),
-    Module(wallet_xmr_blueprint,'/xmr','wallet_xmr'),
-    Module(wallet_xmr_stagenet_blueprint,'/xmrstagenet','wallet_xmr_stagenet'),
-    Module(wallet_btc_blueprint,'/btc','wallet_btc'),
-    Module(wallet_btc_test_blueprint,'/btctest','wallet_btc_test'),
-    Module(wallet_bch_blueprint,'/bch','wallet_bch')
+    Module(profile_blueprint, '/u', 'profile'),
+    Module(business_blueprint, '/b', 'business'),
+    Module(subforum_blueprint, '/a', 'subforum'),
+    Module(main_blueprint, '/main', 'main'),
+    Module(frontpage_blueprint, '/rooms', 'frontpage'),
+    Module(followers_blueprint, '/following', 'followers'),
+    Module(users_blueprint, '/user', 'user'),
+    Module(admin_blueprint, '/admin', 'admin'),
+    Module(common_blueprint, '/common', 'common'),
+    Module(tip_blueprint, '/tip', 'tip'),
+    Module(coins_blueprint, '/coins', 'coins'),
+    Module(vote_blueprint, '/vote', 'vote'),
+    Module(promote_blueprint, '/promote', 'promote'),
+    Module(mod_blueprint, '/mod', 'mod'),
+    Module(message_blueprint, '/message', 'message'),
+    Module(legal_blueprint, '/legal', 'legal'),
+    Module(ads_blueprint, '/ads', 'ads'),
+    Module(create_blueprint, '/create', 'create'),
+    Module(learn_blueprint, '/learn', 'learn'),
+    Module(edit_blueprint, '/edit', 'edit'),
+    Module(business_edit_blueprint, '/businessedit', 'business_edit'),
+    Module(photos_blueprint, '/photos', 'photos'),
+    Module(profileedit_blueprint, '/profileedit', 'profileedit'),
+    Module(wallet_xmr_blueprint, '/xmr', 'wallet_xmr'),
+    Module(wallet_xmr_stagenet_blueprint, '/xmrstagenet', 'wallet_xmr_stagenet'),
+    Module(wallet_btc_blueprint, '/btc', 'wallet_btc'),
+    Module(wallet_btc_test_blueprint, '/btctest', 'wallet_btc_test'),
+    Module(wallet_bch_blueprint, '/bch', 'wallet_bch')
 ]
 
 # Register all modules
@@ -196,9 +198,9 @@ for m in modules:
     app.register_blueprint(m.blueprint,url_prefix=m.url_prefix)
     m.blueprint._got_registered_once = False
 
-import threading
-from werkzeug.security import generate_password_hash, check_password_hash
+
 module_password = ''
+
 
 # Rerolls module key every 50 seconds
 def reroll_module_key():
@@ -211,37 +213,45 @@ def reroll_module_key():
         module_password = generate_password_hash(randno)
         time.sleep(60*60)
 
+
 new_pass = threading.Thread(target=reroll_module_key, args=())
 new_pass.start()
 
 # Takeoff blueprint
 # https://github.com/pallets/flask/issues/2308, flask does not implement
 # de-register app.view_functions, so we are going to do it ourselves!
-@app.route('/reload/list', methods = ['GET'])
+
+
+@app.route('/reload/list', methods=['GET'])
 def reload():
     global module_password
 
     key = request.values.get('key')
 
-    if check_password_hash(module_password,key) == False:
+    if check_password_hash(module_password, key) is False:
         abort(404)
 
     string = ''
     
-    i = 0;
+    i = 0
 
     for b in app.blueprints:
-        string = f'{string}<h1>{b}</h1><hr><i>Click on any function to reload the {b} module</i><br>'
+
+        string = f'{string}<h1>{b}</h1><hr><i>Click on any function to reload ' \
+                 f'the {b} module</i><br>'
+
         for f in app.view_functions:
             n = f.split('.')
             if n[0] != b:
                 continue
-            string = f'{string}<br><a href="/reload/single?package={n[0]}&key={key}&name={b}&blueprint_index={i}">{f}</a>'
+            string = f'{string}<br><a href="/reload/single?package={n[0]}&key={key}' \
+                     f'&name={b}&blueprint_index={i}">{f}</a>'
             i += 1
 
-    return f'Functions reloadable\n\r{string}',200
+    return f'Functions reloadable\n\r{string}', 200
 
-@app.route('/reload/single', methods = ['GET'])
+
+@app.route('/reload/single', methods=['GET'])
 def reload_single():
     import importlib
     global module_password
@@ -251,27 +261,31 @@ def reload_single():
     name = request.values.get('name')
     blueprint_index = int(request.values.get('blueprint_index'))
 
-    if check_password_hash(module_password,key) == False:
+    if check_password_hash(module_password,key) is False:
         abort(404)
+    try:
+        # Remove caches and redo stuff
+        importlib.invalidate_caches()
 
-    # Remove caches and redo stuff
-    importlib.invalidate_caches()
+        # Import by variable name
+        _temp = __import__(f'app.{package}.__init__', globals(), locals(), [package], 0)
+        new_blueprint = getattr(_temp,package)
+        new_blueprint.name = modules[blueprint_index].name
+        modules[blueprint_index].blueprint = new_blueprint
 
-    # Import by variable name
-    _temp = __import__(f'app.{package}.__init__', globals(), locals(), [package], 0)
-    new_blueprint = getattr(_temp,package)
-    new_blueprint.name = modules[blueprint_index].name
-    modules[blueprint_index].blueprint = new_blueprint
+        # Temporarily remove from blueprint name
+        del app.blueprints[modules[blueprint_index].name]
 
-    # Temporarily remove from blueprint name
-    del app.blueprints[modules[blueprint_index].name]
-    
-    app.register_blueprint(
-        modules[blueprint_index].blueprint,
-        url_prefix=modules[blueprint_index].url_prefix)
+        app.register_blueprint(
+            modules[blueprint_index].blueprint,
+            url_prefix=modules[blueprint_index].url_prefix)
 
-    app.blueprints[modules[blueprint_index].name] = modules[blueprint_index].blueprint
-    return f'Module {package} reloaded!',200
+        app.blueprints[modules[blueprint_index].name] = modules[blueprint_index].blueprint
+
+        return f'Module {package} reloaded!', 200
+    except Exception as e:
+        return f'error!!! {e} !', 200
+
 
 db.configure_mappers()
 db.create_all()
