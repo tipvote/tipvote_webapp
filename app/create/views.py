@@ -441,8 +441,6 @@ def createbusinesspage():
             return redirect((request.args.get('next', request.referrer)))
 
 
-
-# View / Reply to a post
 @create.route('/comment/create/<string:subname>/<int:postid>/<int:parentid>', methods=['POST'])
 @login_required
 def createcomment(subname, postid, parentid):

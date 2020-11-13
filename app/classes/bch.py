@@ -1,7 +1,6 @@
 from app import db
 from datetime import datetime
-import bleach
-from markdown import markdown
+
 
 class BchPrices(db.Model):
     __tablename__ = 'prices_bch'
@@ -9,6 +8,7 @@ class BchPrices(db.Model):
     __table_args__ = {"schema": "avengers_main", 'useexisting': True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
+
 
 class BchWallet(db.Model):
     __tablename__ = 'bch_wallet'

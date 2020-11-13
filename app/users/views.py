@@ -338,7 +338,6 @@ def register():
                 except:
                     pass
 
-
                 login_user(newuser)
                 current_user.is_authenticated()
                 current_user.is_active()

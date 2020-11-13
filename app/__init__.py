@@ -29,6 +29,7 @@ app = Flask(__name__, static_url_path='',
             static_folder="static",
             template_folder="templates")
 
+
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
         super(RegexConverter, self).__init__(url_map)
