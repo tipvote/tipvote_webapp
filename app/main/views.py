@@ -894,24 +894,25 @@ def welcome():
         # PAGES
 
         bizstats = BusinessStats.query.filter(BusinessStats.business_id == 4).first()
+        if bizstats:
+            # sub to tipvote business
+            subtoit = BusinessFollowers(
+                user_id=current_user.id,
+                business_id=4,
 
-        # sub to tipvote business
-        subtoit = BusinessFollowers(
-            user_id=current_user.id,
-            business_id=4,
+            )
 
-        )
-        # add new member to sub
-        current_members = bizstats.total_followers
-        addmembers = current_members + 1
-        bizstats.total_followers = addmembers
-
+            # add new member to sub
+            current_members = bizstats.total_followers
+            addmembers = current_members + 1
+            bizstats.total_followers = addmembers
+            db.session.add(subtoit)
         # add for commit
 
         db.session.add(bizstats)
         db.session.add(subto_general)
         db.session.add(subto_bugs)
-        db.session.add(subtoit)
+
         db.session.add(subto_wall)
         db.session.add(subto_worldnews)
         db.session.add(subto_usnews)
