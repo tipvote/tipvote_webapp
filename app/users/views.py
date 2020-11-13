@@ -1041,7 +1041,7 @@ def changetheme():
 
         return redirect((request.args.get('next', request.referrer)))
 
-avengers_wallet_monero
+
 @users.route('/theme/colors', methods=['GET'])
 @login_required
 def quickchangetheme():
