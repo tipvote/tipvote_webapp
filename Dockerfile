@@ -21,18 +21,20 @@ RUN echo 'local     all     all                 trust' >> /etc/postgresql/11/mai
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/11/main/postgresql.conf
 
+COPY . /app
+
 RUN service postgresql start &&\
 	psql --command "CREATE USER tipuser WITH SUPERUSER PASSWORD 'tippass'" &&\
 	createdb -O tipuser avengers &&\
 	psql -d avengers --command "CREATE SCHEMA avengers_admin; CREATE SCHEMA avengers_coins; CREATE SCHEMA avengers_comments; CREATE SCHEMA avengers_main; CREATE SCHEMA avengers_msg; CREATE SCHEMA avengers_post; CREATE SCHEMA avengers_promotion; CREATE SCHEMA avengers_subforum; CREATE SCHEMA avengers_tips; CREATE SCHEMA avengers_user; CREATE SCHEMA avengers_user_business; CREATE SCHEMA avengers_wallet_bch; CREATE SCHEMA avengers_wallet_bch_test; CREATE SCHEMA avengers_wallet_btc; CREATE SCHEMA avengers_wallet_btc_test; CREATE SCHEMA avengers_wallet_monero; CREATE SCHEMA avengers_wallet_monero_stagenet; CREATE SCHEMA avengers_wallet_monero_testnet" &&\
+	python3 startup.py &&\
 	service postgresql stop
 EXPOSE 5432
 VOLUME ['/etc/postgresql', '/var/log/postgresql', '/var/lib/postgresql']
 
 # Copy entire app into container
 USER root
-COPY . /app
 
-RUN printf "database_connection='postgresql://tipuser:tippass@localhost:5432/avengers'\nmailuser='mailuser'\nmailpass='mailpass'\nsecretkey='debugk'\nwtfkey='debugk'" >> passwords.py
+RUN printf "database_connection='postgresql://tipuser:tippass@localhost:5432/avengers'\nmailuser='mailuser'\nmailpass='mailpass'\nsecretkey='debugk'\nwtfkey='debugk'" > passwords.py
 
 CMD service postgresql start && python3 runLan.py
