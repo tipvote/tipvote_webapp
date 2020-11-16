@@ -1,8 +1,9 @@
 <style>
     .sticky-top {
         position: -webkit-sticky; /* Safari */
-        position: fixed;
+        position: relative;
         top: 0;
+        height:50px;
         width: 100%;
 
     }
@@ -12,7 +13,7 @@
     }
 </style>
 
-<div class="container-fluid headercolor" style="margin-bottom: 65px">
+<div class="container-fluid headercolor"  style="margin-top: 100px">
 
     <div class="row pt-2 pb-2 sticky-top headercolor">
 
@@ -286,8 +287,12 @@
                     </div>
 
                 </div>
+
             </div>
+
         {% else %}
         {% endif %}
+
     </div>
+
 </div>
