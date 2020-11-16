@@ -5,12 +5,14 @@
 {% include 'css/main.html' %}
 
 {% include 'layout/headers/header.html' %}
+
 {% from "_formhelper.html" import render_field %}
 <div class="wrapper">
     <body>
-        {% from "_formhelper.html" import render_field %}
+
+
         {% include 'layout/headers/depositheader.html' %}
-        {% include 'subforums/banner/all.html' %}
+        {% include 'layout/headers/_intro_header.html' %}
 
 
         {% block content %}

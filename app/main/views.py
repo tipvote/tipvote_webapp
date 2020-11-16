@@ -39,7 +39,6 @@ from app.classes.notification import Notifications
 from app.classes.ltc import LtcPrices
 from app.classes.models import \
     DisplayCoins, \
-    GiveawayAll, \
     Updates, \
     Streaming, \
     RecentTips
@@ -185,15 +184,16 @@ def index():
     else:
         mainpostform = None
 
+    # stats for recent tips
+
+    # get total tips
+    totaltips = db.session.query(RecentTips).count()
 
     # Trending
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
     recent_tippers_post = recent_tippers_post.limit(3)
     recent_tippers_post_count = recent_tippers_post.count()
-
-    # get total tips
-    totaltips = db.session.query(RecentTips).count()
 
     if current_user.is_authenticated:
         if current_user.over_age is False:
@@ -256,8 +256,6 @@ def index():
                            thenotes=thenotes,
                            thenotescount=thenotescount,
 
-                           totaltips=totaltips,
-
                            # queries/pagination
                            recent_tippers_post=recent_tippers_post,
 
@@ -271,6 +269,9 @@ def index():
                            currentxmrprice=currentxmrprice,
                            currentbchprice=currentbchprice,
                            currentltcprice=currentltcprice,
+
+                           # stats
+                           totaltips=totaltips,
 
                            )
 
@@ -336,7 +337,6 @@ def newest():
         usersubforums = usersubforums.order_by((SubForums.id == 31).desc(), SubForums.subcommon_name)
         usersubforums = usersubforums.all()
         guestsubforums = None
-
 
     else:
         guestsubforums = db.session.query(SubForums)
