@@ -6,9 +6,9 @@
     {% if post.url_description|length > 5 %}
         <meta name="description" CONTENT="{{ post.url_description }}" >
     {% else %}
-        <meta name="description" CONTENT="Crypto for your thoughts" >
+        <meta name="description" CONTENT="{{ thesub.description }}" >
     {% endif %}
-    <meta name="keywords" CONTENT="tipvote, tipvote.com, cash, monero, bitcoin, comment, submit, blockchain, crypto">
+    <meta name="keywords" CONTENT="{{ thesub.description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="tipvote">
 

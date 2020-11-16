@@ -194,7 +194,7 @@ class RoomPostForm(FlaskForm):
 
     post_title = StringField(validators=[
         DataRequired(),
-        Length(1, 150, message='Title must be between 1 and 150 characters long'),
+        Length(1, 300, message='Title must be between 1 and 150 characters long'),
     ])
 
     post_message = TextAreaField(validators=[
@@ -257,7 +257,7 @@ class MainPostForm(FlaskForm):
 
     post_title = StringField(validators=[
         DataRequired(),
-        Length(1, 150, message='Title must be between 1 and 150 characters long'),
+        Length(1, 300, message='Title must be between 1 and 150 characters long'),
     ])
 
     post_message = TextAreaField(validators=[

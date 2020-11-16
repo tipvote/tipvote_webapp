@@ -14,7 +14,7 @@
 
 </style>
 
-<div class="container-fluid headercolor"  style="margin-bottom: 85px">
+<div class="container-fluid headercolor"  style="margin-bottom: 88px">
 
     <div class="row  pb-3 pt-3 sticky-top headercolor" style="min-height: 40px">
         {% include 'layout/headers/_stats_header.html' %}
@@ -103,7 +103,17 @@
                         </a>
                     </div>
 
-
+                    <div class="pl-1 pr-1">
+                        {% if themsgs %}
+                            {% if themsgs == 0 %}
+                                <a class="btn btn-header   pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope  fa-lg text-white"></i></a>
+                            {% else %}
+                                <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
+                            {% endif %}
+                        {% else %}
+                            <a class="btn  btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
+                        {% endif %}
+                    </div>
                     <div class="pl-1 pr-1">
                         <div class="dropdown ">
                             <button class="btn btn-header  dropdown-toggle justify-content-center pl-2 text-white"
@@ -153,17 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="pl-1 pr-1">
-                        {% if themsgs %}
-                            {% if themsgs == 0 %}
-                                <a class="btn btn-header   pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope  fa-lg text-white"></i></a>
-                            {% else %}
-                                <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
-                            {% endif %}
-                        {% else %}
-                            <a class="btn  btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
-                        {% endif %}
-                    </div>
+
 
                      <div class="pl-1 pr-1">
                         <div class="dropdown d-inline pl-1 pr-1 ">
