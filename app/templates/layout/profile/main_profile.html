@@ -1,19 +1,38 @@
 <div class="row pb-0 pr-2 pl-2">
     <div class="col-12 second_color   mb-1">
         {% if current_user.is_authenticated %}
-            <div class="col-12 text-center mb-4 mt-2">
-                {% if current_user.anon_mode == 0 %}
-                    <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                        <div class="text-center linkcolor h5">
-                            {{ current_user.user_name }}
-                        </div>
-                    </a>
-                {% else %}
-                    <span style="color:#66FF99">
+
+            <div class="row">
+
+                <div class="col-4 text-center mt-3 linkcolor " >
+                    {% if current_user.profileimage == '' %}
+                        <img src="{{ url_for('static', filename='images/noprofile.png')  }}">
+                    {% else %}
+                        <img class="profileimage"
+                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                        >
+                    {% endif %}
+                </div>
+                <div class="col-8 text-left  mt-3 linkcolor" >
+
+
+                    {% if current_user.anon_mode == 0 %}
+                        <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                            <div class="h5">
+                                {{ current_user.user_name }}
+                            </div>
+                        </a>
+                    {% else %}
+
+                        <span style="color:#66FF99">
                         <h5><b>Anonymous</b></h5>
                    </span>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
+
+
+
             <div class="col-12 mb-1 text-center">
                 Lvl {{ current_user.user_stats_common.user_level }}
                 <div class="progress">
@@ -56,5 +75,6 @@
             </div>
         {% endif %}
     </div>
+
 
 </div>
