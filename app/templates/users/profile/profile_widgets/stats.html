@@ -1,8 +1,7 @@
 <div class="col-12 mb-3 second_color p-3">
-    <div class="col-12" >
+    <div class="col-12 text-center">
         <h5>Stats</h5>
     </div>
-
     <div class="col-12">
         Post Votes:
         <span style="color:green">{{ theuser.user_stats_common.post_upvotes }}</span >
@@ -16,9 +15,52 @@
         <span style="color:red">{{ theuser.user_stats_common.comment_downvotes }}</span >
     </div>
     <div class="col-12">
-         Total Posts: {{ theuser.user_stats_common.total_posts }}<br>
+        Total Posts: {{ theuser.user_stats_common.total_posts }}<br>
         Total Comments: {{ theuser.user_stats_common.total_comments }}<br>
     </div>
-
 </div>
 
+{% if current_user.id == theuser.id %}
+    <div class="col-12 mb-3 second_color p-3">
+
+        <div class="col-12 mb-2 text-center" >
+            <b>Tips Recieved</b>
+        </div>
+
+        <div class="col-12 mb-3 ">
+            <div class="font-weight-bold"> BTC</div>
+            {% if theuser.user_stats_btc.total_recievedfromposts_btc == 0 %}
+                0 BTC
+            {% else %}
+                {{ theuser.user_stats_btc.total_recievedfromposts_btc }} BTC
+            {% endif %}
+            <br>
+            {{ theuser.user_stats_btc.total_recievedfromposts_usd }}$
+        </div>
+
+        <div class="col-12 mb-3 ">
+            <div class="font-weight-bold"> BCH</div>
+            {% if theuser.user_stats_bch.total_recievedfromposts_bch == 0 %}
+                0 BCH
+            {% else %}
+                {{ theuser.user_stats_bch.total_recievedfromposts_bch }} BCH
+            {% endif %}
+
+            <br>
+            {{ theuser.user_stats_bch.total_recievedfromposts_usd }}$
+        </div>
+
+        <div class="col-12 mb-3 ">
+            <div class="font-weight-bold"> XMR</div>
+            {% if theuser.user_stats_xmr.total_recievedfromposts_xmr == 0 %}
+                0 XMR
+            {% else %}
+            {{ theuser.user_stats_xmr.total_recievedfromposts_xmr }} XMR
+            {% endif %}
+            <br>
+            {{ theuser.user_stats_xmr.total_recievedfromposts_usd }}$
+        </div>
+    </div>
+
+
+{% endif %}

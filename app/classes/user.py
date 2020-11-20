@@ -286,6 +286,7 @@ class User(UserMixin, db.Model):
     userpublicinfo = db.relationship('UserPublicInfo', backref='userinfo', uselist=False, cascade="all,delete")
     user_stats_common = db.relationship('UserStats', backref='userstats', uselist=False, cascade="all,delete")
     user_stats_btc = db.relationship('UserStatsBTC', backref='userstatsbtc', uselist=False, cascade="all,delete")
+    user_stats_xmr = db.relationship('UserStatsXMR', backref='userstatsxmr', uselist=False, cascade="all,delete")
     user_stats_bch = db.relationship('UserStatsBCH', backref='userstatsbch', uselist=False, cascade="all,delete")
     user_pgp_key = db.relationship('PgpKey', backref='user_pgp_key', uselist=False, cascade="all,delete")
 

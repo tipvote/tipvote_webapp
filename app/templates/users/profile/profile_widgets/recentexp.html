@@ -1,6 +1,6 @@
 <div class="col-12 mb-3 second_color">
 
-    <div class="col-12 text-center">
+    <div class="col-12 text-center pt-3 pb-3">
         Lvl {{ theuser.user_stats_common.user_level }}
         <br>
         {%  if 0 <= theuser.user_stats_common.user_level <= 2 %}
@@ -50,59 +50,5 @@
         </div>
 
     </div>
-    {% if expcount > 0 %}
-        <div class="col-12 text-center">
-            <h5> Recent Points </h5>
-        </div>
-        <hr>
-        <table class="col-12 table-striped" style="font-size: 13px;">
-            <tr>
-                <th class="col-4 ">
-                    Age
-                </th>
-                <th class="col-6 ">
-                    Description
-                </th>
-                <th class="col-2 ">
-                    EXP
-                </th>
-            </tr>
 
-            {% for exp in userexp %}
-                <tr class="">
-                    <!-- Quanity-->
-                    <td class="col-4 " style="font-size: 9px">
-                        {{ moment(timestamp=exp.created, local=False).fromNow(refresh=True)  }}
-                    </td>
-                    <!-- Price -->
-                    <td class="col-6 " style="font-size: 11px">
-                        {% if exp.type == 1 %}
-                            Created a Post
-                        {% elif exp.type == 2 %}
-                            Created a Comment
-                        {% elif exp.type == 3 %}
-                            Got an upvote
-                        {% elif exp.type == 4 %}
-                            Got a downvote
-                        {% elif exp.type == 5 %}
-                            Tipped someone
-                        {% elif exp.type == 6 %}
-                            Got a tip
-                        {% elif exp.type == 7 %}
-                            Created a Room
-                        {% elif exp.type == 8 %}
-                            Voted on a post
-                        {% else %}
-                        {% endif %}
-                    </td>
-                    <td class="col-2 ">
-                        +{{ exp.amount }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-
-        Post comment or tip to get points!
-    {% endif %}
 </div>
