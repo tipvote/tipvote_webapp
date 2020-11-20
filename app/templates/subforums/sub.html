@@ -1,8 +1,6 @@
 {% extends "layout/layout_3bars_sub.html" %}
 {% block content %}
 
-    {% if posts %}
-
         {% if current_user.post_style == 1 %}
             {% include "layout/cards/_sub_cards.html" %}
         {% elif current_user.post_style == 2 %}
@@ -14,14 +12,5 @@
         {% else %}
             {% include "layout/cards/_sub_cards.html" %}
         {% endif %}
-
-    {% else %}
-        <div class="col-12 rounded second_color mb-1  border  mt-5">
-            <h4>There are no posts in this sub.  Why not add a post to spice things up?</h4>
-        </div>
-
-    {% endif %}
-
-
 
 {% endblock %}

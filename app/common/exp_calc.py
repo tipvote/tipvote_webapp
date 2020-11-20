@@ -13,6 +13,7 @@ def exppoint(user_id, category):
     # category 5 = sent coin
     # category 6 = recieved coin
     # category 7 = created sub
+    # category 8 = gave vote
 
     now = datetime.utcnow()
 
@@ -47,19 +48,19 @@ def exppoint(user_id, category):
     elif 21 <= guser.user_level <= 25:
         experienceperlevel = 10000
     elif 26 <= guser.user_level <= 30:
-        experienceperlevel = 15500
+        experienceperlevel = 10000
     elif 26 <= guser.user_level <= 30:
-        experienceperlevel = 25000
+        experienceperlevel = 10000
     elif 26 <= guser.user_level <= 30:
-        experienceperlevel = 50000
+        experienceperlevel = 10000
     elif 30 <= guser.user_level <= 50:
-        experienceperlevel = 50000
+        experienceperlevel = 10000
     elif 51 <= guser.user_level <= 100:
-        experienceperlevel = 100000
+        experienceperlevel = 10000
     elif 101 <= guser.user_level <= 151:
-        experienceperlevel = 100000
+        experienceperlevel = 10000
     else:
-        experienceperlevel = 1000000
+        experienceperlevel = 10000
 
     # category 1 = User Posted
     if category == 1:
@@ -166,7 +167,7 @@ def exppoint(user_id, category):
 
         db.session.add(exp)
 
-    # category 7 = created sub
+    # category 7 = created room
     elif category == 7:
         # adds current points to variable points
         addpoints = int(currentpoints + points_createdsub)
@@ -196,7 +197,7 @@ def exppoint(user_id, category):
         exp = ExpTable(
             user_id=user_id,
             type=8,
-            amount=points_createdsub,
+            amount=gave_vote,
             created=now,
         )
 

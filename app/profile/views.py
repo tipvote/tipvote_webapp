@@ -13,6 +13,11 @@ from app.create.forms import MainPostForm, CreateCommentQuickForm
 from app.edit.forms import DeletePostTextForm
 from app.profile import profile
 from app.vote.forms import VoteForm
+from app.mod.forms import \
+    QuickBanDelete, \
+    QuickDelete, \
+    QuickLock, \
+    QuickMute
 
 from app.classes.user import \
     User, \
@@ -21,12 +26,7 @@ from app.classes.user import \
     BlockedUser
 from app.classes.post import CommonsPost
 from app.classes.subforum import Mods, SubForums, Subscribed
-
-from app.mod.forms import \
-    QuickBanDelete, \
-    QuickDelete, \
-    QuickLock, \
-    QuickMute
+from app.classes.models import ExpTable
 
 
 @profile.route('/<string:user_name>', methods=['GET'])
@@ -42,8 +42,10 @@ def main(user_name):
     subpostcommentform = CreateCommentQuickForm()
     navlink = 1
     wall_post_form = MainPostForm(CombinedMultiDict((request.files, request.form)))
+
     if user_name == 'Tipvote_Bot':
         user_name = "tipvote"
+
     theuser = db.session.query(User).filter(User.user_name == user_name).first()
 
     if theuser is None:
@@ -99,6 +101,10 @@ def main(user_name):
 
     follower_count = Followers.query.filter(Followers.follower_id == theuser.id).count()
     followed_count = Followers.query.filter(Followers.followed_id == theuser.id).count()
+
+    expcount = db.session.query(ExpTable).filter(ExpTable.user_id == theuser.id).count()
+    userexp = db.session.query(ExpTable).filter(ExpTable.user_id == theuser.id).order_by(ExpTable.id.desc()).limit(5)
+
     return render_template('users/profile/profile.html',
                            seeifmod=seeifmod,
                            postcount=postcount,
@@ -122,7 +128,9 @@ def main(user_name):
                            navlink=navlink,
                            get_followers=get_followers,
                            follower_count=follower_count,
-                           followed_count=followed_count
+                           followed_count=followed_count,
+                           expcount=expcount,
+                           userexp=userexp,
                            )
 
 
@@ -188,6 +196,10 @@ def profile_other_posts_all(user_name):
     posts = userposts.limit(50)
     postcount = userposts.count()
 
+    expcount = db.session.query(ExpTable).filter(ExpTable.user_id == theuser.id).count()
+    userexp = db.session.query(ExpTable).filter(ExpTable.user_id == theuser.id).order_by(ExpTable.id.desc()).limit(5)
+
+
     return render_template('users/profile/profile_other.html',
                            wall_post_form=wall_post_form,
                            postcount=postcount,
@@ -209,6 +221,9 @@ def profile_other_posts_all(user_name):
                            theuser=theuser,
                            user_name=user_name,
                            get_followers=get_followers,
+
+                           expcount=expcount,
+                           userexp=userexp,
                            )
 
 
