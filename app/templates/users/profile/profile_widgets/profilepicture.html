@@ -1,5 +1,5 @@
 
-<div class="col-12 second_color mb-3 p-3 ">
+<div class="col-12 second_color mb-3 p-3 d-none d-md-block">
     <div class="col-12 p-4 text-center">
 
         {% if theuser.profileimage  == '' %}
@@ -11,7 +11,7 @@
 
     </div>
     {% if current_user.id == theuser.id %}
-        <div class="col-12 text-center">
+        <div class="col-12 text-center mb-2">
             <a href="{{ url_for('photos.profilepicture') }}">
                 Edit Profile Picture
             </a>

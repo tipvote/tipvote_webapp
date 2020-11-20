@@ -13,6 +13,7 @@ def exppoint(user_id, category):
     # category 5 = sent coin
     # category 6 = recieved coin
     # category 7 = created sub
+    # category 8 = gave vote
 
     now = datetime.utcnow()
 
@@ -166,7 +167,7 @@ def exppoint(user_id, category):
 
         db.session.add(exp)
 
-    # category 7 = created sub
+    # category 7 = created room
     elif category == 7:
         # adds current points to variable points
         addpoints = int(currentpoints + points_createdsub)
@@ -196,7 +197,7 @@ def exppoint(user_id, category):
         exp = ExpTable(
             user_id=user_id,
             type=8,
-            amount=points_createdsub,
+            amount=gave_vote,
             created=now,
         )
 

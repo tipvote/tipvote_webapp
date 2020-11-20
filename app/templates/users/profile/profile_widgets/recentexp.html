@@ -1,8 +1,57 @@
-<div class="col-12 mb-3 second_color border   border ">
+<div class="col-12 mb-3 second_color">
+
+    <div class="col-12 text-center">
+        Lvl {{ theuser.user_stats_common.user_level }}
+        <br>
+        {%  if 0 <= theuser.user_stats_common.user_level <= 2 %}
+            {{ theuser.user_stats_common.user_exp }}  /   250
+
+        {%  elif 3 <= theuser.user_stats_common.user_level <= 5 %}
+            {{ theuser.user_stats_common.user_exp }} /  500
+
+        {%  elif 6 <= theuser.user_stats_common.user_level <= 7 %}
+            {{ theuser.user_stats_common.user_exp }} /  1000
+
+        {%  elif 8 <= theuser.user_stats_common.user_level <= 10 %}
+            {{ theuser.user_stats_common.user_exp }} /  2000
+
+        {%  elif 11 <= theuser.user_stats_common.user_level <= 14 %}
+            {{ theuser.user_stats_common.user_exp }}  /  4000
+
+        {%  elif 16 <= theuser.user_stats_common.user_level <= 20 %}
+            {{ theuser.user_stats_common.user_exp }}  /  6000
+
+        {%  elif 21 <= theuser.user_stats_common.user_level <= 25 %}
+            {{ theuser.user_stats_common.user_exp }}  /  10000
+
+        {%  elif 26 <= theuser.user_stats_common.user_level <= 320 %}
+            {{ theuser.user_stats_common.user_exp }} /  10000
+
+        {%  elif 30 <= theuser.user_stats_common.user_level <= 50 %}
+            {{ theuser.user_stats_common.user_exp }}  /  10000
+
+        {%  elif 51 <= theuser.user_stats_common.user_level <= 100 %}
+            {{ theuser.user_stats_common.user_exp }} /  10000
+
+        {%  elif 101 <= theuser.user_stats_common.user_level <= 150 %}
+            {{ theuser.user_stats_common.user_exp }}  / 10000
+
+        {% else %}
+            {{ theuser.user_stats_common.user_exp }}  /  10000
+
+        {% endif %}
 
 
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar"
+                 aria-valuenow={{ theuser.user_stats_common.user_width_next_level }}
+                         aria-valuemin="0" aria-valuemax="100" style="width:{{ theuser.user_stats_common.user_width_next_level }}%">
+            </div>
+        </div>
+
+    </div>
     {% if expcount > 0 %}
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h5> Recent Points </h5>
         </div>
         <hr>
@@ -22,36 +71,38 @@
             {% for exp in userexp %}
                 <tr class="">
                     <!-- Quanity-->
-                    <td class="col-4 ">
+                    <td class="col-4 " style="font-size: 9px">
                         {{ moment(timestamp=exp.created, local=False).fromNow(refresh=True)  }}
                     </td>
                     <!-- Price -->
-                    <td class="col-6 ">
+                    <td class="col-6 " style="font-size: 11px">
                         {% if exp.type == 1 %}
-                            User Created a Post
+                            Created a Post
                         {% elif exp.type == 2 %}
-                            User Created a Comment
+                            Created a Comment
                         {% elif exp.type == 3 %}
-                            User Upvoted
+                            Got an upvote
                         {% elif exp.type == 4 %}
-                            User Downvoted
+                            Got a downvote
                         {% elif exp.type == 5 %}
-                            User sent coin for a tip
+                            Tipped someone
                         {% elif exp.type == 6 %}
-                            User recieved coin from a tip
+                            Got a tip
                         {% elif exp.type == 7 %}
-                            Created a Sub
+                            Created a Room
                         {% elif exp.type == 8 %}
-                            User recieved a vote
+                            Voted on a post
                         {% else %}
                         {% endif %}
                     </td>
                     <td class="col-2 ">
-                        {{ exp.amount }} points
+                        +{{ exp.amount }}
                     </td>
                 </tr>
             {% endfor %}
         </table>
     {% else %}
+
+        Post comment or tip to get points!
     {% endif %}
 </div>

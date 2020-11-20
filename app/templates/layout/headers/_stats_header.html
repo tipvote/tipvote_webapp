@@ -1,10 +1,12 @@
+{% if totaltips %}
 {% if current_user.is_authenticated %}
 {% else %}
-    <div class="col-12 bg-success text-white m-0 w-100" style="height: 25px">
+    <div class="col-12 bg-success text-white m-0 w-100 " style="height: 25px;top: -13px">
 
             <div class="col-12 text-center font-weight-bold">
                 There has been  {{ totaltips }} tips in the past month!
             </div>
 
     </div>
+{% endif %}
 {% endif %}

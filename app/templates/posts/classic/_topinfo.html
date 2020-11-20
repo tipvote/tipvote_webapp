@@ -4,24 +4,29 @@
         <!-- If to the wall -->
         {% if post.subcommon_id == 1 %}
             {% if post.shared_post == 0 %}
+
+
                 {% if post.posterposts.profileimage  %}
                     {% if post.posterposts.profileimage == '' %}
-                        <img
-                                src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                style="width:50px;height: 50px"
+                        <img       class="profileimage bg-dark"
+                                   src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                                   style=""
                         >
                     {% else %}
                         <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
                             <img
                                     alt="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                    class="img-responsive"
+                                    class="img-responsive profileimage"
                                     src="{{ url_for('common.profile_image',filename=post.posterposts.profileimage) }}"
-                                    style="width:50px;height: 50px">
+                            >
                         </a>
                     {% endif %}
                 {% else %}
-                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
+                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
                 {% endif %}
+
+
+
                 <div class="col">
                 <div class="linkcolor"  style="display: inline; font-size: 15px">
                     <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
@@ -72,11 +77,11 @@
 
             {% else %}
                 {% if post.userposts.profileimage == '' %}
-                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
+                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
 
                 {% else %}
                     <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                        <img class="img-responsive" src="{{ url_for('common.profile_image',
+                        <img class="img-responsive profileimage" src="{{ url_for('common.profile_image',
                                     filename=post.userposts.profileimage) }}"
                              style="width:50px;height: 50px">
                     </a>
