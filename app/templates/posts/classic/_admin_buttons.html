@@ -9,9 +9,9 @@
             <p class="text-danger font-weight-bold text-center col-12">Post has been muted by a mod</p>
         {% else %}
 
-            <div class="col-12 border-bottom border-dark mb-2 mt-2">
+            <div class="col-12 border-bottom border-dark mb-3 mt-2 border rounded">
                 <div class="row">
-                    <div class="col-6 col-sm-6 col-md-3 text-white text-center btn-ee text-white">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  text-white">
                         {% if deletepostform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
@@ -28,7 +28,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  btn-ee text-white">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  text-white">
                         {% if lockpostform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quicklockpost', subname=thesub.subcommon_name, postid=post.id) }}">
@@ -44,7 +44,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3 text-white text-center btn-ee text-white">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center text-white">
                         {% if muteuserform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickmuteuser', subname=thesub.subcommon_name, postid=post.id) }}">
@@ -60,7 +60,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-6 col-sm-6 col-md-3 text-white text-center  btn-ee text-white">
+                    <div class="col-6 col-sm-6 col-md-3 text-white text-center   text-white">
                         {% if banuserdeleteform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">

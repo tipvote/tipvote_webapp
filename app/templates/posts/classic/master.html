@@ -1,8 +1,13 @@
+
 <div class="col-12  second_color mb-3  p-0 ">
 
     <!--Normal post-->
     {% if post.hidden == 0 %}
+
         {% include 'posts/classic/_topinfo.html' %}
+
+{% include 'posts/classic/_admin_buttons.html' %}
+
         {% if post.shared_post == 0 %}
 
             {% if post.title %}
@@ -44,8 +49,7 @@
 
 
     {% include 'posts/classic/_buttons.html' %}
-    {% if viewpost == 1 %}
-        {% include 'posts/classic/_admin_buttons.html' %}
-    {% endif %}
+
+
 
 </div>

@@ -3,7 +3,7 @@ from flask import \
     render_template, \
     redirect, \
     url_for, \
-    flash,\
+    flash, \
     jsonify
 from flask import request
 from flask_login import current_user
@@ -88,8 +88,8 @@ def sub(subname):
     currentltcprice = db.session.query(LtcPrices).get(1)
 
     # get the sub
-    thesub = db.session.query(SubForums)\
-        .filter(func.lower(SubForums.subcommon_name) == subname.lower())\
+    thesub = db.session.query(SubForums) \
+        .filter(func.lower(SubForums.subcommon_name) == subname.lower()) \
         .first_or_404()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
@@ -102,22 +102,22 @@ def sub(subname):
     if thesub.room_deleted == 1:
         return redirect(url_for('subforum.sub_deleted', subname=subname))
     # get the stats
-    substats = db.session.query(SubForumStats)\
-        .filter(SubForumStats.subcommon_name == subname.lower())\
+    substats = db.session.query(SubForumStats) \
+        .filter(SubForumStats.subcommon_name == subname.lower()) \
         .first()
     # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom)\
-        .filter(SubForumCustom.subcommon_id == thesub.id)\
+    subcustom_stuff = db.session.query(SubForumCustom) \
+        .filter(SubForumCustom.subcommon_id == thesub.id) \
         .first()
     # get sub info box
-    subinfobox = db.session.query(SubForumCustomInfoOne)\
-        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname.lower())\
+    subinfobox = db.session.query(SubForumCustomInfoOne) \
+        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname.lower()) \
         .first()
     subtype = thesub.type_of_subcommon
     subname = thesub.subcommon_name
     subid = int(thesub.id)
-    mods = db.session.query(Mods)\
-        .filter(Mods.subcommon_id == subid)\
+    mods = db.session.query(Mods) \
+        .filter(Mods.subcommon_id == subid) \
         .all()
 
     if subcustom_stuff is None:
@@ -192,12 +192,12 @@ def sub(subname):
         else:
             seeifsubbed = 1
         # get users saved subcommons
-        saved_subcommons = db.session.query(Subscribed)\
-            .filter(Subscribed.user_id == current_user.id)\
+        saved_subcommons = db.session.query(Subscribed) \
+            .filter(Subscribed.user_id == current_user.id) \
             .all()
         # get users created subcommons
-        created_subcommons = db.session.query(SubForums)\
-            .filter(SubForums.creator_user_id == current_user.id)\
+        created_subcommons = db.session.query(SubForums) \
+            .filter(SubForums.creator_user_id == current_user.id) \
             .all()
     else:
         # if user isnt subscribed to anything
@@ -328,7 +328,7 @@ def sub(subname):
                            voteform=voteform,
                            nsfwform=nsfwform,
                            subname=subname,
-                            subpostcommentform=subpostcommentform,
+                           subpostcommentform=subpostcommentform,
                            thenotescount=thenotescount,
                            subform=subform,
                            subinfobox=subinfobox,
@@ -405,22 +405,22 @@ def sub_newest(subname):
         thenotescount = 0
 
     # get the sub
-    thesub = db.session.query(SubForums)\
-        .filter(func.lower(SubForums.subcommon_name) == subname)\
+    thesub = db.session.query(SubForums) \
+        .filter(func.lower(SubForums.subcommon_name) == subname) \
         .first()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
         return redirect(url_for('index'))
     # get the stats
-    substats = db.session.query(SubForumStats)\
-        .filter(func.lower(SubForumStats.subcommon_name) == subname)\
+    substats = db.session.query(SubForumStats) \
+        .filter(func.lower(SubForumStats.subcommon_name) == subname) \
         .first_or_404()
     # get sub customization
-    subcustom_stuff = db.session.query(SubForumCustom)\
+    subcustom_stuff = db.session.query(SubForumCustom) \
         .filter(SubForumCustom.subcommon_id == thesub.id).first()
 
-    subinfobox = db.session.query(SubForumCustomInfoOne)\
-        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname)\
+    subinfobox = db.session.query(SubForumCustomInfoOne) \
+        .filter(func.lower(SubForumCustomInfoOne.subcommon_name) == subname) \
         .first()
 
     # get id of the sub
@@ -768,9 +768,9 @@ def subunsubtoforum(subname):
                 # see if user already subbed
 
                 if subform.subscribe.data is True:
-                    seeifsubbed = db.session.query(Subscribed)\
+                    seeifsubbed = db.session.query(Subscribed) \
                         .filter(Subscribed.user_id == current_user.id,
-                                Subscribed.subcommon_id == subid)\
+                                Subscribed.subcommon_id == subid) \
                         .first()
 
                     if seeifsubbed is None:
@@ -843,8 +843,8 @@ def sub_to_forum_no_redirect(subname):
 
     # get the sub
     subname = subname.lower()
-    thesub = db.session.query(SubForums)\
-        .filter(func.lower(SubForums.subcommon_name) == subname)\
+    thesub = db.session.query(SubForums) \
+        .filter(func.lower(SubForums.subcommon_name) == subname) \
         .first()
     if thesub is None:
         return jsonify({
@@ -859,9 +859,9 @@ def sub_to_forum_no_redirect(subname):
         if current_user.is_authenticated:
             # UNsubscribe to a sub
             # see if user already subbed
-            seeifsubbed = db.session.query(Subscribed)\
+            seeifsubbed = db.session.query(Subscribed) \
                 .filter(Subscribed.user_id == current_user.id,
-                        Subscribed.subcommon_id == subid)\
+                        Subscribed.subcommon_id == subid) \
                 .first()
 
             if seeifsubbed is None:
@@ -902,8 +902,8 @@ def unsub_to_forum_no_redirect(subname):
 
     # get the sub
     subname = subname.lower()
-    thesub = db.session.query(SubForums)\
-        .filter(func.lower(SubForums.subcommon_name) == subname)\
+    thesub = db.session.query(SubForums) \
+        .filter(func.lower(SubForums.subcommon_name) == subname) \
         .first()
     if thesub is None:
         return jsonify({
@@ -1021,6 +1021,12 @@ def viewpost(subname, postid):
     voteform = VoteForm()
     deleteposttextform = DeletePostTextForm()
     deletecommenttextform = DeleteCommentTextForm()
+
+    banuserdeleteform = QuickBanDelete()
+    lockpostform = QuickLock()
+    deletepostform = QuickDelete()
+    muteuserform = QuickMute()
+
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -1168,6 +1174,10 @@ def viewpost(subname, postid):
                            now=datetime.utcnow(),
                            # forms
                            form=form,
+                           banuserdeleteform=banuserdeleteform,
+                           lockpostform=lockpostform,
+                           deletepostform=deletepostform,
+                           muteuserform=muteuserform,
                            saveform=saveform,
                            nsfwform=nsfwform,
                            viewpost=viewpost,
@@ -1227,6 +1237,11 @@ def viewpost_newest(subname, postid):
     voteform = VoteForm()
     deleteposttextform = DeletePostTextForm()
     deletecommenttextform = DeleteCommentTextForm()
+
+    banuserdeleteform = QuickBanDelete()
+    lockpostform = QuickLock()
+    deletepostform = QuickDelete()
+    muteuserform = QuickMute()
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -1363,6 +1378,10 @@ def viewpost_newest(subname, postid):
                            # forms
                            form=form,
                            voteform=voteform,
+                           banuserdeleteform=banuserdeleteform,
+                           lockpostform=lockpostform,
+                           deletepostform=deletepostform,
+                           muteuserform=muteuserform,
                            nsfwform=nsfwform,
                            reportform=reportform,
                            stickypostform=stickypostform,
@@ -1418,6 +1437,11 @@ def viewpost_oldest(subname, postid):
     voteform = VoteForm()
     deleteposttextform = DeletePostTextForm()
     deletecommenttextform = DeleteCommentTextForm()
+
+    banuserdeleteform = QuickBanDelete()
+    lockpostform = QuickLock()
+    deletepostform = QuickDelete()
+    muteuserform = QuickMute()
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -1555,6 +1579,10 @@ def viewpost_oldest(subname, postid):
                            form=form,
                            reportform=reportform,
                            nsfwform=nsfwform,
+                           banuserdeleteform=banuserdeleteform,
+                           lockpostform=lockpostform,
+                           deletepostform=deletepostform,
+                           muteuserform=muteuserform,
                            stickypostform=stickypostform,
                            thenotescount=thenotescount,
                            unstickypostform=unstickypostform,
@@ -1609,6 +1637,11 @@ def viewpost_downvoted(subname, postid):
     voteform = VoteForm()
     deleteposttextform = DeletePostTextForm()
     deletecommenttextform = DeleteCommentTextForm()
+
+    banuserdeleteform = QuickBanDelete()
+    lockpostform = QuickLock()
+    deletepostform = QuickDelete()
+    muteuserform = QuickMute()
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -1745,6 +1778,10 @@ def viewpost_downvoted(subname, postid):
                            form=form,
                            voteform=voteform,
                            reportform=reportform,
+                           banuserdeleteform=banuserdeleteform,
+                           lockpostform=lockpostform,
+                           deletepostform=deletepostform,
+                           muteuserform=muteuserform,
                            nsfwform=nsfwform,
                            thenotescount=thenotescount,
                            stickypostform=stickypostform,
