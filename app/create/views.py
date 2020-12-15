@@ -175,6 +175,8 @@ def createsubforum():
 
         if form.validate_on_submit():
             try:
+
+
                 name_of_subcommon = form.subcommonname.data
 
                 description_of_subcommon = form.subcommondescription.data
