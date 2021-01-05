@@ -71,4 +71,4 @@ localhost:5000
 We are actively looking for members to make this site better.
 
 ## License
-https://github.com/tipvote/tipvote_webapp/blob/master/license.txt
+https://github.com/tipvote/tipvote_webapp/blob/master/license.txt# tipvote_frontend
