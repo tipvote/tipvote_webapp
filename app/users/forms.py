@@ -414,11 +414,9 @@ class PasswordFormReset(FlaskForm):
 
 class ThemeForm(FlaskForm):
     theme_one = RadioField(validators=[Optional()],
-                           choices=[('1', 'Black'),
-                                    ('2', 'Blue'),
+                           choices=[
                                     ('3', 'Gray'),
                                     ('4', 'Light'),
-
                                     ]
                            )
 

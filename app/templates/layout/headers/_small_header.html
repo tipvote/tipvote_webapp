@@ -15,14 +15,19 @@
 
 <div class="container-fluid headercolor" style="margin-top: 100px">
     <div class="row  pl-0 pr-0 pb-2 pt-3 sticky-top headercolor" style="min-height: 80px">
-        {% include 'layout/headers/_stats_header.html' %}
-        <div class="col-2 pt-1 pl-0 pr-0 mx-auto text-nowrap">
+        {#        {% include 'layout/headers/_stats_header.html' %}#}
+        <div class="col-2 pt-1 pl-0 pr-0 mx-auto text-nowrap d-none d-sm-block">
 
-            <span style="font-size: 27px;color: #FFFFFF; padding: 0">T</span>
-            <span style="font-size: 27px;color: #FFFFFF; margin-left: -2px">ipvote</span>
-            <span style="font-size: 12px; color: #818384;">
-               <div class="text-center"> Beta</div>
-            </span>
+            <a href="{{ url_for('index') }}">
+                <img class="pl-2" src="{{ url_for('static', filename='images/logo.png')  }}">
+            </a>
+        </div>
+
+        <div class="col-2 pt-0 pb-2 pl-3 mt-0  mx-auto text-nowrap d-sm-none " style="font-size:40px">
+            <div class="row">
+                <div class="col-6 upgreen"><b>T</b></div>
+                <div class="col-6 downred"><b>v</b></div>
+            </div>
 
         </div>
         <div class="col-1"></div>
@@ -109,7 +114,6 @@
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
                                         <b>Btc Wallet</b>
-
                                     </div>
                                 </a>
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('wallet_bch.home') }}">
@@ -144,31 +148,21 @@
 
 
 
-                    <div class="dropdown d-inline">
+                <div class="dropdown d-inline">
 
-                        {% if thenotescount %}
-                            {% if thenotescount > 0 %}
-                                <button class="btn btn-dark   text-white dropdown-toggle btn-danger pt-2"
-                                        type="button"
-                                        id="dropdownMenuButton"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <i class="fa fa-bell fa-lg pr-2 bg-danger"></i>
-                                    {{ thenotescount }}
-                                </button>
-                            {% else %}
-                                <button class="btn  btn-dark  dropdown-toggle text-white pt-2"
-                                        type="button"
-                                        id="dropdownMenuButton"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <i class="fa fa-bell fa-lg pr-2 text-white"></i>
-                                </button>
-                            {% endif %}
+                    {% if thenotescount %}
+                        {% if thenotescount > 0 %}
+                            <button class="btn btn-dark   text-white dropdown-toggle btn-danger pt-2"
+                                    type="button"
+                                    id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <i class="fa fa-bell fa-lg pr-2 bg-danger"></i>
+                                {{ thenotescount }}
+                            </button>
                         {% else %}
-                            <button class="btn btn-dark  dropdown-toggle text-white pt-2"
+                            <button class="btn  btn-dark  dropdown-toggle text-white pt-2"
                                     type="button"
                                     id="dropdownMenuButton"
                                     data-toggle="dropdown"
@@ -177,29 +171,39 @@
                                 <i class="fa fa-bell fa-lg pr-2 text-white"></i>
                             </button>
                         {% endif %}
+                    {% else %}
+                        <button class="btn btn-dark  dropdown-toggle text-white pt-2"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-bell fa-lg pr-2 text-white"></i>
+                        </button>
+                    {% endif %}
 
-                        <div class="dropdown-menu dropdown-menu-right second_color dropdown-content darkbg mt-0 mb-0 pt-0 pb-0 border  dropdown-height"
-                             aria-labelledby="dropdownMenuButton"
-                             style="width: 400px">
-                            <div class="col-12 second_color">
-                                {% if thenotescount %}
-                                    {% if thenotescount > 0 %}
-                                        <a class=" mt-3"
-                                           href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
-                                            <btn class="col-6 offset-3 btn btn-danger  mb-2 mt-4 p-2">
-                                                Mark All As Read
-                                            </btn>
-                                        </a>
-                                    {% else %}
-                                    {% endif %}
+                    <div class="dropdown-menu dropdown-menu-right second_color dropdown-content darkbg mt-0 mb-0 pt-0 pb-0 border  dropdown-height"
+                         aria-labelledby="dropdownMenuButton"
+                         style="width: 400px">
+                        <div class="col-12 second_color">
+                            {% if thenotescount %}
+                                {% if thenotescount > 0 %}
+                                    <a class=" mt-3"
+                                       href="{{ url_for('message.markallnotifications', user_name=current_user.user_name) }}">
+                                        <btn class="col-6 offset-3 btn btn-danger  mb-2 mt-4 p-2">
+                                            Mark All As Read
+                                        </btn>
+                                    </a>
+                                {% else %}
                                 {% endif %}
+                            {% endif %}
 
-                                {% for note in thenotes %}
-                                    {% include 'msg/_notifications_dropdown.html' %}
-                                {% endfor %}
-                            </div>
+                            {% for note in thenotes %}
+                                {% include 'msg/_notifications_dropdown.html' %}
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
 
 
 

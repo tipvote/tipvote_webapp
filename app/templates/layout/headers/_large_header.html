@@ -18,12 +18,9 @@
 
     <div class="row  pb-3 pt-3 sticky-top headercolor" style="min-height: 40px">
         {% include 'layout/headers/_stats_header.html' %}
-
-        <div class="col-1 col-md-2 col-lg-2 col-xl-2" style="white-space: nowrap; display: inline-block;">
-            <a class="text-nowrap text-white" href="{{ url_for('index') }}" style="text-decoration: none;">
-                <span style="font-size: 27px;color: #FFFFFF; white-space: nowrap;">T</span>
-                <span style="font-size: 27px; white-space: nowrap;margin-left: -2px">ipvote </span>
-                <span style="font-size: 12px; color: #818384; white-space: nowrap;"> Beta</span>
+        <div class="col-1 col-md-3 col-lg-2 col-xl-2" style="white-space: nowrap; display: inline-block;">
+             <a href="{{ url_for('index') }}">
+                <img class="pl-2" src="{{ url_for('static', filename='images/logo.png')  }}">
             </a>
         </div>
 
@@ -87,10 +84,9 @@
             </div>
 
 
-            <div class="col-md-4 col-lg-4 col-xl-5 pr-0 pl-0">
+            <div class="col-md-3 col-lg-4 col-xl-5 pr-0 pl-0">
 
             </div>
-
 
 
             <div class="col-md-4 col-lg-4 col-xl-4 justify-content-end pl-0 pr-0" style="display: inline">
@@ -106,12 +102,12 @@
                     <div class="pl-1 pr-1">
                         {% if themsgs %}
                             {% if themsgs == 0 %}
-                                <a class="btn btn-header   pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope  fa-lg text-white"></i></a>
+                                <a class="btn btn-header pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope  fa-lg text-white"></i></a>
                             {% else %}
                                 <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
                             {% endif %}
                         {% else %}
-                            <a class="btn  btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
+                            <a class="btn btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white"></i></a>
                         {% endif %}
                     </div>
                     <div class="pl-1 pr-1">

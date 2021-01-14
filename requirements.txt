@@ -17,3 +17,7 @@ flask-mail
 validator-collection
 bleach
 markdown
+
+flask-marshmallow
+marshmallow-sqlalchemy
+flask-cors

@@ -23,6 +23,8 @@ from config import \
     WTF_CSRF_TIME_LIMIT, WTF_CSRF_SECRET_KEY
 
 from flask_mistune import Mistune
+from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 
 
 app = Flask(__name__, static_url_path='',
@@ -65,11 +67,13 @@ Session.configure(bind=SQLALCHEMY_DATABASE_URI_0)
 # ----------------------------------------------------------------------
 csrf = CSRFProtect(app)
 db = SQLAlchemy(app)
-
+ma = Marshmallow(app)
 moment = Moment(app)
 QRcode(app)
 mail = Mail(app)
 Mistune(app)
+cors = CORS(app, resources={r"/api": {"origins": "http://localhost:5000"}})
+
 
 login_manager = LoginManager(app)
 login_manager.session_protection = 'strong'
@@ -265,6 +269,12 @@ app.register_blueprint(wallet_btc_test_blueprint, url_prefix='/btctest')
 from .wallet_bch import wallet_bch as wallet_bch_blueprint
 app.register_blueprint(wallet_bch_blueprint, url_prefix='/bch')
 # btc
+
+# API
+# main
+from .api import api as api_blueprint
+app.register_blueprint(api_blueprint, url_prefix='/api')
+
 
 
 db.configure_mappers()

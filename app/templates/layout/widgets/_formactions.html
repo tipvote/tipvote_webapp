@@ -18,19 +18,19 @@
         {% if current_user.is_authenticated %}
             {% if current_user.user_stats_common.user_level >= 5 %}
                 <div class="text-center mb-3">
-                    <a class=" text-center btn btn-secondary" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                    <a class=" text-center btn btn-dark" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
                 </div>
             {% else %}
                     <div class="text-center mb-3">
                 <p> You must be level 5 in order to create a room</p>
-                <a class=" text-center btn btn-secondary disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                <a class=" text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
             </div>
             {% endif %}
         {% else %}
 
             <div class="text-center mb-3">
                 <p> You must be logged in to create a room</p>
-                <a class=" text-center btn btn-secondary disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
+                <a class=" text-center btn btn-dark disabled" href="{{ url_for('create.createsubforum') }}">Create A Room</a>
             </div>
         {% endif %}
     </div>
