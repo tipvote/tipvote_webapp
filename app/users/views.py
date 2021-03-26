@@ -1063,8 +1063,20 @@ def quickchangetheme():
         return redirect((request.args.get('next', request.referrer)))
 
     elif request.method == 'POST':
-        pass
 
+        theuser = db.session.query(User).filter(current_user.id == User.id).first()
+
+        if theuser.color_theme == 3:
+            theuser.color_theme = 4
+        elif theuser.color_theme == 4:
+            theuser.color_theme = 3
+        else:
+            theuser.color_theme = 4
+
+        db.session.add(theuser)
+        db.session.commit()
+
+        return redirect((request.args.get('next', request.referrer)))
     else:
         pass
 

@@ -39,7 +39,7 @@ DEBUG = False
 
 
 # hardcoded path for search
-POSTS_PER_PAGE = 25
+POSTS_PER_PAGE = 40
 
 # Mail
 MAIL_SERVER = 'smtp.gmail.com'

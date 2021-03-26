@@ -64,12 +64,12 @@
                         {% if banuserdeleteform %}
                             {% if thesub %}
                                 <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
-                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class="text-white btn btn-ee") }}
+                                    {{ render_field(banuserdeleteform.submit,  value="Ban ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ banuserdeleteform.csrf_token }}
                                 </form>
                             {% else %}
                                 <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname='wall', postid=post.id) }}">
-                                    {{ render_field(banuserdeleteform.submit,  value="Ban/Delete ", autocomplete="off", class="text-white btn btn-ee") }}
+                                    {{ render_field(banuserdeleteform.submit,  value="Ban ", autocomplete="off", class="text-white btn btn-ee") }}
                                     {{ banuserdeleteform.csrf_token }}
                                 </form>
                             {% endif %}

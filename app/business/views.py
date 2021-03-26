@@ -44,6 +44,7 @@ def main(business_name):
 
     thebizname = business_name.lower()
     thebiz = db.session.query(Business).filter(func.lower(Business.business_name) == thebizname).first()
+
     if thebiz is None:
         flash('Business does not exist', category='warning')
         return redirect(url_for('index'))
@@ -169,7 +170,8 @@ def subunsubtobusiness(business_name):
                     seeifsubbed = db.session.query(BusinessFollowers).filter(BusinessFollowers.user_id == current_user.id,
                                                                              BusinessFollowers.business_id == subid).first()
                     if seeifsubbed is None:
-                        # add subscribition
+                        # add subscri
+                        # \bition
                         subtoit = BusinessFollowers(
                             user_id=current_user.id,
                             business_id=subid,
