@@ -14,14 +14,18 @@ from app.profile_edit.forms import \
     DeleteSaveForm, \
     DeleteSaveAllForm, \
     MyAccountForm, \
-    UserBioForm, UserPGPForm
+    UserBioForm, \
+    UserPGPForm, MyCryptoAddressForm
 
 from app.classes.user import \
     User, \
     UserPublicInfo, \
     UserLargePublicInfo, \
     BlockedUser, \
-    PgpKey
+    PgpKey, \
+    SavedAddresses
+
+
 from app.classes.post import CommonsPost
 from app.classes.user import SavedPost
 
@@ -275,7 +279,9 @@ def edit_large_bio():
     if request.method == 'POST':
         user = User.query.filter_by(id=current_user.id).first()
         userlargeinfo = UserLargePublicInfo.query.filter(UserLargePublicInfo.user_id == current_user.id).first()
+
         form = UserBioForm(bio=userlargeinfo.bio)
+
         if form.validate_on_submit():
 
             userlargeinfo.bio = form.bio.data
@@ -322,3 +328,59 @@ def unblockuser(user_name):
 
     if request.method == 'POST':
         return redirect(url_for('index'))
+
+
+@profileedit.route('/privatecryptoaddresses', methods=['GET', 'POST'])
+@login_required
+def private_crypto_addresses():
+    if request.method == 'GET':
+        form = MyCryptoAddressForm()
+        user = User.query.filter_by(id=current_user.id).first()
+
+        useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==current_user.id).first()
+
+        if useraddresses is None:
+            newaddress = SavedAddresses(
+                user_id= current_user.id,
+                bitcoin_address = '',
+                bitcoin_cash_address = '',
+                monero_address=''
+            )
+
+            db.session.add(newaddress)
+            db.session.commit()
+
+        return render_template('users/profile/profile_forms/profile_cryptoaddresses.html',
+                               useraddresses=useraddresses,
+                               user=user,
+                               form=form
+                               )
+
+    if request.method == 'POST':
+
+        user = User.query.filter_by(id=current_user.id).first()
+
+        useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id == current_user.id).first()
+
+        form = MyCryptoAddressForm(bitcoin_address=useraddresses.bitcoin_address,
+                                   bitcoin_cash_address=useraddresses.bitcoin_cash_address,
+                                   monero_address=useraddresses.monero_address,
+                                   )
+
+        if form.validate_on_submit():
+
+            useraddresses.bitcoin_address = form.bitcoin_address.data
+            useraddresses.monero_address = form.monero_address.data
+            useraddresses.bitcoin_cash_address = form.bitcoincash_address.data
+
+            db.session.add(useraddresses)
+            db.session.commit()
+
+            flash('Addresses added or changed', category="success")
+            return redirect(url_for('profileedit.private_crypto_addresses'))
+        else:
+            for fields, errors in form.errors.items():
+                flash(errors[0], category="warning")
+
+            return redirect(url_for('profileedit.private_crypto_addresses'))
+

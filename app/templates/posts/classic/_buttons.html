@@ -1,4 +1,4 @@
-<div class="col-12 text-center mt-2 mb-2 border-top  pt-2" style="font-size: 12px">
+<div class="col-12 text-center mt-2 mb-2  pt-2" style="font-size: 12px; border-top: 1px solid rgba(77,77,77,0.25)">
     <!---large screen-->
     <div class="row ">
         <div class="col-3  pt-2 pb-2 text-center btn-ee "
@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-3 pt-2 pb-2 btn-ee  " >
-            <button class="btn-ee  w-100 h-100"
+            <button class="btn-ee "
                     type="button" data-toggle="modal" data-target="#WriteModal_{{ post.id }}">
                 Write
             </button>
@@ -91,7 +91,7 @@
 {#            </a>#}
 {#        </div>#}
 
-        <div class="col-3 pt-2 pb-2 text-center  btn-ee  w-100 h-100"
+        <div class="col-3 pt-2 pb-2 text-center  btn-ee "
              onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">
             <a class="btn-ee  " href="{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}">
                 Tip

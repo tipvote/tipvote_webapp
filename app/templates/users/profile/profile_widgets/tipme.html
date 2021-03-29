@@ -7,7 +7,11 @@
                 <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" >
             </h5>
             <div class="" style="font-size: 13px">
-                {{ theuser.btc.address1 }}
+                {%  if useraddresses.bitcoin_address %}
+                    {{ useraddresses.bitcoin_address }}
+                {% else %}
+                    {{ theuser.btc.address1 }}
+                {% endif %}
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
@@ -15,7 +19,11 @@
                 <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" >
             </h5>
             <div class="" style="font-size: 13px">
-                {{ theuser.bch.address1 }}
+                {%  if useraddresses.bitcoin_cash_address %}
+                    {{ useraddresses.bitcoin_cash_address }}
+                {% else %}
+                    {{ theuser.bch.address1 }}
+                {% endif %}
             </div>
         </div>
         <div class="col-12 text-center">
@@ -24,9 +32,13 @@
             </h5>
 
 
-                <div class="col-12  p-0 d-none d-md-block" style="font-size: 13px; word-break: break-word;">
+            <div class="col-12  p-0 d-none d-md-block" style="font-size: 13px; word-break: break-word;">
+                {%  if useraddresses.monero_address %}
+                    {{ useraddresses.monero_address }}
+                {% else %}
                     {{ theuser.xmr.address1 }}
-                </div>
+                {% endif %}
+            </div>
 
         </div>
     </div>

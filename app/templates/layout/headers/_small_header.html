@@ -14,7 +14,7 @@
 </style>
 
 <div class="container-fluid headercolor" style="margin-top: 100px">
-    <div class="row  pl-0 pr-0 pb-0 pt-1 sticky-top headercolor" style="min-height: 70px">
+    <div class="row  pl-0 pr-0 pb-0 pt-1 sticky-top headercolor" style="min-height: 50px">
         {% if current_user.is_authenticated %}
             <div class="col-2 pt-0 pb-0 pl-3 mt-0 mb-0  mx-auto text-nowrap " style="font-size:35px">
                 <div class="row">
@@ -32,7 +32,7 @@
                 </a>
             </div>
         {% endif %}
-        <div class="col-1"></div>
+
         <div class="col-3 pl-0 pr-0 justify-content-end">
             {% if current_user.is_authenticated %}
                 <div class="dropdown d-inline " >
@@ -88,7 +88,7 @@
 
 
 
-        <div class="col-6 text-right  pl-0 pr-0 ">
+        <div class="col-7 text-right  pl-0 pr-0 ">
             {% if current_user.is_authenticated %}
 
                 <a class="btn btn-dark pt-2 pb-2" href="{{ url_for('profile.main',
@@ -97,7 +97,7 @@
                 </a>
 
                 <div class="dropdown d-inline">
-                    <button class="btn btn-dark dropdown-toggle"
+                    <button class="btn btn-dark dropdown-toggle "
                             type="button"
                             id="dropdownMenuButton2"
                             data-toggle="dropdown"
@@ -142,12 +142,12 @@
                 <div class="d-none d-md-block">
                     {% if themsgs %}
                         {% if themsgs == 0 %}
-                            <a class="btn btn-dark " href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
+                            <a class="btn btn-dark pt-2 pb-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope"></i></a>
                         {% else %}
-                            <a class="btn btn-warning  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                            <a class="btn btn-warning pt-2 pb-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                         {% endif %}
                     {% else %}
-                        <a class="btn btn-dark  " href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
+                        <a class="btn btn-dark pt-2 pb-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope"></i></a>
                     {% endif %}
                 </div>
 
@@ -158,7 +158,7 @@
 
                     {% if thenotescount %}
                         {% if thenotescount > 0 %}
-                            <button class="btn btn-dark   text-white dropdown-toggle btn-danger pt-2"
+                            <button class="btn btn-dark text-white dropdown-toggle btn-danger pt-2 pb-2"
                                     type="button"
                                     id="dropdownMenuButton"
                                     data-toggle="dropdown"
@@ -168,7 +168,7 @@
                                 {{ thenotescount }}
                             </button>
                         {% else %}
-                            <button class="btn  btn-dark  dropdown-toggle text-white pt-2"
+                            <button class="btn btn-dark  dropdown-toggle text-white pt-2 pb-2"
                                     type="button"
                                     id="dropdownMenuButton"
                                     data-toggle="dropdown"
@@ -178,7 +178,7 @@
                             </button>
                         {% endif %}
                     {% else %}
-                        <button class="btn btn-dark  dropdown-toggle text-white pt-2"
+                        <button class="btn btn-dark dropdown-toggle text-white pt-2 pb-2"
                                 type="button"
                                 id="dropdownMenuButton"
                                 data-toggle="dropdown"
@@ -188,7 +188,12 @@
                         </button>
                     {% endif %}
 
-                    <div class="dropdown-menu dropdown-menu-right second_color dropdown-content darkbg mt-0 mb-0 pt-0 pb-0 border  dropdown-height"
+                    <div class="dropdown-menu
+                     dropdown-menu-right
+                     second_color
+                     dropdown-content
+                     darkbg mt-0 mb-0 pt-0 pb-0 border
+                     dropdown-height"
                          aria-labelledby="dropdownMenuButton"
                          style="width: 400px">
                         <div class="col-12 second_color">
@@ -213,25 +218,22 @@
 
 
 
-
-
-
-
-                <div class="dropdown d-inline p-0">
-                    <button class="btn btn-dark dropdown-toggle"
+                <div class="dropdown d-inline ">
+                    <button class="btn btn-dark dropdown-toggle pt-2 pb-2"
                             type="button"
                             id="dropdownMenuButton"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
 
-                        <i class="fa fa-bars fa-1x"></i>
+                        <i class="fa fa-bars fa-lg"></i>
+
                     </button>
 
-                    <div class="dropdown-menu dropdown-menu-right darkbg mt-0 mb-0 pt-0 pb-0 border "
+                    <div class="dropdown-menu dropdown-menu-right darkbg mt-0 mb-0 pt-0 pb-0 border"
                          aria-labelledby="dropdownMenuButton2">
                         <div class="col-12 second_color m-0">
-                            <div class="row ">
+                            <div class="row">
                                 <a class=" col-12 mb-2 p-0" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>View Profile</b>

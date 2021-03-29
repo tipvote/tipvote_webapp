@@ -7,6 +7,16 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+class SavedAddresses(db.Model):
+    __tablename__ = 'user_crypto_addresses'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    user_id = db.Column(db.Integer)
+    bitcoin_address = db.Column(db.TEXT)
+    bitcoin_cash_address = db.Column(db.TEXT)
+    monero_address = db.Column(db.TEXT)
+
 
 class SavedPost(db.Model):
     __tablename__ = 'user_saved_posts'

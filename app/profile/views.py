@@ -23,7 +23,9 @@ from app.classes.user import \
     User, \
     Followers, \
     UserLargePublicInfo, \
-    BlockedUser
+    BlockedUser, \
+    SavedAddresses
+
 from app.classes.post import CommonsPost
 from app.classes.subforum import Mods, SubForums, Subscribed
 from app.classes.models import ExpTable
@@ -54,10 +56,16 @@ def main(user_name):
 
     if current_user.is_authenticated:
         # see if blocked
-        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == theuser.id, BlockedUser.blocked_user == current_user.id).first()
+        isuserblocked = BlockedUser.query\
+                        .filter(BlockedUser.user_id == theuser.id,
+                                                 BlockedUser.blocked_user == current_user.id)\
+                        .first()
         if isuserblocked:
             flash('User does not exist', category='warning')
             return redirect(url_for('index'))
+
+    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==current_user.id).first()
+
 
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
@@ -106,6 +114,7 @@ def main(user_name):
     userexp = db.session.query(ExpTable).filter(ExpTable.user_id == theuser.id).order_by(ExpTable.id.desc()).limit(5)
 
     return render_template('users/profile/profile.html',
+                           useraddresses=useraddresses,
                            seeifmod=seeifmod,
                            postcount=postcount,
                            moddingcount=moddingcount,
@@ -154,10 +163,16 @@ def profile_other_posts_all(user_name):
 
     # see if blocked
     if current_user.is_authenticated:
-        isuserblocked = BlockedUser.query.filter(BlockedUser.user_id == theuser.id, BlockedUser.blocked_user == current_user.id).first()
+        isuserblocked = BlockedUser.query\
+            .filter(BlockedUser.user_id == theuser.id,
+                                                 BlockedUser.blocked_user == current_user.id)\
+            .first()
         if isuserblocked:
             flash('User does not exist', category='warning')
             return redirect(url_for('index'))
+
+    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==current_user.id).first()
+
 
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))
@@ -201,6 +216,7 @@ def profile_other_posts_all(user_name):
 
 
     return render_template('users/profile/profile_other.html',
+                           useraddresses=useraddresses,
                            wall_post_form=wall_post_form,
                            postcount=postcount,
                            voteform=voteform,

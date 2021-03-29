@@ -31,13 +31,15 @@
                 <p><a class="btn btn-tipvote-up"
                       href="{{ url_for('profile.follow',
                        user_name=theuser.user_name) }}">
-                    Follow</a>
+                    Follow
+                </a>
                 </p>
             {% else %}
                 <p><a class="btn btn-tipvote-down"
                       href="{{ url_for('profile.unfollow',
                        user_name=theuser.user_name) }}">
-                    Unfollow</a>
+                    Unfollow
+                </a>
                 </p>
             {% endif %}
 

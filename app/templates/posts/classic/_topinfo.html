@@ -149,7 +149,7 @@
             </div>
         {% endif %}
 
-        <div class="col border-bottom  mb-2 ml-0 p-0">
+        <div class="col   mb-2 ml-0 p-0" style="border-bottom: 1px solid rgba(77,77,77,0.25)">
             <div class="post_text_color"  style="display: inline; font-size: 12px">
                 Posted   {{ moment(timestamp=post.created, local=False).fromNow(refresh=True)  }}
                 {% if post.created != post.edited %}

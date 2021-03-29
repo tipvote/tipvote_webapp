@@ -1,17 +1,38 @@
 <div class="row pb-0 pr-2 pl-2">
-    <div class="col-12 second_color rounded  mb-1">
+
+
+
+    <div class="col-12 second_color rounded  mb-1 p-0">
+
+    {% if current_user.is_authenticated %}
+        {% if current_user.bannerimage != '' %}
+            <img class="" style="width: 100%"
+                 src="{{ url_for('common.user_banner_image', filename=current_user.bannerimage) }}"
+            >
+            <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center linkcolor" style="margin-top: -30px">
+                {% if current_user.profileimage == '' %}
+                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}">
+                {% else %}
+                    <img class="profileimage"
+                         src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                    >
+                {% endif %}
+            </div>
+            <div class="col-4"></div>
+            </div>
+        {% else %}
+        {% endif %}
+    {% endif %}
+
+
         {% if current_user.is_authenticated %}
 
             <div class="row">
 
                 <div class="col-4 text-center mt-3 linkcolor" >
-                    {% if current_user.profileimage == '' %}
-                        <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}">
-                    {% else %}
-                        <img class="profileimage"
-                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
-                        >
-                    {% endif %}
+
                 </div>
                 <div class="col-8 text-left  mt-3 linkcolor" >
 
@@ -36,43 +57,7 @@
             <div class="col-12 mb-1 text-center">
                 Lvl {{ current_user.user_stats_common.user_level }}
 
-                {%  if 0 <= current_user.user_stats_common.user_level <= 2 %}
-                    ({{ current_user.user_stats_common.user_exp }}/250 exp)
 
-                {%  elif 3 <= current_user.user_stats_common.user_level <= 5 %}
-                    ({{ current_user.user_stats_common.user_exp }}/500 exp)
-
-                {%  elif 6 <= current_user.user_stats_common.user_level <= 7 %}
-                    ({{ current_user.user_stats_common.user_exp }}/1000 exp)
-
-                {%  elif 8 <= current_user.user_stats_common.user_level <= 10 %}
-                    ({{ current_user.user_stats_common.user_exp }}/2000 exp)
-
-                {%  elif 11 <= current_user.user_stats_common.user_level <= 14 %}
-                    ({{ current_user.user_stats_common.user_exp }}/4000 exp)
-
-                {%  elif 16 <= current_user.user_stats_common.user_level <= 20 %}
-                    ({{ current_user.user_stats_common.user_exp }}/6000 exp)
-
-                {%  elif 21 <= current_user.user_stats_common.user_level <= 25 %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {%  elif 26 <= current_user.user_stats_common.user_level <= 320 %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {%  elif 30 <= current_user.user_stats_common.user_level <= 50 %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {%  elif 51 <= current_user.user_stats_common.user_level <= 100 %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {%  elif 101 <= current_user.user_stats_common.user_level <= 150 %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {% else %}
-                    ({{ current_user.user_stats_common.user_exp }}/10000 exp)
-
-                {% endif %}
                 <div class="progress">
                     <div class="progress-bar bg-warning"
                          role="progressbar"

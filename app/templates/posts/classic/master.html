@@ -6,7 +6,7 @@
 
         {% include 'posts/classic/_topinfo.html' %}
 
-{% include 'posts/classic/_admin_buttons.html' %}
+        {% include 'posts/classic/_admin_buttons.html' %}
 
         {% if post.shared_post == 0 %}
 
@@ -24,7 +24,6 @@
                 {% include 'posts/classic/_image.html' %}
                 {% include 'posts/classic/_url.html' %}
             {% endif %}
-
 
 
         {% else %}
@@ -47,9 +46,7 @@
         <p class="text-danger font-weight-bold text-center col-12">Post has been deleted</p>
     {% endif %}
 
-
     {% include 'posts/classic/_buttons.html' %}
-
 
 
 </div>

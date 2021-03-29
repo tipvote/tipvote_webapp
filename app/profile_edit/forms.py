@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, \
     Optional
 
 from app.common.validation import general
-
+from app.common.validation import bitcoin, monero
 
 class UserPGPForm(FlaskForm):
 
@@ -18,6 +18,44 @@ class UserPGPForm(FlaskForm):
 
     ])
 
+    submit = SubmitField()
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+
+    def validate(self):
+        rv = FlaskForm.validate(self)
+        if rv:
+            return True
+        else:
+            return False
+
+
+class MyCryptoAddressForm(FlaskForm):
+
+    bitcoin_address = TextAreaField(validators=[
+        Optional(),
+        Regexp(bitcoin,
+               message='Bitcoin address is incorrect format'),
+        Length(10, 500, message='Bitcoin Address is not correct'),
+
+    ])
+
+    monero_address = TextAreaField(validators=[
+        Optional(),
+        Regexp(monero,
+               message='Monero address is incorrect format'),
+        Length(10, 500, message='Monero Address is not correct'),
+
+    ])
+
+    bitcoincash_address = TextAreaField(validators=[
+        Optional(),
+        Regexp(bitcoin,
+               message='Bitcoin Cash address is incorrect format'),
+        Length(10, 500, message='Bitcoin Cash Address is not correct'),
+
+    ])
     submit = SubmitField()
 
     def __init__(self, *args, **kwargs):
