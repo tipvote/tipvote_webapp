@@ -84,12 +84,12 @@
             </div>
         </div>
 
-{#        <div class="col-3 pt-2 pb-2 btn-ee   w-100 h-100"#}
-{#             onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">#}
-{#            <a class="btn-ee   w-100 h-100" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">#}
-{#                Promote#}
-{#            </a>#}
-{#        </div>#}
+        <div class="col-3 pt-2 pb-2 btn-ee   w-100 h-100"
+             onclick="window.location.href='{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}';">
+            <a class="btn-ee   w-100 h-100" href="{{ url_for('promote.promotepost',subname=post.subcommon_name,postid=post.id) }}">
+                Promote
+            </a>
+        </div>
 
         <div class="col-3 pt-2 pb-2 text-center  btn-ee "
              onclick="window.location.href='{{ url_for('tip.create_tip_post',subname=post.subcommon_name,postid = post.id) }}';">

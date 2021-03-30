@@ -198,7 +198,7 @@ def register():
                     over_age=0,
                     agree_to_tos=True,
                     banned=0,
-                    color_theme=1,
+                    color_theme=3,
                     post_style=1
                 )
                 db.session.add(newuser)

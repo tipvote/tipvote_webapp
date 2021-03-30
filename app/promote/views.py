@@ -56,13 +56,16 @@ def promotepost(subname, postid):
     Promotes a post
     # btc
     """
+
     form_btc = CreatePromotePostBtc()
     form_bch = CreatePromotePostBch()
     form_xmr = CreatePromotePostXmr()
     voteform = VoteForm()
     givecoinform = GiveCoin()
     subpostcommentform = CreateCommentQuickForm()
+
     # get the sub, post, comment
+
     thesub = db.session.query(SubForums).filter(SubForums.subcommon_name == subname).first()
     post = db.session.query(CommonsPost).get(postid)
 
