@@ -25,7 +25,7 @@ from app.classes.subforum import \
     SubForums, \
     PrivateApplications, \
     Mods
-from app.classes.user import User
+from app.classes.user import User, UserDailyChallenge, DailyChallenge
 from app.classes.post import CommonsPost
 from app.classes.bch import BchPrices
 from app.classes.btc import BtcPrices
@@ -34,6 +34,7 @@ from app.classes.business import \
     Business, \
     BusinessStats, \
     BusinessFollowers
+
 from app.classes.message import Messages
 from app.classes.notification import Notifications
 from app.classes.ltc import LtcPrices
@@ -57,6 +58,7 @@ def index():
     Returns index page and hottest posts
     :return:
     """
+
     now = datetime.utcnow()
 
     navlink = 1
@@ -110,6 +112,16 @@ def index():
     else:
         thenotes = 0
         thenotescount = 0
+
+    # get users daily missions
+    if current_user.is_authenticated:
+        getuserdaily = db.session.query(UserDailyChallenge)\
+            .filter(UserDailyChallenge.user_id == current_user.id)\
+            .all()
+    else:
+        getuserdaily = db.session.query(DailyChallenge)\
+            .order_by(func.random())\
+            .limit(2)
 
     # owned business
     if current_user.is_authenticated:
@@ -184,8 +196,6 @@ def index():
     else:
         mainpostform = None
 
-    # stats for recent tips
-
     # get total tips
     totaltips = db.session.query(RecentTips).count()
 
@@ -227,6 +237,7 @@ def index():
 
     return render_template('index.html',
                            now=now,
+
                            # forms
                            subform=subform,
                            recent_tippers_post_count=recent_tippers_post_count,
@@ -238,15 +249,14 @@ def index():
                            deletepostform=deletepostform,
                            muteuserform=muteuserform,
 
-
                            # general
+                           getuserdaily=getuserdaily,
                            seeifmod=seeifmod,
                            stream_live=stream_live,
                            moddingcount=moddingcount,
                            seeifowner=seeifowner,
                            ownercount=ownercount,
                            themsgs=themsgs,
-
                            usersubforums=usersubforums,
                            guestsubforums=guestsubforums,
                            userbusinesses=userbusinesses,
@@ -272,7 +282,6 @@ def index():
 
                            # stats
                            totaltips=totaltips,
-
                            )
 
 

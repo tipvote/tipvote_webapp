@@ -7,6 +7,37 @@ from datetime import datetime
 import bleach
 from markdown import markdown
 
+
+class DailyChallenge(db.Model):
+    __tablename__ = 'daily_challenge'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    name_of_challenge = db.Column(db.TEXT)
+    image_of_challenge = db.Column(db.TEXT)
+    how_many_to_complete = db.Column(db.Integer)
+    reward_amount = db.Column(db.TEXT)
+    reward_coin= db.Column(db.Integer)
+
+
+class UserDailyChallenge(db.Model):
+    __tablename__ = 'user_daily_challenge'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    user_id = db.Column(db.Integer)
+    id_of_challenge = db.Column(db.Integer)
+    name_of_challenge = db.Column(db.TEXT)
+    image_of_challenge = db.Column(db.TEXT)
+    how_many_to_complete = db.Column(db.Integer)
+    current_number_of_times = db.Column(db.Integer)
+    starts = db.Column(db.TIMESTAMP())
+    ends = db.Column(db.TIMESTAMP())
+    completed = db.Column(db.Integer)
+    user_width_next_level = db.Column(db.Integer)
+    reward_amount = db.Column(db.TEXT)
+    reward_coin= db.Column(db.Integer)
+
 class SavedAddresses(db.Model):
     __tablename__ = 'user_crypto_addresses'
     __bind_key__ = 'avengers'
@@ -16,6 +47,20 @@ class SavedAddresses(db.Model):
     bitcoin_address = db.Column(db.TEXT)
     bitcoin_cash_address = db.Column(db.TEXT)
     monero_address = db.Column(db.TEXT)
+
+
+
+class PgpKey(db.Model):
+    __tablename__ = 'user_pgpkey'
+    __bind_key__ = 'avengers'
+    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
+    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
+    # from to
+    user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
+    user_name = db.Column(db.String(140))
+    key = db.Column(db.TEXT)
+
 
 
 class SavedPost(db.Model):

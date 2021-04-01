@@ -27,6 +27,7 @@ from app.common.timers import lastcommoncreation, lastposted, lastcommont
 from app.common.functions import mkdir_p, id_generator_picture1
 from app.common.lvl_required import lvl_req
 from app.common.exp_calc import exppoint
+from app.common.daily_challenge import daily_challenge
 from app.message.add_notification import add_new_notification
 
 # relative directory
@@ -464,15 +465,19 @@ def createcomment(subname, postid, parentid):
 
         thepost = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
 
+
+
         getcurrentsub = db.session.query(SubForums) \
-            .filter(SubForums.subcommon_name == subname) \
+            .filter((SubForums.subcommon_name) == subname) \
             .first()
+
 
         # see if blocked
         isuserblocked = db.session.query(BlockedUser) \
             .filter(BlockedUser.user_id == thepost.user_id,
                     BlockedUser.blocked_user == current_user.id) \
             .first()
+
         if isuserblocked:
             flash("Your Comment can not be added.", category="danger")
             return redirect(url_for('index'))
@@ -604,6 +609,10 @@ def createcomment(subname, postid, parentid):
 
             # add exp points
             exppoint(user_id=current_user.id, category=2)
+
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=2)
 
             # add comment count to the post
             currentcommentcount = thepost.comment_count
@@ -856,6 +865,10 @@ def createcommentquick(postid):
 
         # add exp points
         exppoint(user_id=current_user.id, category=2)
+
+        # daily challnge
+        if current_user.is_authenticated:
+            daily_challenge(user_id=current_user.id, category=2)
 
         # add comment count to the post
         currentcommentcount = thepost.comment_count

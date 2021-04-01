@@ -12,7 +12,7 @@ from app import db
 
 from app.common.exp_calc import exppoint
 from app.common.decorators import login_required
-
+from app.common.daily_challenge import daily_challenge
 from app.vote import vote
 
 from app.classes.user import UserStats
@@ -62,6 +62,7 @@ def downvote_comment(commentid):
             .filter(current_user.id == Banned.user_id,
                     Banned.subcommon_id == getcurrentsub.id) \
             .first()
+
 
         # set easy variables
         subid = getcurrentsub.id
@@ -180,6 +181,7 @@ def downvote_comment(commentid):
             user_id=current_user.id,
             comment_id=getcomment.id,
         )
+
 
         db.session.add(comment_owner_stats)
         db.session.add(getcomment)
@@ -500,6 +502,10 @@ def upvote_post(postid):
             exppoint(user_id=current_user.id, category=8)
             exppoint(user_id=getpost.user_id, category=3)
 
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=3)
+
             # add to user stats
             current_upvotes_posts = post_owner_stats.post_upvotes
             new_upvotes_posts = current_upvotes_posts + 1
@@ -655,6 +661,11 @@ def downvote_post(postid):
             # add stats to voter
             exppoint(user_id=current_user.id, category=8)
             exppoint(user_id=getpost.user_id, category=4)
+
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=3)
+
 
             # add to user stats
             current_downvotes_posts = post_owner_stats.post_downvotes

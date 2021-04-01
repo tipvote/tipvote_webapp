@@ -11,6 +11,7 @@ from flask_login import current_user
 from datetime import datetime
 from decimal import Decimal
 import re
+
 # common imports
 from app import db
 from app.common.decorators import login_required

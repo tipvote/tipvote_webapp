@@ -1,0 +1,53 @@
+{% extends "layout/layout_edit_profile.html" %}
+{% block content %}
+
+    <div class="col-12 second_color">
+        Add your private crypto addresses here.  Tipvoters can see this on your profile page.  If none are added,
+    it defaults to your tipvote deposit address.
+    </div>
+
+    <div class="col-12 second_color">
+
+        <form method="post" action="{{ url_for('profileedit.private_crypto_addresses') }}">
+            {{ form.csrf_token }}
+            <div class="form-group w-100">
+                <label class="col-12 col-form-label"><b>Bitcoin Address</b></label>
+                <div class="col-12">
+                    {{ render_field(form.bitcoin_address,
+                     autocomplete="off",
+                     class="textboxcolors",
+                     style="width: 100%; height:30px") }}
+                </div>
+            </div>
+
+            <div class="form-group w-100">
+                <label class="col-12 col-form-label"><b>Monero Address</b></label>
+
+                <div class="col-12">
+                    {{ render_field(form.monero_address,
+                    autocomplete="off",
+                    class="textboxcolors",
+                    style="width: 100%; height:30px") }}
+                </div>
+            </div>
+
+            <div class="form-group w-100">
+                <label class="col-12 col-form-label"><b>Bitcoin Cash Address</b></label>
+
+                <div class="col-12">
+                    {{ render_field(form.bitcoincash_address,
+                     autocomplete="off",
+                     class="textboxcolors",
+                     style="width: 100%; height:30px") }}
+                </div>
+            </div>
+
+            <hr>
+            <div class="col-12 text-center mb-5">
+                {{ render_field(form.submit,  value="Submit", autocomplete="off", class="btn btn-dark ") }}
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

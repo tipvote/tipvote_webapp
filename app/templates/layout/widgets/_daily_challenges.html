@@ -1,0 +1,129 @@
+{% if current_user.is_authenticated %}
+    <div class="row mb-1 p-2">
+        <div class="col-12 second_color mb-1 rounded p-2">
+            <div class="h5 text-center">Todays Missions:</div>
+            <br>
+            {% if current_user.confirmed == 0 %}
+
+            {% else %}
+                <div class="text-danger font-weight-bold">You must be confirmed to get rewards</div>
+            {% endif %}
+
+            {% if getuserdaily %}
+                {% for f in getuserdaily %}
+                    <div class="col-12 mb-1 p-0" style="display: inline-block">
+                        <br>
+                        <div class="font-weight-bold h5">
+                            {{ f.name_of_challenge }}
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                {% if f.reward_coin == 1 %}
+                                    <div class="btcorange"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 2 %}
+                                    <div class="btccashgreen"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 3 %}
+                                    <div class="moneroorange"> {{ f.reward_amount }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-6 text-right">
+                                {{ f.current_number_of_times }} / {{ f.how_many_to_complete }}
+                            </div>
+                        </div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-info"
+                                 role="progressbar"
+                                 aria-valuenow={{ f.user_width_next_level }}
+                                         aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width:{{ f.user_width_next_level }}%">
+                            </div>
+                        </div>
+                        {% if f.reward_coin == 1 %}
+                            <div class=" btn btn-warning ">Bitcoin</div>
+                            {{ f.reward_amount }}
+                        {% elif f.reward_coin == 2 %}
+
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
+                                Bitcoin Cash
+                            </div>
+
+
+                        {% elif f.reward_coin == 3 %}
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                                Monero
+                            </div>
+
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+
+
+    <div class="row mb-1 p-2">
+        <div class="col-12 second_color mb-1 rounded p-2">
+            <div class="h5 text-center">Todays Missions:</div>
+            <br>
+
+                {% for f in getuserdaily %}
+                    <div class="col-12 mb-1 p-0" style="display: inline-block">
+                        <br>
+                        <div class="font-weight-bold h5">
+                            {{ f.name_of_challenge }}
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                {% if f.reward_coin == 1 %}
+                                    <div class="btcorange"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 2 %}
+                                    <div class="btccashgreen"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 3 %}
+                                    <div class="moneroorange"> {{ f.reward_amount }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-6 text-right">
+                                0 / {{ f.how_many_to_complete }}
+                            </div>
+                        </div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-info"
+                                 role="progressbar"
+                                 aria-valuenow={{ f.user_width_next_level }}
+                                         aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width:{{ f.user_width_next_level }}%">
+                            </div>
+                        </div>
+                        {% if f.reward_coin == 1 %}
+                            <div class=" btn btn-warning ">Bitcoin</div>
+                            {{ f.reward_amount }}
+                        {% elif f.reward_coin == 2 %}
+
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
+                                Bitcoin Cash
+                            </div>
+
+
+                        {% elif f.reward_coin == 3 %}
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                                Monero
+                            </div>
+
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+
+{% endif %}
