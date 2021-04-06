@@ -27,11 +27,11 @@
                 <div class="col-12 col-sm-3 col-md-3 text-center">
 
                     {%  if t.category == 1 %}
-                            <!--Wallet Created-->
+                        <!--Wallet Created-->
                         <br>
 
                     {%  elif t.category == 2 %}
-                         <!--Money sent offsite-->
+                        <!--Money sent offsite-->
                         Withdrawl<br>
                         {% if t %}
                             Fee: {{ t.fee|btctostring }}<br>
@@ -64,7 +64,7 @@
                         {% endif %}
 
                     {% elif t.category == 5 %}
-                         <!--Money recieved from a comment-->
+                        <!--Money recieved from a comment-->
                         Recieved comment tip from
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
@@ -116,6 +116,18 @@
                         {% endif %}
                         <br>
 
+                    {% elif t.category == 15 %}
+                        <!--tipvote sent coin for daily-->
+                        Sent coin for daily reward
+
+                        <br>
+
+                    {% elif t.category == 16 %}
+                        <!--user got coin for daily-->
+                        Reward from a daily challenge
+
+                        <br>
+
                     {% else %}
                         {% if t.orderid %}
                             {{ t.amount }}<br><br>
@@ -129,7 +141,7 @@
                 <div class="col-12 col-sm-3 col-md-3 text-center">
 
                     {% if t.category == 1 %}
-                         <!--Wallet Created-->
+                        <!--Wallet Created-->
                         --
 
                     {% elif t.category == 2 %}
@@ -177,6 +189,14 @@
                         Amount:
                         <p class="text-success">{{ t.amount|btctostring }}</p>
 
+                    {%  elif t.category == 15 %}
+                        <!--tipvote sent a daily-->
+                        Amount:
+                        <p class="text-success">-{{ t.amount|btctostring }}</p>
+                    {%  elif t.category == 16 %}
+                        <!--user got a daily tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|btctostring }}</p>
                     {% else %}
                         Amount:
                         {{ t.amount|btctostring }}
@@ -188,7 +208,7 @@
                 <div class="col-12 col-sm-3  col-md-3 text-center">
 
                     {% if t.category == 1 %}
-                    <!--wallet created no data-->
+                        <!--wallet created no data-->
 
                     {% elif t.category == 2 %}
                         <!--Money sent offsite-->
@@ -220,7 +240,7 @@
 
 
                     {% elif t.category == 5 %}
-                         <!--Money recieved from a comment-->
+                        <!--Money recieved from a comment-->
                         Balance:
                         {% if 0 == t.balance %}
                             0
@@ -230,7 +250,7 @@
 
 
                     {% elif t.category == 6 %}
-                         <!--Money sent to tip a post-->
+                        <!--Money sent to tip a post-->
                         Balance:
                         {% if 0 == t.balance %}
                             0
@@ -271,6 +291,24 @@
 
                     {% elif t.category == 10 %}
                         <!--subowner got part of a comment tip-->
+                        Balance:
+                        {% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                    {% elif t.category == 15 %}
+                        <!--Tipvote sent a daily -->
+                        Balance:
+                        {% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
+                    {% elif t.category == 16 %}
+                        <!-- Recived a daily -->
                         Balance:
                         {% if 0 == t.balance %}
                             0

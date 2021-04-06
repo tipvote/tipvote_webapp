@@ -16,8 +16,9 @@ class DailyChallenge(db.Model):
     name_of_challenge = db.Column(db.TEXT)
     image_of_challenge = db.Column(db.TEXT)
     how_many_to_complete = db.Column(db.Integer)
+    category_of_challenge = db.Column(db.Integer)
     reward_amount = db.Column(db.TEXT)
-    reward_coin= db.Column(db.Integer)
+    reward_coin = db.Column(db.Integer)
 
 
 class UserDailyChallenge(db.Model):
@@ -27,6 +28,7 @@ class UserDailyChallenge(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     user_id = db.Column(db.Integer)
     id_of_challenge = db.Column(db.Integer)
+    category_of_challenge = db.Column(db.Integer)
     name_of_challenge = db.Column(db.TEXT)
     image_of_challenge = db.Column(db.TEXT)
     how_many_to_complete = db.Column(db.Integer)
@@ -37,6 +39,8 @@ class UserDailyChallenge(db.Model):
     user_width_next_level = db.Column(db.Integer)
     reward_amount = db.Column(db.TEXT)
     reward_coin= db.Column(db.Integer)
+
+
 
 class SavedAddresses(db.Model):
     __tablename__ = 'user_crypto_addresses'

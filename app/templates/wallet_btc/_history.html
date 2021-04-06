@@ -126,6 +126,17 @@
                             </a>
                         {% endif %}
                         <br>
+                    {% elif t.category == 17 %}
+                        <!--tipvote sent coin for daily-->
+                        Sent coin for daily reward
+
+                        <br>
+
+                    {% elif t.category == 18 %}
+                        <!--user got coin for daily-->
+                        Reward from a daily challenge
+
+                        <br>
 
                     {% else %}
                         {% if t.orderid %}
@@ -187,7 +198,14 @@
                         <!--subowner got part of a comment tip-->
                         Amount:
                         <p class="text-success">{{ t.amount|btctostring }}</p>
-
+                    {%  elif t.category == 17 %}
+                        <!--subowner got part of a comment tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|btctostring }}</p>
+                    {%  elif t.category == 18 %}
+                        <!--subowner got part of a comment tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|btctostring }}</p>
                     {% else %}
                         Amount:
                         {{ t.amount|btctostring }}
@@ -301,6 +319,16 @@
                                 {{ t.balance|btctostring }}
                             {% endif %}
                         {% endif %}
+
+                    {%  elif t.category == 17 %}
+                        <!--tipvote sent a daily-->
+                        Amount:
+                        <p class="text-success">-{{ t.amount|btctostring }}</p>
+                    {%  elif t.category == 18 %}
+                        <!--user got a daily tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|btctostring }}</p>
+
                     {% else %}
                         Balance:
                         {% if t.balance %}

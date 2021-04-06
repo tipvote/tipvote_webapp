@@ -27,11 +27,11 @@
                 <div class="col-12 col-sm-3 col-md-3 text-center">
 
                     {%  if t.category == 1 %}
-                    <!--Wallet Created-->
+                        <!--Wallet Created-->
                         <br>
 
                     {%  elif t.category == 2 %}
-                    <!--Money sent offsite-->
+                        <!--Money sent offsite-->
                         Withdrawl<br>
                         {% if t %}
                             {% if t.confirmations >= 7 %}
@@ -53,7 +53,7 @@
                         <br>
 
                     {% elif t.category == 3 %}
-                     <!--Deposit from offsite-->
+                        <!--Deposit from offsite-->
                         Deposit
                         {% if t %}
                             {% if t.confirmations >= 11 %}
@@ -64,28 +64,28 @@
                         {% endif %}
 
                     {% elif t.category == 4 %}
-                     <!--Money sent to tip a comment-->
+                        <!--Money sent to tip a comment-->
                         Sent Comment tip to
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>
 
                     {% elif t.category == 5 %}
-                    <!--Money recieved from a comment-->
+                        <!--Money recieved from a comment-->
                         Recieved comment tip
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>
 
                     {% elif t.category == 6 %}
-                    <!--Money sent to tip a post-->
+                        <!--Money sent to tip a post-->
                         Sent tip to post
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
                         </a>
 
                     {% elif t.category == 7 %}
-                    <!--Money recieved from a post-->
+                        <!--Money recieved from a post-->
                         Recieved tip from post
                         <a href="{{ url_for('profile.main',user_name=t.senderid|user_name) }}">
                             {{ t.senderid|user_name }}
@@ -93,7 +93,7 @@
                         <br>
 
                     {% elif t.category == 8 %}
-                    <!--Money recieved from a promotion-->
+                        <!--Money recieved from a promotion-->
                         Promoted post #
                         <a href="{{ url_for('subforum.viewpost',subname=t.commentbtc, postid=t.orderid) }}">
                             {{ t.orderid }}
@@ -101,7 +101,7 @@
                         <br>
 
                     {% elif t.category == 9 %}
-                    <!--subowner got part of a post tip-->
+                        <!--subowner got part of a post tip-->
                         Profit from a tip in your room!
                         {% if t.note %}
                             <a href="{{ url_for('subforum.viewpost',subname=t.commentbtc, postid=t.orderid) }}">
@@ -111,7 +111,7 @@
                         <br>
 
                     {%  elif t.category == 10 %}
-                    <!--subowner got part of a comment tip-->
+                        <!--subowner got part of a comment tip-->
                         Profit from a tip in your room!
                         {% if t.note %}
 
@@ -119,6 +119,16 @@
                                 comment#{{ t.commentbch }}
                             </a>
                         {% endif %}
+                        <br>
+
+                    {% elif t.category == 13 %}
+                        <!--tipvote sent coin for daily-->
+                        Sent coin for daily reward
+                        <br>
+
+                    {% elif t.category == 14 %}
+                        <!--user got coin for daily-->
+                        Reward from a daily challenge
                         <br>
 
                     {% else %}
@@ -136,52 +146,59 @@
                 <div class="col-12 col-sm-3 col-md-3 text-center">
 
                     {% if t.category == 1 %}
-                    <!--Wallet Created-->
+                        <!--Wallet Created-->
                         --
 
                     {% elif t.category == 2 %}
-                    <!--Money sent offsite-->
+                        <!--Money sent offsite-->
                         Amount:
                         -{{ t.amount|xmrtostring }}
 
                     {% elif t.category == 3 %}
-                    <!--Deposit from offsite-->
+                        <!--Deposit from offsite-->
                         Amount:
                         <p class="text-success">{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 4 %}
-                     <!--Money sent to tip a comment-->
+                        <!--Money sent to tip a comment-->
                         Amount:
                         <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 5 %}
-                    <!--Money recieved from a comment-->
+                        <!--Money recieved from a comment-->
                         Amount:
                         <p class="text-success">{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 6 %}
-                    <!--Money sent to tip a post-->
+                        <!--Money sent to tip a post-->
                         Amount:
                         <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 7 %}
-                    <!--Money recieved from a post-->
+                        <!--Money recieved from a post-->
                         Amount:
                         <p class="text-success">{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 8 %}
-                    <!--website profit-->
+                        <!--website profit-->
                         Amount:
                         <p class="text-danger">-{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 9 %}
-                    <!--subowner got part of a post tip-->
+                        <!--subowner got part of a post tip-->
                         Amount:<p class="text-success">{{ t.amount|xmrtostring }}</p>
 
                     {% elif t.category == 10 %}
-                    <!--subowner got part of a comment tip-->
+                        <!--subowner got part of a comment tip-->
                         Amount:<p class="text-success">{{ t.amount|xmrtostring }}</p>
+                    {%  elif t.category == 13 %}
 
+                        Amount:
+                        <p class="text-success">{{ t.amount|xmrtostring }}</p>
+                    {%  elif t.category == 14 %}
+
+                        Amount:
+                        <p class="text-success">{{ t.amount|xmrtostring }}</p>
                     {% else %}
                         Amount:
                         {% if 0 <= t.amount > 0.0001 %}
@@ -198,15 +215,15 @@
                 <div class="col-12 col-sm-3  col-md-3 text-center">
 
                     {% if t.category == 1 %}
-                    <!--wallet created no data-->
+                        <!--wallet created no data-->
 
                     {% elif t.category == 2 %}
-                     <!--Money sent offsite-->
+                        <!--Money sent offsite-->
                         Balance:
                         {{ t.balance|xmrtostring }}
 
                     {% elif t.category == 3 %}
-                    <!--Deposit from offsite-->
+                        <!--Deposit from offsite-->
                         Balance:
                         {% if t.confirmed == 0 %}
                             {% if t.balance == 0 %}
@@ -219,7 +236,7 @@
                         {% endif %}
 
                     {% elif t.category == 4 %}
-                    <!--Money sent to tip a comment-->
+                        <!--Money sent to tip a comment-->
                         Balance:
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
@@ -228,7 +245,7 @@
                         {% endif %}
 
                     {% elif t.category == 5 %}
-                    <!--Money recieved from a comment-->
+                        <!--Money recieved from a comment-->
                         Balance:
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
@@ -237,7 +254,7 @@
                         {% endif %}
 
                     {% elif t.category == 6 %}
-                    <!--Money sent to tip a post-->
+                        <!--Money sent to tip a post-->
                         Balance:
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
@@ -246,7 +263,7 @@
                         {% endif %}
 
                     {% elif t.category == 7 %}
-                    <!--Money recieved from a post-->
+                        <!--Money recieved from a post-->
                         Balance:
                         {% if 0 <= t.balance >= 0.0001 %}
                             {{ t.balance }}
@@ -255,7 +272,7 @@
                         {% endif %}
 
                     {% elif t.category == 8 %}
-                    <!--promoted a post-->
+                        <!--promoted a post-->
                         Balance:
                         {% if 0 == t.balance %}
                             0
@@ -264,7 +281,7 @@
                         {% endif %}
 
                     {% elif t.category == 9 %}
-                    <!--subowner got part of a post tip-->
+                        <!--subowner got part of a post tip-->
                         Balance:{% if 0 == t.balance %}
                         0
                     {% else %}
@@ -273,9 +290,18 @@
 
 
                     {% elif t.category == 10 %}
-                    <!--subowner got part of a comment tip-->
+                        <!--subowner got part of a comment tip-->
                         Balance:{% if 0 == t.balance %}
                         0
+                    {%  elif t.category == 13 %}
+                        <!--tipvote sent a daily-->
+                        Amount:
+                        <p class="text-success">-{{ t.amount|xmrtostring }}</p>
+                    {%  elif t.category == 14 %}
+                        <!--user got a daily tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|xmrtostring }}</p>
+
                     {% else %}
                         {{ t.balance|xmrtostring }}
                     {% endif %}

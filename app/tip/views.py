@@ -93,7 +93,7 @@ def create_tip_comment(subname, postid, commentid):
                            )
 
 
-@tip.route('/post/<string:subname>/<int:postid>', methods=['GET'])
+@tip.route('/post/tip/<string:subname>/<int:postid>', methods=['GET'])
 @login_required
 def create_tip_post(subname, postid):
     form_btc = CreateTipBTC()

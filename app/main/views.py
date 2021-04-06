@@ -396,6 +396,15 @@ def newest():
     else:
         post_18 = 0
         allpost = 0
+    # get users daily missions
+    if current_user.is_authenticated:
+        getuserdaily = db.session.query(UserDailyChallenge)\
+            .filter(UserDailyChallenge.user_id == current_user.id)\
+            .all()
+    else:
+        getuserdaily = db.session.query(DailyChallenge)\
+            .order_by(func.random())\
+            .limit(2)
 
     # POSTS sub queries
     page = request.args.get('page', 1, type=int)
@@ -422,6 +431,7 @@ def newest():
                            mainpostform=mainpostform,
                            # general
                            thenotes=thenotes,
+                           getuserdaily=getuserdaily,
                            subpostcommentform=subpostcommentform,
                            thenotescount=thenotescount,
                            themsgs=themsgs,

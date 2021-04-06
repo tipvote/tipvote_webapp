@@ -5,6 +5,7 @@ from app.wallet_btc.wallet_btc_addtransaction import addtransaction
 from app.classes.btc import BtcWallet
 # end models
 
+
 def sendcointosite_post_promotion_btc(sender_id, amount, postid, room):
 
     """
