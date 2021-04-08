@@ -17,7 +17,7 @@ from app import db
 from app.common.decorators import login_required
 from app.common.functions import floating_decimals
 from app.common.validation import btcamount
-
+from app.common.daily_challenge import daily_challenge
 # relative directory
 from app.promote import promote
 from app.promote.forms import \
@@ -201,6 +201,9 @@ def promotepost_coin(subname, postid, coinid):
                     usercoin.quantity = currentcoinamount
                     db.session.add(usercoin)
                     db.session.commit()
+                # daily challnge
+                if current_user.is_authenticated:
+                    daily_challenge(user_id=current_user.id, category=5)
 
                 # send notification you got a coin promotion
                 add_new_notification(user_id=post.poster_user_id,
@@ -380,6 +383,10 @@ def promotepost_btc(subname, postid):
 
                     post.active = 1
                     post.last_active = now
+
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=6)
 
                     # send notification you got a coin promotion
                     add_new_notification(user_id=post.poster_user_id,
@@ -561,6 +568,10 @@ def promotepost_bch(subname, postid):
                                                       room=subname)
                     post.active = 1
                     post.last_active = now
+
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=6)
 
                     db.session.add(post)
                     db.session.add(changeuserbchstats)
@@ -750,6 +761,10 @@ def promotepost_xmr(subname, postid):
 
                     db.session.add(post)
                     db.session.add(changeuserxmrstats)
+
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=6)
 
                     # send notification you got a coin promotion
                     add_new_notification(user_id=post.poster_user_id,

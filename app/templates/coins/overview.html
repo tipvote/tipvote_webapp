@@ -3,15 +3,169 @@
 
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <h3>  Earn Tipvote Coins and Rewards by Leveling </h3>
+            <h3>  Earn Tipvote Coins and Crypto by using Tipvote </h3>
         </div>
     </div>
+    <div class="row ">
+        <div class="col-12 text-center">
+            <h5>Crypto Rewards</h5>
+        </div>
+
+
+    </div>
+    {% if current_user.is_authenticated %}
+        <div class="row mb-1 p-2">
+            <div class="col-12 second_color  rounded p-2">
+                <div class="h5 text-center">Todays Missions:</div>
+                <br>
+
+                {% if current_user.confirmed == 1 %}
+                    <div style="font-size:11px" class="">Complete Missions to get coin into your wallet.</div>
+                {% else %}
+                    <div class="text-danger font-weight-bold">You must be confirmed to get rewards</div>
+                {% endif %}
+
+                {% if getuserdaily  %}
+                    {% for f in getuserdaily %}
+                        <div class="col-12 mb-1 p-0" style="display: inline-block">
+                            <br>
+                            <div class="font-weight-bold h5">
+                                {{ f.name_of_challenge }}
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-left">
+                                    {% if f.reward_coin == 1 %}
+                                        <div class="btcorange"> {{ f.reward_amount }}</div>
+                                    {% elif f.reward_coin == 2 %}
+                                        <div class="btccashgreen"> {{ f.reward_amount }}</div>
+                                    {% elif f.reward_coin == 3 %}
+                                        <div class="moneroorange"> {{ f.reward_amount }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6 text-right">
+                                    {% if f.completed == 0 %}
+                                        {{ f.current_number_of_times }} / {{ f.how_many_to_complete }}
+                                    {% else %}
+                                        <div class="font-weight-bold">
+                                            Completed
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="progress mb-1">
+                                <div class="progress-bar bg-info"
+                                     role="progressbar"
+                                     aria-valuenow={{ f.user_width_next_level }}
+                                             aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     style="width:{{ f.user_width_next_level }}%">
+                                </div>
+                            </div>
+                            {% if f.reward_coin == 1 %}
+                                <div class=" btn btn-warning ">Bitcoin</div>
+                                {{ f.reward_amount }}
+                            {% elif f.reward_coin == 2 %}
+                                <div class=" btn btn-dark">
+                                    <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}"
+                                         width="25px" height="20px">
+                                    Bitcoin Cash
+                                </div>
+
+                            {% elif f.reward_coin == 3 %}
+                                <div class=" btn btn-dark">
+                                    <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}"
+                                         width="20px" height="20px">
+                                    Monero
+                                </div>
+
+                            {% else %}
+
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <div class="font-weight-bold text-center">
+                        Come back tommorrow for more missions
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="row mb-1 p-2">
+            <div class="col-12 second_color mb-1 rounded p-2">
+                <div class="h5 text-center">Todays Missions:</div>
+                <br>
+
+                {% for f in getuserdaily %}
+                    <div class="col-12 mb-1 p-0" style="display: inline-block">
+                        <br>
+                        <div class="font-weight-bold h5">
+                            {{ f.name_of_challenge }}
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                {% if f.reward_coin == 1 %}
+                                    <div class="btcorange"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 2 %}
+                                    <div class="btccashgreen"> {{ f.reward_amount }}</div>
+                                {% elif f.reward_coin == 3 %}
+                                    <div class="moneroorange"> {{ f.reward_amount }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-6 text-right">
+                                0 / {{ f.how_many_to_complete }}
+                            </div>
+                        </div>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-info"
+                                 role="progressbar"
+                                 aria-valuenow={{ f.user_width_next_level }}
+                                         aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width:{{ f.user_width_next_level }}%">
+                            </div>
+                        </div>
+                        {% if f.reward_coin == 1 %}
+                            <div class=" btn btn-warning ">Bitcoin</div>
+                            {{ f.reward_amount }}
+                        {% elif f.reward_coin == 2 %}
+
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="25px" height="20px">
+                                Bitcoin Cash
+                            </div>
+
+
+                        {% elif f.reward_coin == 3 %}
+                            <div class=" btn btn-dark">
+                                <img src="{{ url_for('static', filename='images/coins/xmr/xmr_small.png')  }}" width="20px" height="20px">
+                                Monero
+                            </div>
+
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+    {% endif %}
 
 
     <div class="row ">
         <div class="col-12 text-center">
-            <h5> Get More Coins </h5>
+            <h5>Tipvote Coins </h5>
         </div>
+            <div class="col-12 text-center mb-5">
+            Tipvote Coins are used to boost posts.  They are not an ICO or worth value.
+        </div>
+
     </div>
 
     <div class="row " style="height: 250px; overflow: hidden">
@@ -26,16 +180,6 @@
             <b> Spend Coins to boost your post or another users post </b>
         </div>
     </div>
-
-
-
-
-    <div class="row mt-3">
-        <div class="col-12 text-center">
-            <h5> New coins added frequently.</h5>
-        </div>
-    </div>
-
 
 
     <table class="table table-dark text-center table-striped">

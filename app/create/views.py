@@ -23,7 +23,7 @@ from app import UPLOADED_FILES_DEST
 from app.vote.forms import VoteForm
 from app.nodelocations import postnodelocation, current_disk
 from app.common.decorators import login_required
-from app.common.timers import lastcommoncreation, lastposted, lastcommont
+from app.common.timers import lastcommoncreation, lastposted
 from app.common.functions import mkdir_p, id_generator_picture1
 from app.common.lvl_required import lvl_req
 from app.common.exp_calc import exppoint
@@ -32,7 +32,6 @@ from app.message.add_notification import add_new_notification
 
 # relative directory
 from app.create import create
-
 from app.create.forms import \
     CreateSubcommonForm, \
     CreateCommentForm, \
@@ -40,8 +39,7 @@ from app.create.forms import \
     RoomPostForm, \
     CreateShareTextForm, \
     CreateBusinessForm, \
-    BusinessPostForm, \
-    CreateCommentQuickForm
+    BusinessPostForm
 
 from app.classes.subforum import \
     SubForums, \
@@ -465,12 +463,9 @@ def createcomment(subname, postid, parentid):
 
         thepost = db.session.query(CommonsPost).filter_by(id=postid).first_or_404()
 
-
-
         getcurrentsub = db.session.query(SubForums) \
-            .filter((SubForums.subcommon_name) == subname) \
+            .filter(SubForums.subcommon_name == subname) \
             .first()
-
 
         # see if blocked
         isuserblocked = db.session.query(BlockedUser) \
@@ -675,7 +670,6 @@ def createcomment(subname, postid, parentid):
             db.session.add(thepost)
             db.session.add(getuser_timers)
             db.session.commit()
-
 
             return redirect(url_for('subforum.viewpost',
                                     subname=thepost.subcommon_name,

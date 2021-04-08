@@ -19,7 +19,9 @@ from app.common.functions import floating_decimals
 from app.common.exp_calc import exppoint
 from app.message.add_notification import add_new_notification
 from app.common.validation import btcamount
+from app.common.daily_challenge import daily_challenge
 from app.create.forms import CreateCommentQuickForm
+
 # relative directory
 from app.tip import tip
 from app.tip.forms import \
@@ -792,6 +794,10 @@ def create_tip_post_btc(subname, postid):
                     post.last_active = now
                     post.active = 1
 
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=7)
+
                     db.session.add(createrecenttip)
                     db.session.add(createnewtip)
                     db.session.add(post)
@@ -1467,6 +1473,10 @@ def create_tip_post_xmr(subname, postid):
                                                    postid=idofpost,
                                                    recieverid=thesub.creator_user_id
                                                    )
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=7)
+
 
                     db.session.add(createrecenttip)
                     db.session.add(createnewtip)
@@ -2132,6 +2142,10 @@ def create_tip_post_bch(subname, postid):
                                                    postid=idofpost,
                                                    recieverid=thesub.creator_user_id
                                                    )
+                    # daily challnge
+                    if current_user.is_authenticated:
+                        daily_challenge(user_id=current_user.id, category=7)
+
 
                     post.last_active = now
                     post.active = 1

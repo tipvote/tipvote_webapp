@@ -36,7 +36,7 @@ def daily_challenge(user_id, category):
             the_challenge.user_width_next_level = width_calculator
 
             # see if user completed the daily missions
-            if the_challenge.current_number_of_times >= the_challenge.how_many_to_complete:
+            if the_challenge.current_number_of_times == the_challenge.how_many_to_complete:
 
                 # make the challenge completed
                 the_challenge.completed = 1

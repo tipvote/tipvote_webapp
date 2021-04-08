@@ -13,8 +13,8 @@ from app.classes.ltc import LtcPrices
 from app.classes.notification import Notifications
 from app.classes.models import Coins
 from app.classes.subforum import SubForums, Subscribed
-from app.classes.user import UserCoins
-
+from app.classes.user import UserCoins, DailyChallenge, UserDailyChallenge
+from sqlalchemy import or_, func
 from datetime import datetime
 
 
@@ -64,10 +64,21 @@ def overview():
         guestsubforums = guestsubforums.limit(20)
         usersubforums = None
 
+    # get users daily missions
+    if current_user.is_authenticated:
+        getuserdaily = db.session.query(UserDailyChallenge)\
+            .filter(UserDailyChallenge.user_id == current_user.id)\
+            .all()
+    else:
+        getuserdaily = db.session.query(DailyChallenge)\
+            .order_by(func.random())\
+            .limit(2)
+
     return render_template('coins/overview.html',
                            now=datetime.utcnow(),
 
                            # general
+                           getuserdaily=getuserdaily,
                            usersubforums=usersubforums,
                            guestsubforums=guestsubforums,
                            thenotes=thenotes,

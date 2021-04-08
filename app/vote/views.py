@@ -171,6 +171,9 @@ def downvote_comment(commentid):
         current_downvotes_comment = comment_owner_stats.comment_downvotes
         new_downvotes_comment = current_downvotes_comment + 1
         comment_owner_stats.comment_downvotes = new_downvotes_comment
+        # daily challnge
+        if current_user.is_authenticated:
+            daily_challenge(user_id=current_user.id, category=4)
 
         # add exp points
         exppoint(user_id=current_user.id, category=8)
@@ -352,6 +355,9 @@ def upvote_comment(commentid):
         current_upvotes_comment = comment_owner_stats.comment_upvotes
         new_upvotes_comment = current_upvotes_comment + 1
         comment_owner_stats.comment_upvotes = new_upvotes_comment
+        # daily challnge
+        if current_user.is_authenticated:
+            daily_challenge(user_id=current_user.id, category=4)
 
         # add exp points
         exppoint(user_id=current_user.id, category=8)
@@ -665,7 +671,6 @@ def downvote_post(postid):
             # daily challnge
             if current_user.is_authenticated:
                 daily_challenge(user_id=current_user.id, category=3)
-
 
             # add to user stats
             current_downvotes_posts = post_owner_stats.post_downvotes

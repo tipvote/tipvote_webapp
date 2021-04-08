@@ -115,9 +115,14 @@ def index():
 
     # get users daily missions
     if current_user.is_authenticated:
-        getuserdaily = db.session.query(UserDailyChallenge)\
-            .filter(UserDailyChallenge.user_id == current_user.id)\
-            .all()
+        if current_user.confirmed == 1:
+            getuserdaily = db.session.query(UserDailyChallenge)\
+                .filter(UserDailyChallenge.user_id == current_user.id)\
+                .all()
+        else:
+            getuserdaily = db.session.query(DailyChallenge) \
+                .order_by(func.random()) \
+                .limit(2)
     else:
         getuserdaily = db.session.query(DailyChallenge)\
             .order_by(func.random())\
@@ -398,9 +403,14 @@ def newest():
         allpost = 0
     # get users daily missions
     if current_user.is_authenticated:
-        getuserdaily = db.session.query(UserDailyChallenge)\
-            .filter(UserDailyChallenge.user_id == current_user.id)\
-            .all()
+        if current_user.confirmed == 1:
+            getuserdaily = db.session.query(UserDailyChallenge)\
+                .filter(UserDailyChallenge.user_id == current_user.id)\
+                .all()
+        else:
+            getuserdaily = db.session.query(DailyChallenge) \
+                .order_by(func.random()) \
+                .limit(2)
     else:
         getuserdaily = db.session.query(DailyChallenge)\
             .order_by(func.random())\
