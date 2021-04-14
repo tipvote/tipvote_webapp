@@ -12,7 +12,9 @@
                 {% if current_user.confirmed == 1 %}
                     <div style="font-size:11px" class="">Complete Missions to get coin into your wallet.</div>
                 {% else %}
-                    <div class="text-danger font-weight-bold text-center mt-2 mb-2">You must be Logged in to get rewards</div>
+                    <div class="text-danger font-weight-bold text-center mt-2 mb-2">
+                        <a href="{{ url_for('users.resendconfirmation') }}">Confirm Account to get awards</a>
+                    </div>
                 {% endif %}
             </div>
             {% if current_user.is_authenticated %}
@@ -37,6 +39,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="col-6 text-right">
+                                                                   {% if current_user.confirmed == 1 %}
                                         {% if f.completed == 0 %}
                                             {{ f.current_number_of_times }} / {{ f.how_many_to_complete }}
                                         {% else %}
@@ -44,7 +47,8 @@
                                                 Completed
                                             </div>
                                         {% endif %}
-
+                                        {% else %}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="progress mb-1">

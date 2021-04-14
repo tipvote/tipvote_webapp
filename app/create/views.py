@@ -174,8 +174,6 @@ def createsubforum():
 
         if form.validate_on_submit():
             try:
-
-
                 name_of_subcommon = form.subcommonname.data
 
                 description_of_subcommon = form.subcommondescription.data
@@ -1328,6 +1326,10 @@ def create_post_wall(userid):
             getuser_timers.last_post = now
             user_stats.total_posts = newpostnumber
 
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=1)
+
             # commit
             db.session.add(user_stats)
             db.session.add(getuser_timers)
@@ -1564,6 +1566,10 @@ def create_post_room(subname):
             getuser_timers.last_post = now
             user_stats.total_posts = newpostnumber
 
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=1)
+
             db.session.add(user_stats)
             db.session.add(getuser_timers)
             db.session.add(newpost)
@@ -1609,8 +1615,6 @@ def create_post_room(subname):
 
             # add exp points
             exppoint(user_id=current_user.id, category=1)
-
-
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
         else:
             flash("Post Creation Failure.", category="danger")
@@ -1776,6 +1780,10 @@ def create_post_room_all(userid):
             getuser_timers.last_post = now
             user_stats.total_posts = newpostnumber
 
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=1)
+
             db.session.add(user_stats)
             db.session.add(getuser_timers)
             db.session.add(newpost)
@@ -1936,6 +1944,10 @@ def create_post_business_wall(businessid):
                 age=0,
                 business_id=thebiz.id
             )
+
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=1)
 
             db.session.add(newpost)
             db.session.commit()
@@ -2101,6 +2113,11 @@ def create_post_business_wall_other(businessid):
 
             db.session.add(newpost)
             db.session.commit()
+
+            # daily challnge
+            if current_user.is_authenticated:
+                daily_challenge(user_id=current_user.id, category=1)
+
 
             getusernodelocation = postnodelocation(x=newpost.id)
             postlocation = os.path.join(UPLOADED_FILES_DEST, current_disk, "post", getusernodelocation, str(newpost.id))

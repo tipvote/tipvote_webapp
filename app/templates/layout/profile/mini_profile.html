@@ -6,11 +6,14 @@
 
                 <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
                     {% if current_user.profileimage == '' %}
-                        <img class="img-responsive small_user_image bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}" width="125x" height="125px">
+                        <img class="img-responsive small_user_image bg-dark"
+                             src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                             width="25x" height="25px">
                     {% else %}
 
                         <img class="img-responsive small_user_image"
                              src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                                 width="25x" height="25px">
                         >
                     {% endif %}
                 </a>

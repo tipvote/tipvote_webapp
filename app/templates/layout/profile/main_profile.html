@@ -1,32 +1,26 @@
-<div class="row pb-0 pr-2 pl-2">
-
-
-
+<div class="row pb-0 pr-2 pl-2" style="overflow: hidden">
     <div class="col-12 second_color rounded  mb-1 p-0">
-
-    {% if current_user.is_authenticated %}
-        {% if current_user.bannerimage != '' %}
-            <img class="" style="width: 100%"
-                 src="{{ url_for('common.user_banner_image', filename=current_user.bannerimage) }}"
-            >
-            <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 text-center linkcolor" style="margin-top: -30px">
-                {% if current_user.profileimage == '' %}
-                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}">
-                {% else %}
-                    <img class="profileimage"
-                         src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
-                    >
-                {% endif %}
-            </div>
-            <div class="col-4"></div>
-            </div>
-        {% else %}
+        {% if current_user.is_authenticated %}
+            {% if current_user.bannerimage != '' %}
+                <img class="" style="width: 100%"
+                     src="{{ url_for('common.user_banner_image', filename=current_user.bannerimage) }}"
+                >
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4 text-center linkcolor" style="margin-top: -30px">
+                        {% if current_user.profileimage == '' %}
+                            <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}">
+                        {% else %}
+                            <img class="profileimage"
+                                 src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                            >
+                        {% endif %}
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+            {% else %}
+            {% endif %}
         {% endif %}
-    {% endif %}
-
-
         {% if current_user.is_authenticated %}
 
             <div class="row">

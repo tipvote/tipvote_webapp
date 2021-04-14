@@ -1,5 +1,5 @@
 {% if current_user.is_authenticated %}
-    <div class="row mb-1 p-2">
+    <div class="row mb-1 p-2" style="overflow: hidden">
         <div class="col-12 second_color  rounded p-2">
             <div class="h5 text-center">Todays Missions:</div>
             <br>
@@ -7,7 +7,11 @@
             {% if current_user.confirmed == 1 %}
                 <div style="font-size:11px" class="">Complete Missions to get coin into your wallet.</div>
             {% else %}
-                <div class="text-danger font-weight-bold">You must be confirmed to get rewards</div>
+                <div class=" font-weight-bold">
+
+                    <a href="{{ url_for('users.resendconfirmation') }}">Confirm Account to get awards</a>
+
+                </div>
             {% endif %}
 
             {% if getuserdaily  %}
@@ -28,14 +32,18 @@
                                 {% endif %}
                             </div>
                             <div class="col-6 text-right">
-                                {% if f.completed == 0 %}
-                                    {{ f.current_number_of_times }} / {{ f.how_many_to_complete }}
-                                {% else %}
-                                    <div class="font-weight-bold">
-                                        Completed
-                                    </div>
-                                {% endif %}
+                                {% if current_user.confirmed == 1 %}
+                                    {% if f.completed == 0 %}
+                                        {{ f.current_number_of_times }} / {{ f.how_many_to_complete }}
+                                    {% else %}
+                                        <div class="font-weight-bold">
 
+                                            Completed
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+
+                                {% endif %}
                             </div>
                         </div>
                         <div class="progress mb-1">

@@ -33,7 +33,7 @@
                             data-toggle="dropdown"
                             aria-haspopup="false"
                             aria-expanded="false">
-                      <i class="fas fa-door-closed text-white"></i>
+                        <i class="fas fa-door-closed text-white"></i>
                         Rooms
                     </button>
 
@@ -89,31 +89,45 @@
 
 
             <div class="col-md-6 col-lg-5 col-xl-4 justify-content-end pl-0 pr-2" style="display: inline">
-
                 <div class="row justify-content-end pl-0 pr-0">
 
-                    <div class="pl-2 pr-1">
-                        <a class="btn btn-header  pt-2"
-                           href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
-                            <i class="fa fa-user fa-lg text-white  "></i>
+
+                    <a class="btn btn-header pt-2 "
+                       href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        {% if current_user.profileimage == '' %}
+                            <img class="img-responsive "
+                                 src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                                 width="25x" height="25px">
+                        {% else %}
+                            <img class="img-responsive"
+                                 src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                                 width="25" height="25px">
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <br><div class="text-white ">{{ current_user.user_name }}</div>
+                        {% else %}
                             <br><div class="text-white">Profile</div>
-                        </a>
-                    </div>
+                        {% endif %}
+                    </a>
+
 
 
                     <div class="pl-2 pr-1">
                         {% if themsgs %}
                             {% if themsgs == 0 %}
-                                <a class="btn btn-header pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope  fa-lg text-white text-center"></i>
+                                <a class="btn btn-header pt-2" href="{{ url_for('message.main') }}"> <i class="fa fa-envelope
+                                 fa-lg text-white text-center"></i>
                                     <br><div class="text-white">Messages</div>
                                 </a>
                             {% else %}
-                                <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white text-center"></i>
+                                <a class="btn btn-warning  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope
+                                 fa-lg text-white text-center"></i>
                                     <br><div class="text-white">Messages</div>
                                 </a>
                             {% endif %}
                         {% else %}
-                            <a class="btn btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope  fa-lg text-white text-center"></i>
+                            <a class="btn btn-header  pt-2" href="{{ url_for('message.main') }}"><i class="fa fa-envelope
+                             fa-lg text-white text-center"></i>
                                 <br><div class="text-white">Messages</div>
                             </a>
                         {% endif %}
@@ -131,7 +145,7 @@
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                 <i class="fab fa-btc pr-2 fa-lg text-white pt-2"></i>
-       <br><div class="text-white">Wallets</div>
+                                <br><div class="text-white">Wallets</div>
                             </button>
 
                             <div class="dropdown-menu dropdown-menu-right darkbg mt-0 mb-0 pt-0 pb-0 border "
@@ -190,7 +204,7 @@
                                             aria-expanded="false">
                                         <i class="fa fa-bell fa-lg pr-2 bg-danger"></i>
                                         {{ thenotescount }}
-                                         <br><div class="text-white">Notifications</div>
+                                        <br><div class="text-white">Notifications</div>
                                     </button>
                                 {% else %}
                                     <button class="btn  btn-header text-white pt-2"
@@ -200,7 +214,7 @@
                                             aria-haspopup="true"
                                             aria-expanded="false">
                                         <i class="fa fa-bell fa-lg pr-2 text-white"></i>
-                                         <br><div class="text-white">Notifications</div>
+                                        <br><div class="text-white">Notifications</div>
                                     </button>
                                 {% endif %}
                             {% else %}
@@ -211,7 +225,7 @@
                                         aria-haspopup="true"
                                         aria-expanded="false">
                                     <i class="fa fa-bell fa-lg pr-2 text-white"></i>
-                                     <br><div class="text-white">Notifications</div>
+                                    <br><div class="text-white">Notifications</div>
                                 </button>
                             {% endif %}
 
@@ -248,7 +262,7 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">
                             <i class="fa fa-bars fa-lg text-white pt-2"></i>
-                                 <br><div class="text-white">Settings</div>
+                            <br><div class="text-white">Settings</div>
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right darkbg   border "

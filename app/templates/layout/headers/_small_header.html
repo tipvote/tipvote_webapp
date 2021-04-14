@@ -91,10 +91,21 @@
         <div class="col-7 text-right  pl-0 pr-0 ">
             {% if current_user.is_authenticated %}
 
-                <a class="btn btn-dark pt-2 pb-2" href="{{ url_for('profile.main',
-                 user_name=current_user.user_name) }}">
-                    <i class="fa fa-user fa-lg"></i>
-                </a>
+                    <a class="btn btn-dark  pt-2 pb-2 "
+                       href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                        {% if current_user.profileimage == '' %}
+                            <img class="img-responsive "
+                                 src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                                 width="25x" height="25px">
+                        {% else %}
+                            <img class="img-responsive"
+                                 src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                                 width="25" height="25px">
+                        {% endif %}
+
+                    </a>
+
+
 
                 <div class="dropdown d-inline">
                     <button class="btn btn-dark dropdown-toggle "

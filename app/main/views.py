@@ -10,7 +10,7 @@ from app.sendmsg import send_email
 
 from werkzeug.datastructures import CombinedMultiDict
 from flask_login import current_user
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import or_, func
 from app.common.decorators import login_required
 
@@ -877,7 +877,8 @@ def mysubscriptions():
 @app.route('/welcome', methods=['GET'])
 @login_required
 def welcome():
-
+    now = datetime.utcnow()
+    twenty_four_hours_from_now = datetime.today() + timedelta(days=1)
     user = User.query.filter_by(id=current_user.id).first()
     # subscribe users to basic subs
 
@@ -938,10 +939,45 @@ def welcome():
             db.session.add(subtoit)
         # add for commit
 
+        # give a daily challenge
+        rand_challenge_one = db.session.query(DailyChallenge).get(1)
+        rand_challenge_two = db.session.query(DailyChallenge).get(2)
+        new_challenge = UserDailyChallenge(
+            user_id=user.id,
+            id_of_challenge=rand_challenge_one.id,
+            name_of_challenge=rand_challenge_one.name_of_challenge,
+            image_of_challenge=rand_challenge_one.image_of_challenge,
+            category_of_challenge=rand_challenge_one.category_of_challenge,
+            how_many_to_complete=rand_challenge_one.how_many_to_complete,
+            current_number_of_times=0,
+            starts=now,
+            ends=twenty_four_hours_from_now,
+            completed=0,
+            user_width_next_level=0,
+            reward_coin=rand_challenge_one.reward_coin,
+            reward_amount=rand_challenge_one.reward_amount
+        )
+
+        new_challenge2 = UserDailyChallenge(
+            user_id=user.id,
+            id_of_challenge=rand_challenge_two.id,
+            name_of_challenge=rand_challenge_two.name_of_challenge,
+            category_of_challenge=rand_challenge_two.category_of_challenge,
+            image_of_challenge=rand_challenge_two.image_of_challenge,
+            how_many_to_complete=rand_challenge_two.how_many_to_complete,
+            current_number_of_times=0,
+            starts=now,
+            ends=twenty_four_hours_from_now,
+            completed=0,
+            user_width_next_level=0,
+            reward_coin=rand_challenge_two.reward_coin,
+            reward_amount=rand_challenge_two.reward_amount
+        )
+        db.session.add(new_challenge)
+        db.session.add(new_challenge2)
         db.session.add(bizstats)
         db.session.add(subto_general)
         db.session.add(subto_bugs)
-
         db.session.add(subto_wall)
         db.session.add(subto_worldnews)
         db.session.add(subto_usnews)
