@@ -1,0 +1,42 @@
+
+
+{% include 'layout/basic/metadata.html' %}
+{% include 'layout/headers/header.html' %}
+{% include 'layout/basic/metadata.html' %}
+{% include 'css/main.html' %}
+<div class="wrapper">
+    {% from "_formhelper.html" import render_field %}
+    <body>
+    <div class="container mt-3">
+
+        <div class="col-12 ">
+            <a class="btn btn-dark text-white mb-3" href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                Back to my Profile
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="col-3 second_color">
+                {% include "users/profile/profile_forms/_sidebar.html" %}
+            </div>
+            <div class="col-9">
+                {% include "flashbar.html" %}
+                <div class="row mb-2">
+                    <div class="col-12 text-center"><h5></h5></div>
+                    <div class="col-12">
+
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+    </body>
+
+</div>
+
+{% include 'layout/basic/_footer.html' %}

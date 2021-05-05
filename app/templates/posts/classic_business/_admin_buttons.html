@@ -1,0 +1,76 @@
+<!---Bottom Admin Buttons -->
+{% if current_user.is_authenticated %}
+{% if userowner == 1 or current_user.admin != 0 %}
+    {% if post.locked == 1 %}
+
+    {% elif post.hidden == 1  %}
+
+    {% elif post.muted == 1 %}
+
+    {% else %}
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6 col-sm-3 col-md-3 col-lg-3">
+                    {% if deletepostform %}
+                        {% if thesub %}
+                            <form method="post" action="{{ url_for('mod.quickdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
+                                {{ render_field(deletepostform.submit,  value="Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('mod.quickdeletepost', subname='wall', postid=post.id) }}">
+                                {{ render_field(deletepostform.submit,  value="Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-6 col-sm-3 col-md-3 col-lg-3">
+                    {% if lockpostform %}
+                        {% if thesub %}
+                            <form method="post" action="{{ url_for('mod.quicklockpost', subname=thesub.subcommon_name, postid=post.id) }}">
+                                {{ render_field(lockpostform.submit,  value="Lock Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('mod.quicklockpost', subname='wall', postid=post.id) }}">
+                                {{ render_field(lockpostform.submit,  value="Lock Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-6 col-sm-3 col-md-3 col-lg-3 pl-0 text-center ">
+                    {% if muteuserform %}
+                        {% if thesub %}
+                            <form method="post" action="{{ url_for('mod.quickmuteuser', subname=thesub.subcommon_name, postid=post.id) }}">
+                                {{ render_field(muteuserform.submit,  value="Mute User", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('mod.quickmuteuser', subname='wall', postid=post.id) }}">
+                                {{ render_field(muteuserform.submit,  value="Mute User", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-6 col-sm-3 col-md-3 col-lg-3 pl-0 text-left">
+                    {% if banuserdeleteform %}
+                        {% if thesub %}
+                            <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname=thesub.subcommon_name, postid=post.id) }}">
+                                {{ render_field(banuserdeleteform.submit,  value="Ban/Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('mod.quickbanuserdeletepost', subname='wall', postid=post.id) }}">
+                                {{ render_field(banuserdeleteform.submit,  value="Ban/Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% else %}
+{% endif %}
+{% else %}
+{% endif %}

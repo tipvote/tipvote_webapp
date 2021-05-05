@@ -1,0 +1,20 @@
+{% if post.post_donations %}
+    {% if post.post_donations.total_recieved_btc == 0 %}
+    {% else %}
+        <div class="row mt-3">
+            <div class="col-12 " style="font-size: 12px; margin-top: -10px">
+                   <img src="{{ url_for('static', filename='images/coins/btc/btc_small.png')  }}" width="20px" height="20px">
+                {{ post.post_donations.total_recieved_btc }} BTC
+            </div>
+        </div>
+    {% endif %}
+    {% if post.post_donations.total_recieved_bch == 0 %}
+    {% else %}
+        <div class="row mt-3">
+            <div class="col-12 " style="font-size: 12px; margin-top: -10px">
+                <img src="{{ url_for('static', filename='images/coins/bch/bch_small.png')  }}" width="20px" height="20px">
+                {{ post.post_donations.total_recieved_bch }} BCH
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

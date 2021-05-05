@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+    {% include 'layout/basic/metadata_people.html' %}
+    {% include 'layout/headers/header.html' %}
+
+
+
+<div class="wrapper">
+    <body>
+    {% from "_formhelper.html" import render_field %}
+       {% include 'layout/headers/depositheader.html' %}
+    {% include 'subforums/banner/people.html' %}
+
+    <div class="container-fluid mt-3">
+        <div class="row " >
+
+            <!-- Left Side -->
+                 <div class=" col-sm-4 col-md-4 col-lg-3 col-xl-2 d-none d-lg-block main_color">
+                {% include 'layout/profile/main_profile.html' %}
+
+
+            </div>
+
+
+
+            <!-- Middle -->
+    <div class="col-sm-12 col-md-10 offset-md-1 offset-lg-0 offset-xl-1 col-lg-6 col-xl-6 mb-5 ">
+                <div style="max-width: 600px; margin: 0 auto">
+                     {% include 'layout/widgets_subs/nav/index_topnav.html' %}
+                    {% include "flashbar.html" %}
+
+                    {% if current_user.is_authenticated %}
+
+                        {% include 'create/posts/master/_people_post.html' %}
+                    {% else %}
+                        {% include 'create/posts/master/_fake_create_post.html' %}
+                    {% endif %}
+
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+
+
+            <!-- Right -->
+     <div class="offset-md-1 offset-lg-0 offset-xl-1 col-lg-3 col-xl-2  d-none d-lg-block " >
+                {% include 'layout/widgets/_formactions.html' %}
+         {% include 'layout/widgets/_rules_for_posts.html' %}
+                {% include 'layout/widget_stats/all/newest_tippers.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+    </body>
+    {% include 'layout/basic/_footer.html' %}
+</div>
+</html>

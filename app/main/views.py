@@ -949,7 +949,7 @@ def welcome():
             image_of_challenge=rand_challenge_one.image_of_challenge,
             category_of_challenge=rand_challenge_one.category_of_challenge,
             how_many_to_complete=rand_challenge_one.how_many_to_complete,
-            current_number_of_times=0,
+            current_number_of_times = 0,
             starts=now,
             ends=twenty_four_hours_from_now,
             completed=0,

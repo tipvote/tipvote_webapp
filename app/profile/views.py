@@ -64,7 +64,9 @@ def main(user_name):
             flash('User does not exist', category='warning')
             return redirect(url_for('index'))
 
-    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==current_user.id).first()
+
+    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==theuser.id).first()
+
 
 
     usersubforums = db.session.query(Subscribed)
@@ -171,7 +173,7 @@ def profile_other_posts_all(user_name):
             flash('User does not exist', category='warning')
             return redirect(url_for('index'))
 
-    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==current_user.id).first()
+    useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id == theuser.id).first()
 
 
     usersubforums = db.session.query(Subscribed)

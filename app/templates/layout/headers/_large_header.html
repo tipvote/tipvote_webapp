@@ -42,11 +42,38 @@
                          style="width: 300px">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
-                                <div class="col-7 offset-3  pt-3 pb-3">
-                                    <a class=" mt-3 mb-3 linkcolor" href="{{ url_for('discoversubs') }}">
-                                        Discover New Rooms
-                                    </a>
-                                </div>
+                                <div class="col-12 mb-4 mt-4 h4  text-center">Navigate</div>
+
+
+                                <a class="col-12  font-weight-bold btn-ee mb-3"
+                                   href="{{ url_for('discoversubs') }}">
+                                    <div class="row btn-ee  pt-2 pb-2">
+                                        <div class="col-3">
+
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                            Discover New Rooms
+                                        </div>
+                                    </div>
+                                </a>
+
+
+                                <a class="col-12  font-weight-bold btn-ee mb-3"
+                                   href="{{ url_for('frontpage.frontpage_home') }}">
+                                    <div class="row btn-ee  pt-2 pb-2">
+                                        <div class="col-3">
+
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                            FrontPage
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="col-12 mb-4 mt-4 h4 text-center">Rooms</div>
+
+
+
                                 {% for subs in usersubforums %}
                                     {% if subs %}
                                         <a class="col-12  font-weight-bold btn-ee mb-3"

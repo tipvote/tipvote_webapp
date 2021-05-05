@@ -20,14 +20,10 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute
 
-from app.classes.btc import BtcPrices
-from app.classes.bch import BchPrices
 from app.classes.notification import Notifications
 from app.classes.models import DisplayCoins, RecentTips
 from app.classes.post import \
     BtcPostTips, \
-    BchPostTips, \
-    XmrPostTips, \
     CommonsPost
 from app.classes.btc import BtcPrices
 from app.classes.bch import BchPrices
@@ -41,6 +37,7 @@ from app.classes.business import \
     Business, \
     BusinessFollowers
 from app.classes.message import Messages
+
 
 @frontpage.route('', methods=['GET'])
 @login_required
@@ -88,21 +85,7 @@ def frontpage_home():
 
     # stats for sidebar
     # all time top tippers for posts
-    top_tippers_alltime_post_btc = db.session.query(BtcPostTips) \
-        .order_by(BtcPostTips.amount_usd.desc()) \
-        .limit(3)
 
-    # top tippers this week
-    seven_days_ago = datetime.today() - timedelta(days=7)
-    top_tippers_pastweek_post_btc = db.session.query(BtcPostTips) \
-        .filter(BtcPostTips.created >= seven_days_ago) \
-        .order_by(BtcPostTips.amount_usd.desc()) \
-        .limit(3)
-
-    # Most Recent Tippers
-    recent_tippers_post = db.session.query(RecentTips) \
-        .order_by(RecentTips.created.desc()) \
-        .limit(3)
     # Trending subforums
     trending = db.session.query(SubForums) \
         .order_by(SubForums.total_exp_subcommon.desc()) \
@@ -251,10 +234,7 @@ def frontpage_home():
                            # queries/pagination
                            trending=trending,
                            thenotes=thenotes,
-                           # stats
-                           top_tippers_alltime_post_btc=top_tippers_alltime_post_btc,
-                           top_tippers_pastweek_post_btc=top_tippers_pastweek_post_btc,
-                           recent_tippers_post=recent_tippers_post,
+
                            # pagination
                            posts=posts.items,
                            next_url=next_url,

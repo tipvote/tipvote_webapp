@@ -78,17 +78,6 @@ class SavedPost(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
 
 
-class PgpKey(db.Model):
-    __tablename__ = 'user_pgpkey'
-    __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
-    created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
-    # from to
-    user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
-    user_name = db.Column(db.String(140))
-    key = db.Column(db.TEXT)
-
 
 class UserLargePublicInfo(db.Model):
     __tablename__ = 'user_large_public_info'

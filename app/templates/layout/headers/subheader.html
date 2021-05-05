@@ -1,0 +1,54 @@
+{% if current_user.is_authenticated %}
+    <div class="col-12 d-md-none">
+        <div class="row pt-2 pb-2 text-center d-lg-none">
+            <div class="col-5">
+                <a href="{{ url_for('profile.main', user_name=current_user.user_name) }}">
+                    {% if current_user.profileimage == '' %}
+                        <img class="img-responsive small_user_image" src="{{ url_for('static', filename='images/noprofile.png')  }}" width="125x" height="125px">
+                    {% else %}
+
+                        <img class="img-responsive small_user_image"
+                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
+                        >
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-3">
+
+                    Lvl {{ current_user.user_stats_common.user_level }}
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                             aria-valuenow={{ current_user.user_stats_common.user_width_next_level }}
+                                     aria-valuemin="0" aria-valuemax="100" style="width:{{ current_user.user_stats_common.user_width_next_level }}%">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <a href="{{ url_for('coins.overview') }}">
+                            Level {{ current_user.user_stats_common.user_level + 1 }}
+                            Rewards
+                        </a>
+                    </div>
+
+            </div>
+            <div class="col-4 mb-1 text-center" style="display: inline-block">
+
+
+                    <b>
+                        <div class="col-12">
+                            Comments:<br>
+                            <span style="color:green">{{ current_user.user_stats_common.comment_upvotes }}</span >
+                            /
+                            <span style="color:red">{{ current_user.user_stats_common.comment_downvotes }}</span >
+                        </div>
+                        <div class="col-12">
+                            Posts:<br>
+                            <span style="color:green">{{ current_user.user_stats_common.post_upvotes }}</span >
+                            /
+                            <span style="color:red">{{ current_user.user_stats_common.post_downvotes }}</span >
+                        </div>
+                    </b>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
