@@ -127,7 +127,18 @@
                         Reward from a daily challenge
 
                         <br>
+                    {% elif t.category == 20 %}
+                        <!--user got coin for daily-->
+                        Purchased a foreclosed room
 
+                        <br>
+                    {% elif t.category == 21 %}
+                        <!--user got coin for daily-->
+
+                           {{ t.senderid|user_name }}
+                     purchased a forclosed room
+
+                        <br>
                     {% else %}
                         {% if t.orderid %}
                             {{ t.amount }}<br><br>
@@ -194,6 +205,14 @@
                         Amount:
                         <p class="text-success">-{{ t.amount|btctostring }}</p>
                     {%  elif t.category == 16 %}
+                        <!--user got a daily tip-->
+                        Amount:
+                        <p class="text-success">{{ t.amount|btctostring }}</p>
+                    {%  elif t.category == 20 %}
+                        <!--user got a daily tip-->
+                        Amount:
+                        <p class="text-danger">-{{ t.amount|btctostring }}</p>
+                    {%  elif t.category == 21 %}
                         <!--user got a daily tip-->
                         Amount:
                         <p class="text-success">{{ t.amount|btctostring }}</p>
@@ -315,6 +334,25 @@
                         {% else %}
                             {{ t.balance|btctostring }}
                         {% endif %}
+
+                    {% elif t.category == 20 %}
+                        <!-- Recived a daily -->
+                        Balance:
+                        {% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            -{{ t.balance|btctostring }}
+                        {% endif %}
+
+                    {% elif t.category == 21 %}
+                        <!-- Recived a daily -->
+                        Balance:
+                        {% if 0 == t.balance %}
+                            0
+                        {% else %}
+                            {{ t.balance|btctostring }}
+                        {% endif %}
+
 
                     {% else %}
                         Balance:

@@ -4,7 +4,7 @@ from flask import \
     url_for, \
     flash, \
     request
-
+from decimal import Decimal
 from itsdangerous import URLSafeTimedSerializer
 from app.sendmsg import send_email
 
@@ -15,17 +15,29 @@ from sqlalchemy import or_, func
 from app.common.decorators import login_required
 
 from app import db, app
-from app.main.forms import ApplyToPrivate, CreateUpdateForm
-from app.subforum.forms import SubscribeForm
+from app.common.functions import floating_decimals
+from app.common.filters_bch import\
+    btc_cash_convertlocaltobtc
+from app.main.forms import\
+    ApplyToPrivate,\
+    CreateUpdateForm
+from app.subforum.forms import \
+    SubscribeForm,\
+    PurchaseRoomForm
 from app.vote.forms import VoteForm
-from app.create.forms import MainPostForm, CreateCommentQuickForm
+from app.create.forms import \
+    MainPostForm,\
+    CreateCommentQuickForm
 
 from app.classes.subforum import \
     Subscribed, \
     SubForums, \
     PrivateApplications, \
     Mods
-from app.classes.user import User, UserDailyChallenge, DailyChallenge
+from app.classes.user import\
+    User, \
+    UserDailyChallenge,\
+    DailyChallenge
 from app.classes.post import CommonsPost
 from app.classes.bch import BchPrices
 from app.classes.btc import BtcPrices
@@ -34,7 +46,7 @@ from app.classes.business import \
     Business, \
     BusinessStats, \
     BusinessFollowers
-
+from app.classes.bch import BchWallet
 from app.classes.message import Messages
 from app.classes.notification import Notifications
 from app.classes.ltc import LtcPrices
@@ -50,6 +62,7 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute
 
+from app.wallet_bch.wallet_btccash_purchases import send_coin_to_site_purchase
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -1244,3 +1257,72 @@ def roadmap():
 
     if request.method == 'POST':
         pass
+
+
+# this page is for finding new subs
+@app.route('/forclosure/<string:subname>', methods=['GET', 'POST'])
+@login_required
+def forclosure_purchase(subname):
+    form = PurchaseRoomForm()
+
+    thesub = db.session.query(SubForums) \
+        .filter(func.lower(SubForums.subcommon_name) == subname.lower()) \
+        .first_or_404()
+
+    amount_of_users = thesub.members
+
+    if 0 <= amount_of_users <= 100:
+        amount_for_a_room_usd = 5
+    elif 101 <= amount_of_users <= 500:
+        amount_for_a_room_usd = 25
+    elif 101 <= amount_of_users <= 500:
+        amount_for_a_room_usd = 100
+    elif 501 <= amount_of_users <= 1000:
+        amount_for_a_room_usd = 1000
+    else:
+        amount_for_a_room_usd = 5000
+
+    amount_for_user = btc_cash_convertlocaltobtc(amount=amount_for_a_room_usd, currency=1)
+
+    if request.method == 'GET':
+        return render_template('subforums/forclosure/purchase.html',
+                               form=form,
+                               thesub=thesub,
+                               amount_in_bch=amount_for_user,
+                               amount_in_usd=amount_for_a_room_usd
+                               )
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            usercoinsamount = db.session.query(BchWallet) \
+                .filter(BchWallet.user_id == current_user.id) \
+                .first()
+            amount_for_a_room_usd = 5
+            amount_for_user = btc_cash_convertlocaltobtc(amount=amount_for_a_room_usd, currency=1)
+
+            final_amount = (floating_decimals(amount_for_user, 8))
+
+            if Decimal(usercoinsamount.currentbalance) >= Decimal(final_amount):
+
+                thesub.creator_user_name = current_user.user_name
+                thesub.creator_user_id = current_user.id
+
+                send_coin_to_site_purchase(sender_id=current_user.id,
+                                           amount=amount_for_user,
+                                           roomid=thesub.id)
+
+                db.session.add(thesub)
+                db.session.commit()
+                flash("Congrats.  You are now the owner of " + thesub.subcommon_name,
+                      category="success")
+                return redirect(url_for('subforum.sub',
+                                        subname=thesub.subcommon_name))
+            else:
+                flash("You do not have enough coin in your wallet to puchase this room.",
+                      category="danger")
+                return redirect(url_for('subforum.sub',
+                                        subname=thesub.subcommon_name))
+        else:
+            flash("Form Error.  Please try again", category="danger")
+            return redirect(url_for('subforum.sub',
+                                    subname=thesub.subcommon_name))

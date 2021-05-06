@@ -5,8 +5,7 @@ from decimal import Decimal
 
 
 def btc_cash_converttolocal(amount, currency):
-    getcurrentprice = db.session.query(BchPrices) \
-        .filter_by(currency_id=currency).first()
+    getcurrentprice = db.session.query(BchPrices).get(1)
 
     bt = getcurrentprice.price
     z = Decimal(bt) * Decimal(amount)
@@ -15,8 +14,7 @@ def btc_cash_converttolocal(amount, currency):
 
 
 def btc_cash_convertlocaltobtc(amount, currency):
-    getcurrentprice = db.session.query(BchPrices) \
-        .filter_by(currency_id=currency).first()
+    getcurrentprice = db.session.query(BchPrices).get(1)
 
     bt = getcurrentprice.price
     z = Decimal(amount) / Decimal(bt)

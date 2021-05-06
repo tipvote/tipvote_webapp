@@ -132,3 +132,20 @@ class LeaveRoomForm(FlaskForm):
             return True
         else:
             return False
+
+
+class PurchaseRoomForm(FlaskForm):
+
+    submit = SubmitField('')
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+
+    def validate(self):
+
+        rv = FlaskForm.validate(self)
+
+        if rv:
+            return True
+        else:
+            return False

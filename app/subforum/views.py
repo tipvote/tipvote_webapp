@@ -7,23 +7,25 @@ from flask import \
     jsonify
 from flask import request
 from flask_login import current_user
-from datetime import datetime
-from sqlalchemy import func, select
-
+from datetime import datetime, timedelta
+from sqlalchemy import func
 from werkzeug.datastructures import CombinedMultiDict
+
 # relative directory
 from app import db, app
-from app.common.decorators import login_required
+from app.common.decorators import \
+    login_required
 from app.subforum import subforum
 from sqlalchemy import or_
 # forms
 from app.create.forms import \
     CreateCommentForm, \
     MainPostForm, \
-    CreateCommentQuickForm, RoomPostForm
+    CreateCommentQuickForm
 from app.profile_edit.forms import \
     SaveForm
-from app.vote.forms import VoteForm
+from app.vote.forms import \
+    VoteForm
 from app.mod.forms import \
     QuickBanDelete, \
     QuickDelete, \
@@ -52,17 +54,32 @@ from app.classes.subforum import \
     SubForumCustom, \
     SubForumCustomInfoOne, \
     SubForumStats
-from app.classes.bch import BchPrices
-from app.classes.btc import BtcPrices
-from app.classes.monero import MoneroPrices
-from app.classes.post import CommonsPost
-from app.classes.comment import Comments
-from app.classes.business import Business, BusinessFollowers
-from app.classes.report import ReportedPosts, ReportedComments
-from app.classes.notification import Notifications
-from app.classes.ltc import LtcPrices
-from app.classes.models import RecentTips
-from app.classes.subforum import Subscribed
+from app.classes.bch import\
+    BchPrices
+from app.classes.btc import \
+    BtcPrices
+from app.classes.monero import \
+    MoneroPrices
+from app.classes.post import \
+    CommonsPost
+from app.classes.comment import \
+    Comments
+from app.classes.business import \
+    Business,\
+    BusinessFollowers
+from app.classes.report import\
+    ReportedPosts,\
+    ReportedComments
+from app.classes.notification import\
+    Notifications
+from app.classes.ltc import \
+    LtcPrices
+from app.classes.models import\
+    RecentTips
+from app.classes.subforum import \
+    Subscribed
+from app.classes.user import \
+    User
 
 
 @subforum.route('/<string:subname>', methods=['GET'])
@@ -80,7 +97,6 @@ def sub(subname):
     subpostcommentform = CreateCommentQuickForm()
 
     navlink = 1
-
 
     currentbtcprice = db.session.query(BtcPrices).get(1)
     currentxmrprice = db.session.query(MoneroPrices).get(1)
@@ -101,6 +117,20 @@ def sub(subname):
         return redirect(url_for('subforum.sub_suspended', subname=subname))
     if thesub.room_deleted == 1:
         return redirect(url_for('subforum.sub_deleted', subname=subname))
+
+    # see if sub is abandoned
+    # top tippers this week
+    fourteen_days_ago = datetime.today() - timedelta(days=7)
+
+    get_sub_owner = db.session.query(User)\
+        .filter(thesub.creator_user_id >= User.id)\
+        .first()
+
+    if get_sub_owner.last_seen <= fourteen_days_ago:
+        sub_for_sale = 1
+    else:
+        sub_for_sale = 0
+
     # get the stats
     substats = db.session.query(SubForumStats) \
         .filter(SubForumStats.subcommon_name == subname.lower()) \
@@ -278,8 +308,7 @@ def sub(subname):
     else:
         mainpostform = None
 
-
-    # latest tips
+    # latest tip
     recent_tippers_post = db.session.query(RecentTips)
     recent_tippers_post = recent_tippers_post.filter(RecentTips.subcommon_id == subid)
     recent_tippers_post = recent_tippers_post.order_by(RecentTips.created.desc())
@@ -368,6 +397,7 @@ def sub(subname):
                            currentxmrprice=currentxmrprice,
                            currentbchprice=currentbchprice,
                            currentltcprice=currentltcprice,
+                           sub_for_sale=sub_for_sale
                            )
 
 

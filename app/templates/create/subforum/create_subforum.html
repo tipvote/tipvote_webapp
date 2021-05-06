@@ -12,16 +12,45 @@
         <p>
             <b>You help shape your community</b><br><br>
             <b>
-                <div class="" style="display:inline;">
-                    Earn a percent of tips in your room.
-                </div>
-                <br>
-                Pay your mods and profit for your hard work.
-            </b>
-            <br><br>
-            <b>Faster leveling up from exp gives more rewards!
-            </b><br><br>
+        <div class="" style="display:inline;">
+            Earn a percent of tips in your room.
+        </div>
+        <br>
+        Pay your mods and profit for your hard work.
+        </b>
+        <br><br>
+        <b>Faster leveling up from exp gives more rewards!
+        </b><br><br>
 
+        </p>
+    </div>
+    <div class="col-12 second_color border  mb-3 p-2 ">
+        <h4 class="text-center">Responsibilities</h4>
+        <p>
+        <div class="text-center">
+            All Rooms must adhere to the rules.
+            <a href="{{ url_for('legal.postrules') }}">
+                View Rules
+            </a>
+        </div>
+
+        <ul>
+            <li>Room owners must ensure that content is
+                appropriate and not illegal in the US
+            </li>
+            <li>Room owners are responsible for managing there mods</li>
+            <li>Room owners are responsible for updating
+                information and guidelines for there room
+            </li>
+            <li>Room owners who do not login to Tipvote within 2 weeks will have there room
+                put up for forclosure.  We reserve the right to sell the room.
+            </li>
+        </ul>
+        <div class="font-weight-bold text-center">
+            Tipvote is constantly changing and progressing.  We reserve the right to change the rules
+            and impose new restrictions as we see fit.
+
+        </div>
         </p>
     </div>
     <div class="col-12 second_color border  mb-3 p-2 text-center">
@@ -30,9 +59,17 @@
         {%  for own in roomsowned %}
             <p class=""> a/{{ own.subcommon_name }}</p><br>
         {% endfor %}<br><br>
-        <p>You can create {{ maxsubcount }} rooms</p>
-    </div>
+    {% if 0 <= maxsubcount %}
+           <p>You can create {{ maxsubcount }} rooms</p>
+    {% else %}
+        <div class="h5 text-danger">
+        You cannot own any more rooms unless your purchase them.  This is to prevent narritives and encourage
+        decentralization.
+        </div>
+    {% endif %}
 
+    </div>
+    {% if 0 <= maxsubcount %}
     <div class="col-12 p-2 second_color border ">
         <form method="post">
             {{ form.csrf_token }}
@@ -155,6 +192,8 @@
             </div>
         </form>
     </div>
+    {% else %}
 
+    {% endif %}
 
 {% endblock %}

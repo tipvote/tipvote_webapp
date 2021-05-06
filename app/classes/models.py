@@ -146,3 +146,5 @@ class ExpTable(db.Model):
     type = db.Column(db.INTEGER)
     amount = db.Column(db.INTEGER)
     created = db.Column(db.TIMESTAMP())
+
+

@@ -4,6 +4,9 @@ import string
 from decimal import Decimal
 
 
+
+
+
 def genericprofile(path):
     user_id = str(path)
     cmd = 'cp /home/Agora/data/user/noprofile.png /home/data/user/' + user_id
