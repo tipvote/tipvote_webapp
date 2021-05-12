@@ -1,0 +1,84 @@
+{% extends "layout/layout_2bars.html" %}
+{% block content %}
+
+    <div class="col-12 mx-auto text-center mb-5">
+        <h3>{{ thesub.subcommon_name }} is in forclosure.  It is currently for sale for
+            {{ amount_in_bch }} BCH $({{ amount_in_usd }}.00)
+        </h3>
+        Please note currently accepting Bitcoin Cash only.
+        <!-- Rules of subcommon -->
+        Become the owner of this room
+    </div>
+
+    <div class="col-12 second_color border  mb-3 p-2 text-center">
+        <h4>Benefits of being the boss...</h4>
+        <p>
+            <b>You help shape your community</b><br><br>
+
+        <div class="" style="display:inline;">
+            Earn a percent of tips in your room.
+        </div>
+        <br>
+        <div class="" style="display:inline;">
+            Pay your mods and profit for your hard work.
+        </div>
+        <div class="" style="display:inline;">
+            Promote your room and build an audience.
+        </div>
+        </p>
+    </div>
+    <div class="col-12 second_color border  mb-3 p-2 ">
+        <h4 class="text-center">Responsibilities</h4>
+        <p>
+        <div class="text-center">
+            All Rooms must adhere to the rules.
+            <a href="{{ url_for('legal.postrules') }}">
+                View Rules
+            </a>
+        </div>
+
+        <ul>
+            <li>Room owners must ensure that content is
+                appropriate and not illegal in the US
+            </li>
+            <li>Room owners are responsible for managing there mods</li>
+            <li>Room owners are responsible for updating
+                information and guidelines for there room
+            </li>
+            <li>Room owners who do not login to Tipvote within 2 weeks will have there room
+                put up for forclosure.  We reserve the right to sell the room.
+            </li>
+        </ul>
+        <div class="font-weight-bold text-center">
+            Tipvote is constantly changing and progressing.  We reserve the right to change the rules
+            and impose new restrictions as we see fit.
+
+        </div>
+        </p>
+    </div>
+
+
+    <div class="col-12 p-2 second_color border text-center ">
+        <form method="post">
+            {{ form.csrf_token }}
+            <!-- Sub common name -->
+            <div class="form-group p-0">
+                <label class="col-12">
+                    I agree to purchase <h4>{{ thesub.subcommon_name}}</h4> for {{ amount_in_bch }} BCH
+                    and follow all rules on Tipvote.
+                </label>
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="col-12 text-center">
+                    {{ render_field(form.submit,
+                    value="Purchase Room",
+                     autocomplete="off",
+                     class="btn btn-success w-100") }}
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

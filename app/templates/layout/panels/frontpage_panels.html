@@ -1,0 +1,50 @@
+<div class="container-fluid mt-3 ">
+    <div class="row mb-5" >
+        <!-- Middle -->
+        <div class="col-md-8 col-lg-9 col-xl-10 ">
+
+
+            {% include "flashbar.html" %}
+
+            {% if current_user.is_authenticated %}
+                {% include 'create/posts/master/_full_form.html' %}
+            {% else %}
+                {% include 'create/posts/master/_fake_create_post.html' %}
+            {% endif %}
+
+            {% include 'layout/widgets_subs/nav/frontpage_topnav.html' %}
+
+            {% include 'layout/widgets/daily_challenges_small.html' %}
+            <div class="col-12 m-0 p-0 second_color">
+                {% for post in posts %}
+                    {% include 'posts/panels_medium/master.html' %}
+                {% endfor %}
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center justify-content-center">
+                    {% if prev_url %}
+                        <a class="btn btn-success btn-sm" type="button" href="{{ prev_url }}">
+                            previous
+                        </a>
+                    {% endif %}
+                    {% if next_url %}
+                        <a class="btn btn-success btn-sm" type="button" href="{{ next_url }}">
+                            next
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right -->
+        <div class="col-md-4 col-lg-3 col-xl-2 d-none d-md-block">
+            {% include 'layout/widgets/_create_post.html' %}
+             {% include 'layout/widgets_subs/abandon.html' %}
+            {% include 'layout/profile/main_profile.html' %}
+            {% include 'layout/widgets/_daily_challenges.html' %}
+            {% include 'layout/widgets/_formactions.html' %}
+            {% include 'layout/widgets/_current_prices.html' %}
+        </div>
+    </div>
+</div>
