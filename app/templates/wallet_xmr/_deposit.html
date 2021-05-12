@@ -5,8 +5,6 @@
     <div class="col-12 text-left">
         <b>Deposit Funds</b>
     </div>
-
-
     <div class="col-12 text-center" style="font-size: 12px;">
         To deposit funds send Monero to the address below.
         The balance will appear after 11 confirmations.
@@ -19,12 +17,12 @@
 
     <div class="col-12 text-center mt-3 mb-3 p-0">
         Monero Address <br>
-        {% if wallet.address1 == '' %}
+        {% if wallet.address1|length >5 %}
             <p class="font-weight-bold" style="font-size: 10px;">Wallet is being created </p>
         {% else %}
-        <div class="col-12 text-center mt-4 mb-2">
-            <img alt='' src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
-        </div>
+            <div class="col-12 text-center mt-4 mb-2">
+                <img alt='' src="{{ qrcode(wallet.address1) }}" width="200px" height="200px;">
+            </div>
 
             <div class="col-12">
                 <div class="p-0" style="font-size:13px; word-break: break-word;">

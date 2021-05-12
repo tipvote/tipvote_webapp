@@ -4,6 +4,10 @@
         Balance: {{ wallet.currentbalance|xmrtostring }} XMR
     </p>
     <p class="font-weight-bold" style="word-break: break-all">
+        {% if wallet.address1|length >5 %}
         Address: {{ wallet.address1 }}
+        {% else %}
+            Wallet creating occurs every hour due to security.  Check back later.
+        {% endif %}
     </p>
 </div>

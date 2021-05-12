@@ -30,7 +30,10 @@
                     {% endif %}
                     <a class=" text-center " style="font-size: 24px"
                        href="{{ url_for('subforum.sub', subname=thesub.subcommon_name) }}">
-                        <img  class="smallbannerimage" alt={{ thesub.subcommon_name }} src="{{ url_for('common.banner_image', filename=subcustom_stuff.mini_image) }}" >
+                        <img  class="smallbannerimage"
+                              alt={{ thesub.subcommon_name }}
+                                src="{{ url_for('common.banner_image',
+                                 filename=subcustom_stuff.mini_image) }}" >
                     </a>
                 </div>
                 <br>

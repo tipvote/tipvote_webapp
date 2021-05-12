@@ -1,197 +1,151 @@
-<div class="col-12 ml-0 mr-0 mt-0 mb-1 ">
+<div class="col-12 ml-0 mr-0 mt-0 mb-1 p-0 ">
     <div class="row ">
-        <!-- Username and picture -->
-        <!-- If to the wall -->
-        {% if post.subcommon_id == 1 %}
-            {% if post.shared_post == 0 %}
 
+        <!-- Sub Info-->
+        <div class="col-2">
 
-                {% if post.posterposts.profileimage  %}
-                    {% if post.posterposts.profileimage == '' %}
-                        <img       class="profileimage bg-dark"
-                                   src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                   style=""
-                        >
-                    {% else %}
-                        <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                            <img
-                                    alt="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                    class="img-responsive profileimage"
-                                    src="{{ url_for('common.profile_image',filename=post.posterposts.profileimage) }}"
-                            >
+            {% if post.posts.mini_image|length > 5 %}
+                <a class="text-center pr-2 mt-0 pt-0" style="height: 25px"
+                   href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                    <img class=" mt-0 pt-0" style="width: 35px; height: 35px; "
+                         src="{{ url_for('common.banner_image', filename=post.posts.mini_image) }}">
+                </a>
+                <br>
+                {% if post.subcommon_name|length > 10 %}
+                    <div class="linkcolor"  style="display: inline; font-size: 9px">
+                        <a  href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                            a/{{ post.subcommon_name }}
                         </a>
-                    {% endif %}
-                {% else %}
-                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                         style="width:50px;height: 50px">
-                {% endif %}
-
-
-
-                <div class="col">
-                <div class="linkcolor"  style="display: inline; font-size: 15px">
-                    <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
-                        {{ post.poster_user_name }}
-
-                    </a>
-                    <div style="font-size: 11px; display: inline;">
-                        (Lvl {{ post.posterposts.user_stats_common.user_level }})
                     </div>
-                </div>
+                {% else %}
+                    <div class="linkcolor"  style="display: inline; font-size: 12px">
+                        <a href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                            a/{{ post.subcommon_name }}
+                        </a>
+                    </div>
+                {% endif %}
             {% else %}
-                {% if post.posterposts.profileimage == '' %}
-                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
+                <a class="text-center pr-2 mt-0 pt-0" style="height: 25px"
+                   href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                    <img class=" mt-0 pt-0" style="width: 35px; height: 35px; "
+                         src="{{ url_for('static', filename='android-chrome-192x192.png') }}">
+                </a>
+                <br>
+                {% if post.subcommon_name|length > 10 %}
+                    <div class="linkcolor"  style="display: inline; font-size: 9px">
+                        <a href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                            a/{{ post.subcommon_name }}
+                        </a>
+                    </div>
                 {% else %}
-                    <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                        <img
-                                alt="{{ url_for('static', filename='images/noprofile.png')  }}"
-                                class="img-responsive"
-                                src="{{ url_for('common.profile_image',filename=post.posterposts.profileimage) }}"
-                                style="width:50px;height: 50px"
-                        >
-                    </a>
+                    <div class="linkcolor"  style="display: inline; font-size: 12px">
+                        <a href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
+                            a/{{ post.subcommon_name }}
+                        </a>
+                    </div>
                 {% endif %}
-                <div class="col">
-                <div class="linkcolor"  style="display: inline; font-size: 15px">
-                    <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                        {{ post.user_name }}
-                    </a>
+            {% endif %}
+        </div>
+
+
+        <!-- Username and picture -->
+        <div class="col-8">
+
+            {% if post.subcommon_id == 1 %}
+                {% if post.shared_post == 0 %}
+
+
+
+                    <div class="linkcolor" style="display: inline; font-size: 15px">
+                        <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
+                            @{{ post.poster_user_name }}
+                        </a>
+                        <div style="font-size: 11px; display: inline;">
+                            (Lvl {{ post.posterposts.user_stats_common.user_level }})
+                        </div>
+                    </div>
+                {% else %}
+
+
+                    <div class="linkcolor"  style="display: inline; font-size: 15px">
+                        <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
+                            @{{ post.user_name }}
+                        </a>
+                    </div>
                     <div style="font-size: 11px; display: inline;">
                         (Lvl {{ post.posterposts.user_stats_common.user_level }})
                     </div>
-                </div>
-            {% endif %}
+
+                {% endif %}
 
 
+                <!-- If to a room -->
+            {% else %}
+                {% if post.userhidden == 1 %}
 
-            <!-- If to a room -->
-        {% else %}
-            {% if post.userhidden == 1 %}
+                    <img src="{{ url_for('static', filename='images/noprofile.png')  }}"
+                         style="width:50px;height: 50px">
 
-                <img src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
-                <div class="col">
-                <div class="linkcolor"  style="display: inline; font-size: 15px">
+                    <div class="linkcolor" style="display: inline; font-size: 15px">
                           <span style="color:#66FF99">
                             Anonymous
                           </span>
-                </div>
-
-            {% else %}
-                {% if post.userposts.profileimage == '' %}
-                    <img class="profileimage bg-dark" src="{{ url_for('static', filename='images/noprofile.png')  }}"  style="width:50px;height: 50px">
+                    </div>
 
                 {% else %}
-                    <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                        <img class="img-responsive profileimage" src="{{ url_for('common.profile_image',
-                                    filename=post.userposts.profileimage) }}"
-                             style="width:50px;height: 50px">
-                    </a>
-                {% endif %}
-                <div class="col">
-                <div class="linkcolor"  style="display: inline; font-size: 15px">
-                    <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                        {{ post.visible_user_name }}
-                    </a>
-                    <div style="font-size: 11px; display: inline;">
-                        (Lvl {{ post.posterposts.user_stats_common.user_level }})
-                    </div>
-                </div>
-            {% endif %}
-        {% endif %}
 
-
-        <!-- Second part of top (to what wall) -->
-        {% if post.subcommon_id == 1 %}
-            {% if post.shared_post == 0 %}
-                {% if post.content_user_name == post.user_name %}
-                    {% if post.content_user_name == post.poster_user_name %}
-
-                    {% else %}
-                        <div class="post_text_color"  style="display: inline;">
-                            to
-                        </div>
-                        <div class="linkcolor"  style="display: inline; font-size: 15px">
-                            <a href="{{ url_for('profile.main', user_name=post.poster_user_name) }}">
-                                {{ post.poster_user_name }}
-                            </a>
-                            <div style="font-size: 11px; display: inline;">
-                                (Lvl {{ post.posterposts.user_stats_common.user_level }})
-                            </div>
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <div class="post_text_color"  style="display: inline;">
-                        to
-                    </div>
-                    <div class="linkcolor"  style="display: inline; font-size: 15px">
+                    <div class="linkcolor" style="display: inline; font-size: 15px">
                         <a href="{{ url_for('profile.main', user_name=post.user_name) }}">
-                            {{ post.user_name }}
+                            {{ post.visible_user_name }}
                         </a>
                         <div style="font-size: 11px; display: inline;">
-                            (Lvl {{ post.userposts.user_stats_common.user_level }})
+                            (Lvl {{ post.posterposts.user_stats_common.user_level }})
                         </div>
                     </div>
+                    <div style="font-size: 10px;">
+                        Posted   {{ moment(timestamp=post.created, local=False).fromNow(refresh=True)  }}
+                    </div>
                 {% endif %}
-            {% else %}
             {% endif %}
-            <!-- To A Room -->
 
-        {% elif post.subcommon_id == 13 %}
 
-        {% else %}
-            <div class="post_text_color"  style="display: inline;">
-                to
+            <div class="mb-2 ml-0 p-0" style="border-bottom: 1px solid rgba(77,77,77,0.25)">
+                <div class="post_text_color"  style="display: inline; font-size: 12px">
+
+                    {% if post.age == 1 %}
+                        <p class="text-danger font-weight-bold text-center" style="display: inline">  NSFW</p>
+                    {% endif %}
+                </div>
+                {% include 'posts/classic/_donations.html' %}
+                {% include 'posts/classic/_coins.html' %}
             </div>
-            <div class="linkcolor"  style="display: inline; font-size: 15px">
-                <a  href="{{ url_for('subforum.sub', subname=post.subcommon_name) }}">
-                    a/{{ post.subcommon_name }}
-                </a>
-            </div>
-        {% endif %}
+            {% if deleteposttextform  %}
+                {% if  current_user.id == post.poster_user_id %}
+                    {% if post.hidden == 0 %}
+                        <form method="post" action="{{ url_for('edit.post_delete_text',postid=post.id) }}" class="d-inline">
+                            {{ deleteposttextform.csrf_token }}
+                            {{ render_field(deleteposttextform.submit,  value="Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
+                        </form>
+                    {% else %}
+                    {% endif %}
 
-        <div class="col   mb-2 ml-0 p-0" style="border-bottom: 1px solid rgba(77,77,77,0.25)">
-            <div class="post_text_color"  style="display: inline; font-size: 12px">
-                Posted   {{ moment(timestamp=post.created, local=False).fromNow(refresh=True)  }}
-                {% if post.created != post.edited %}
-                    |    Edited:   {{ moment(timestamp=post.edited, local=False).fromNow(refresh=True)  }}
-                {% else %}
-                {% endif %}
-                {% if post.age == 1 %}
-                    <p class="text-danger font-weight-bold text-center" style="display: inline">  NSFW</p>
-                {% endif %}
-            </div>
-            {% include 'posts/classic/_donations.html' %}
-            {% include 'posts/classic/_coins.html' %}
-        </div>
-
-
-        {% if deleteposttextform  %}
-
-            {% if  current_user.id == post.poster_user_id %}
-                {% if post.hidden == 0 %}
-                    <form method="post" action="{{ url_for('edit.post_delete_text',postid=post.id) }}" class="d-inline">
-                        {{ deleteposttextform.csrf_token }}
-                        {{ render_field(deleteposttextform.submit,  value="Delete Post", autocomplete="off", class="btn btn-dark btn-sm ") }}
-                    </form>
-                {% else %}
-                {% endif %}
-
-                {% if post.hidden == 0 %}
-                    {% if post.type_of_post !=3 %}
-                        <a class="btn btn-dark btn-sm " href="{{ url_for('edit.viewpost_edit', postid=post.id) }}">
-                            Edit
-                        </a>
+                    {% if post.hidden == 0 %}
+                        {% if post.type_of_post !=3 %}
+                            <a class="btn btn-dark btn-sm " href="{{ url_for('edit.viewpost_edit', postid=post.id) }}">
+                                Edit
+                            </a>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             {% endif %}
-        {% endif %}
-
         </div>
 
-        <div class="col " style="max-width: 75px">
-            <div class="row " >
+        <!-- Arrows -->
+        <div class="col-2 justify-content-end" style="max-width: 75px">
+            <div class="row">
                 {% include 'posts/classic/_post_votes.html' %}
             </div>
         </div>
-        </div>
-        </div>
+
+    </div>
+</div>

@@ -50,13 +50,41 @@
                          aria-labelledby="dropdownMenuButtonSubs">
                         <div class="col-12 second_color m-0">
                             <div class="row ">
-                             <div class="col-12 mb-4 mt-4 h4  text-center">Navigate</div>
+                                <div class="col-12 mb-4 mt-4 font-weight-bold">Navigate</div>
 
+
+
+
+                                <a class="col-12  font-weight-bold btn-ee mb-3"
+                                   href="{{ url_for('index') }}">
+                                    <div class="row btn-ee  pt-2 pb-2">
+                                        <div class="col-3">
+                                            <i class="fas fa-bars"></i>
+
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                            All
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a class="col-12  font-weight-bold btn-ee mb-3"
+                                   href="{{ url_for('frontpage.frontpage_home') }}">
+                                    <div class="row btn-ee  pt-2 pb-2">
+                                        <div class="col-3">
+                                            <i class="fas fa-home"></i>
+                                        </div>
+                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
+                                            FrontPage
+                                        </div>
+                                    </div>
+                                </a>
 
                                 <a class="col-12  font-weight-bold btn-ee mb-3"
                                    href="{{ url_for('discoversubs') }}">
                                     <div class="row btn-ee  pt-2 pb-2">
                                         <div class="col-3">
+                                            <i class="fas fa-asterisk"></i>
 
                                         </div>
                                         <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
@@ -65,20 +93,9 @@
                                     </div>
                                 </a>
 
+                                <div class="col-12 mb-4 mt-4 font-weight-bold">Rooms</div>
 
-                                <a class="col-12  font-weight-bold btn-ee mb-3"
-                                   href="{{ url_for('frontpage.frontpage_home') }}">
-                                    <div class="row btn-ee  pt-2 pb-2">
-                                        <div class="col-3">
 
-                                        </div>
-                                        <div class="col-9 pt-2  pl-0 " style="margin-top: -5px;">
-                                            FrontPage
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <div class="col-12 mb-4 mt-4 h4 text-center">Rooms</div>
                                 {% for subs in usersubforums %}
                                     {% if subs %}
                                         <a class="col-12  font-weight-bold btn-ee mb-3"
@@ -287,7 +304,7 @@
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('users.account', user_name=current_user.user_name) }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>Account</b>
-                                    </div>
+                                    </div>jnkm,
                                 </a>
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('profileedit.viewsavedposts') }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
@@ -297,6 +314,11 @@
                                 <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('coins.bank') }}">
                                     <div class="col-12 pt-2 pb-2 btn-ee  ">
                                         <b>Tipvote Coins</b>
+                                    </div>
+                                </a>
+                                <a class=" col-12 mt-2 mb-2 p-0" href="{{ url_for('create.createsubforum') }}">
+                                    <div class="col-12 pt-2 pb-2 btn-ee  ">
+                                        <b>Create a room</b>
                                     </div>
                                 </a>
                                 <div class=" border-bottom mb-3"></div>

@@ -106,7 +106,7 @@ def sub(subname):
     # get the sub
     thesub = db.session.query(SubForums) \
         .filter(func.lower(SubForums.subcommon_name) == subname.lower()) \
-        .first_or_404()
+        .first()
     if thesub is None:
         flash("Sub Doesnt Exist.", category="danger")
         return redirect(url_for('index'))

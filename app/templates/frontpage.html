@@ -1,16 +1,16 @@
-{% extends "layout/layout_3bars_all.html" %}
+{% extends "layout/layout_3bars_frontpage.html" %}
 {% block content %}
 
     {% if current_user.post_style == 1 %}
-        {% include "layout/cards/_index_cards.html" %}
+        {% include "layout/cards/frontpage_cards.html" %}
     {% elif current_user.post_style == 2 %}
-        {% include "layout/panels/_index_panels_medium.html" %}
+        {% include "layout/panels/frontpage_panels.html" %}
     {% elif current_user.post_style == 3 %}
-        {% include "layout/panels/_index_panels_large.html" %}
+        {% include "layout/panels/frontpage_panels.html" %}
     {% elif current_user.post_style == 4 %}
-        {% include "layout/panels/_index_panels_small.html" %}
+        {% include "layout/panels/frontpage_panels.html" %}
     {% else %}
-        {% include "layout/panels/_index_panels_medium.html" %}
+          {% include "layout/cards/frontpage_cards.html" %}
     {% endif %}
 
 {% endblock %}

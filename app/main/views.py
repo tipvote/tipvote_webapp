@@ -1268,7 +1268,10 @@ def forclosure_purchase(subname):
     thesub = db.session.query(SubForums) \
         .filter(func.lower(SubForums.subcommon_name) == subname.lower()) \
         .first_or_404()
-
+    if thesub.id > 68:
+        flash("The sub is not for sale.",category="success")
+        return redirect(url_for('subforum.sub',
+                                subname=thesub.subcommon_name))
     amount_of_users = thesub.members
 
     if 0 <= amount_of_users <= 100:

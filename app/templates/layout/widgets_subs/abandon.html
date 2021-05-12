@@ -1,0 +1,23 @@
+{% if sub_for_sale == 1 %}
+{% if thesub.id > 68 %}
+    <div class="row pb-1 pr-2 pl-2 mt-2 mb-2 ">
+        <div class="col-12 text-danger pb-2  second_color">
+            <div class="text-center">
+                <b>Room Abandonment</b>
+            </div>
+            <div class="col-12">
+                The room owner has not been online in 2 weeks.
+                {{ thesub.subcommon_name }}  is now for sale by Tipvote.
+            </div>
+            <div class="text-center mb-3">
+                <p> You must be logged in to create a room</p>
+                <a class=" text-center btn btn-dark"
+                   href="{{ url_for('forclosure_purchase', subname=thesub.subcommon_name) }}">
+                    Purchase Room
+                </a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endif %}
+

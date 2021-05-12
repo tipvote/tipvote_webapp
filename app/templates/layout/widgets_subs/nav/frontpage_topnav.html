@@ -1,31 +1,40 @@
-<ul class="nav nav-tabs mb-3">
-    <li class="nav-item">
-        {% if navlink == 1 %}
-            <a class="nav-link btn-tipvote-up text-dark"  href="{{ url_for('frontpage.frontpage_home') }}">Popular</a>
-        {% else %}
-            <a class="nav-link"  href="{{ url_for('frontpage.frontpage_home') }}">Popular</a>
-        {% endif %}
-    </li>
-    <li class="nav-item">
-        {% if navlink == 2 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('frontpage.frontpage_newest') }}">New</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('frontpage.frontpage_newest') }}">New</a>
-        {% endif %}
-    </li>
-    <li class="nav-item">
-        {% if navlink == 3 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('frontpage.frontpage_mostactive') }}">Active</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('frontpage.frontpage_mostactive') }}">Active</a>
-        {% endif %}
-    </li>
 
-    <li class="nav-item">
-        {% if navlink == 5 %}
-            <a class="nav-link btn-tipvote-up text-dark" href="{{ url_for('frontpage.frontpage_top') }}">Top</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('frontpage.frontpage_top') }}">Top</a>
-        {% endif %}
-    </li>
-</ul>
+<div class="col-12 mb-3 second_color  ">
+    <div class="row pt-2 pb-2">
+        <div class="col-8 col-md-9 ">
+            {% if navlink == 1 %}
+                <a class="btn btn-success"  role="button"  href="{{ url_for('frontpage.frontpage_home') }}">Popular</a>
+            {% else %}
+                <a class="btn btn-dark"  role="button" href="{{ url_for('frontpage.frontpage_home') }}">Popular</a>
+            {% endif %}
+
+            {% if navlink == 2 %}
+                <a class="btn btn-success" style="" role="button" href="{{ url_for('frontpage.frontpage_newest') }}">New</a>
+            {% else %}
+                <a class="btn btn-dark "  role="button" href="{{ url_for('frontpage.frontpage_newest') }}">New</a>
+            {% endif %}
+
+
+        </div>
+        <div class="col-4 col-md-3  justify-content-end">
+            <div class="row justify-content-end pr-3">
+                <div class="col-4 text-center d-block d-md-none d-lg-block">
+                    <a class="" href="{{ url_for('users.changestyle', choice=1) }}">
+                        <i class=" fab fa-reddit fa-2x" style="color: #808183"></i> <br>
+                    </a>
+                </div>
+                <div class="col-4 text-center d-block d-md-none d-lg-block">
+                    <a class="" href="{{ url_for('users.changestyle', choice=2) }}">
+                        <i class="fab fa-facebook-f fa-2x" style="color: #808183"></i>  <br>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2 pb-2 h5 text-center">
+        <div class="col-12">
+            /rooms
+        </div>
+    </div>
+</div>
