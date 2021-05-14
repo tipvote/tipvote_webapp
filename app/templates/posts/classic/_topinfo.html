@@ -2,7 +2,7 @@
     <div class="row ">
 
         <!-- Sub Info-->
-        <div class="col-2">
+        <div class="col-3">
 
             {% if post.posts.mini_image|length > 5 %}
                 <a class="text-center pr-2 mt-0 pt-0" style="height: 25px"
@@ -49,7 +49,7 @@
 
 
         <!-- Username and picture -->
-        <div class="col-8">
+        <div class="col-6 col-sm-7">
 
             {% if post.subcommon_id == 1 %}
                 {% if post.shared_post == 0 %}
@@ -141,7 +141,7 @@
         </div>
 
         <!-- Arrows -->
-        <div class="col-2 justify-content-end" style="max-width: 75px">
+        <div class="col-3 col-sm-2 justify-content-end" style="max-width: 75px">
             <div class="row">
                 {% include 'posts/classic/_post_votes.html' %}
             </div>
