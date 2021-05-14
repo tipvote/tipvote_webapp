@@ -3,7 +3,11 @@ from flask import \
     redirect, \
     url_for, \
     flash, \
-    request
+    request, \
+    jsonify,\
+    make_response
+import random
+import time
 from decimal import Decimal
 from itsdangerous import URLSafeTimedSerializer
 from app.sendmsg import send_email
@@ -1102,27 +1106,18 @@ def statsguide():
                            )
 
 
+
 @app.route('/bugbounty', methods=['GET'])
 def bugbounty():
     if request.method == 'GET':
         # get notifications
-        if current_user.is_authenticated:
-            recmsgs = db.session.query(Messages)
-            recmsgs = recmsgs.filter(Messages.rec_user_id == current_user.id, Messages.read_rec == 1)
-            recmsgs = recmsgs.count()
 
-            sendmsgs = db.session.query(Messages)
-            sendmsgs = sendmsgs.filter(Messages.sender_user_id == current_user.id, Messages.read_send == 1)
-            sendmsgs = sendmsgs.count()
-
-            themsgs = int(sendmsgs) + int(recmsgs)
-        else:
-            themsgs = 0
 
         return render_template('main/bugbounty.html',
-                               now=datetime.utcnow(),
-                               themsgs=themsgs
+                               db=db
+
                                )
+
 
 
 @app.route('/promote/all/learnmore', methods=['GET'])
