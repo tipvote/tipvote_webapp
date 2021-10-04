@@ -7,7 +7,7 @@ from markdown import markdown
 class MoneroPrices(db.Model):
     __tablename__ = 'prices_monero'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
 
@@ -15,7 +15,7 @@ class MoneroPrices(db.Model):
 class MoneroWallet(db.Model):
     __tablename__ = 'monero_wallet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -30,7 +30,7 @@ class MoneroWallet(db.Model):
 class MoneroTransactions(db.Model):
     __tablename__ = 'monero_transactions'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.INTEGER)
@@ -53,7 +53,7 @@ class MoneroTransactions(db.Model):
 class MoneroTransOrphan(db.Model):
     __tablename__ = 'monero_transorphan'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     xmr = db.Column(db.DECIMAL(20, 12))
@@ -63,7 +63,7 @@ class MoneroTransOrphan(db.Model):
 class MoneroUnconfirmed(db.Model):
     __tablename__ = 'monero_unconfirmed'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -84,7 +84,7 @@ class MoneroUnconfirmed(db.Model):
 class MoneroWalletWork(db.Model):
     __tablename__ = 'monero_wallet_work'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -98,7 +98,7 @@ class MoneroWalletWork(db.Model):
 class MoneroWalletFee(db.Model):
     __tablename__ = 'monero_walletfee'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     amount = db.Column(db.DECIMAL(20, 12))
@@ -107,7 +107,7 @@ class MoneroWalletFee(db.Model):
 class MoneroWalletAddresses(db.Model):
     __tablename__ = 'moneroaddresses'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     address = db.Column(db.TEXT)
@@ -117,7 +117,7 @@ class MoneroWalletAddresses(db.Model):
 class MoneroBlockHeight(db.Model):
     __tablename__ = 'monero_blockheight'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     blockheight = db.Column(db.INTEGER)
@@ -126,7 +126,7 @@ class MoneroBlockHeight(db.Model):
 class MoneroWalletStagenet(db.Model):
     __tablename__ = 'monero_wallet_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -141,7 +141,7 @@ class MoneroWalletStagenet(db.Model):
 class MoneroTransactionsStagenet(db.Model):
     __tablename__ = 'monero_transactions_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.INTEGER)
@@ -163,7 +163,7 @@ class MoneroTransactionsStagenet(db.Model):
 class MoneroTransOrphanStagenet(db.Model):
     __tablename__ = 'monero_transorphan_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     xmr = db.Column(db.DECIMAL(20, 12))
@@ -173,7 +173,7 @@ class MoneroTransOrphanStagenet(db.Model):
 class MoneroUnconfirmedStagenet(db.Model):
     __tablename__ = 'monero_unconfirmed_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -194,7 +194,7 @@ class MoneroUnconfirmedStagenet(db.Model):
 class MoneroWalletWorkStagenet(db.Model):
     __tablename__ = 'monero_wallet_work_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -208,7 +208,7 @@ class MoneroWalletWorkStagenet(db.Model):
 class MoneroWalletFeeStagenet(db.Model):
     __tablename__ = 'monero_walletfee_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     amount = db.Column(db.DECIMAL(20, 12))
@@ -217,7 +217,7 @@ class MoneroWalletFeeStagenet(db.Model):
 class MoneroWalletAddressesStagenet(db.Model):
     __tablename__ = 'moneroaddresses_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     address = db.Column(db.TEXT)
@@ -227,7 +227,7 @@ class MoneroWalletAddressesStagenet(db.Model):
 class MoneroBlockHeightStagenet(db.Model):
     __tablename__ = 'monero_blockheight_stagenet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_monero_stagenet", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_monero_stagenet"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     blockheight = db.Column(db.INTEGER)

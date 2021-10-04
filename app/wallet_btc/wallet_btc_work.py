@@ -59,7 +59,7 @@ def createwallet(user_id):
     :return:
     """
     getnewaddress = BtcWalletAddresses.query.filter(BtcWalletAddresses.status == 0).first()
-    getnewaddress.status = 1
+
 
     btc_walletcreate = BtcWallet(user_id=user_id,
                                  currentbalance=0,
@@ -86,7 +86,7 @@ def createwallet(user_id):
         txid4='',
         txid5='',
     )
-
+    getnewaddress.status = 1
     db.session.add(btc_walletcreate)
     db.session.add(btc_newunconfirmed)
     db.session.add(getnewaddress)

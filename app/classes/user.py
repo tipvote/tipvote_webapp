@@ -11,7 +11,7 @@ from markdown import markdown
 class DailyChallenge(db.Model):
     __tablename__ = 'daily_challenge'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     name_of_challenge = db.Column(db.TEXT)
     image_of_challenge = db.Column(db.TEXT)
@@ -24,7 +24,7 @@ class DailyChallenge(db.Model):
 class UserDailyChallenge(db.Model):
     __tablename__ = 'user_daily_challenge'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     user_id = db.Column(db.Integer)
     id_of_challenge = db.Column(db.Integer)
@@ -45,7 +45,7 @@ class UserDailyChallenge(db.Model):
 class SavedAddresses(db.Model):
     __tablename__ = 'user_crypto_addresses'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     user_id = db.Column(db.Integer)
     bitcoin_address = db.Column(db.TEXT)
@@ -57,7 +57,7 @@ class SavedAddresses(db.Model):
 class PgpKey(db.Model):
     __tablename__ = 'user_pgpkey'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     # from to
@@ -70,7 +70,7 @@ class PgpKey(db.Model):
 class SavedPost(db.Model):
     __tablename__ = 'user_saved_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -82,7 +82,7 @@ class SavedPost(db.Model):
 class UserLargePublicInfo(db.Model):
     __tablename__ = 'user_large_public_info'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
@@ -108,7 +108,7 @@ db.event.listen(UserLargePublicInfo.bio, 'set', UserLargePublicInfo.on_changed_b
 class UserStatsXMR(db.Model):
     __tablename__ = 'user_stats_xmr'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -134,7 +134,7 @@ class UserStatsXMR(db.Model):
 class UserStatsBTC(db.Model):
     __tablename__ = 'user_stats_btc'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -160,7 +160,7 @@ class UserStatsBTC(db.Model):
 class UserStatsBCH(db.Model):
     __tablename__ = 'user_stats_bch'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -186,7 +186,7 @@ class UserStatsBCH(db.Model):
 class UserTimers(db.Model):
     __tablename__ = 'user_timers'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -201,7 +201,7 @@ class UserTimers(db.Model):
 class UserPublicInfo(db.Model):
     __tablename__ = 'user_public_info'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
@@ -241,7 +241,7 @@ db.event.listen(UserPublicInfo.short_bio, 'set', UserPublicInfo.on_changed_body_
 class UserStats(db.Model):
     __tablename__ = 'user_stats_common'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -259,7 +259,7 @@ class UserStats(db.Model):
 class BlockedUser(db.Model):
     __tablename__ = 'blocked'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
@@ -269,7 +269,7 @@ class BlockedUser(db.Model):
 class Followers(db.Model):
     __tablename__ = 'followers'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     follower_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
@@ -278,7 +278,7 @@ class Followers(db.Model):
 class BannedUser(db.Model):
     __tablename__ = 'banneduser'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     user_name = db.Column(db.String(140))
     user_id = db.Column(db.Integer)
@@ -290,7 +290,7 @@ class BannedUser(db.Model):
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
 
@@ -504,7 +504,7 @@ class User(UserMixin, db.Model):
 class UserCoins(db.Model):
     __tablename__ = 'usercoins'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_coins", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_coins"}
 
     id = db.Column(db.Integer, primary_key=True)
     coin_id = db.Column(db.Integer)

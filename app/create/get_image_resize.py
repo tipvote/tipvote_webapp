@@ -1,4 +1,3 @@
-
 from PIL import Image
 import os
 from app import db
@@ -19,7 +18,7 @@ def convertimage(imagelocation, imagename, thepost):
         extension = os.path.splitext(thelocationandimage)[1]
 
         if extension == '.gif':
-            location_of_large_file = thelocationandimage[5:]
+            location_of_large_file = thelocationandimage[13:]
             thepost.image_server_1 = location_of_large_file
         else:
 
@@ -76,13 +75,13 @@ def convertimage(imagelocation, imagename, thepost):
                 # save images
                 # large image - save new name for databases
                 location_of_large_file = os.path.join(imagelocation, renamed_file_large)
-                location_of_large_file = location_of_large_file[5:]
+                location_of_large_file = location_of_large_file[13:]
                 thepost.image_server_1 = location_of_large_file
 
             else:
                 # small image
                 location_of_large_file = os.path.join(imagelocation, non_renamed_file)
-                location_of_large_file = location_of_large_file[5:]
+                location_of_large_file = location_of_large_file[13:]
                 thepost.image_server_1 = location_of_large_file
 
         db.session.add(thepost)

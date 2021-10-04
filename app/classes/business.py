@@ -7,7 +7,7 @@ from markdown import markdown
 class Business(db.Model):
     __tablename__ = 'business'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_name = db.Column(db.TEXT)
@@ -41,7 +41,7 @@ class Business(db.Model):
 class BusinessSpecificInfo(db.Model):
     __tablename__ = 'business_specific_info'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
 
@@ -68,7 +68,7 @@ db.event.listen(BusinessSpecificInfo.bio, 'set', BusinessSpecificInfo.on_changed
 class BusinessFollowers(db.Model):
     __tablename__ = 'business_followers'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -78,7 +78,7 @@ class BusinessFollowers(db.Model):
 class BusinessAccepts(db.Model):
     __tablename__ = 'business_accepts_currency'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('avengers_user_business.business.id'))
@@ -90,7 +90,7 @@ class BusinessAccepts(db.Model):
 class BusinessStats(db.Model):
     __tablename__ = 'business_stats'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('avengers_user_business.business.id'))
@@ -104,7 +104,7 @@ class BusinessStats(db.Model):
 class BusinessInfo(db.Model):
     __tablename__ = 'business_info'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('avengers_user_business.business.id'))
@@ -205,7 +205,7 @@ db.event.listen(BusinessInfo.twitter, 'set', BusinessInfo.on_changed_body_six)
 class BusinessServices(db.Model):
     __tablename__ = 'business_service'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('avengers_user_business.business.id'))
@@ -250,7 +250,7 @@ db.event.listen(BusinessServices.info_two, 'set', BusinessServices.on_changed_bo
 class BusinessLocation(db.Model):
     __tablename__ = 'business_location'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user_business", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user_business"}
 
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('avengers_user_business.business.id'))

@@ -7,7 +7,7 @@ from markdown import markdown
 class LegalMessages(db.Model):
     __tablename__ = 'msg_messages_legal'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_msg", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_msg"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -46,7 +46,7 @@ db.event.listen(LegalMessages.body, 'set', LegalMessages.on_changed_body)
 class LegalReply(db.Model):
     __tablename__ = 'msg_messages_replies_legal'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_msg", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_msg"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -83,7 +83,7 @@ db.event.listen(LegalReply.body, 'set', LegalReply.on_changed_body)
 class Messages(db.Model):
     __tablename__ = 'msg_messages'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_msg", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_msg"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -123,7 +123,7 @@ db.event.listen(Messages.body, 'set', Messages.on_changed_body)
 class Reply(db.Model):
     __tablename__ = 'msg_messages_replies'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_msg", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_msg"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())

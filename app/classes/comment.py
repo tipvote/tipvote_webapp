@@ -8,7 +8,7 @@ from markdown import markdown
 class CommentsUpvotes(db.Model):
     __tablename__ = 'avengers_comments_upvotes'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_comments", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_comments"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -18,7 +18,7 @@ class CommentsUpvotes(db.Model):
 class BtcCommentTips(db.Model):
     __tablename__ = 'avengers_tips_btc_comments'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -43,7 +43,7 @@ class BtcCommentTips(db.Model):
 class XmrCommentTips(db.Model):
     __tablename__ = 'avengers_tips_xmr_comments'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -68,7 +68,7 @@ class XmrCommentTips(db.Model):
 class BchCommentTips(db.Model):
     __tablename__ = 'avengers_tips_bch_comments'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -94,7 +94,7 @@ class BchCommentTips(db.Model):
 class Comments(db.Model):
     __tablename__ = 'avengers_comments_comments'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_comments", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_comments"}
 
     id = db.Column(db.Integer, primary_key=True)
     # each comment increases..replaced id for comment pathing

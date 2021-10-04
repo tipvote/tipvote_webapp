@@ -8,7 +8,7 @@ from markdown import markdown
 class PostUpvotes(db.Model):
     __tablename__ = 'avengers_posts_upvotes'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_post", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_post"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -20,7 +20,7 @@ class PostUpvotes(db.Model):
 class CommonsPost(db.Model):
     __tablename__ = 'avengers_posts_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_post", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_post"}
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300))
@@ -130,7 +130,7 @@ db.event.listen(CommonsPost.post_text, 'set', CommonsPost.on_changed_body)
 class PostDonations(db.Model):
     __tablename__ = 'avengers_post_donations'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_post", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_post"}
 
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
@@ -147,7 +147,7 @@ class PostDonations(db.Model):
 class PostPromotions(db.Model):
     __tablename__ = 'avengers_post_promotions'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_post", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_post"}
 
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
@@ -165,7 +165,7 @@ class PostPromotions(db.Model):
 class PostPromote(db.Model):
     __tablename__ = 'avengers_promotion_post'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_promotion", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_promotion"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -189,7 +189,7 @@ class PostPromote(db.Model):
 class PostCoins(db.Model):
     __tablename__ = 'avengers_post_coins'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_post", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_post"}
 
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('avengers_post.avengers_posts_posts.id'))
@@ -208,7 +208,7 @@ class PostCoins(db.Model):
 class BtcPostTips(db.Model):
     __tablename__ = 'avengers_tips_btc_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -232,7 +232,7 @@ class BtcPostTips(db.Model):
 class XmrPostTips(db.Model):
     __tablename__ = 'avengers_tips_xmr_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -255,7 +255,7 @@ class XmrPostTips(db.Model):
 class BchPostTips(db.Model):
     __tablename__ = 'avengers_tips_bch_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer,  db.ForeignKey('avengers_post.avengers_posts_posts.id'))

@@ -1,6 +1,7 @@
 
 current_disk = 'disk1'
 
+
 def userimagelocation(x):
     if 1 <= x <= 100000:
         return '1'
@@ -15,6 +16,7 @@ def userimagelocation(x):
     else:
         return '1'
 
+
 def postnodelocation(x):
     if 1 <= x <= 100000:
         return '1'
@@ -28,6 +30,7 @@ def postnodelocation(x):
         return '5'
     else:
         return '1'
+
 
 def subforumnodelocation(x):
     if 1 <= x <= 100000:

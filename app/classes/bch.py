@@ -5,7 +5,7 @@ from datetime import datetime
 class BchPrices(db.Model):
     __tablename__ = 'prices_bch'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
 
@@ -13,7 +13,7 @@ class BchPrices(db.Model):
 class BchWallet(db.Model):
     __tablename__ = 'bch_wallet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
     currentbalance = db.Column(db.DECIMAL(20, 8))
@@ -31,7 +31,7 @@ class BchWallet(db.Model):
 class BchTransOrphan(db.Model):
     __tablename__ = 'bch_transorphan'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch","useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bch = db.Column(db.DECIMAL(20, 8))
     bchaddress = db.Column(db.TEXT)
@@ -41,7 +41,7 @@ class BchTransOrphan(db.Model):
 class BchUnconfirmed(db.Model):
     __tablename__ = 'bch_unconfirmed'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -62,7 +62,7 @@ class BchUnconfirmed(db.Model):
 class BchWalletWork(db.Model):
     __tablename__ = 'bch_walletwork'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
     type = db.Column(db.INTEGER)
@@ -76,7 +76,7 @@ class BchWalletWork(db.Model):
 class BchWalletAddresses(db.Model):
     __tablename__ = 'bch_walletaddresses'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bchaddress = db.Column(db.TEXT)
     status = db.Column(db.INTEGER)
@@ -85,7 +85,7 @@ class BchWalletAddresses(db.Model):
 class BchWalletFee(db.Model):
     __tablename__ = 'bch_walletfee'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bch = db.Column(db.DECIMAL(20, 8))
 
@@ -93,7 +93,7 @@ class BchWalletFee(db.Model):
 class TransactionsBch(db.Model):
     __tablename__ = 'bch_transactions'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.INTEGER)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -119,7 +119,7 @@ class TransactionsBch(db.Model):
 class BchWalletTest(db.Model):
     __tablename__ = 'bch_wallet_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -138,7 +138,7 @@ class BchWalletTest(db.Model):
 class BchTransOrphanTest(db.Model):
     __tablename__ = 'bch_transorphan_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bch = db.Column(db.DECIMAL(20, 8))
@@ -149,7 +149,7 @@ class BchTransOrphanTest(db.Model):
 class BchUnconfirmedTest(db.Model):
     __tablename__ = 'bch_unconfirmed_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -170,7 +170,7 @@ class BchUnconfirmedTest(db.Model):
 class BchWalletWorkTest(db.Model):
     __tablename__ = 'bch_walletwork_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -185,7 +185,7 @@ class BchWalletWorkTest(db.Model):
 class BchWalletAddressesTest(db.Model):
     __tablename__ = 'bch_walletaddresses_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bchaddress = db.Column(db.TEXT)
@@ -195,7 +195,7 @@ class BchWalletAddressesTest(db.Model):
 class BchWalletFeeTest(db.Model):
     __tablename__ = 'bch_walletfee_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bch = db.Column(db.DECIMAL(20, 8))
@@ -203,7 +203,7 @@ class BchWalletFeeTest(db.Model):
 class TransactionsBchTest(db.Model):
     __tablename__ = 'bch_transactions_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_bch_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_bch_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.INTEGER)

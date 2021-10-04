@@ -1,13 +1,20 @@
 
-{% if post.url_image_server %}
-
-{% else %}
+{% if post.image_server_1 != '' %}
     {% if post.image_server_1  %}
-        <a href="{{ url_for('common.post_file', filename=post.image_server_1) }}">
-            <img
-                class="img-fluid"
-                src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
-            >
-        </a>
+        {% if post.url_of_post !='' %}
+            <a href="{{ post.url_of_post }}">
+                <img
+                    class="img-fluid"
+                    src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
+                >
+            </a>
+        {% else %}
+            <a href="{{ url_for('common.post_file', filename=post.image_server_1) }}">
+                <img
+                    class="img-fluid"
+                    src="{{ url_for('common.post_file',filename=post.image_server_1) }}"
+                >
+            </a>
+        {% endif %}
     {% endif %}
 {% endif %}

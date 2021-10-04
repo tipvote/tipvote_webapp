@@ -66,7 +66,9 @@ from app.mod.forms import \
     QuickLock, \
     QuickMute
 
-from app.wallet_bch.wallet_btccash_purchases import send_coin_to_site_purchase
+from app.wallet_bch.wallet_btccash_purchases import\
+    send_coin_to_site_purchase
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -1024,11 +1026,10 @@ def welcome():
                                      user=user.user_name,
                                      now=datetime.utcnow(),
                                      password_reset_url=confirm_account_url)
-        try:
-            send_email('Welcome to Tipvote!', [user.email], '', accountreg)
-            # end email stuff
-        except:
-            pass
+
+        send_email('Welcome to Tipvote!', [user.email], '', accountreg)
+        # end email stuff
+
 
     return render_template('main/welcome.html',
                            now=datetime.utcnow(),

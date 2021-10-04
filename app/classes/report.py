@@ -13,7 +13,7 @@ from markdown import markdown
 class ReportedPosts(db.Model):
     __tablename__ = 'avengers_subforum_reported_posts'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)
@@ -35,7 +35,7 @@ class ReportedPosts(db.Model):
 class ReportedComments(db.Model):
     __tablename__ = 'avengers_subforum_reported_comments'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow)

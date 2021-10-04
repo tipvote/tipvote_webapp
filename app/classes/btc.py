@@ -7,7 +7,7 @@ from markdown import markdown
 class BtcPrices(db.Model):
     __tablename__ = 'prices_btc'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     price = db.Column(db.DECIMAL(50, 2))
 
@@ -15,7 +15,7 @@ class BtcPrices(db.Model):
 class BtcWallet(db.Model):
     __tablename__ = 'btc_wallet'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -34,7 +34,7 @@ class BtcWallet(db.Model):
 class BtcUnconfirmed(db.Model):
     __tablename__ = 'btc_unconfirmed'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -55,7 +55,7 @@ class BtcUnconfirmed(db.Model):
 class BtcWalletWork(db.Model):
     __tablename__ = 'btc_walletwork'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -70,7 +70,7 @@ class BtcWalletWork(db.Model):
 class BtcWalletAddresses(db.Model):
     __tablename__ = 'btc_walletaddresses'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btcaddress = db.Column(db.TEXT)
@@ -80,7 +80,7 @@ class BtcWalletAddresses(db.Model):
 class TransactionsBtc(db.Model):
     __tablename__ = 'btc_transactions'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -107,7 +107,7 @@ class TransactionsBtc(db.Model):
 class BtcWalletFee(db.Model):
     __tablename__ = 'btc_walletfee'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btc = db.Column(db.DECIMAL(20, 8))
@@ -116,7 +116,7 @@ class BtcWalletFee(db.Model):
 class BtcTransOrphan(db.Model):
     __tablename__ = 'btc_transorphan'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btc = db.Column(db.DECIMAL(20, 8))
@@ -127,7 +127,7 @@ class BtcTransOrphan(db.Model):
 class BtcWalletTest(db.Model):
     __tablename__ = 'btc_wallet_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -146,7 +146,7 @@ class BtcWalletTest(db.Model):
 class BtcUnconfirmedTest(db.Model):
     __tablename__ = 'btc_unconfirmed_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER, db.ForeignKey('avengers_user.users.id'))
@@ -167,7 +167,7 @@ class BtcUnconfirmedTest(db.Model):
 class BtcWalletWorkTest(db.Model):
     __tablename__ = 'btc_walletwork_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -182,7 +182,7 @@ class BtcWalletWorkTest(db.Model):
 class BtcWalletAddressesTest(db.Model):
     __tablename__ = 'btc_walletaddresses_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btcaddress = db.Column(db.TEXT)
@@ -192,7 +192,7 @@ class BtcWalletAddressesTest(db.Model):
 class TransactionsBtcTest(db.Model):
     __tablename__ = 'btc_transactions_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.INTEGER)
@@ -219,7 +219,7 @@ class TransactionsBtcTest(db.Model):
 class BtcWalletFeeTest(db.Model):
     __tablename__ = 'btc_walletfee_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btc = db.Column(db.DECIMAL(20, 8))
@@ -228,7 +228,7 @@ class BtcWalletFeeTest(db.Model):
 class BtcTransOrphanTest(db.Model):
     __tablename__ = 'btc_transorphan_test'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_wallet_btc_test", "useexisting": True}
+    __table_args__ = {"schema": "avengers_wallet_btc_test"}
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     btc = db.Column(db.DECIMAL(20, 8))

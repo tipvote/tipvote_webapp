@@ -27,7 +27,7 @@ def getimage(url, imagelocation, thepost):
         if extension == '.gif':
             non_renamed_file = (os.path.join(thebasename + extension))
             location_of_large_file = os.path.join(imagelocation, non_renamed_file)
-            location_of_large_file = location_of_large_file[5:]
+            location_of_large_file = location_of_large_file[13:]
             thepost.url_image_server = location_of_large_file
 
         else:
@@ -62,7 +62,7 @@ def getimage(url, imagelocation, thepost):
 
                 # large file - get name and set for database
                 location_of_large_file = os.path.join(imagelocation, non_renamed_file)
-                location_of_large_file = location_of_large_file[5:]
+                location_of_large_file = location_of_large_file[13:]
 
                 if location_of_large_file is None:
                     thepost.url_image_server = ''
@@ -76,7 +76,7 @@ def getimage(url, imagelocation, thepost):
                 # DONT CONVERT
                 # large file - get name and set for database
                 location_of_large_file = os.path.join(imagelocation, non_renamed_file)
-                location_of_large_file = location_of_large_file[5:]
+                location_of_large_file = location_of_large_file[13:]
 
                 if location_of_large_file is None:
                     thepost.url_image_server = ''

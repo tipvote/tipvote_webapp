@@ -30,5 +30,4 @@ from datetime import datetime
 @business.route('/<string:business_name>', methods=['GET'])
 def main(business_name):
 
-
     return render_template('business/main.html')

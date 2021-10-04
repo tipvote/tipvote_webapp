@@ -1,0 +1,211 @@
+heading = "Lorem ipsum dolor sit amet."
+
+content = """
+Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+Repellat inventore assumenda laboriosam,
+obcaecati saepe pariatur atque est? Quam, molestias nisi.
+"""
+
+db = list()  # The mock database
+
+posts = 500  # num posts to generate
+
+quantity = 20  # num posts to return per request
+
+for x in range(posts):
+    """
+    Creates messages/posts by shuffling the heading & content
+    to create random strings & appends to the db
+    """
+
+    heading_parts = heading.split(" ")
+    random.shuffle(heading_parts)
+
+    content_parts = content.split(" ")
+    random.shuffle(content_parts)
+
+    db.append([x, " ".join(heading_parts), " ".join(content_parts)])
+
+
+@app.route("/load")
+def load():
+    """ Route to return the posts """
+
+    time.sleep(0.2)  # Used to simulate delay
+
+    if request.args:
+        counter = int(request.args.get("c"))  # The 'counter' value sent in the QS
+
+        if counter == 0:
+            print(f"Returning posts 0 to {quantity}")
+            # Slice 0 -> quantity from the db
+            res = make_response(jsonify(db[0: quantity]), 200)
+
+        elif counter == posts:
+            print("No more posts")
+            res = make_response(jsonify({}), 200)
+
+        else:
+            print(f"Returning posts {counter} to {counter + quantity}")
+            # Slice counter -> quantity from the db
+            res = make_response(jsonify(db[counter: counter + quantity]), 200)
+
+    return res
+
+
+
+@app.route('/bugbounty', methods=['GET'])
+def bugbounty():
+    if request.method == 'GET':
+        # get notifications
+
+
+        return render_template('main/bugbounty.html',
+                               db=db
+
+                               )
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" href="code.jquery.com/jquery-3.3.1.slim.min.js">
+
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+  <title>Infinite load</title>
+</head>
+
+<!-- sticky-top navbar displaying the counter -->
+<nav class="navbar navbar-light bg-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand" id="loaded" href="#">0 items loaded</a>
+  </div>
+</nav>
+
+<body>
+
+  <main class="mt-3">
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+          <h1 class="display-4 mb-3">Infinite load</h1>
+
+          <!-- div to contain the content -->
+          <div id="scroller" class="mb-3">
+
+            <!-- template schema, hidden from the dom -->
+            <template id="post_template">
+
+              <!-- template content -->
+              <div class="card mb-3 animated fadeIn shadow-sm">
+                <div class="card-body">
+                  <h4 class="card-title" id="title"></h4>
+                  <span class="text-muted" id="content"></span>
+                </div>
+              </div>
+
+            </template>
+
+          </div>
+
+          <!-- element to trigger the IntersectionObserver -->
+          <div class="d-flex justify-content-center mb-3" id="sentinel">
+            <div class="spinner-border" role="status"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Import Bootstrap JS here -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script >
+// Get references to the dom elements
+var scroller = document.querySelector("#scroller");
+var template = document.querySelector('#post_template');
+var loaded = document.querySelector("#loaded");
+var sentinel = document.querySelector('#sentinel');
+
+// Set a counter to count the items loaded
+var counter = 0;
+
+// Function to request new items and render to the dom
+function loadItems() {
+
+  // Use fetch to request data and pass the counter value in the QS
+  fetch(`/load?c=${counter}`).then((response) => {
+
+    // Convert the response data to JSON
+    response.json().then((data) => {
+
+      // If empty JSON, exit the function
+      if (!data.length) {
+
+        // Replace the spinner with "No more posts"
+        sentinel.innerHTML = "No more posts";
+        return;
+      }
+
+      // Iterate over the items in the response
+      for (var i = 0; i < data.length; i++) {
+
+        // Clone the HTML template
+        let template_clone = template.content.cloneNode(true);
+
+        // Query & update the template content
+        template_clone.querySelector("#title").innerHTML = `${data[i][0]}: ${data[i][1]}`;
+        template_clone.querySelector("#content").innerHTML = data[i][2];
+
+        // Append template to dom
+        scroller.appendChild(template_clone);
+
+        // Increment the counter
+        counter += 1;
+
+        // Update the counter in the navbar
+        loaded.innerText = `${counter} items loaded`;
+
+      }
+    })
+  })
+}
+
+// Create a new IntersectionObserver instance
+var intersectionObserver = new IntersectionObserver(entries => {
+
+  // Uncomment below to see the entry.intersectionRatio when
+  // the sentinel comes into view
+
+  // entries.forEach(entry => {
+  //   console.log(entry.intersectionRatio);
+  // })
+
+  // If intersectionRatio is 0, the sentinel is out of view
+  // and we don't need to do anything. Exit the function
+  if (entries[0].intersectionRatio <= 0) {
+    return;
+  }
+
+  // Call the loadItems function
+  loadItems();
+
+});
+
+// Instruct the IntersectionObserver to watch the sentinel
+intersectionObserver.observe(sentinel);
+</script>
+
+</body>
+
+</html>

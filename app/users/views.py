@@ -140,17 +140,16 @@ def login_post():
                     y = x + 1
                     user.fails = y
                     db.session.add(user)
-                    db.session.commit()
 
                     if int(user.fails) >= 5:
-
                         user.locked = 1
-
                         db.session.add(user)
                         db.session.commit()
 
                         return redirect(url_for('users.account_locked'))
                     else:
+
+                        db.session.commit()
                         flash("Please retry user name or password.", category="danger")
                         return redirect(url_for('users.login'))
             else:
@@ -202,7 +201,7 @@ def register():
                     post_style=1
                 )
                 db.session.add(newuser)
-                db.session.commit()
+                db.session.flush()
 
                 # profile info
                 userbio = UserPublicInfo(
@@ -308,8 +307,8 @@ def register():
                 db.session.add(stats_for_bch)
                 db.session.add(stats_for_xmr)
 
-                # commit
-                db.session.commit()
+                # flush it out
+                db.session.flush()
                 # make a user a directory
                 getusernodelocation = userimagelocation(x=newuser.id)
                 userfolderlocation = os.path.join(UPLOADED_FILES_DEST,
@@ -341,7 +340,7 @@ def register():
                 login_user(newuser)
                 current_user.is_authenticated()
                 current_user.is_active()
-
+                db.session.commit()
                 flash("Successfully Registered."
                       "  If you want to access your wallets,"
                       " you will need to confirm your email.  If you used an invalid email,"
@@ -592,14 +591,14 @@ def changeemail():
                     y = x + 1
                     user.fails = y
                     db.session.add(user)
-                    db.session.commit()
+
                     if int(user.fails) == 5:
                         user.locked = 1
                         db.session.add(user)
                         db.session.commit()
-
                         return redirect(url_for('users.account_locked'))
                     else:
+                        db.session.commit()
                         flash("Invalid Password/Pin", category="danger")
                         return redirect(url_for('users.changeemail', user_name=current_user.user_name))
             except Exception:
@@ -829,6 +828,11 @@ def reconfirm_account_with_token(token):
 def resendconfirmation():
     now = datetime.utcnow()
     form = ResendConfirmationForm(request.form)
+    if request.method == 'GET':
+
+        return render_template('users/account/resend_confirmation.html',
+                               form=form,
+                               )
 
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -862,8 +866,6 @@ def resendconfirmation():
             flash("Form Error", category="danger")
             return redirect(url_for('users.resendconfirmation'))
 
-    return render_template('/users/resendconfirmation.html', form=form)
-
 
 @users.route('/resend/wallet', methods=['GET', 'POST'])
 def confirmationforwallets():
@@ -886,6 +888,7 @@ def confirmationforwallets():
                                                      user=user.user_name,
                                                      now=now,
                                                      password_reset_url=confirm_account_url)
+
                         send_email('Welcome to Tipvote! ', [user.email], '', accountreg)
                         flash("Please check your email for link to confirm account", category="success")
                         return redirect(url_for('index'))
@@ -1013,7 +1016,6 @@ def deleteallcommentsconfirm():
 def changetheme():
     if request.method == 'GET':
         return redirect(url_for('index'))
-        return redirect(url_for('index'))
 
     elif request.method == 'POST':
         theuser = db.session.query(User).filter(current_user.id == User.id).first()
@@ -1031,13 +1033,11 @@ def changetheme():
                 theuser.color_theme = 4
 
             db.session.add(theuser)
-            db.session.commit()
-
         else:
             theuser.color_theme = 4
-
             db.session.add(theuser)
-            db.session.commit()
+
+        db.session.commit()
 
         return redirect((request.args.get('next', request.referrer)))
 

@@ -7,7 +7,7 @@ from markdown import markdown
 class Notifications(db.Model):
     __tablename__ = 'avengers_msg_notifications'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
 
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.TIMESTAMP(), default=datetime.utcnow())

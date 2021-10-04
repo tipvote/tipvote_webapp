@@ -9,7 +9,7 @@ from app.classes.message import LegalMessages
 class Subscribed(db.Model):
     __tablename__ = 'subscribed_rooms'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -19,7 +19,7 @@ class Subscribed(db.Model):
 class SubForumStats(db.Model):
     __tablename__ = 'avengers_subforum_subforum_Stats'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
     id = db.Column(db.Integer, primary_key=True)
     subcommon_name = db.Column(db.String(140))
     subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
@@ -34,7 +34,7 @@ class SubForumStats(db.Model):
 class PayoutSubOwner(db.Model):
     __tablename__ = 'avengers_tips_payout_subowner'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
@@ -61,7 +61,7 @@ class PayoutSubOwner(db.Model):
 class SubForumCustom(db.Model):
     __tablename__ = 'avengers_subforum_subforum_custom'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
     id = db.Column(db.Integer, primary_key=True)
     subcommon_name = db.Column(db.String(140))
     subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
@@ -75,7 +75,7 @@ class SubForumCustom(db.Model):
 class SubForumCustomInfoOne(db.Model):
     __tablename__ = 'avengers_subforum_subforum_info_one'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
     id = db.Column(db.Integer, primary_key=True)
     subcommon_name = db.Column(db.String(140))
     subcommon_id = db.Column(db.Integer, db.ForeignKey('avengers_subforum.avengers_subforum_subforum.id'))
@@ -102,7 +102,7 @@ db.event.listen(SubForumCustomInfoOne.description, 'set', SubForumCustomInfoOne.
 class PrivateMembers(db.Model):
     __tablename__ = 'avengers_subforum_privatemembers'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -113,7 +113,7 @@ class PrivateMembers(db.Model):
 class PrivateApplications(db.Model):
     __tablename__ = 'avengers_subforum_privatemembers_application'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -143,13 +143,12 @@ db.event.listen(PrivateApplications.message, 'set', LegalMessages.on_changed_bod
 class SubForums(db.Model):
     __tablename__ = 'avengers_subforum_subforum'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
     id = db.Column(db.Integer, primary_key=True)
     posts = db.relationship('CommonsPost', backref='posts', lazy='dynamic')
 
     subscription = db.relationship('Subscribed', backref='subscriber', lazy='dynamic')
     privmembers = db.relationship('PrivateMembers', backref='privatemembers', lazy='dynamic')
-    privapps = db.relationship('PrivateMembers', backref='privateapps', lazy='dynamic')
     recenttips = db.relationship('RecentTips', backref='recentips', lazy='dynamic')
     subcustom = db.relationship('SubForumCustom', backref='custom', uselist=False)
     custominfoone = db.relationship('SubForumCustomInfoOne', backref='infoone', uselist=False)
@@ -207,7 +206,7 @@ db.event.listen(SubForums.description, 'set', SubForums.on_changed_body)
 class Mods(db.Model):
     __tablename__ = 'avengers_subforum_mods'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -219,7 +218,7 @@ class Mods(db.Model):
 class Banned(db.Model):
     __tablename__ = 'avengers_subforum_banned'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -230,7 +229,7 @@ class Banned(db.Model):
 class Muted(db.Model):
     __tablename__ = 'avengers_subforum_muted'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)

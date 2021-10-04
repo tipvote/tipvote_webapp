@@ -62,7 +62,6 @@ app.config['WTF_CSRF_TIME_LIMIT'] = WTF_CSRF_TIME_LIMIT
 app.config['WTF_CSRF_SECRET_KEY'] = WTF_CSRF_SECRET_KEY
 
 # ----------------------------------------------------------------------
-
 Session.configure(bind=SQLALCHEMY_DATABASE_URI_0)
 # ----------------------------------------------------------------------
 csrf = CSRFProtect(app)

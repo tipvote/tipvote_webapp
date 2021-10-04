@@ -51,7 +51,7 @@ def main(user_name):
     theuser = db.session.query(User).filter(User.user_name == user_name).first()
 
     if theuser is None:
-        flash('User does not exist', category='warning')
+        flash(f'{user_name} does not exist', category='warning')
         return redirect(url_for('profile.main', user_name=current_user.user_name))
 
     if current_user.is_authenticated:
@@ -64,10 +64,7 @@ def main(user_name):
             flash('User does not exist', category='warning')
             return redirect(url_for('index'))
 
-
     useraddresses = SavedAddresses.query.filter(SavedAddresses.user_id==theuser.id).first()
-
-
 
     usersubforums = db.session.query(Subscribed)
     usersubforums = usersubforums.join(SubForums, (Subscribed.subcommon_id == SubForums.id))

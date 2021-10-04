@@ -8,7 +8,6 @@ from wtforms.validators import DataRequired, \
     Length, \
     Regexp
 
-
 from app.common.validation import\
     subcommon_name
 

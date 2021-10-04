@@ -12,7 +12,7 @@ from markdown import markdown
 class Streaming(db.Model):
     __tablename__ = 'streaming'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     online = db.Column(db.Integer)
@@ -21,7 +21,7 @@ class Streaming(db.Model):
 class Updates(db.Model):
     __tablename__ = 'updates'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_main", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_main"}
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, unique=True)
     created = db.Column(db.TIMESTAMP(), default=datetime.utcnow())
     update_version = db.Column(db.String(140))
@@ -33,7 +33,7 @@ class Updates(db.Model):
 class GiveawayAll(db.Model):
     __tablename__ = 'avengers_promotion_giveaway_all'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_promotion", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_promotion"}
 
     id = db.Column(db.Integer, primary_key=True)
     # id of top post
@@ -54,7 +54,7 @@ class GiveawayAll(db.Model):
 class Coins(db.Model):
     __tablename__ = 'coins'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_coins", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_coins"}
 
     id = db.Column(db.Integer, primary_key=True)
     image_thumbnail = db.Column(db.String(300))
@@ -69,7 +69,7 @@ class Coins(db.Model):
 class DisplayCoins(db.Model):
     __tablename__ = 'displayrewardcoins'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_coins", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_coins"}
 
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP())
@@ -97,7 +97,7 @@ class DisplayCoins(db.Model):
 class TempUrl(db.Model):
     __tablename__ = 'temp_url'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_subforum", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_subforum"}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.TEXT)
     user_id = db.Column(db.INTEGER)
@@ -113,7 +113,7 @@ class TempUrl(db.Model):
 class RecentTips(db.Model):
     __tablename__ = 'avengers_tips_stats_recent'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_tips", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_tips"}
 
     id = db.Column(db.Integer, primary_key=True)
     # identify forum, post, and comment
@@ -139,7 +139,7 @@ class RecentTips(db.Model):
 class ExpTable(db.Model):
     __tablename__ = 'user_exp'
     __bind_key__ = 'avengers'
-    __table_args__ = {"schema": "avengers_user", 'useexisting': True}
+    __table_args__ = {"schema": "avengers_user"}
 
     id = db.Column(db.INTEGER, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('avengers_user.users.id'))
