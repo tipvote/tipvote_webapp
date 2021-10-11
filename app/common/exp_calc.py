@@ -207,7 +207,7 @@ def exppoint(user_id, category):
         exp_to_next = guser.user_exp
         levels_up = 0
 
-    db.session.commit()
+    db.session.flush()
 
     # if user leveled up
     if levels_up > 0:
@@ -259,7 +259,7 @@ def exppoint(user_id, category):
     guser.user_width_next_level = str(user1width)
 
     db.session.add(guser)
-    db.session.commit()
+    db.session.flush()
 
 
 def randomcoin(user_id, newlevel):
@@ -448,4 +448,4 @@ def randomcoin(user_id, newlevel):
     )
 
     db.session.add(createdisplayflash)
-    db.session.commit()
+    db.session.flush()

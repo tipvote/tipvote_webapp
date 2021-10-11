@@ -56,4 +56,4 @@ def daily_challenge(user_id, category):
 
             # add to db
             db.session.add(the_challenge)
-            db.session.commit()
+            db.session.flush()

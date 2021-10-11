@@ -135,3 +135,7 @@ dmypy.json
 /passwords.py
 /setup/
 /todo.txt
+/config.py
+/runproduction.py
+/run_mail.py
+/dbdump.pgsql

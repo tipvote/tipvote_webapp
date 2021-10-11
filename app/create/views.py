@@ -218,7 +218,7 @@ def createsubforum():
                                       )
 
                 db.session.add(newcommon)
-                db.session.commit()
+                db.session.flush()
                 # create Sub Stats
                 substats = SubForumStats(
                     subcommon_name=str(name_of_subcommon),
@@ -371,7 +371,7 @@ def createbusinesspage():
                 )
 
                 db.session.add(new_biz)
-                db.session.commit()
+                db.session.flush()
 
                 # create Sub Stats
                 biz_stats = BusinessStats(
@@ -1056,7 +1056,7 @@ def share_post_text(postid):
                     business_id=post.business_id
                 )
 
-                # commit
+
                 db.session.add(user_stats)
                 db.session.add(newpost)
 
@@ -1176,7 +1176,7 @@ def share_post(postid):
             )
             user_stats.total_posts = newpostnumber
 
-            # commit
+
             db.session.add(user_stats)
 
             db.session.add(newpost)
@@ -1330,7 +1330,7 @@ def create_post_wall(userid):
             if current_user.is_authenticated:
                 daily_challenge(user_id=current_user.id, category=1)
 
-            # commit
+
             db.session.add(user_stats)
             db.session.add(getuser_timers)
             db.session.add(newpost)
@@ -1396,7 +1396,7 @@ def create_post_wall(userid):
                                      msg=14
                                      )
 
-            # final commit
+
             db.session.commit()
 
             if current_user.id == theuser.id:
@@ -1576,7 +1576,7 @@ def create_post_room(subname):
             db.session.add(user_stats)
             db.session.add(getuser_timers)
             db.session.add(newpost)
-            db.session.commit()
+            db.session.flush()
 
             getusernodelocation = postnodelocation(x=newpost.id)
             postlocation = os.path.join(UPLOADED_FILES_DEST, current_disk, "post", getusernodelocation, str(newpost.id))
@@ -1604,7 +1604,7 @@ def create_post_room(subname):
                 convertimage(imagelocation=postlocation, imagename=newfilename, thepost=newpost)
 
             if wall_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
-                db.session.commit()
+                db.session.flush()
 
             if notifyuser is not None:
                 # add info
@@ -1618,6 +1618,7 @@ def create_post_room(subname):
 
             # add exp points
             exppoint(user_id=current_user.id, category=1)
+            db.session.commit()
             return redirect((url_for('subforum.viewpost',subname=newpost.subcommon_name, postid=newpost.id)))
         else:
             flash("Post Creation Failure.", category="danger")
@@ -1956,7 +1957,7 @@ def create_post_business_wall(businessid):
                 daily_challenge(user_id=current_user.id, category=1)
 
             db.session.add(newpost)
-            db.session.commit()
+            db.session.flush()
 
             getusernodelocation = postnodelocation(x=newpost.id)
             postlocation = os.path.join(UPLOADED_FILES_DEST,  getusernodelocation, "post", getusernodelocation, str(newpost.id))
@@ -1984,7 +1985,7 @@ def create_post_business_wall(businessid):
                 convertimage(imagelocation=postlocation, imagename=newfilename, thepost=newpost)
 
             if business_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
-                db.session.commit()
+                db.session.flush()
 
             if notifyuser is not None:
                 # add info
@@ -1997,7 +1998,7 @@ def create_post_business_wall(businessid):
                                      )
             # add exp points
             exppoint(user_id=current_user.id, category=1)
-
+            db.session.commit()
             return redirect((url_for('business.main', business_name=thebiz.business_name)))
         else:
 
@@ -2118,7 +2119,7 @@ def create_post_business_wall_other(businessid):
             )
 
             db.session.add(newpost)
-            db.session.commit()
+            db.session.flush()
 
             # daily challnge
             if current_user.is_authenticated:
@@ -2150,7 +2151,7 @@ def create_post_business_wall_other(businessid):
                 convertimage(imagelocation=postlocation, imagename=newfilename, thepost=newpost)
 
             if business_post_form.image_one.data or (urlimagefound is not None and urlfound is not None):
-                db.session.commit()
+                db.session.flush()
 
             if notifyuser is not None:
                 # add info
@@ -2163,7 +2164,7 @@ def create_post_business_wall_other(businessid):
                                      )
             # add exp points
             exppoint(user_id=current_user.id, category=1)
-
+            db.session.commit()
             return redirect((url_for('business.main_post_to_another_wall', business_name=thebiz.business_name)))
         else:
             flash("Post Creation Failure.", category="danger")

@@ -185,7 +185,6 @@ def downvote_comment(commentid):
             comment_id=getcomment.id,
         )
 
-
         db.session.add(comment_owner_stats)
         db.session.add(getcomment)
         db.session.add(create_new_vote)
