@@ -7,9 +7,7 @@
                         <img class="img-responsive small_user_image" src="{{ url_for('static', filename='images/noprofile.png')  }}" width="125x" height="125px">
                     {% else %}
 
-                        <img class="img-responsive small_user_image"
-                             src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
-                        >
+                        <img class="img-responsive small_user_image" src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}">
                     {% endif %}
                 </a>
             </div>
@@ -31,8 +29,6 @@
 
             </div>
             <div class="col-4 mb-1 text-center" style="display: inline-block">
-
-
                     <b>
                         <div class="col-12">
                             Comments:<br>

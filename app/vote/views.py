@@ -155,17 +155,17 @@ def downvote_comment(commentid):
         # downvote comment
         newvotenumber = getcomment.total_exp_commons
 
-        # raise all in path for thread votes down
-        if getcomment.comment_parent_id is None:
-            # get comments of this comment and raise there thread downvotes for sorting purposes
-            getrelativecomments = db.session.query(Comments)\
-                .filter(Comments.path.like(getcomment.path + '%'))
-            for comment in getrelativecomments:
-                comment.thread_downvotes = newvotes_down
-                db.session.add(comment)
-
-            getcomment.thread_downvotes = newvotes_down
-            db.session.add(getcomment)
+        # # raise all in path for thread votes down
+        # if getcomment.comment_parent_id is None:
+        #     # get comments of this comment and raise there thread downvotes for sorting purposes
+        #     getrelativecomments = db.session.query(Comments)\
+        #         .filter(Comments.path.like(getcomment.path + '%'))
+        #     for comment in getrelativecomments:
+        #         comment.thread_downvotes = newvotes_down
+        #         db.session.add(comment)
+        #
+        #     getcomment.thread_downvotes = newvotes_down
+        #     db.session.add(getcomment)
 
         # add to user stats
         current_downvotes_comment = comment_owner_stats.comment_downvotes
@@ -336,19 +336,19 @@ def upvote_comment(commentid):
         # It takes the current exp (upvotes - downvotes) then adds 1
         # upvote comment
         newvotenumber = getcomment.total_exp_commons
-
-        # get comments of this comment and raise
-        # there thread upvotes for sorting purposes
-        if getcomment.comment_parent_id is None:
-            getrelativecomments = db.session.query(Comments) \
-                .filter(Comments.path.like(getcomment.path + '%'))
-
-            for comment in getrelativecomments:
-                comment.thread_upvotes = newvotes_up
-
-                db.session.add(comment)
-            getcomment.thread_upvotes = newvotes_up
-            db.session.add(getcomment)
+        #
+        # # get comments of this comment and raise
+        # # there thread upvotes for sorting purposes
+        # if getcomment.comment_parent_id is None:
+        #     getrelativecomments = db.session.query(Comments) \
+        #         .filter(Comments.path.like(getcomment.path + '%'))
+        #
+        #     for comment in getrelativecomments:
+        #         comment.thread_upvotes = newvotes_up
+        #
+        #         db.session.add(comment)
+        #     getcomment.thread_upvotes = newvotes_up
+        #     db.session.add(getcomment)
 
         # add to user stats
         current_upvotes_comment = comment_owner_stats.comment_upvotes

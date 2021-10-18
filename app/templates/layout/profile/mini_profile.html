@@ -8,13 +8,13 @@
                     {% if current_user.profileimage == '' %}
                         <img class="img-responsive small_user_image bg-dark"
                              src="{{ url_for('static', filename='images/noprofile.png')  }}"
-                             width="25x" height="25px">
+                             width="50px" height="50px">
                     {% else %}
 
                         <img class="img-responsive small_user_image"
                              src="{{ url_for('common.profile_image',filename=current_user.profileimage) }}"
-                                 width="25x" height="25px">
-                        >
+                                 width="50px" height="50px">
+
                     {% endif %}
                 </a>
             </div>
